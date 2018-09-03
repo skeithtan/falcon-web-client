@@ -45,6 +45,7 @@
         "no-trailing-whitespace": false,
         "no-null-keyword": true,
         "no-unused-variable": true,
+        "no-console": false,
         "prefer-const": true,
         "jsdoc-format": true
     }
