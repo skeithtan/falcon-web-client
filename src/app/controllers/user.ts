@@ -1,0 +1,22 @@
+import { User } from "../models/entities";
+import { FetchableState } from "../models/enums";
+import { user as userAPI } from "../services";
+import rootStore from "../store";
+
+export const signIn = (email: string, password: string) => {
+    const { authentication } = rootStore;
+    authentication.fetchError = undefined;
+    authentication.fetchState = FetchableState.Fetching;
+
+    userAPI
+        .signIn(email, password)
+        .then((user: User) => {
+            console.log("Hi");
+            authentication.currentUser = user;
+            authentication.fetchState = FetchableState.Fetched;
+        })
+        .catch((error: string) => {
+            authentication.fetchState = FetchableState.Error;
+            authentication.fetchError = error;
+        });
+};
