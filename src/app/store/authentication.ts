@@ -10,7 +10,7 @@ export class AuthenticationState {
     public currentUser?: User = undefined;
 
     @observable
-    public fetchError?: string[] = undefined;
+    public fetchError?: string = undefined;
 }
 
 export default new AuthenticationState();
