@@ -1,12 +1,15 @@
 import AppBar from "@material-ui/core/AppBar";
 import Grid from "@material-ui/core/Grid";
+import { withStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
 import * as React from "react";
 import { IPageSpecification } from "../../../models/enums/page";
 import { AppBarTitle, AppBarUtilities } from "./components";
+import styles from "./styles";
 
 interface IPropsType {
     pageSpecification: IPageSpecification;
+    classes: { [key: string]: string };
 }
 
 class FalconAppBar extends React.Component<IPropsType> {
@@ -17,11 +20,12 @@ class FalconAppBar extends React.Component<IPropsType> {
     public render() {
         const {
             pageSpecification: { name, appBarAccessory: accessory },
+            classes,
         } = this.props;
 
         return (
             <AppBar position="static">
-                <Toolbar disableGutters>
+                <Toolbar className={classes.toolbar} disableGutters>
                     <Grid
                         container
                         justify="space-between"
@@ -44,4 +48,4 @@ class FalconAppBar extends React.Component<IPropsType> {
     }
 }
 
-export default FalconAppBar;
+export default withStyles(styles)(FalconAppBar);
