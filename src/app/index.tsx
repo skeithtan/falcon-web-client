@@ -1,6 +1,5 @@
 import { inject, observer } from "mobx-react";
 import * as React from "react";
-import { FetchableState } from "./models/enums";
 import SignInPage from "./pages/SignIn";
 import { AuthenticationState } from "./store/authentication";
 
@@ -18,7 +17,7 @@ export default class App extends React.Component<IPropsType> {
     public render() {
         const { authentication } = this.props;
 
-        if (authentication!.fetchState === FetchableState.Fetched) {
+        if (authentication!.currentUser) {
             return <div />; // TODO
         }
 

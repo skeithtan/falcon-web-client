@@ -11,7 +11,6 @@ export const signIn = (email: string, password: string) => {
     userAPI
         .signIn(email, password)
         .then((user: User) => {
-            console.log("Hi");
             authentication.currentUser = user;
             authentication.fetchState = FetchableState.Fetched;
         })

@@ -15,11 +15,17 @@ const transformErrorToString = (error: AxiosError) => {
     throw error.message;
 };
 
-export const fetchCurrentUser = (): Promise<User> =>
+export const fetchCurrentUser = (): Promise<User | undefined> =>
     axios
         .get("/current-user")
         .then(transformResponseToUser)
-        .catch(transformErrorToString);
+        .catch((error: AxiosError) => {
+            if (error.response && error.response.status === 401) {
+                return undefined;
+            }
+
+            throw transformErrorToString(error);
+        });
 
 export const signIn = (email: string, password: string): Promise<User | void> =>
     axios

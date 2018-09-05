@@ -26,9 +26,9 @@ class SignInPage extends React.Component<IPropsType> {
         password: "",
     };
 
-    public componentDidMount() {
-        document.title = "Sign In - Falcon";
-    }
+    //
+    // ─── Custom Functions ───────────────────────────────────────────────────────────────────────────
+    //
 
     public handleChange = (name: string) => (
         event: React.ChangeEvent<HTMLInputElement>
@@ -43,6 +43,14 @@ class SignInPage extends React.Component<IPropsType> {
         const { email, password } = this.state;
         user.signIn(email, password);
     };
+
+    //
+    // ─── Lifecycle functions ───────────────────────────────────────────────────────────────────────────
+    //
+
+    public componentDidMount() {
+        document.title = "Sign In - Falcon";
+    }
 
     public render() {
         const { authentication, classes } = this.props;
