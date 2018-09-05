@@ -1,6 +1,7 @@
 import { inject, observer } from "mobx-react";
 import * as React from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
+import { User } from "./models/entities";
 import Page, {
     IPageSpecification,
     PAGE_SPECIFICATION,
@@ -19,9 +20,37 @@ interface IPropsType extends RouteComponentProps<IRouteParameters> {
 @inject("authentication")
 @observer
 class App extends React.Component<IPropsType> {
-    public renderSignInPage() {
+    public renderSignInPage = () => {
         return <SignInPage />;
-    }
+    };
+
+    // Given current path and current user, return the current pageSpecification
+    public getPageSpecificationFromPath = (
+        pagePath: string | undefined,
+        user: User
+    ): IPageSpecification => {
+        // If no selected page, redirect to default page
+        if (!pagePath) {
+            const defaultPage = user.getDefaultPage();
+            return PAGE_SPECIFICATION[defaultPage];
+        }
+
+        const pageSpecification = Object.values(PAGE_SPECIFICATION).find(
+            (ps: IPageSpecification) => ps.path === pagePath
+        );
+
+        // If page could not be found or page is not for the user type, go to 404 page
+        const notFound = !pageSpecification;
+        const notAllowed =
+            pageSpecification &&
+            !user.getVisitablePages().includes(pageSpecification.page);
+
+        if (notFound || notAllowed) {
+            return PAGE_SPECIFICATION[Page.NotFound];
+        }
+
+        return pageSpecification!;
+    };
 
     public handlePath = () => {
         const {
@@ -30,37 +59,24 @@ class App extends React.Component<IPropsType> {
             authentication,
         } = this.props;
 
+        const currentUser = authentication!.currentUser;
+
         // Non signed-in users will not be entertained
-        if (!authentication!.currentUser) {
+        if (!currentUser) {
             return;
         }
 
-        const page = params.page;
-
-        // If no selected page, redirect to default page
-        if (!page) {
-            const defaultPage = authentication!.currentUser!.getDefaultPage();
-            const defaultPagePath = PAGE_SPECIFICATION[defaultPage].path;
-            history.push(defaultPagePath);
-            return;
-        }
-
-        const pageSpecification = Object.values(PAGE_SPECIFICATION).find(
-            (ps: IPageSpecification) => ps.path === page
+        const pagePath = params.page;
+        const pageSpecification = this.getPageSpecificationFromPath(
+            pagePath,
+            currentUser
         );
 
-        // If page could not be found, go to 404 page
-        const notFound = !pageSpecification;
-        const notAllowed =
-            pageSpecification &&
-            !authentication!
-                .currentUser!.getVisitablePages()
-                .includes(pageSpecification.page);
-
-        if (notFound || notAllowed) {
-            history.push(PAGE_SPECIFICATION[Page.NotFound].path);
+        if (pageSpecification.path === pagePath) {
             return;
         }
+
+        history.push(pageSpecification.path);
     };
 
     //
