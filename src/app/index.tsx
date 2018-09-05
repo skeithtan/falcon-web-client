@@ -1,6 +1,7 @@
 import { inject, observer } from "mobx-react";
 import * as React from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
+import { AuthenticatedView } from "./components/universal";
 import { User } from "./models/entities";
 import Page, {
     IPageSpecification,
@@ -92,13 +93,24 @@ class App extends React.Component<IPropsType> {
     }
 
     public render() {
-        const { authentication } = this.props;
+        const {
+            match: { params },
+            authentication,
+        } = this.props;
 
-        if (authentication!.currentUser) {
-            return <div />; // TODO
+        const currentUser = authentication!.currentUser;
+
+        if (!currentUser) {
+            return this.renderSignInPage();
         }
 
-        return this.renderSignInPage();
+        const pagePath = params.page;
+        const pageSpecification = this.getPageSpecificationFromPath(
+            pagePath,
+            currentUser
+        );
+
+        return <AuthenticatedView pageSpecification={pageSpecification} />;
     }
 }
 

@@ -27,6 +27,7 @@ export interface IPageSpecification {
     component?: Component;
     name: string;
     pathParameters?: string;
+    appBarAccessory?: Component;
 }
 
 export const PAGE_SPECIFICATION: { [key: number]: IPageSpecification } = {
