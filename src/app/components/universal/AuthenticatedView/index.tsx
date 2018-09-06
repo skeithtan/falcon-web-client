@@ -1,18 +1,22 @@
 import Grid from "@material-ui/core/Grid";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
+import { Route } from "react-router-dom";
 import { FalconAppBar } from "../";
 import { IPageSpecification } from "../../../models/enums/page";
 
 interface IPropsType {
-    pageSpecification: IPageSpecification;
+    activePageSpecification: IPageSpecification;
 }
 
 @inject("authentication")
 @observer
 class AuthenticatedView extends React.Component<IPropsType> {
     public render() {
-        const { pageSpecification } = this.props;
+        const {
+            activePageSpecification,
+            activePageSpecification: { path, pathParameters = "", component },
+        } = this.props;
 
         return (
             <Grid
@@ -22,10 +26,15 @@ class AuthenticatedView extends React.Component<IPropsType> {
                 wrap="nowrap"
             >
                 <Grid item>
-                    <FalconAppBar pageSpecification={pageSpecification} />
+                    <FalconAppBar activePageSpecification={activePageSpecification} />
                 </Grid>
 
-                <Grid item>{pageSpecification.component}</Grid>
+                <Grid item>
+                    <Route
+                        path={"/" + path + pathParameters}
+                        component={component!}
+                    />
+                </Grid>
             </Grid>
         );
     }

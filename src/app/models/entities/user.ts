@@ -1,6 +1,5 @@
 import { observable } from "mobx";
-import { UserType } from "../enums";
-import Page from "../enums/page";
+import { Page, UserType } from "../enums";
 
 export default class User {
     @observable
@@ -31,21 +30,18 @@ export default class User {
     }
 
     public getVisitablePages(): Page[] {
-        const universalPages = [Page.NotFound];
-
         switch (this.authorization) {
             case UserType.AssociateDean:
             case UserType.Dean:
             case UserType.Clerk:
                 return [
-                    ...universalPages,
                     Page.FacultyLoading,
                     Page.FacultyProfiles,
                     Page.Subjects,
                     Page.Users,
                 ];
             case UserType.Faculty:
-                return [...universalPages, Page.MyProfile, Page.MySchedule];
+                return [Page.MyProfile, Page.MySchedule];
         }
     }
 }

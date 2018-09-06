@@ -3,11 +3,9 @@ import * as React from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import { AuthenticatedView } from "./components/universal";
 import { User } from "./models/entities";
-import Page, {
-    IPageSpecification,
-    PAGE_SPECIFICATION,
-} from "./models/enums/page";
-import SignInPage from "./pages/SignIn";
+import { Page } from "./models/enums";
+import { IPageSpecification, PAGE_SPECIFICATION } from "./models/enums/page";
+import { SignInPage } from "./pages";
 import { AuthenticationState } from "./store/authentication";
 
 interface IRouteParameters {
@@ -39,6 +37,10 @@ class App extends React.Component<IPropsType> {
         const pageSpecification = Object.values(PAGE_SPECIFICATION).find(
             (ps: IPageSpecification) => ps.path === pagePath
         );
+
+        if (pageSpecification && pageSpecification.page === Page.NotFound) {
+            return pageSpecification;
+        }
 
         // If page could not be found or page is not for the user type, go to 404 page
         const notFound = !pageSpecification;
@@ -110,8 +112,8 @@ class App extends React.Component<IPropsType> {
             currentUser
         );
 
-        return <AuthenticatedView pageSpecification={pageSpecification} />;
+        return <AuthenticatedView activePageSpecification={pageSpecification} />;
     }
 }
 
-export default withRouter<IPropsType>(App);
+export default withRouter(App);

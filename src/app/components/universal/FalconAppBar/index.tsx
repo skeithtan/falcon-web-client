@@ -8,7 +8,7 @@ import { AppBarTitle, AppBarUtilities } from "./components";
 import styles from "./styles";
 
 interface IPropsType {
-    pageSpecification: IPageSpecification;
+    activePageSpecification: IPageSpecification;
     classes: { [key: string]: string };
 }
 
@@ -19,7 +19,11 @@ class FalconAppBar extends React.Component<IPropsType> {
 
     public render() {
         const {
-            pageSpecification: { name, appBarAccessory: accessory },
+            activePageSpecification: {
+                name,
+                appBarAccessory: accessory,
+                page: activePage,
+            },
             classes,
         } = this.props;
 
@@ -33,7 +37,10 @@ class FalconAppBar extends React.Component<IPropsType> {
                         wrap="nowrap"
                     >
                         <Grid item>
-                            <AppBarTitle pageTitle={name} />
+                            <AppBarTitle
+                                pageTitle={name}
+                                activePage={activePage}
+                            />
                         </Grid>
 
                         {accessory && <Grid item>{accessory}</Grid>}

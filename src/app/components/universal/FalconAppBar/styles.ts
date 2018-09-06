@@ -1,4 +1,4 @@
-import { Theme } from "@material-ui/core/styles";
+import { Theme } from "@material-ui/core/styles/createMuiTheme";
 
 export default (theme: Theme) => ({
     toolbar: {
