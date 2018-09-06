@@ -28,7 +28,7 @@ class AppBarTitle extends React.Component<IPropsType> {
         const { pageTitle, classes, activePage } = this.props;
         const { drawerIsShowing } = this.state;
         return (
-            <Grid container alignItems="center" wrap="nowrap">
+            <Grid container spacing={8} alignItems="center" wrap="nowrap">
                 <Grid item>
                     <IconButton
                         color="inherit"

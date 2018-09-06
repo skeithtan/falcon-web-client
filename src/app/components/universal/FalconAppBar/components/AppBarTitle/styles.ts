@@ -10,7 +10,6 @@ export default (theme: Theme) => ({
     falconLogo: {
         ...styles.falconLogo,
         display: "inline-block",
-        marginRight: 4,
         fontSize: 20,
     },
 });
