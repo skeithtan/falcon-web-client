@@ -4,32 +4,36 @@ import ListItemText from "@material-ui/core/ListItemText";
 import * as React from "react";
 import { RouteComponentProps } from "react-router";
 import { withRouter } from "react-router-dom";
-import { IPageSpecification } from "../../../../../models/enums/page";
+import { Page } from "../../../../../models/enums";
+import { PAGE_SPECIFICATION } from "../../../../../models/enums/page";
 
 interface IPropsType extends RouteComponentProps<void> {
-    pageSpecification: IPageSpecification;
+    page: Page;
     onClose: React.ReactEventHandler<{}>;
     active: boolean;
 }
 
 class PageItem extends React.Component<IPropsType> {
-    public onClick = (event: React.SyntheticEvent) => {
-        const {
-            history,
-            pageSpecification: { path },
-            onClose,
-        } = this.props;
+    public makeClickHandler = (path: string) => (
+        event: React.SyntheticEvent
+    ) => {
+        const { history, onClose } = this.props;
         history.push(path);
         onClose(event);
     };
 
     public render() {
-        const { pageSpecification: ps, active } = this.props;
+        const { page, active } = this.props;
+        const { path, icon, name, description } = PAGE_SPECIFICATION[page];
 
         return (
-            <ListItem onClick={this.onClick} selected={active} button>
-                <ListItemIcon>{React.createElement(ps.icon!)}</ListItemIcon>
-                <ListItemText primary={ps.name} />
+            <ListItem
+                onClick={this.makeClickHandler(path)}
+                selected={active}
+                button
+            >
+                <ListItemIcon>{React.createElement(icon!)}</ListItemIcon>
+                <ListItemText primary={name} secondary={description!} />
             </ListItem>
         );
     }

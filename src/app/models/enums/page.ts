@@ -36,6 +36,7 @@ export interface IPageSpecification {
     icon?: React.ComponentType<SvgIconProps>;
     component?: React.ComponentClass<{} & RouteComponentProps<{}>>;
     name: string;
+    description?: string;
     pathParameters?: string;
     appBarAccessory?: React.Component;
 }
@@ -47,6 +48,7 @@ export const PAGE_SPECIFICATION: { [key: number]: IPageSpecification } = {
         icon: FacultyProfilesIcon,
         component: FacultyProfilesPage,
         name: "Faculty Profiles",
+        description: "View faculty members, expert subjects, and add requests",
         pathParameters: "/:facultyId?",
     },
     [Page.Subjects]: {
@@ -55,6 +57,7 @@ export const PAGE_SPECIFICATION: { [key: number]: IPageSpecification } = {
         icon: SubjectsIcon,
         component: undefined,
         name: "Subjects",
+        description: "View subjects, description, and expert faculties",
         pathParameters: "/:subjectId?",
     },
     [Page.FacultyLoading]: {
@@ -63,6 +66,7 @@ export const PAGE_SPECIFICATION: { [key: number]: IPageSpecification } = {
         icon: FacultyLoadingIcons,
         component: undefined,
         name: "Faculty Loading",
+        description: "Create schedules, assign faculty members to classes",
         pathParameters: "/:termId?/:meetingDays?",
     },
     [Page.Users]: {
@@ -71,6 +75,7 @@ export const PAGE_SPECIFICATION: { [key: number]: IPageSpecification } = {
         icon: UsersIcon,
         component: undefined,
         name: "Users",
+        description: "Set up and configure Falcon users",
     },
     [Page.MyProfile]: {
         page: Page.MyProfile,
@@ -78,6 +83,7 @@ export const PAGE_SPECIFICATION: { [key: number]: IPageSpecification } = {
         icon: FacultyProfilesIcon,
         component: undefined,
         name: "My Profile",
+        description: "View profile, expert subjects, and create add requests",
     },
     [Page.MySchedule]: {
         page: Page.MySchedule,
@@ -85,6 +91,8 @@ export const PAGE_SPECIFICATION: { [key: number]: IPageSpecification } = {
         icon: SubjectsIcon,
         component: undefined,
         name: "My Schedue",
+        description:
+            "View term schedules, submit time availability and feedback",
         pathParameters: "/:termId?",
     },
     [Page.NotFound]: {
