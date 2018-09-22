@@ -1,6 +1,6 @@
 import { observable } from "mobx";
-import { User } from "../models/entities";
-import { FetchableState } from "../models/enums";
+import User from "../models/entities/user";
+import FetchableState from "../models/enums/fetchable_state";
 
 export class AuthenticationState {
     @observable

@@ -4,7 +4,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import * as React from "react";
 import { RouteComponentProps } from "react-router";
 import { withRouter } from "react-router-dom";
-import { Page } from "../../../../../models/enums";
+import Page from "../../../../../models/enums/page";
 import { PAGE_SPECIFICATION } from "../../../../../models/enums/page";
 
 interface IPropsType extends RouteComponentProps<void> {

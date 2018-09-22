@@ -2,9 +2,9 @@ import List from "@material-ui/core/List";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
-import { PageItem } from "../";
-import { Page } from "../../../../../models/enums";
+import Page from "../../../../../models/enums/page";
 import { AuthenticationState } from "../../../../../store/authentication";
+import PageItem from "../PageItem";
 
 interface IPropsType extends RouteComponentProps<void> {
     authentication?: AuthenticationState;

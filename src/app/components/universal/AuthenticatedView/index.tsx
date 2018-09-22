@@ -2,8 +2,8 @@ import Grid from "@material-ui/core/Grid";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
 import { Route } from "react-router-dom";
-import { FalconAppBar } from "../";
 import { IPageSpecification } from "../../../models/enums/page";
+import FalconAppBar from "../FalconAppBar";
 
 interface IPropsType {
     activePageSpecification: IPageSpecification;
@@ -26,7 +26,9 @@ class AuthenticatedView extends React.Component<IPropsType> {
                 wrap="nowrap"
             >
                 <Grid item>
-                    <FalconAppBar activePageSpecification={activePageSpecification} />
+                    <FalconAppBar
+                        activePageSpecification={activePageSpecification}
+                    />
                 </Grid>
 
                 <Grid item>

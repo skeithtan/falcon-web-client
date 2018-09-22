@@ -9,7 +9,7 @@ import { inject, observer } from "mobx-react";
 import * as React from "react";
 import pnuLogo from "../../../assets/images/pnu-logo.png";
 import { user } from "../../controllers";
-import { FetchableState } from "../../models/enums";
+import FetchableState from "../../models/enums/fetchable_state";
 import { AuthenticationState } from "../../store/authentication";
 import styles from "./styles";
 

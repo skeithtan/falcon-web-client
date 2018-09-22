@@ -4,7 +4,8 @@ import { withStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
 import * as React from "react";
 import { IPageSpecification } from "../../../models/enums/page";
-import { AppBarTitle, AppBarUtilities } from "./components";
+import AppBarTitle from "./components/AppBarTitle";
+import AppBarUtilities from "./components/AppBarUtilities";
 import styles from "./styles";
 
 interface IPropsType {

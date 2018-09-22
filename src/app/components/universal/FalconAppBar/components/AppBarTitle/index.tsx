@@ -4,8 +4,8 @@ import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import MenuIcon from "@material-ui/icons/Menu";
 import * as React from "react";
-import { PageDrawer } from "../../..";
-import { Page } from "../../../../../models/enums";
+import Page from "../../../../../models/enums/page";
+import PageDrawer from "../../../PageDrawer";
 import styles from "./styles";
 
 interface IPropsType {

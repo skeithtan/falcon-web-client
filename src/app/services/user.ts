@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { User } from "../models/entities";
+import User from "../models/entities/user";
 
 const transformResponseToUser = (response: AxiosResponse<any>): User => {
     const user = new User();

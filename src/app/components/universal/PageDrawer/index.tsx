@@ -2,8 +2,9 @@ import Drawer from "@material-ui/core/Drawer";
 import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";
 import * as React from "react";
-import { Page } from "../../../models/enums";
-import { DrawerHead, PageList } from "./components";
+import Page from "../../../models/enums/page";
+import DrawerHead from "./components/DrawerHead";
+import PageList from "./components/PageList";
 import styles from "./styles";
 
 interface IPropsType {

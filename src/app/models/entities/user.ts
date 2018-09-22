@@ -1,5 +1,6 @@
 import { observable } from "mobx";
-import { Page, UserType } from "../enums";
+import Page from "../enums/page";
+import UserType from "../enums/user_type";
 
 export default class User {
     @observable
@@ -26,6 +27,8 @@ export default class User {
                 return Page.FacultyProfiles;
             case UserType.Faculty:
                 return Page.MySchedule;
+            default:
+                throw new Error(`Unknown authorization ${this.authorization}`);
         }
     }
 
@@ -42,6 +45,8 @@ export default class User {
                 ];
             case UserType.Faculty:
                 return [Page.MyProfile, Page.MySchedule];
+            default:
+                throw new Error(`Unknown authorization ${this.authorization}`);
         }
     }
 }
