@@ -8,7 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
 import pnuLogo from "../../../assets/images/pnu-logo.png";
-import { user } from "../../controllers";
+import UserController from "../../controllers/user";
 import FetchableState from "../../models/enums/fetchable_state";
 import { AuthenticationState } from "../../store/authentication";
 import styles from "./styles";
@@ -41,7 +41,7 @@ class SignInPage extends React.Component<IPropsType> {
     public onSubmit = (event: React.FormEvent) => {
         event.preventDefault();
         const { email, password } = this.state;
-        user.signIn(email, password);
+        UserController.signIn(email, password);
     };
 
     //

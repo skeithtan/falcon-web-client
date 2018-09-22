@@ -4,7 +4,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { BrowserRouter, Route } from "react-router-dom";
 import App from "./app";
-import { initializeApp } from "./app/controllers/initialize_app";
+import initializeApp from "./app/controllers/initialize_app";
 import store from "./app/store";
 import registerServiceWorker from "./registerServiceWorker";
 

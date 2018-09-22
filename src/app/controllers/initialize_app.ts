@@ -3,7 +3,7 @@ import FetchableState from "../models/enums/fetchable_state";
 import { user as userAPI } from "../services";
 import store from "../store";
 
-export const initializeApp = () => {
+export default () => {
     const { authentication } = store;
     authentication.fetchState = FetchableState.Fetching;
 
