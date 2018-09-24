@@ -1,6 +1,6 @@
 import User from "../models/entities/user";
 import FetchableState from "../models/enums/fetchable_state";
-import { user as userAPI } from "../services";
+import * as userAPI from "../services/user";
 import store from "../store";
 
 export default () => {

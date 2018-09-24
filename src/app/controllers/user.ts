@@ -1,6 +1,6 @@
 import User from "../models/entities/user";
 import FetchableState from "../models/enums/fetchable_state";
-import { user as userAPI } from "../services";
+import  * as userAPI from "../services/user";
 import rootStore from "../store";
 
 export default class UserController {
@@ -15,9 +15,9 @@ export default class UserController {
                 authentication.currentUser = user;
                 authentication.fetchState = FetchableState.Fetched;
             })
-            .catch((error: Error) => {
+            .catch((e: Error) => {
                 authentication.fetchState = FetchableState.Error;
-                authentication.fetchError = error.message;
+                authentication.fetchError = e.message;
             });
     }
 }
