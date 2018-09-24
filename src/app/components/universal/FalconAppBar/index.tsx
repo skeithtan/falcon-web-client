@@ -3,6 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
 import * as React from "react";
+import IStyleClasses from "../../../interfaces/style_classes";
 import { IPageSpecification } from "../../../models/enums/page";
 import AppBarTitle from "./components/AppBarTitle";
 import AppBarUtilities from "./components/AppBarUtilities";
@@ -10,7 +11,7 @@ import styles from "./styles";
 
 interface IPropsType {
     activePageSpecification: IPageSpecification;
-    classes: { [key: string]: string };
+    classes: IStyleClasses;
 }
 
 class FalconAppBar extends React.Component<IPropsType> {

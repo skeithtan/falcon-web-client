@@ -2,6 +2,7 @@ import Drawer from "@material-ui/core/Drawer";
 import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";
 import * as React from "react";
+import IStyleClasses from "../../../interfaces/style_classes";
 import Page from "../../../models/enums/page";
 import DrawerHead from "./components/DrawerHead";
 import PageList from "./components/PageList";
@@ -11,7 +12,7 @@ interface IPropsType {
     open: boolean;
     activePage: Page;
     onClose: React.ReactEventHandler<{}>;
-    classes: { [key: string]: string };
+    classes: IStyleClasses;
 }
 
 class PageDrawer extends React.Component<IPropsType> {

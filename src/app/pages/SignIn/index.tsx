@@ -9,13 +9,14 @@ import { inject, observer } from "mobx-react";
 import * as React from "react";
 import pnuLogo from "../../../assets/images/pnu-logo.png";
 import UserController from "../../controllers/user";
+import IStyleClasses from "../../interfaces/style_classes";
 import FetchableState from "../../models/enums/fetchable_state";
 import { AuthenticationState } from "../../store/authentication";
 import styles from "./styles";
 
 interface IPropsType {
     authentication?: AuthenticationState;
-    classes: { [key: string]: string };
+    classes: IStyleClasses;
 }
 
 @inject("authentication")

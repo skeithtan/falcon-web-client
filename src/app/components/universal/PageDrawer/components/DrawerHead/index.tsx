@@ -3,10 +3,11 @@ import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import * as React from "react";
 import pnuLogo from "../../../../../../assets/images/pnu-logo.png";
+import IStyleClasses from "../../../../../interfaces/style_classes";
 import styles from "./styles";
 
 interface IPropsType {
-    classes: { [key: string]: string };
+    classes: IStyleClasses;
 }
 
 class DrawerHead extends React.Component<IPropsType> {

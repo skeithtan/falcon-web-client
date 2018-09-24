@@ -4,6 +4,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import MenuIcon from "@material-ui/icons/Menu";
 import * as React from "react";
+import IStyleClasses from "../../../../../interfaces/style_classes";
 import Page from "../../../../../models/enums/page";
 import PageDrawer from "../../../PageDrawer";
 import styles from "./styles";
@@ -11,7 +12,7 @@ import styles from "./styles";
 interface IPropsType {
     pageTitle: string;
     activePage: Page;
-    classes: { [key: string]: string };
+    classes: IStyleClasses;
 }
 
 class AppBarTitle extends React.Component<IPropsType> {
