@@ -1,5 +1,5 @@
 import { AxiosError } from "axios";
-import { FetchableState } from "../models/enums/fetchable_state";
+import FetchableState from "../models/enums/fetchable_state";
 import rootStore from "../store/index";
 
 export const handleAxiosError = (error: AxiosError) => {

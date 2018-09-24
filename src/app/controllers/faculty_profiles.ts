@@ -1,4 +1,4 @@
-import { FetchableState } from "../models/enums/fetchable_state";
+import FetchableState from "../models/enums/fetchable_state";
 import * as facultyMemberAPI from "../services/faculty_members";
 import rootStore from "../store";
 
