@@ -8,6 +8,7 @@ import StateWrapper from "../../components/reusable/StateWrapper";
 import FacultyProfilesController from "../../controllers/faculty_profiles";
 import IStyleClasses from "../../interfaces/style_classes";
 import { FacultyProfilesState } from "../../store/faculty_profiles";
+import AddFacultyMemberForm from "./components/AddFacultyMemberForm";
 import FacultyDetail from "./components/FacultyDetail/index";
 import FacultyList from "./components/FacultyList/index";
 import styles from "./styles";
@@ -29,8 +30,9 @@ class FacultyProfiles extends React.Component<IPropsType> {
         FacultyProfilesController.getAll();
     }
 
-    public onAddButtonClick = () => {
-        console.log("On add button click");
+    public addFacultyMemberFormToggle = (shouldShow: boolean) => () => {
+        const { facultyProfiles } = this.props;
+        facultyProfiles!.addFacultyMemberFormIsShowing = shouldShow;
     };
 
     public renderFetched = () => {
@@ -40,36 +42,40 @@ class FacultyProfiles extends React.Component<IPropsType> {
             facultyProfiles,
         } = this.props;
 
-        console.log("Props", this.props);
-
-        console.log(facultyProfiles!.facultyMembers);
-
-        if (facultyProfiles!.facultyMembers!.length === 0) {
-            return (
-                <EmptyState
-                    title="Faculty Profiles"
-                    description="View and add faculty members, degrees, research presentations, instructional materials, academic recognitions, and extension works"
-                    addButton="Add Faculty Member"
-                    onButtonClick={this.onAddButtonClick}
-                />
-            );
-        }
+        const { facultyMembers } = facultyProfiles!;
 
         return (
-            <Grid
-                className={classes.root}
-                container
-                direction="row"
-                alignItems="stretch"
-                wrap="nowrap"
-            >
-                <Grid item className={classes.list}>
-                    <FacultyList />
-                </Grid>
-                <Grid item className={classes.detail}>
-                    <FacultyDetail />
-                </Grid>
-            </Grid>
+            <React.Fragment>
+                {facultyMembers!.length === 0 && (
+                    <EmptyState
+                        title="Faculty Profiles"
+                        description="View and add faculty members, degrees, research presentations, instructional materials, academic recognitions, and extension works."
+                        addButton="Add Faculty Member"
+                        onButtonClick={this.addFacultyMemberFormToggle(true)}
+                    />
+                )}
+
+                {facultyMembers!.length > 0 && (
+                    <Grid
+                        className={classes.root}
+                        container
+                        direction="row"
+                        alignItems="stretch"
+                        wrap="nowrap"
+                    >
+                        <React.Fragment>
+                            <Grid item className={classes.list}>
+                                <FacultyList />
+                            </Grid>
+                            <Grid item className={classes.detail}>
+                                <FacultyDetail />
+                            </Grid>
+                        </React.Fragment>
+                    </Grid>
+                )}
+
+                <AddFacultyMemberForm />
+            </React.Fragment>
         );
     };
 

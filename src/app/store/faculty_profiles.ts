@@ -11,6 +11,9 @@ export class FacultyProfilesState {
 
     @observable
     public facultyMembers?: FacultyMember[] = undefined;
+
+    @observable
+    public addFacultyMemberFormIsShowing: boolean = false;
 }
 
 export default new FacultyProfilesState();

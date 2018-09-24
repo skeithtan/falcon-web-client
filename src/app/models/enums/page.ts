@@ -47,7 +47,8 @@ export const PAGE_SPECIFICATION: { [key: number]: IPageSpecification } = {
         icon: FacultyProfilesIcon,
         component: FacultyProfilesPage,
         name: "Faculty Profiles",
-        description: "View faculty members, expert subjects, and add requests",
+        description:
+            "View faculty members and their profile information",
         pathParameters: "/:facultyId?",
     },
     [Page.Subjects]: {
