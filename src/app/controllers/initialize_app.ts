@@ -13,8 +13,8 @@ export default () => {
             authentication.fetchState = FetchableState.Fetched;
             authentication.currentUser = user;
         })
-        .catch(error => {
+        .catch((error: Error) => {
             authentication.fetchState = FetchableState.Error;
-            authentication.fetchError = error;
+            authentication.fetchError = error.message;
         });
 };

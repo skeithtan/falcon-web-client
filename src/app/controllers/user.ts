@@ -15,9 +15,9 @@ export default class UserController {
                 authentication.currentUser = user;
                 authentication.fetchState = FetchableState.Fetched;
             })
-            .catch((error: string) => {
+            .catch((error: Error) => {
                 authentication.fetchState = FetchableState.Error;
-                authentication.fetchError = error;
+                authentication.fetchError = error.message;
             });
     }
 }
