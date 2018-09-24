@@ -4,7 +4,6 @@ import FacultyLoadingIcons from "@material-ui/icons/CalendarToday";
 import FacultyProfilesIcon from "@material-ui/icons/Contacts";
 import UsersIcon from "@material-ui/icons/SupervisedUserCircle";
 import * as React from "react";
-import { RouteComponentProps } from "react-router";
 import FacultyProfilesPage from "../../pages/FacultyProfiles";
 
 enum Page {
@@ -34,7 +33,7 @@ export interface IPageSpecification {
     page: Page;
     path: string;
     icon?: React.ComponentType<SvgIconProps>;
-    component?: React.ComponentClass<{} & RouteComponentProps<{}>>;
+    component?: React.ComponentType;
     name: string;
     description?: string;
     pathParameters?: string;
