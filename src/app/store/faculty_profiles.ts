@@ -7,6 +7,9 @@ export class FacultyProfilesState {
     public fetchState: FetchableState = FetchableState.Unfetched;
 
     @observable
+    public fetchError?: string = undefined;
+
+    @observable
     public facultyMembers?: FacultyMember[] = undefined;
 }
 
