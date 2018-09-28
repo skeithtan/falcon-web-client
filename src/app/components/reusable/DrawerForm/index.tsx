@@ -28,7 +28,6 @@ class DrawerForm extends React.Component<IPropsType> {
 
     public render() {
         const { open, children, className, classes, formTitle } = this.props;
-        console.log("classname", classNames(classes.root, className));
         return (
             <Drawer
                 onClose={this.onClose}
