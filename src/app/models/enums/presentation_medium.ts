@@ -4,4 +4,10 @@ enum PresentationMedium {
     Research = "Research",
 }
 
+export const PresentationMediumReadable = new Map<PresentationMedium, string>([
+    [PresentationMedium.Paper, "Paper"],
+    [PresentationMedium.Poster, "Poster"],
+    [PresentationMedium.Research, "Research"],
+]);
+
 export default PresentationMedium;
