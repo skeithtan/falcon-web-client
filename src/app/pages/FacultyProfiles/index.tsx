@@ -31,8 +31,7 @@ class FacultyProfiles extends React.Component<IPropsType> {
     }
 
     public addFacultyMemberFormToggle = (shouldShow: boolean) => () => {
-        const { facultyProfiles } = this.props;
-        facultyProfiles!.addFacultyMemberFormIsShowing = shouldShow;
+        FacultyProfilesController.toggleAddFacultyMemberForm(shouldShow);
     };
 
     public renderFetched = () => {

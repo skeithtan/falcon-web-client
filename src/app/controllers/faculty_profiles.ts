@@ -2,9 +2,10 @@ import FetchableState from "../models/enums/fetchable_state";
 import * as facultyMemberAPI from "../services/faculty_members";
 import rootStore from "../store";
 
+const { facultyProfiles } = rootStore;
+
 export default class FacultyProfilesController {
     public static getAll() {
-        const { facultyProfiles } = rootStore;
         // tslint:disable-next-line
         window["fp"] = facultyProfiles;
         facultyProfiles.fetchState = FetchableState.Fetching;
@@ -20,5 +21,9 @@ export default class FacultyProfilesController {
                 facultyProfiles.fetchState = FetchableState.Error;
                 facultyProfiles.fetchError = e.message;
             });
+    }
+
+    public static toggleAddFacultyMemberForm(shouldShow: boolean) {
+        facultyProfiles.addFacultyMemberFormIsShowing = shouldShow;
     }
 }

@@ -4,7 +4,7 @@ import TextField from "@material-ui/core/TextField";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
 import DrawerForm from "../../../../components/reusable/DrawerForm";
-import FormField from "../../../../components/reusable/FormField";
+import FacultyProfilesController from "../../../../controllers/faculty_profiles";
 import { FacultyProfilesState } from "../../../../store/faculty_profiles";
 
 interface IPropsType {
@@ -15,8 +15,7 @@ interface IPropsType {
 @observer
 export default class AddFacultyMemberForm extends React.Component<IPropsType> {
     public onClose = () => {
-        const { facultyProfiles } = this.props;
-        facultyProfiles!.addFacultyMemberFormIsShowing = false;
+        FacultyProfilesController.toggleAddFacultyMemberForm(false);
     };
 
     public render() {
