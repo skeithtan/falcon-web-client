@@ -1,14 +1,13 @@
 import User from "../models/entities/user";
 import FetchableState from "../models/enums/fetchable_state";
-import * as userAPI from "../services/user";
+import UserService from "../services/user";
 import store from "../store";
 
 export default () => {
     const { authentication } = store;
     authentication.fetchState = FetchableState.Fetching;
 
-    userAPI
-        .fetchCurrentUser()
+    UserService.fetchCurrentUser()
         .then((user: User) => {
             authentication.fetchState = FetchableState.Fetched;
             authentication.currentUser = user;

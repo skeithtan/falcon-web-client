@@ -1,16 +1,16 @@
 import User from "../models/entities/user";
 import FetchableState from "../models/enums/fetchable_state";
-import  * as userAPI from "../services/user";
+import UserService from "../services/user";
 import rootStore from "../store";
+
+const { authentication } = rootStore;
 
 export default class UserController {
     public static signIn(email: string, password: string) {
-        const { authentication } = rootStore;
         authentication.fetchError = undefined;
         authentication.fetchState = FetchableState.Fetching;
 
-        userAPI
-            .signIn(email, password)
+        UserService.signIn(email, password)
             .then((user: User) => {
                 authentication.currentUser = user;
                 authentication.fetchState = FetchableState.Fetched;

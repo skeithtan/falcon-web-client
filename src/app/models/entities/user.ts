@@ -18,6 +18,10 @@ export default class User {
     @observable
     public passwordIsTemporary: boolean;
 
+    constructor(plainObject: any) {
+        Object.assign(this, plainObject);
+    }
+
     public getDefaultPage(): Page {
         switch (this.authorization) {
             case UserType.AssociateDean:

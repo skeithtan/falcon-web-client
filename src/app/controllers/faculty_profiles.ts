@@ -1,5 +1,5 @@
 import FetchableState from "../models/enums/fetchable_state";
-import * as facultyMemberAPI from "../services/faculty_members";
+import FacultyMembersService from "../services/faculty_members";
 import rootStore from "../store";
 
 const { facultyProfiles } = rootStore;
@@ -11,8 +11,7 @@ export default class FacultyProfilesController {
         facultyProfiles.fetchState = FetchableState.Fetching;
         facultyProfiles.fetchError = undefined;
 
-        facultyMemberAPI
-            .fetchAllFacultyMembers()
+        FacultyMembersService.fetchAllFacultyMembers()
             .then(fm => {
                 facultyProfiles.facultyMembers = fm;
                 facultyProfiles.fetchState = FetchableState.Fetched;
