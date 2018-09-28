@@ -6,8 +6,6 @@ const { facultyProfiles } = rootStore;
 
 export default class FacultyProfilesController {
     public static getAll() {
-        // tslint:disable-next-line
-        window["fp"] = facultyProfiles;
         facultyProfiles.fetchState = FetchableState.Fetching;
         facultyProfiles.fetchError = undefined;
 
