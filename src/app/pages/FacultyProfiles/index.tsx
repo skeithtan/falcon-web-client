@@ -42,10 +42,9 @@ class FacultyProfiles extends React.Component<IPropsType> {
         } = this.props;
 
         const { facultyMembers } = facultyProfiles!;
-
         return (
             <React.Fragment>
-                {facultyMembers!.length === 0 && (
+                {facultyMembers!.isEmpty && (
                     <EmptyState
                         title="Faculty Profiles"
                         description="View and add faculty members, degrees, research presentations, instructional materials, academic recognitions, and extension works."
@@ -54,7 +53,7 @@ class FacultyProfiles extends React.Component<IPropsType> {
                     />
                 )}
 
-                {facultyMembers!.length > 0 && (
+                {facultyMembers!.isNotEmpty && (
                     <Grid
                         className={classes.root}
                         container
@@ -82,7 +81,7 @@ class FacultyProfiles extends React.Component<IPropsType> {
         const { facultyProfiles } = this.props;
         return (
             <StateWrapper
-                fetchableState={facultyProfiles!.fetchState}
+                fetchableState={facultyProfiles!.fetchStatus}
                 renderFetched={this.renderFetched}
             />
         );

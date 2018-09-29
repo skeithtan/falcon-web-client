@@ -1,5 +1,5 @@
 import User from "../models/entities/user";
-import FetchableState from "../models/enums/fetchable_state";
+import FetchableStatus from "../models/enums/fetchable_status";
 import UserService from "../services/user";
 import rootStore from "../store";
 
@@ -8,15 +8,15 @@ const { authentication } = rootStore;
 export default class UserController {
     public static signIn(email: string, password: string) {
         authentication.fetchError = undefined;
-        authentication.fetchState = FetchableState.Fetching;
+        authentication.fetchStatus = FetchableStatus.Fetching;
 
         UserService.signIn(email, password)
             .then((user: User) => {
                 authentication.currentUser = user;
-                authentication.fetchState = FetchableState.Fetched;
+                authentication.fetchStatus = FetchableStatus.Fetched;
             })
             .catch((e: Error) => {
-                authentication.fetchState = FetchableState.Error;
+                authentication.fetchStatus = FetchableStatus.Error;
                 authentication.fetchError = e.message;
             });
     }

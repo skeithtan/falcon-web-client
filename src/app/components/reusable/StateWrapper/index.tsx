@@ -2,11 +2,11 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import { withStyles } from "@material-ui/core/styles";
 import * as React from "react";
 import IStyleClasses from "../../../interfaces/style_classes";
-import FetchableState from "../../../models/enums/fetchable_state";
+import FetchableStatus from "../../../models/enums/fetchable_status";
 import styles from "./styles";
 
 interface IPropsType {
-    fetchableState: FetchableState;
+    fetchableState: FetchableStatus;
     renderFetched: () => React.ReactNode;
     errorView?: React.ReactNode;
     loadingView?: React.ReactNode;
@@ -30,13 +30,13 @@ class StateWrapper extends React.Component<IPropsType> {
         let child: React.ReactNode = <div />;
 
         switch (fetchableState) {
-            case FetchableState.Error:
+            case FetchableStatus.Error:
                 child = errorView ? errorView : <div>Error</div>;
                 break;
-            case FetchableState.Fetching:
+            case FetchableStatus.Fetching:
                 child = loadingView ? loadingView : this.renderLoadingView();
                 break;
-            case FetchableState.Fetched:
+            case FetchableStatus.Fetched:
                 child = renderFetched();
         }
 

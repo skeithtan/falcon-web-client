@@ -1,4 +1,4 @@
-import { IsEmail, IsEnum, IsNotEmpty, MinLength } from "class-validator";
+import { IsEmail, IsEnum, IsNotEmpty } from "class-validator";
 import { observable } from "mobx";
 import ActivityType from "../enums/activity_type";
 import FacultyMemberType from "../enums/faculty_member_type";
@@ -26,8 +26,6 @@ export default class AddFacultyMemberForm {
     @observable
     public email: string = "";
 
-    @IsNotEmpty()
-    @MinLength(10)
     @observable
     public password: string = Math.random()
         .toString(36)
@@ -55,7 +53,7 @@ export default class AddFacultyMemberForm {
     public activity: string = "";
 
     @IsNotEmpty({
-        message: "Birthdate is required"
+        message: "Birthdate is required",
     })
     @observable
     public birthDate: string = "";

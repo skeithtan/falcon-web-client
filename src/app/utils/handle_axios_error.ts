@@ -1,5 +1,5 @@
 import { AxiosError } from "axios";
-import FetchableState from "../models/enums/fetchable_state";
+import FetchableStatus from "../models/enums/fetchable_status";
 import rootStore from "../store/index";
 
 export const handleAxiosError = (error: AxiosError) => {
@@ -10,7 +10,7 @@ export const handleAxiosError = (error: AxiosError) => {
     // If server doesn't find JWT valid or it is expired, sign out
     if (error.response.status === 401) {
         rootStore.authentication.currentUser = undefined;
-        rootStore.authentication.fetchState = FetchableState.Unfetched;
+        rootStore.authentication.fetchStatus = FetchableStatus.Unfetched;
         throw error;
     }
 

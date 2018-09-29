@@ -30,21 +30,22 @@ export default class AddFacultyMemberFormView extends React.Component<
         HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     > => event => {
         const { facultyProfiles } = this.props;
-        const { addFacultyMemberForm } = facultyProfiles!;
-        addFacultyMemberForm[property] = event.target.value;
+        const { form } = facultyProfiles!.addFacultyMemberFormState;
+        form[property] = event.target.value;
     };
 
     public render() {
         const { facultyProfiles } = this.props;
         const {
-            addFacultyMemberFormIsShowing,
-            addFacultyMemberForm: form,
-            addFacultyMemberValidation: validation,
-        } = facultyProfiles!;
+            isShowing,
+            form,
+            validationErrors,
+            canSubmit,
+        } = facultyProfiles!.addFacultyMemberFormState;
 
         return (
             <DrawerForm
-                open={addFacultyMemberFormIsShowing}
+                open={isShowing}
                 onClose={this.onClose}
                 formTitle="Add Faculty Member"
             >
@@ -62,8 +63,8 @@ export default class AddFacultyMemberFormView extends React.Component<
                                 required
                                 onChange={this.onChange("firstName")}
                                 value={form.firstName}
-                                error={"firstName" in validation}
-                                helperText={validation.firstName}
+                                error={"firstName" in validationErrors}
+                                helperText={validationErrors.firstName}
                                 fullWidth
                             />
                         </Grid>
@@ -73,8 +74,8 @@ export default class AddFacultyMemberFormView extends React.Component<
                                 variant="outlined"
                                 onChange={this.onChange("lastName")}
                                 value={form.lastName}
-                                error={"lastName" in validation}
-                                helperText={validation.lastName}
+                                error={"lastName" in validationErrors}
+                                helperText={validationErrors.lastName}
                                 required
                                 fullWidth
                             />
@@ -86,8 +87,8 @@ export default class AddFacultyMemberFormView extends React.Component<
                             variant="outlined"
                             onChange={this.onChange("email")}
                             value={form.email}
-                            error={"email" in validation}
-                            helperText={validation.email}
+                            error={"email" in validationErrors}
+                            helperText={validationErrors.email}
                             required
                             fullWidth
                         />
@@ -100,8 +101,8 @@ export default class AddFacultyMemberFormView extends React.Component<
                                 type="date"
                                 onChange={this.onChange("birthDate")}
                                 value={form.birthDate}
-                                error={"birthDate" in validation}
-                                helperText={validation.birthDate}
+                                error={"birthDate" in validationErrors}
+                                helperText={validationErrors.birthDate}
                                 required
                                 InputLabelProps={{ shrink: true }}
                                 fullWidth
@@ -114,8 +115,8 @@ export default class AddFacultyMemberFormView extends React.Component<
                                 variant="outlined"
                                 onChange={this.onChange("sex")}
                                 value={form.sex}
-                                error={"sex" in validation}
-                                helperText={validation.sex}
+                                error={"sex" in validationErrors}
+                                helperText={validationErrors.sex}
                                 fullWidth
                             >
                                 {Array.from(SexReadable).map(
@@ -139,8 +140,8 @@ export default class AddFacultyMemberFormView extends React.Component<
                                 variant="outlined"
                                 onChange={this.onChange("type")}
                                 value={form.type}
-                                error={"type" in validation}
-                                helperText={validation.type}
+                                error={"type" in validationErrors}
+                                helperText={validationErrors.type}
                                 fullWidth
                             >
                                 {Array.from(FacultyMemberTypeReadable).map(
@@ -162,8 +163,8 @@ export default class AddFacultyMemberFormView extends React.Component<
                                 variant="outlined"
                                 value={form.activity}
                                 onChange={this.onChange("activity")}
-                                error={"activity" in validation}
-                                helperText={validation.activity}
+                                error={"activity" in validationErrors}
+                                helperText={validationErrors.activity}
                                 fullWidth
                             >
                                 {Array.from(ActivityTypeReadable).map(
@@ -185,7 +186,7 @@ export default class AddFacultyMemberFormView extends React.Component<
                             variant="extendedFab"
                             color="primary"
                             size="large"
-                            disabled={Object.keys(validation).length > 0}
+                            disabled={!canSubmit}
                         >
                             Submit
                         </Button>

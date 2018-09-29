@@ -10,7 +10,7 @@ import * as React from "react";
 import pnuLogo from "../../../assets/images/pnu-logo.png";
 import UserController from "../../controllers/user";
 import IStyleClasses from "../../interfaces/style_classes";
-import FetchableState from "../../models/enums/fetchable_state";
+import FetchableStatus from "../../models/enums/fetchable_status";
 import { AuthenticationState } from "../../store/authentication";
 import styles from "./styles";
 
@@ -55,16 +55,16 @@ class SignInPage extends React.Component<IPropsType> {
 
     public render() {
         const { authentication, classes } = this.props;
-        const fetchState = authentication!.fetchState;
+        const fetchStatus = authentication!.fetchStatus;
 
         const { email, password } = this.state;
         const formIsIncomplete = email.length === 0 || password.length === 0;
-        const formIsSubmitting = fetchState === FetchableState.Fetching;
+        const formIsSubmitting = fetchStatus === FetchableStatus.Fetching;
 
         return (
             <div className={classes.background}>
                 <Card>
-                    {fetchState === FetchableState.Fetching && (
+                    {fetchStatus === FetchableStatus.Fetching && (
                         <LinearProgress />
                     )}
                     <div className={classes.cardContent}>
