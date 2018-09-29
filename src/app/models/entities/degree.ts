@@ -8,9 +8,4 @@ export default class Degree extends FacultyMemberSubdocument {
 
     @observable
     public completionYear: string;
-
-    constructor(d: any) {
-        super();
-        Object.assign(this, d);
-    }
 }

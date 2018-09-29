@@ -27,8 +27,7 @@ export default class Presentation extends FacultyMemberSubdocument {
     public daysDuration: number;
 
     constructor(p: any) {
-        super();
-        Object.assign(this, p);
+        super(p);
         this.date = moment(p.date);
     }
 }

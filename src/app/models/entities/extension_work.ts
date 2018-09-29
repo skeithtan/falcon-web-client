@@ -8,9 +8,4 @@ export default class ExtensionWork extends FacultyMemberSubdocument {
 
     @observable
     public venue: string;
-
-    constructor(ew: any) {
-        super();
-        Object.assign(this, ew);
-    }
 }

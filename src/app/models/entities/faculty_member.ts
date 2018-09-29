@@ -1,5 +1,6 @@
 import { observable } from "mobx";
 import * as moment from "moment";
+import Entity from "../../interfaces/entity";
 import ActivityType from "../enums/activity_type";
 import FacultyMemberType from "../enums/faculty_member_type";
 import Sex from "../enums/sex";
@@ -9,10 +10,7 @@ import InstructionalMaterial from "./instructional_material";
 import Presentation from "./presentation";
 import Recognition from "./recognition";
 
-export default class FacultyMember {
-    @observable
-    public id: number;
-
+export default class FacultyMember extends Entity {
     @observable
     public sex: Sex;
 
@@ -44,7 +42,7 @@ export default class FacultyMember {
     public degrees?: Degree[];
 
     constructor(fm: any) {
-        Object.assign(this, fm);
+        super(fm);
         this.birthDate = moment(fm.birthDate);
     }
 

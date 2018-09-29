@@ -14,8 +14,7 @@ export default class Recognition extends FacultyMemberSubdocument {
     public sponsor: string;
 
     constructor(r: any) {
-        super();
-        Object.assign(this, r);
+        super(r);
         this.date = moment(r.date);
     }
 }

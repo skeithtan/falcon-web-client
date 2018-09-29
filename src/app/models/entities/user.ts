@@ -1,8 +1,9 @@
 import { observable } from "mobx";
+import Entity from "../../interfaces/entity";
 import Page from "../enums/page";
 import UserType from "../enums/user_type";
 
-export default class User {
+export default class User extends Entity {
     @observable
     public firstName: string;
 
@@ -17,10 +18,6 @@ export default class User {
 
     @observable
     public passwordIsTemporary: boolean;
-
-    constructor(plainObject: any) {
-        Object.assign(this, plainObject);
-    }
 
     public getDefaultPage(): Page {
         switch (this.authorization) {

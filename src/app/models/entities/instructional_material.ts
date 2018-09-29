@@ -15,9 +15,4 @@ export default class InstructionalMaterial extends FacultyMemberSubdocument {
 
     @observable
     public level: number;
-
-    constructor(im: any) {
-        super();
-        Object.assign(this, im);
-    }
 }
