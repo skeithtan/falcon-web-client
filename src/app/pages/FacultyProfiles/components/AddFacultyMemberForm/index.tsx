@@ -1,10 +1,13 @@
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
+import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
 import DrawerForm from "../../../../components/reusable/DrawerForm";
 import FacultyProfilesController from "../../../../controllers/faculty_profiles";
+import { ActivityTypeReadable } from "../../../../models/enums/activity_type";
+import { FacultyMemberTypeReadable } from "../../../../models/enums/faculty_member_type";
 import { FacultyProfilesState } from "../../../../store/faculty_profiles";
 
 interface IPropsType {
@@ -58,32 +61,6 @@ export default class AddFacultyMemberForm extends React.Component<IPropsType> {
                             fullWidth
                         />
                     </Grid>
-                    <Grid item>
-                        {/* <TextField
-                            id="outlined-select-currency"
-                            select
-                            label="Select"
-                            className={classes.textField}
-                            value={this.state.currency}
-                            SelectProps={{
-                                MenuProps: {
-                                    className: classes.menu,
-                                },
-                            }}
-                            helperText="Please select your currency"
-                            margin="normal"
-                            variant="outlined"
-                        >
-                            {currencies.map(option => (
-                                <MenuItem
-                                    key={option.value}
-                                    value={option.value}
-                                >
-                                    {option.label}
-                                </MenuItem>
-                            ))}
-                        </TextField> */}
-                    </Grid>
                     <Grid item xs>
                         <TextField
                             label="Date of Birth"
@@ -95,21 +72,52 @@ export default class AddFacultyMemberForm extends React.Component<IPropsType> {
                     <Grid item container direction="row" spacing={8}>
                         <Grid item xs>
                             <TextField
-                                label="Faculty Type"
+                                select
+                                label="Faculty Member Type"
                                 variant="outlined"
-                                required
                                 fullWidth
-                            />
+                            >
+                                <MenuItem value="">
+                                    Select Faculty Member Type
+                                </MenuItem>
+
+                                {Array.from(FacultyMemberTypeReadable).map(
+                                    ([typeEnum, typeReadable]: any) => (
+                                        <MenuItem
+                                            key={typeEnum}
+                                            value={typeEnum}
+                                        >
+                                            {typeReadable}
+                                        </MenuItem>
+                                    )
+                                )}
+                            </TextField>
                         </Grid>
                         <Grid item xs>
                             <TextField
-                                label="Activity"
+                                select
+                                label="Activity Type"
                                 variant="outlined"
-                                required
                                 fullWidth
-                            />
+                            >
+                                <MenuItem value="">
+                                    Select Activity Type
+                                </MenuItem>
+
+                                {Array.from(ActivityTypeReadable).map(
+                                    ([typeEnum, typeReadable]: any) => (
+                                        <MenuItem
+                                            key={typeEnum}
+                                            value={typeEnum}
+                                        >
+                                            {typeReadable}
+                                        </MenuItem>
+                                    )
+                                )}
+                            </TextField>
                         </Grid>
                     </Grid>
+                    <Grid item/>
                     <Grid item>
                         <Button
                             variant="extendedFab"
