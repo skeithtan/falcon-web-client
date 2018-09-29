@@ -10,6 +10,7 @@
         "axios": "^0.18.0",
         "class-validator": "^0.9.1",
         "classnames": "^2.2.6",
+        "lodash": "^4.17.11",
         "mobx": "^5.1.2",
         "mobx-react": "^5.2.8",
         "moment": "^2.22.2",
@@ -27,6 +28,7 @@
     },
     "devDependencies": {
         "@types/jest": "^23.3.2",
+        "@types/lodash": "^4.14.116",
         "@types/node": "^10.10.2",
         "@types/react": "^16.4.14",
         "@types/react-dom": "^16.0.7",
