@@ -30,7 +30,7 @@ class FalconAppBar extends React.Component<IPropsType> {
         } = this.props;
 
         return (
-            <AppBar position="static">
+            <AppBar position="relative">
                 <Toolbar className={classes.toolbar} disableGutters>
                     <Grid
                         container
