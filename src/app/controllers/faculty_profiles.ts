@@ -32,6 +32,10 @@ export default class FacultyProfilesController {
     }
 
     public static create(form: AddFacultyMemberForm) {
+        facultyProfiles.addFacultyMemberFormState.setStatus(
+            FormStatus.Submitting
+        );
+
         FacultyMembersService.addFacultyMember(form)
             .then(fm => {
                 facultyProfiles.facultyMembers!.set(String(fm.id), fm);
