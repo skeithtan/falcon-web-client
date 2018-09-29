@@ -29,24 +29,34 @@ export default class AddFacultyMemberForm {
     @IsNotEmpty()
     @MinLength(10)
     @observable
-    public password: string = "";
+    public password: string = Math.random()
+        .toString(36)
+        .substring(3);
 
     @IsEnum(Sex)
-    @IsNotEmpty()
+    @IsNotEmpty({
+        message: "Sex is required",
+    })
     @observable
     public sex: string = "";
 
     @IsEnum(FacultyMemberType)
-    @IsNotEmpty()
+    @IsNotEmpty({
+        message: "Faculty member type is required",
+    })
     @observable
     public type: string = "";
 
     @IsEnum(ActivityType)
-    @IsNotEmpty()
+    @IsNotEmpty({
+        message: "Activity is required",
+    })
     @observable
     public activity: string = "";
 
-    @IsNotEmpty()
+    @IsNotEmpty({
+        message: "Birthdate is required"
+    })
     @observable
     public birthDate: string = "";
 }

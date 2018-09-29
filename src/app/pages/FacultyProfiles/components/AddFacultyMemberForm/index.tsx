@@ -8,6 +8,7 @@ import DrawerForm from "../../../../components/reusable/DrawerForm";
 import FacultyProfilesController from "../../../../controllers/faculty_profiles";
 import { ActivityTypeReadable } from "../../../../models/enums/activity_type";
 import { FacultyMemberTypeReadable } from "../../../../models/enums/faculty_member_type";
+import { SexReadable } from "../../../../models/enums/sex";
 import { FacultyProfilesState } from "../../../../store/faculty_profiles";
 
 interface IPropsType {
@@ -49,7 +50,7 @@ export default class AddFacultyMemberFormView extends React.Component<
             >
                 <Grid
                     container
-                    spacing={16}
+                    spacing={24}
                     alignItems="stretch"
                     direction="column"
                 >
@@ -83,17 +84,52 @@ export default class AddFacultyMemberFormView extends React.Component<
                         <TextField
                             label="Email Address"
                             variant="outlined"
+                            onChange={this.onChange("email")}
+                            value={form.email}
+                            error={"email" in validation}
+                            helperText={validation.email}
                             required
                             fullWidth
                         />
                     </Grid>
-                    <Grid item xs>
-                        <TextField
-                            label="Date of Birth"
-                            variant="outlined"
-                            required
-                            fullWidth
-                        />
+                    <Grid item container direction="row" spacing={8}>
+                        <Grid item xs>
+                            <TextField
+                                label="Date of Birth"
+                                variant="outlined"
+                                type="date"
+                                onChange={this.onChange("birthDate")}
+                                value={form.birthDate}
+                                error={"birthDate" in validation}
+                                helperText={validation.birthDate}
+                                required
+                                InputLabelProps={{ shrink: true }}
+                                fullWidth
+                            />
+                        </Grid>
+                        <Grid item xs>
+                            <TextField
+                                select
+                                label="Sex"
+                                variant="outlined"
+                                onChange={this.onChange("sex")}
+                                value={form.sex}
+                                error={"sex" in validation}
+                                helperText={validation.sex}
+                                fullWidth
+                            >
+                                {Array.from(SexReadable).map(
+                                    ([typeEnum, typeReadable]: any) => (
+                                        <MenuItem
+                                            key={typeEnum}
+                                            value={typeEnum}
+                                        >
+                                            {typeReadable}
+                                        </MenuItem>
+                                    )
+                                )}
+                            </TextField>
+                        </Grid>
                     </Grid>
                     <Grid item container direction="row" spacing={8}>
                         <Grid item xs>
@@ -149,6 +185,7 @@ export default class AddFacultyMemberFormView extends React.Component<
                             variant="extendedFab"
                             color="primary"
                             size="large"
+                            disabled={Object.keys(validation).length > 0}
                         >
                             Submit
                         </Button>
