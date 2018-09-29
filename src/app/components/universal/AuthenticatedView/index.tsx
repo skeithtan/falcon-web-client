@@ -37,7 +37,7 @@ class AuthenticatedView extends React.Component<IPropsType> {
                     />
                 </Grid>
 
-                <Grid item className={classes.page}>
+                <Grid item className={classes.page} xs>
                     <Route
                         path={"/" + path + pathParameters}
                         component={component!}
