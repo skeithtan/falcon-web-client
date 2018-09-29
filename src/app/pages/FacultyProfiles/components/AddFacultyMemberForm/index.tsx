@@ -1,6 +1,8 @@
+import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
+import Typography from "@material-ui/core/Typography";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
 import DrawerForm from "../../../../components/reusable/DrawerForm";
@@ -186,6 +188,30 @@ export default class AddFacultyMemberFormView extends React.Component<
                             </TextField>
                         </Grid>
                     </Grid>
+
+                    <Grid item />
+
+                    <Divider />
+                    <Grid item container direction="column" spacing={8}>
+                        <Grid item>
+                            <Typography>Temporary Password</Typography>
+                        </Grid>
+                        <Grid item>
+                            <Typography variant="headline">
+                                {form.password}
+                            </Typography>
+                        </Grid>
+                        <Grid item>
+                            <Typography variant="caption">
+                                Use this password to sign in as this faculty
+                                member for the first time. Save this password
+                                elsewhere as this will be the last time it will
+                                be shown.
+                            </Typography>
+                        </Grid>
+                    </Grid>
+                    <Divider />
+
                     <Grid item />
                     <Grid item>
                         <FormSubmitBar
@@ -193,7 +219,7 @@ export default class AddFacultyMemberFormView extends React.Component<
                             formState={
                                 facultyProfiles!.addFacultyMemberFormState
                             }
-                            onSubmitClick={this.onClose}
+                            onSubmitClick={this.onSubmitClick}
                         />
                     </Grid>
                 </Grid>
