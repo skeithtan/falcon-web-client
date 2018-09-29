@@ -1,4 +1,10 @@
-import { IsEmail, IsEnum, IsNotEmpty } from "class-validator";
+import {
+    IsEmail,
+    IsEnum,
+    IsNotEmpty,
+    IsNumberString,
+    Length,
+} from "class-validator";
 import { observable } from "mobx";
 import ActivityType from "../enums/activity_type";
 import FacultyMemberType from "../enums/faculty_member_type";
@@ -32,9 +38,7 @@ export default class AddFacultyMemberForm {
         .substring(3);
 
     @IsEnum(Sex)
-    @IsNotEmpty({
-        message: "Sex is required",
-    })
+    @IsNotEmpty({ message: "Sex is required" })
     @observable
     public sex: string = "";
 
@@ -57,4 +61,13 @@ export default class AddFacultyMemberForm {
     })
     @observable
     public birthDate: string = "";
+
+    @IsNumberString({
+        message: "Must be numbers",
+    })
+    @Length(3, 3, {
+        message: "Must be 3 characters",
+    })
+    @observable
+    public pnuId: string = "";
 }

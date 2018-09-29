@@ -1,5 +1,6 @@
 import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
+import InputAdornment from "@material-ui/core/InputAdornment";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
@@ -89,34 +90,41 @@ export default class AddFacultyMemberFormView extends React.Component<
                             />
                         </Grid>
                     </Grid>
-                    <Grid item>
-                        <TextField
-                            label="Email Address"
-                            variant="outlined"
-                            onChange={this.onChange("email")}
-                            value={form.email}
-                            error={"email" in validationErrors}
-                            helperText={validationErrors.email}
-                            required
-                            fullWidth
-                        />
-                    </Grid>
                     <Grid item container direction="row" spacing={8}>
-                        <Grid item xs>
+                        <Grid item xs={4}>
                             <TextField
-                                label="Date of Birth"
+                                label="Faculty ID"
                                 variant="outlined"
-                                type="date"
-                                onChange={this.onChange("birthDate")}
-                                value={form.birthDate}
-                                error={"birthDate" in validationErrors}
-                                helperText={validationErrors.birthDate}
+                                onChange={this.onChange("pnuId")}
+                                value={form.pnuId}
+                                error={"pnuId" in validationErrors}
+                                helperText={validationErrors.pnuId}
+                                InputProps={{
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            T-
+                                        </InputAdornment>
+                                    ),
+                                }}
                                 required
-                                InputLabelProps={{ shrink: true }}
                                 fullWidth
                             />
                         </Grid>
                         <Grid item xs>
+                            <TextField
+                                label="Email Address"
+                                variant="outlined"
+                                onChange={this.onChange("email")}
+                                value={form.email}
+                                error={"email" in validationErrors}
+                                helperText={validationErrors.email}
+                                required
+                                fullWidth
+                            />
+                        </Grid>
+                    </Grid>
+                    <Grid item container direction="row" spacing={8}>
+                        <Grid item xs={4}>
                             <TextField
                                 select
                                 label="Sex"
@@ -138,6 +146,20 @@ export default class AddFacultyMemberFormView extends React.Component<
                                     )
                                 )}
                             </TextField>
+                        </Grid>
+                        <Grid item xs>
+                            <TextField
+                                label="Date of Birth"
+                                variant="outlined"
+                                type="date"
+                                onChange={this.onChange("birthDate")}
+                                value={form.birthDate}
+                                error={"birthDate" in validationErrors}
+                                helperText={validationErrors.birthDate}
+                                required
+                                InputLabelProps={{ shrink: true }}
+                                fullWidth
+                            />
                         </Grid>
                     </Grid>
                     <Grid item container direction="row" spacing={8}>
