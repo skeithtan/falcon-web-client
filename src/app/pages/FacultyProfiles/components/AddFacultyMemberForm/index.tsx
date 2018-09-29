@@ -37,8 +37,8 @@ export default class AddFacultyMemberFormView extends React.Component<
         const { facultyProfiles } = this.props;
         const {
             addFacultyMemberFormIsShowing,
-            addFacultyMemberForm,
-            addFacultyMemberValidation,
+            addFacultyMemberForm: form,
+            addFacultyMemberValidation: validation,
         } = facultyProfiles!;
 
         return (
@@ -60,14 +60,9 @@ export default class AddFacultyMemberFormView extends React.Component<
                                 variant="outlined"
                                 required
                                 onChange={this.onChange("firstName")}
-                                value={addFacultyMemberForm.firstName}
-                                error={
-                                    "firstName" in addFacultyMemberValidation
-                                }
-                                helperText={
-                                    addFacultyMemberValidation.firstName &&
-                                    addFacultyMemberValidation.firstName[0]
-                                }
+                                value={form.firstName}
+                                error={"firstName" in validation}
+                                helperText={validation.firstName}
                                 fullWidth
                             />
                         </Grid>
@@ -76,12 +71,9 @@ export default class AddFacultyMemberFormView extends React.Component<
                                 label="Last Name"
                                 variant="outlined"
                                 onChange={this.onChange("lastName")}
-                                value={addFacultyMemberForm.lastName}
-                                error={"lastName" in addFacultyMemberValidation}
-                                helperText={
-                                    addFacultyMemberValidation.lastName &&
-                                    addFacultyMemberValidation.lastName[0]
-                                }
+                                value={form.lastName}
+                                error={"lastName" in validation}
+                                helperText={validation.lastName}
                                 required
                                 fullWidth
                             />
@@ -109,12 +101,12 @@ export default class AddFacultyMemberFormView extends React.Component<
                                 select
                                 label="Faculty Member Type"
                                 variant="outlined"
+                                onChange={this.onChange("type")}
+                                value={form.type}
+                                error={"type" in validation}
+                                helperText={validation.type}
                                 fullWidth
                             >
-                                <MenuItem value="">
-                                    Select Faculty Member Type
-                                </MenuItem>
-
                                 {Array.from(FacultyMemberTypeReadable).map(
                                     ([typeEnum, typeReadable]: any) => (
                                         <MenuItem
@@ -132,12 +124,12 @@ export default class AddFacultyMemberFormView extends React.Component<
                                 select
                                 label="Activity Type"
                                 variant="outlined"
+                                value={form.activity}
+                                onChange={this.onChange("activity")}
+                                error={"activity" in validation}
+                                helperText={validation.activity}
                                 fullWidth
                             >
-                                <MenuItem value="">
-                                    Select Activity Type
-                                </MenuItem>
-
                                 {Array.from(ActivityTypeReadable).map(
                                     ([typeEnum, typeReadable]: any) => (
                                         <MenuItem

@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, MinLength } from "class-validator";
+import { IsEmail, IsEnum, IsNotEmpty, MinLength } from "class-validator";
 import { observable } from "mobx";
 import ActivityType from "../enums/activity_type";
 import FacultyMemberType from "../enums/faculty_member_type";
@@ -9,13 +9,13 @@ export default class AddFacultyMemberForm {
         message: "First name should not be empty",
     })
     @observable
-    public firstName: string;
+    public firstName: string = "";
 
     @IsNotEmpty({
         message: "Last name should not be empty",
     })
     @observable
-    public lastName: string;
+    public lastName: string = "";
 
     @IsEmail(undefined, {
         message: "This is not a valid email",
@@ -24,23 +24,29 @@ export default class AddFacultyMemberForm {
         message: "Email should not be empty",
     })
     @observable
-    public email: string;
+    public email: string = "";
 
     @IsNotEmpty()
     @MinLength(10)
     @observable
-    public password: string;
+    public password: string = "";
 
+    @IsEnum(Sex)
+    @IsNotEmpty()
     @observable
-    public sex: Sex;
+    public sex: string = "";
 
+    @IsEnum(FacultyMemberType)
+    @IsNotEmpty()
     @observable
-    public type: FacultyMemberType;
+    public type: string = "";
 
+    @IsEnum(ActivityType)
+    @IsNotEmpty()
     @observable
-    public activity: ActivityType;
+    public activity: string = "";
 
     @IsNotEmpty()
     @observable
-    public birthDate: string;
+    public birthDate: string = "";
 }
