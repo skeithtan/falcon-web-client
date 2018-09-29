@@ -1,4 +1,5 @@
 import FetchableState from "../models/enums/fetchable_state";
+import AddFacultyMemberForm from "../models/forms/add_faculty_member_form";
 import FacultyMembersService from "../services/faculty_members";
 import rootStore from "../store";
 
@@ -22,5 +23,10 @@ export default class FacultyProfilesController {
 
     public static toggleAddFacultyMemberForm(shouldShow: boolean) {
         facultyProfiles.addFacultyMemberFormIsShowing = shouldShow;
+
+        if (!shouldShow) {
+            // Reset the form on close
+            facultyProfiles.addFacultyMemberForm = new AddFacultyMemberForm();
+        }
     }
 }

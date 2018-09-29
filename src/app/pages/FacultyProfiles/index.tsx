@@ -8,7 +8,7 @@ import StateWrapper from "../../components/reusable/StateWrapper";
 import FacultyProfilesController from "../../controllers/faculty_profiles";
 import IStyleClasses from "../../interfaces/style_classes";
 import { FacultyProfilesState } from "../../store/faculty_profiles";
-import AddFacultyMemberForm from "./components/AddFacultyMemberForm";
+import AddFacultyMemberFormView from "./components/AddFacultyMemberForm";
 import FacultyDetail from "./components/FacultyDetail/index";
 import FacultyList from "./components/FacultyList/index";
 import styles from "./styles";
@@ -73,7 +73,7 @@ class FacultyProfiles extends React.Component<IPropsType> {
                     </Grid>
                 )}
 
-                <AddFacultyMemberForm />
+                <AddFacultyMemberFormView />
             </React.Fragment>
         );
     };

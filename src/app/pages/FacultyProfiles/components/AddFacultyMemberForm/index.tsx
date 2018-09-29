@@ -16,16 +16,34 @@ interface IPropsType {
 
 @inject("facultyProfiles")
 @observer
-export default class AddFacultyMemberForm extends React.Component<IPropsType> {
+export default class AddFacultyMemberFormView extends React.Component<
+    IPropsType
+> {
     public onClose = () => {
         FacultyProfilesController.toggleAddFacultyMemberForm(false);
     };
 
+    public onChange = (
+        property: string
+    ): React.ChangeEventHandler<
+        HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    > => event => {
+        const { facultyProfiles } = this.props;
+        const { addFacultyMemberForm } = facultyProfiles!;
+        addFacultyMemberForm[property] = event.target.value;
+    };
+
     public render() {
         const { facultyProfiles } = this.props;
+        const {
+            addFacultyMemberFormIsShowing,
+            addFacultyMemberForm,
+            addFacultyMemberValidation,
+        } = facultyProfiles!;
+
         return (
             <DrawerForm
-                open={facultyProfiles!.addFacultyMemberFormIsShowing}
+                open={addFacultyMemberFormIsShowing}
                 onClose={this.onClose}
                 formTitle="Add Faculty Member"
             >
@@ -41,6 +59,15 @@ export default class AddFacultyMemberForm extends React.Component<IPropsType> {
                                 label="First Name"
                                 variant="outlined"
                                 required
+                                onChange={this.onChange("firstName")}
+                                value={addFacultyMemberForm.firstName}
+                                error={
+                                    "firstName" in addFacultyMemberValidation
+                                }
+                                helperText={
+                                    addFacultyMemberValidation.firstName &&
+                                    addFacultyMemberValidation.firstName[0]
+                                }
                                 fullWidth
                             />
                         </Grid>
@@ -48,6 +75,13 @@ export default class AddFacultyMemberForm extends React.Component<IPropsType> {
                             <TextField
                                 label="Last Name"
                                 variant="outlined"
+                                onChange={this.onChange("lastName")}
+                                value={addFacultyMemberForm.lastName}
+                                error={"lastName" in addFacultyMemberValidation}
+                                helperText={
+                                    addFacultyMemberValidation.lastName &&
+                                    addFacultyMemberValidation.lastName[0]
+                                }
                                 required
                                 fullWidth
                             />
@@ -117,7 +151,7 @@ export default class AddFacultyMemberForm extends React.Component<IPropsType> {
                             </TextField>
                         </Grid>
                     </Grid>
-                    <Grid item/>
+                    <Grid item />
                     <Grid item>
                         <Button
                             variant="extendedFab"
