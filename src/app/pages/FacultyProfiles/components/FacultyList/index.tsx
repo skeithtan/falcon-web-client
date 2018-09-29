@@ -1,11 +1,60 @@
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import ListSubheader from "@material-ui/core/ListSubheader";
+import { withStyles } from "@material-ui/core/styles";
+import { inject, observer } from "mobx-react";
 import * as React from "react";
+import IStyleClasses from "../../../../interfaces/style_classes";
+import FacultyMemberType, {
+    FacultyMemberTypeReadable,
+} from "../../../../models/enums/faculty_member_type";
+import { FacultyProfilesState } from "../../../../store/faculty_profiles";
+import styles from "./styles";
 
-export default class FacultyList extends React.Component {
+interface IPropsType {
+    facultyProfiles?: FacultyProfilesState;
+    classes: IStyleClasses;
+}
+
+@inject("facultyProfiles")
+@observer
+class FacultyList extends React.Component<IPropsType> {
     public render() {
+        const { facultyProfiles, classes } = this.props;
+        const { segregatedFacultyMembers } = facultyProfiles!;
         return (
-            <div>
-                <h1>Hi</h1>
-            </div>
+            <List subheader={<li />} className={classes.list}>
+                {Object.keys(segregatedFacultyMembers).map(facultyType => {
+                    const facultyMembers =
+                        segregatedFacultyMembers[facultyType];
+                    const readable = FacultyMemberTypeReadable.get(
+                        facultyType as FacultyMemberType
+                    );
+
+                    return (
+                        <li key={readable}>
+                            <ul className={classes.ul}>
+                                <ListSubheader>{readable}</ListSubheader>
+                                {facultyMembers.map(facultyMember => (
+                                    <ListItem key={facultyMember.id}>
+                                        <ListItemText
+                                            primary={
+                                                facultyMember.user!.fullName
+                                            }
+                                            secondary={
+                                                facultyMember.formattedPnuId
+                                            }
+                                        />
+                                    </ListItem>
+                                ))}
+                            </ul>
+                        </li>
+                    );
+                })}
+            </List>
         );
     }
 }
+
+export default withStyles(styles)(FacultyList);

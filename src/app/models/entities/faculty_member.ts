@@ -6,6 +6,7 @@ import FacultyMemberType from "../enums/faculty_member_type";
 import Sex from "../enums/sex";
 import Degree from "./degree";
 import ExtensionWork from "./extension_work";
+import FacultyUser from "./faculty_user";
 import InstructionalMaterial from "./instructional_material";
 import Presentation from "./presentation";
 import Recognition from "./recognition";
@@ -33,6 +34,9 @@ export default class FacultyMember extends Entity {
     public recognitions?: Recognition[];
 
     @observable
+    public pnuId: string;
+
+    @observable
     public instructionalMaterials?: InstructionalMaterial[];
 
     @observable
@@ -41,9 +45,17 @@ export default class FacultyMember extends Entity {
     @observable
     public degrees?: Degree[];
 
+    @observable
+    public user?: FacultyUser;
+
+    get formattedPnuId() {
+        return `T-${this.pnuId}`;
+    }
+
     constructor(fm: any) {
         super(fm);
         this.birthDate = moment(fm.birthDate);
+        this.user = new FacultyUser(fm.user);
     }
 
     public populateRelations = (fm: any) => {
