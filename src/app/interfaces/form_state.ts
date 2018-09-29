@@ -32,6 +32,7 @@ export default abstract class FormState<F> {
 
         if (newStatus === FormStatus.Error && error) {
             this.submissionError = error;
+            console.log("An error occurred", error);
         }
     }
 

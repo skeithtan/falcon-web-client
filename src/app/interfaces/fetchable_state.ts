@@ -14,6 +14,7 @@ export default abstract class FetchableState {
 
         if (this.fetchStatus === FetchableStatus.Error && error) {
             this.fetchError = error;
+            console.log("An error occurred", error);
         }
     }
 }
