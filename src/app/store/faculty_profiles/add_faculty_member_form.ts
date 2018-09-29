@@ -5,6 +5,10 @@ import AddFacultyMemberForm from "../../models/forms/add_faculty_member_form";
 export class AddFacultyMemberFormState extends FormState<AddFacultyMemberForm> {
     @observable
     public form: AddFacultyMemberForm = new AddFacultyMemberForm();
+
+    public resetForm() {
+        this.form = new AddFacultyMemberForm();
+    }
 }
 
 export default new AddFacultyMemberFormState();

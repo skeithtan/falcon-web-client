@@ -7,4 +7,13 @@ export default abstract class FetchableState {
 
     @observable
     public fetchError?: string = undefined;
+
+    public setStatus(newStatus: FetchableStatus, error?: string) {
+        this.fetchError = undefined;
+        this.fetchStatus = newStatus;
+
+        if (this.fetchStatus === FetchableStatus.Error && error) {
+            this.fetchError = error;
+        }
+    }
 }

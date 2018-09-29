@@ -10,6 +10,9 @@ export default abstract class FormState<F> {
     @observable
     public status: FormStatus = FormStatus.Editing;
 
+    @observable
+    public submissionError?: string = undefined;
+
     public abstract form: F;
 
     @computed
@@ -21,5 +24,23 @@ export default abstract class FormState<F> {
     @computed
     public get canSubmit() {
         return Object.keys(this.validationErrors).length === 0;
+    }
+
+    public setStatus(newStatus: FormStatus, error?: string) {
+        this.submissionError = undefined;
+        this.status = newStatus;
+
+        if (newStatus === FormStatus.Error && error) {
+            this.submissionError = error;
+        }
+    }
+
+    public abstract resetForm(): void;
+
+    public resetAndClose() {
+        this.status = FormStatus.Editing;
+        this.isShowing = false;
+        this.submissionError = undefined;
+        this.resetForm();
     }
 }

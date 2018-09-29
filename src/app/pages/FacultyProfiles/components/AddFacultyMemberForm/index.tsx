@@ -45,7 +45,6 @@ export default class AddFacultyMemberFormView extends React.Component<
         const {
             isShowing,
             form,
-            status,
             validationErrors,
             canSubmit,
         } = facultyProfiles!.addFacultyMemberFormState;
@@ -191,7 +190,9 @@ export default class AddFacultyMemberFormView extends React.Component<
                     <Grid item>
                         <FormSubmitBar
                             disabled={!canSubmit}
-                            formStatus={status}
+                            formState={
+                                facultyProfiles!.addFacultyMemberFormState
+                            }
                             onSubmitClick={this.onClose}
                         />
                     </Grid>

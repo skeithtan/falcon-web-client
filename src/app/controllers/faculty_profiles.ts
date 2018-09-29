@@ -1,4 +1,5 @@
 import FetchableStatus from "../models/enums/fetchable_status";
+import FormStatus from "../models/enums/form_status";
 import AddFacultyMemberForm from "../models/forms/add_faculty_member_form";
 import FacultyMembersService from "../services/faculty_members";
 import rootStore from "../store";
@@ -8,17 +9,15 @@ const { facultyProfiles } = rootStore;
 
 export default class FacultyProfilesController {
     public static getAll() {
-        facultyProfiles.fetchStatus = FetchableStatus.Fetching;
-        facultyProfiles.fetchError = undefined;
+        facultyProfiles.setStatus(FetchableStatus.Fetching);
 
         FacultyMembersService.fetchAllFacultyMembers()
             .then(fm => {
                 facultyProfiles.facultyMembers = groupById(fm);
-                facultyProfiles.fetchStatus = FetchableStatus.Fetched;
+                facultyProfiles.setStatus(FetchableStatus.Fetched);
             })
             .catch((e: Error) => {
-                facultyProfiles.fetchStatus = FetchableStatus.Error;
-                facultyProfiles.fetchError = e.message;
+                facultyProfiles.setStatus(FetchableStatus.Error, e.message);
             });
     }
 
@@ -28,24 +27,30 @@ export default class FacultyProfilesController {
                 facultyProfiles.facultyMembers![facultyId] = facultyMember;
             })
             .catch((e: Error) => {
-                facultyProfiles.fetchStatus = FetchableStatus.Error;
-                facultyProfiles.fetchError = e.message;
+                facultyProfiles.setStatus(FetchableStatus.Error, e.message);
             });
     }
 
-    // public static create(form: AddFacultyMemberForm) {
-    //     FacultyMembersService.addFacultyMember(form)
-    //         .then(FacultyMember) => {
-
-    //         }
-    // }
+    public static create(form: AddFacultyMemberForm) {
+        FacultyMembersService.addFacultyMember(form)
+            .then(fm => {
+                facultyProfiles.facultyMembers![fm.id] = fm;
+                facultyProfiles.addFacultyMemberFormState.resetAndClose();
+            })
+            .catch((e: Error) => {
+                facultyProfiles.addFacultyMemberFormState.setStatus(
+                    FormStatus.Error,
+                    e.message
+                );
+            });
+    }
 
     public static toggleAddFacultyMemberForm(shouldShow: boolean) {
         facultyProfiles.addFacultyMemberFormState.isShowing = shouldShow;
 
         if (!shouldShow) {
             // Reset the form on close
-            facultyProfiles.addFacultyMemberFormState.form = new AddFacultyMemberForm();
+            facultyProfiles.addFacultyMemberFormState.resetAndClose();
         }
     }
 }
