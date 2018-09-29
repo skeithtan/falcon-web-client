@@ -1,5 +1,4 @@
 import { observable } from "mobx";
-import AggregatedEntities from "../interfaces/aggregated_entities";
 import FetchableState from "../interfaces/fetchable_state";
 import FacultyMember from "../models/entities/faculty_member";
 import addFacultyMemberFormState, {
@@ -8,7 +7,7 @@ import addFacultyMemberFormState, {
 
 export class FacultyProfilesState extends FetchableState {
     @observable
-    public facultyMembers?: AggregatedEntities<FacultyMember> = undefined;
+    public facultyMembers?: Map<string, FacultyMember> = undefined;
 
     @observable
     public addFacultyMemberFormState: AddFacultyMemberFormState = addFacultyMemberFormState;

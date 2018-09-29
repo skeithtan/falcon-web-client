@@ -1,5 +1,6 @@
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { withStyles } from "@material-ui/core/styles";
+import { observer } from "mobx-react";
 import * as React from "react";
 import IStyleClasses from "../../../interfaces/style_classes";
 import FetchableStatus from "../../../models/enums/fetchable_status";
@@ -13,6 +14,7 @@ interface IPropsType {
     classes: IStyleClasses;
 }
 
+@observer
 class StateWrapper extends React.Component<IPropsType> {
     public renderLoadingView() {
         return <CircularProgress size={80} />;

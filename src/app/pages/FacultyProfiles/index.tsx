@@ -44,7 +44,7 @@ class FacultyProfiles extends React.Component<IPropsType> {
         const { facultyMembers } = facultyProfiles!;
         return (
             <React.Fragment>
-                {facultyMembers!.isEmpty && (
+                {facultyMembers!.size === 0 && (
                     <EmptyState
                         title="Faculty Profiles"
                         description="View and add faculty members, degrees, research presentations, instructional materials, academic recognitions, and extension works."
@@ -53,7 +53,7 @@ class FacultyProfiles extends React.Component<IPropsType> {
                     />
                 )}
 
-                {facultyMembers!.isNotEmpty && (
+                {facultyMembers!.size > 0 && (
                     <Grid
                         className={classes.root}
                         container
