@@ -14,7 +14,7 @@ export default class FacultyMembersService {
     }
 
     public static async fetchFacultyMember(
-        facultyId: number
+        facultyId: string
     ): Promise<FacultyMember> {
         return axios
             .get(`/faculty-members/${facultyId}`)

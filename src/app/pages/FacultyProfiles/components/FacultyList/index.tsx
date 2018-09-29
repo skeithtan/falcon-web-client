@@ -33,11 +33,11 @@ class FacultyList extends React.Component<IPropsType> {
                     );
 
                     return (
-                        <li key={readable}>
+                        <li key={readable} className={classes.listSection}>
                             <ul className={classes.ul}>
                                 <ListSubheader>{readable}</ListSubheader>
                                 {facultyMembers.map(facultyMember => (
-                                    <ListItem key={facultyMember.id}>
+                                    <ListItem button key={facultyMember.id}>
                                         <ListItemText
                                             primary={
                                                 facultyMember.user!.fullName

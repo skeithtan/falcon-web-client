@@ -21,10 +21,10 @@ export default class FacultyProfilesController {
             });
     }
 
-    public static get(facultyId: number) {
+    public static get(facultyId: string) {
         FacultyMembersService.fetchFacultyMember(facultyId)
             .then(facultyMember => {
-                facultyProfiles.facultyMembers![facultyId] = facultyMember;
+                facultyProfiles.facultyMembers!.set(facultyId, facultyMember);
             })
             .catch((e: Error) => {
                 facultyProfiles.setStatus(FetchableStatus.Error, e.message);
@@ -34,7 +34,7 @@ export default class FacultyProfilesController {
     public static create(form: AddFacultyMemberForm) {
         FacultyMembersService.addFacultyMember(form)
             .then(fm => {
-                facultyProfiles.facultyMembers![fm.id] = fm;
+                facultyProfiles.facultyMembers!.set(String(fm.id), fm);
                 facultyProfiles.addFacultyMemberFormState.resetAndClose();
             })
             .catch((e: Error) => {
