@@ -1,10 +1,10 @@
-import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
 import DrawerForm from "../../../../components/reusable/DrawerForm";
+import FormSubmitBar from "../../../../components/reusable/FormSubmitBar";
 import FacultyProfilesController from "../../../../controllers/faculty_profiles";
 import { ActivityTypeReadable } from "../../../../models/enums/activity_type";
 import { FacultyMemberTypeReadable } from "../../../../models/enums/faculty_member_type";
@@ -24,6 +24,12 @@ export default class AddFacultyMemberFormView extends React.Component<
         FacultyProfilesController.toggleAddFacultyMemberForm(false);
     };
 
+    public onSubmitClick = () => {
+        const { facultyProfiles } = this.props;
+        const { form } = facultyProfiles!.addFacultyMemberFormState;
+        FacultyProfilesController.create(form);
+    };
+
     public onChange = (
         property: string
     ): React.ChangeEventHandler<
@@ -39,6 +45,7 @@ export default class AddFacultyMemberFormView extends React.Component<
         const {
             isShowing,
             form,
+            status,
             validationErrors,
             canSubmit,
         } = facultyProfiles!.addFacultyMemberFormState;
@@ -182,14 +189,11 @@ export default class AddFacultyMemberFormView extends React.Component<
                     </Grid>
                     <Grid item />
                     <Grid item>
-                        <Button
-                            variant="extendedFab"
-                            color="primary"
-                            size="large"
+                        <FormSubmitBar
                             disabled={!canSubmit}
-                        >
-                            Submit
-                        </Button>
+                            formStatus={status}
+                            onSubmitClick={this.onClose}
+                        />
                     </Grid>
                 </Grid>
             </DrawerForm>
