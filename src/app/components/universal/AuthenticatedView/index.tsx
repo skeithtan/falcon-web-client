@@ -19,7 +19,7 @@ class AuthenticatedView extends React.Component<IPropsType> {
     public render() {
         const {
             activePageSpecification,
-            activePageSpecification: { path, pathParameters = "", component },
+            activePageSpecification: { path, component },
             classes,
         } = this.props;
 
@@ -38,10 +38,7 @@ class AuthenticatedView extends React.Component<IPropsType> {
                 </Grid>
 
                 <Grid item className={classes.page} xs>
-                    <Route
-                        path={"/" + path + pathParameters}
-                        component={component!}
-                    />
+                    <Route path={"/" + path} component={component!} />
                 </Grid>
             </Grid>
         );
