@@ -1,7 +1,5 @@
-import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";
-import AddIcon from "@material-ui/icons/Add";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
 import { RouteComponentProps } from "react-router";
@@ -66,16 +64,6 @@ class FacultyProfiles extends React.Component<IPropsType> {
                         <React.Fragment>
                             <Grid item className={classes.list}>
                                 <FacultyList />
-                                <Button
-                                    color="primary"
-                                    variant="fab"
-                                    className={classes.button}
-                                    onClick={this.addFacultyMemberFormToggle(
-                                        true
-                                    )}
-                                >
-                                    <AddIcon />
-                                </Button>
                             </Grid>
                             <Grid item className={classes.detail}>
                                 <FacultyDetail />

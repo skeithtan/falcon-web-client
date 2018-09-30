@@ -6,15 +6,10 @@ export default {
     },
     list: {
         minWidth: 280,
+        overflowY: "scroll",
     },
     detail: {
         width: "100%",
         overflowY: "scroll",
-    },
-    button: {
-        // hacky hack
-        position: "fixed",
-        bottom: "16px",
-        left: "210px",
     },
 } as StyleRules;
