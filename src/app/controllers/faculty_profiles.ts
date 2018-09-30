@@ -57,4 +57,8 @@ export default class FacultyProfilesController {
             facultyProfiles.addFacultyMemberFormState.resetAndClose();
         }
     }
+
+    public static setActiveFacultyMember(id: string) {
+        facultyProfiles.activeFacultyId = id;
+    }
 }
