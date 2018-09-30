@@ -24,7 +24,7 @@ class PageItem extends React.Component<IPropsType> {
 
     public render() {
         const { page, active } = this.props;
-        const { path, icon, name, description } = PAGE_SPECIFICATION[page];
+        const { path, icon, name, description } = PAGE_SPECIFICATION.get(page)!;
 
         return (
             <ListItem

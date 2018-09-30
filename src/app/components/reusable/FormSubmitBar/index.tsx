@@ -30,7 +30,7 @@ export default class FormSubmitBar extends React.Component<IPropsType> {
                         variant="extendedFab"
                         color="primary"
                         size="large"
-                        disabled={disabled}
+                        disabled={disabled || status === FormStatus.Submitting}
                         onClick={onSubmitClick}
                     >
                         {submitText}

@@ -1,8 +1,7 @@
 import { observable } from "mobx";
+import Entity from "../../interfaces/entity";
 
-export default class FacultyUser {
-    public id: number;
-
+export default class FacultyUser extends Entity {
     @observable
     public email: string;
 
@@ -14,9 +13,5 @@ export default class FacultyUser {
 
     get fullName() {
         return `${this.firstName} ${this.lastName}`;
-    }
-
-    constructor(plainObject: any) {
-        Object.assign(this, plainObject);
     }
 }

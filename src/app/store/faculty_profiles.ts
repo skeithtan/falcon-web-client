@@ -2,7 +2,9 @@ import * as _ from "lodash";
 import { computed, observable } from "mobx";
 import FetchableState from "../interfaces/fetchable_state";
 import FacultyMember from "../models/entities/faculty_member";
-import addFacultyMemberFormState, { AddFacultyMemberFormState } from "./faculty_profiles/add_faculty_member_form";
+import addFacultyMemberFormState, {
+    AddFacultyMemberFormState,
+} from "./faculty_profiles/add_faculty_member_form";
 
 export class FacultyProfilesState extends FetchableState {
     @observable
@@ -10,6 +12,18 @@ export class FacultyProfilesState extends FetchableState {
 
     @observable
     public addFacultyMemberFormState: AddFacultyMemberFormState = addFacultyMemberFormState;
+
+    @observable
+    public activeFacultyId?: string = undefined;
+
+    @computed
+    get activeFacultyMember() {
+        if (!this.activeFacultyId || !this.facultyMembers) {
+            return undefined;
+        }
+
+        return this.facultyMembers!.get(this.activeFacultyId);
+    }
 
     @computed
     get segregatedFacultyMembers() {

@@ -5,6 +5,9 @@ export default (theme: Theme): StyleRules => ({
         backgroundColor: "inherit",
         padding: 0,
     },
+    listSection: {
+        backgroundColor: "inherit",
+    },
     list: {
         background: theme.palette.background.paper,
         borderRight: `1px solid ${theme.palette.grey["200"]}`,

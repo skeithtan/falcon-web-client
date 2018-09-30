@@ -4,4 +4,7 @@ export default {
     root: {
         height: "100%",
     },
+    page: {
+        overflow: "hidden",
+    },
 } as StyleRules;

@@ -3,10 +3,7 @@ import * as React from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import AuthenticatedView from "./components/universal/AuthenticatedView";
 import User from "./models/entities/user";
-import Page, {
-    IPageSpecification,
-    PAGE_SPECIFICATION,
-} from "./models/enums/page";
+import Page, { IPageSpecification, PAGE_SPECIFICATION } from "./models/enums/page";
 import SignInPage from "./pages/SignIn";
 import { AuthenticationState } from "./store/authentication";
 
@@ -33,10 +30,10 @@ class App extends React.Component<IPropsType> {
         // If no selected page, redirect to default page
         if (!pagePath) {
             const defaultPage = user.getDefaultPage();
-            return PAGE_SPECIFICATION[defaultPage];
+            return PAGE_SPECIFICATION.get(defaultPage)!;
         }
 
-        const pageSpecification = Object.values(PAGE_SPECIFICATION).find(
+        const pageSpecification = Array.from(PAGE_SPECIFICATION.values()).find(
             (ps: IPageSpecification) => ps.path === pagePath
         );
 
@@ -51,7 +48,7 @@ class App extends React.Component<IPropsType> {
             !user.getVisitablePages().includes(pageSpecification.page);
 
         if (notFound || notAllowed) {
-            return PAGE_SPECIFICATION[Page.NotFound];
+            return PAGE_SPECIFICATION.get(Page.NotFound)!;
         }
 
         return pageSpecification!;

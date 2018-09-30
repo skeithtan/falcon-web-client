@@ -1,6 +1,4 @@
 import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import { withStyles } from "@material-ui/core/styles";
 import { inject, observer } from "mobx-react";
@@ -10,6 +8,7 @@ import FacultyMemberType, {
     FacultyMemberTypeReadable,
 } from "../../../../models/enums/faculty_member_type";
 import { FacultyProfilesState } from "../../../../store/faculty_profiles";
+import FacultyItem from "./components/FacultyItem";
 import styles from "./styles";
 
 interface IPropsType {
@@ -33,20 +32,14 @@ class FacultyList extends React.Component<IPropsType> {
                     );
 
                     return (
-                        <li key={readable}>
+                        <li key={readable} className={classes.listSection}>
                             <ul className={classes.ul}>
                                 <ListSubheader>{readable}</ListSubheader>
-                                {facultyMembers.map(facultyMember => (
-                                    <ListItem key={facultyMember.id}>
-                                        <ListItemText
-                                            primary={
-                                                facultyMember.user!.fullName
-                                            }
-                                            secondary={
-                                                facultyMember.formattedPnuId
-                                            }
-                                        />
-                                    </ListItem>
+                                {facultyMembers.map(fm => (
+                                    <FacultyItem
+                                        facultyMember={fm}
+                                        key={fm.id}
+                                    />
                                 ))}
                             </ul>
                         </li>
