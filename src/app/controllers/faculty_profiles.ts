@@ -21,7 +21,7 @@ export default class FacultyProfilesController {
             });
     }
 
-    public static get(facultyId: string) {
+    public static get(facultyId: number) {
         FacultyMembersService.fetchFacultyMember(facultyId)
             .then(facultyMember => {
                 facultyProfiles.facultyMembers!.set(facultyId, facultyMember);
@@ -38,7 +38,7 @@ export default class FacultyProfilesController {
 
         FacultyMembersService.addFacultyMember(form)
             .then(fm => {
-                facultyProfiles.facultyMembers!.set(String(fm.id), fm);
+                facultyProfiles.facultyMembers!.set(fm.id, fm);
                 facultyProfiles.addFacultyMemberFormState.resetAndClose();
             })
             .catch((e: Error) => {
@@ -58,7 +58,7 @@ export default class FacultyProfilesController {
         }
     }
 
-    public static setActiveFacultyMember(id: string) {
+    public static setActiveFacultyMember(id: number) {
         facultyProfiles.activeFacultyId = id;
     }
 }

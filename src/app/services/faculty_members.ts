@@ -14,13 +14,12 @@ export default class FacultyMembersService {
     }
 
     public static async fetchFacultyMember(
-        facultyId: string
+        facultyId: number
     ): Promise<FacultyMember> {
         return axios
             .get(`/faculty-members/${facultyId}`)
             .then((response: AxiosResponse) => {
                 const fm = new FacultyMember(response.data);
-                fm.fetchedRelations = true;
                 return fm;
             })
             .catch(handleAxiosError);
@@ -36,5 +35,4 @@ export default class FacultyMembersService {
             })
             .catch(handleAxiosError);
     }
-
 }

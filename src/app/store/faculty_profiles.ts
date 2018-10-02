@@ -8,13 +8,13 @@ import addFacultyMemberFormState, {
 
 export class FacultyProfilesState extends FetchableState {
     @observable
-    public facultyMembers?: Map<string, FacultyMember> = undefined;
+    public facultyMembers?: Map<number, FacultyMember> = undefined;
 
     @observable
     public addFacultyMemberFormState: AddFacultyMemberFormState = addFacultyMemberFormState;
 
     @observable
-    public activeFacultyId?: string = undefined;
+    public activeFacultyId?: number = undefined;
 
     @computed
     get activeFacultyMember() {
