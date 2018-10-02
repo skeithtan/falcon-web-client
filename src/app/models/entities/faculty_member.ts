@@ -56,6 +56,10 @@ export default class FacultyMember extends Entity {
         super(fm);
         this.birthDate = moment(fm.birthDate);
         this.user = new FacultyUser(fm.user);
+        const hasRelations = this.presentations;
+        if (hasRelations) {
+            this.populateRelations(fm);
+        }
     }
 
     public populateRelations = (fm: any) => {

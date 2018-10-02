@@ -1,5 +1,5 @@
 export default abstract class Entity {
-    public id: string;
+    public id: number;
 
     constructor(plainObject: any) {
         Object.assign(this, plainObject);
