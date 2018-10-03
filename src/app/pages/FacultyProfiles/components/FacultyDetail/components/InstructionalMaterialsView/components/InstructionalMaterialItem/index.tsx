@@ -24,23 +24,17 @@ export default class InstructionalMaterialItem extends React.Component<
 > {
     public render() {
         const { instructionalMaterial } = this.props;
+        const medium = InstructionalMaterialMediumReadable.get(
+            instructionalMaterial.medium
+        ) as InstructionalMaterialMedium;
+        const audience = InstructionalMaterialAudienceReadable.get(
+            instructionalMaterial.audience
+        ) as InstructionalMaterialAudience;
         return (
             <TableRow>
                 <TableCell>{instructionalMaterial.title}</TableCell>
-                <TableCell>
-                    {
-                        InstructionalMaterialMediumReadable.get(
-                            instructionalMaterial.medium
-                        ) as InstructionalMaterialMedium
-                    }
-                </TableCell>
-                <TableCell>
-                    {
-                        InstructionalMaterialAudienceReadable.get(
-                            instructionalMaterial.audience
-                        ) as InstructionalMaterialAudience
-                    }
-                </TableCell>
+                <TableCell>{medium}</TableCell>
+                <TableCell>{audience}</TableCell>
                 <TableCell>{instructionalMaterial.usageYear}</TableCell>
                 <TableCell>{instructionalMaterial.level}</TableCell>
                 <TableCell>

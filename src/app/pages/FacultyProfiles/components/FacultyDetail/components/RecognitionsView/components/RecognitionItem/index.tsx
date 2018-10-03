@@ -20,17 +20,14 @@ interface IPropsType {
 export default class RecognitionItem extends React.Component<IPropsType> {
     public render() {
         const { recognition } = this.props;
+        const basis = RecognitionBasisReadable.get(
+            recognition.basis
+        ) as RecognitionBasis;
         const recognitionDate = moment(recognition.date).format("LL");
         return (
             <TableRow>
                 <TableCell>{recognition.title}</TableCell>
-                <TableCell>
-                    {
-                        RecognitionBasisReadable.get(
-                            recognition.basis
-                        ) as RecognitionBasis
-                    }
-                </TableCell>
+                <TableCell>{basis}</TableCell>
                 <TableCell>{recognitionDate}</TableCell>
                 <TableCell>{recognition.sponsor}</TableCell>
                 <TableCell>
