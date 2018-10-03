@@ -9,6 +9,7 @@ import DegreesView from "./components/DegreesView";
 import ExtensionWorksView from "./components/ExtensionWorksView";
 import FacultySubdocumentCard from "./components/FacultySubdocumentCard";
 import InstructionalMaterialsView from "./components/InstructionalMaterialsView";
+import PresentationsView from "./components/PresentationsView";
 import RecognitionsView from "./components/RecognitionsView";
 import styles from "./styles";
 
@@ -89,7 +90,11 @@ class FacultyDetail extends React.Component<IPropsType> {
                                 onAddClick={this.temporaryAddClick}
                                 canAdd={true}
                             >
-                                <div>Something</div>
+                                <PresentationsView
+                                    presentations={
+                                        activeFacultyMember.presentations!
+                                    }
+                                />
                             </FacultySubdocumentCard>
                         </Grid>
                         <Grid item className={classes.item}>
