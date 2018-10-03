@@ -5,6 +5,7 @@ import * as React from "react";
 import IStyleClasses from "../../../../interfaces/style_classes";
 import { FacultyProfilesState } from "../../../../store/faculty_profiles";
 import BasicInformationView from "./components/BasicInformationView";
+import DegreesView from "./components/DegreesView";
 import FacultySubdocumentCard from "./components/FacultySubdocumentCard";
 import styles from "./styles";
 
@@ -55,7 +56,47 @@ class FacultyDetail extends React.Component<IPropsType> {
                         <Grid item className={classes.item}>
                             <FacultySubdocumentCard
                                 empty={false}
-                                name="test"
+                                name="Degrees"
+                                onAddClick={this.temporaryAddClick}
+                                canAdd={true}
+                            >
+                                <DegreesView degrees={activeFacultyMember.degrees!} />
+                            </FacultySubdocumentCard>
+                        </Grid>
+                        <Grid item className={classes.item}>
+                            <FacultySubdocumentCard
+                                empty={false}
+                                name="Academic Recognitions"
+                                onAddClick={this.temporaryAddClick}
+                                canAdd={true}
+                            >
+                                <div>Something</div>
+                            </FacultySubdocumentCard>
+                        </Grid>
+                        <Grid item className={classes.item}>
+                            <FacultySubdocumentCard
+                                empty={false}
+                                name="Presentations"
+                                onAddClick={this.temporaryAddClick}
+                                canAdd={true}
+                            >
+                                <div>Something</div>
+                            </FacultySubdocumentCard>
+                        </Grid>
+                        <Grid item className={classes.item}>
+                            <FacultySubdocumentCard
+                                empty={false}
+                                name="Instructional Materials"
+                                onAddClick={this.temporaryAddClick}
+                                canAdd={true}
+                            >
+                                <div>Something</div>
+                            </FacultySubdocumentCard>
+                        </Grid>
+                        <Grid item className={classes.item}>
+                            <FacultySubdocumentCard
+                                empty={false}
+                                name="Extension Works"
                                 onAddClick={this.temporaryAddClick}
                                 canAdd={true}
                             >
