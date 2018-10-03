@@ -6,6 +6,7 @@ import IStyleClasses from "../../../../interfaces/style_classes";
 import { FacultyProfilesState } from "../../../../store/faculty_profiles";
 import BasicInformationView from "./components/BasicInformationView";
 import DegreesView from "./components/DegreesView";
+import ExtensionWorksView from "./components/ExtensionWorksView";
 import FacultySubdocumentCard from "./components/FacultySubdocumentCard";
 import styles from "./styles";
 
@@ -60,7 +61,9 @@ class FacultyDetail extends React.Component<IPropsType> {
                                 onAddClick={this.temporaryAddClick}
                                 canAdd={true}
                             >
-                                <DegreesView degrees={activeFacultyMember.degrees!} />
+                                <DegreesView
+                                    degrees={activeFacultyMember.degrees!}
+                                />
                             </FacultySubdocumentCard>
                         </Grid>
                         <Grid item className={classes.item}>
@@ -100,7 +103,11 @@ class FacultyDetail extends React.Component<IPropsType> {
                                 onAddClick={this.temporaryAddClick}
                                 canAdd={true}
                             >
-                                <div>Something</div>
+                                <ExtensionWorksView
+                                    extensionWorks={
+                                        activeFacultyMember.extensionWorks!
+                                    }
+                                />
                             </FacultySubdocumentCard>
                         </Grid>
                     </Grid>
