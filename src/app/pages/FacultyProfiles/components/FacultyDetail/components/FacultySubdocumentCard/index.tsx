@@ -15,7 +15,7 @@ import styles from "./styles";
 interface IPropsType {
     empty: boolean;
     name: string;
-    onAddClick: () => void;
+    onAddClick: (event: React.MouseEvent<HTMLElement>) => void;
     canAdd: boolean;
     children: React.ReactNode;
     classes: IStyleClasses;
