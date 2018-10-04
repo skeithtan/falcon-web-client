@@ -55,7 +55,7 @@ class BasicInformationView extends React.Component<IPropsType> {
                         </IconButton>
                     </Tooltip>
                 </Toolbar>
-                <List>
+                <List disablePadding>
                     <FacultyDetailItem
                         field="Faculty Type"
                         value={readableType!}
