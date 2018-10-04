@@ -8,6 +8,7 @@ import StateWrapper from "../../components/reusable/StateWrapper";
 import FacultyProfilesController from "../../controllers/faculty_profiles";
 import IStyleClasses from "../../interfaces/style_classes";
 import { FacultyProfilesState } from "../../store/faculty_profiles";
+import AddDegreeFormView from "./components/AddDegreeFormView";
 import AddFacultyMemberFormView from "./components/AddFacultyMemberForm";
 import FacultyDetail from "./components/FacultyDetail/index";
 import FacultyList from "./components/FacultyList/index";
@@ -39,7 +40,10 @@ class FacultyProfiles extends React.Component<IPropsType> {
         const { facultyMembers } = facultyProfiles!;
 
         return (
-            <StateWrapper fetchableState={facultyProfiles!.fetchStatus} disableFlex>
+            <StateWrapper
+                fetchableState={facultyProfiles!.fetchStatus}
+                disableFlex
+            >
                 {() => (
                     <React.Fragment>
                         {facultyMembers!.size === 0 && (
@@ -73,6 +77,7 @@ class FacultyProfiles extends React.Component<IPropsType> {
                         )}
 
                         <AddFacultyMemberFormView />
+                        <AddDegreeFormView />
                     </React.Fragment>
                 )}
             </StateWrapper>
