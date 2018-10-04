@@ -1,12 +1,20 @@
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
+import ExpansionPanel from "@material-ui/core/ExpansionPanel";
+import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
+import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
+import List from "@material-ui/core/List";
+import Typography from "@material-ui/core/Typography";
 import { inject, observer } from "mobx-react";
+import * as moment from "moment";
 import * as React from "react";
 import Presentation from "../../../../../../models/entities/presentation";
-import PresentationItem from "./components/PresentationItem";
+import PresentationCategory, {
+    PresentationCategoryReadable,
+} from "../../../../../../models/enums/presentation_category";
+import PresentationMedium, {
+    PresentationMediumReadable,
+} from "../../../../../../models/enums/presentation_medium";
+import AssociatedProgramsItem from "../AssociatedProgramsItem";
+import FacultyDetailItem from "../FacultyDetailItem";
 
 interface IPropsType {
     presentations: Presentation[];
@@ -18,31 +26,64 @@ export default class PresentationsView extends React.Component<IPropsType> {
     public render() {
         const { presentations } = this.props;
         return (
-            <Table>
-                <TableHead>
-                    <TableRow>
-                        <TableCell>Title</TableCell>
-                        <TableCell>Category</TableCell>
-                        <TableCell>Date</TableCell>
-                        <TableCell>Sponsor</TableCell>
-                        <TableCell>Venue</TableCell>
-                        <TableCell>Conference</TableCell>
-                        <TableCell>Medium</TableCell>
-                        <TableCell>Days Duration</TableCell>
-                        <TableCell>Associated Programs</TableCell>
-                        <TableCell>Actions</TableCell>
-                    </TableRow>
-                </TableHead>
-                {presentations !== undefined && (
-                    <TableBody>
-                        {presentations!.map(p => {
-                            return (
-                                <PresentationItem key={p.id} presentation={p} />
-                            );
-                        })}
-                    </TableBody>
-                )}
-            </Table>
+            <React.Fragment>
+                {presentations !== undefined &&
+                    presentations.map(p => {
+                        const category = PresentationCategoryReadable.get(
+                            p.category
+                        ) as PresentationCategory;
+                        const medium = PresentationMediumReadable.get(
+                            p.medium
+                        ) as PresentationMedium;
+                        const date = moment(p.date).format("LL");
+                        const daysDuration = `${p.daysDuration} days`;
+                        return (
+                            <ExpansionPanel key={p.id}>
+                                <ExpansionPanelSummary>
+                                    <Typography variant="subheading">
+                                        {p.title}
+                                    </Typography>
+                                </ExpansionPanelSummary>
+                                <ExpansionPanelDetails>
+                                    <List>
+                                        <FacultyDetailItem
+                                            field="Category"
+                                            value={category}
+                                        />
+                                        <FacultyDetailItem
+                                            field="Date"
+                                            value={date}
+                                        />
+                                        <FacultyDetailItem
+                                            field="Sponsor"
+                                            value={p.sponsor}
+                                        />
+                                        <FacultyDetailItem
+                                            field="Venue"
+                                            value={p.venue}
+                                        />
+                                        <FacultyDetailItem
+                                            field="Conference"
+                                            value={p.conference}
+                                        />
+                                        <FacultyDetailItem
+                                            field="Medium"
+                                            value={medium}
+                                        />
+                                        <FacultyDetailItem
+                                            field="Days Duration"
+                                            value={daysDuration}
+                                        />
+                                        <AssociatedProgramsItem
+                                            field="Associated Programs"
+                                            programs={p.associatedPrograms!}
+                                        />
+                                    </List>
+                                </ExpansionPanelDetails>
+                            </ExpansionPanel>
+                        );
+                    })}
+            </React.Fragment>
         );
     }
 }
