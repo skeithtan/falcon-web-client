@@ -8,6 +8,7 @@ import * as React from "react";
 import Degree from "../../../../../../models/entities/degree";
 import AssociatedProgramsItem from "../AssociatedProgramsItem";
 import FacultyDetailItem from "../FacultyDetailItem";
+
 interface IPropsType {
     degrees: Degree[];
 }
