@@ -4,6 +4,7 @@ import Typography from "@material-ui/core/Typography";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
 import StateWrapper from "../../../../components/reusable/StateWrapper";
+import FacultyProfilesController from "../../../../controllers/faculty_profiles";
 import IStyleClasses from "../../../../interfaces/style_classes";
 import FacultyMember from "../../../../models/entities/faculty_member";
 import { FacultyProfilesState } from "../../../../store/faculty_profiles";
@@ -27,6 +28,10 @@ class FacultyDetail extends React.Component<IPropsType> {
     public temporaryAddClick() {
         global.console.log("Cool! You wanna add something!");
     }
+
+    public addDegreeFormToggle = (shouldShow: boolean) => () => {
+        FacultyProfilesController.toggleAddDegreeForm(shouldShow);
+    };
 
     public renderEmptyState = () => {
         const { classes } = this.props;
@@ -68,7 +73,7 @@ class FacultyDetail extends React.Component<IPropsType> {
                             <FacultySubdocumentCard
                                 empty={fm.degrees!.length === 0}
                                 name="Degrees"
-                                onAddClick={this.temporaryAddClick}
+                                onAddClick={this.addDegreeFormToggle(true)}
                                 canAdd={true}
                             >
                                 <DegreesView degrees={fm.degrees!} />
