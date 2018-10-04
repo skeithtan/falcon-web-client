@@ -59,7 +59,9 @@ class FacultyDetail extends React.Component<IPropsType> {
                         </Grid>
                         <Grid item className={classes.item}>
                             <FacultySubdocumentCard
-                                empty={false}
+                                empty={
+                                    activeFacultyMember.degrees === undefined
+                                }
                                 name="Degrees"
                                 onAddClick={this.temporaryAddClick}
                                 canAdd={true}
@@ -71,7 +73,10 @@ class FacultyDetail extends React.Component<IPropsType> {
                         </Grid>
                         <Grid item className={classes.item}>
                             <FacultySubdocumentCard
-                                empty={false}
+                                empty={
+                                    activeFacultyMember.recognitions ===
+                                    undefined
+                                }
                                 name="Academic Recognitions"
                                 onAddClick={this.temporaryAddClick}
                                 canAdd={true}
@@ -85,7 +90,10 @@ class FacultyDetail extends React.Component<IPropsType> {
                         </Grid>
                         <Grid item className={classes.item}>
                             <FacultySubdocumentCard
-                                empty={false}
+                                empty={
+                                    activeFacultyMember.presentations ===
+                                    undefined
+                                }
                                 name="Presentations"
                                 onAddClick={this.temporaryAddClick}
                                 canAdd={true}
@@ -99,7 +107,10 @@ class FacultyDetail extends React.Component<IPropsType> {
                         </Grid>
                         <Grid item className={classes.item}>
                             <FacultySubdocumentCard
-                                empty={false}
+                                empty={
+                                    activeFacultyMember.instructionalMaterials ===
+                                    undefined
+                                }
                                 name="Instructional Materials"
                                 onAddClick={this.temporaryAddClick}
                                 canAdd={true}
@@ -113,7 +124,10 @@ class FacultyDetail extends React.Component<IPropsType> {
                         </Grid>
                         <Grid item className={classes.item}>
                             <FacultySubdocumentCard
-                                empty={false}
+                                empty={
+                                    activeFacultyMember.extensionWorks ===
+                                    undefined
+                                }
                                 name="Extension Works"
                                 onAddClick={this.temporaryAddClick}
                                 canAdd={true}
