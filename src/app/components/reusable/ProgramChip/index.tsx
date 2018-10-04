@@ -1,4 +1,3 @@
-import Avatar from "@material-ui/core/Avatar";
 import Chip from "@material-ui/core/Chip";
 import { withStyles } from "@material-ui/core/styles";
 import * as React from "react";
@@ -13,12 +12,7 @@ interface IPropsType {
 class ProgramChip extends React.Component<IPropsType> {
     public render() {
         const { program, classes } = this.props;
-        return (
-            <Chip
-                avatar={<Avatar>{program.substr(0)}</Avatar>}
-                className={classes.chip}
-            />
-        );
+        return <Chip label={program} className={classes.chip} />;
     }
 }
 
