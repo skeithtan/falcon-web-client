@@ -11,5 +11,6 @@ export default {
     detail: {
         width: "100%",
         overflowY: "scroll",
+        overflowX: "hidden",
     },
 } as StyleRules;
