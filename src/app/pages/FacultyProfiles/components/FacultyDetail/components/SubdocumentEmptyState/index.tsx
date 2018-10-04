@@ -11,7 +11,7 @@ interface IPropsType {
     onButtonClick: (event: React.MouseEvent<HTMLElement>) => void;
 }
 
-export default class EmptyState extends React.Component<IPropsType> {
+export default class SubdocumentEmptyState extends React.Component<IPropsType> {
     public render() {
         const {
             title,
@@ -23,10 +23,10 @@ export default class EmptyState extends React.Component<IPropsType> {
         return (
             <div>
                 <CardContent>
-                    <Typography gutterBottom variant="headline">
+                    <Typography gutterBottom variant="title">
                         {title}
                     </Typography>
-                    <Typography gutterBottom color="textSecondary">
+                    <Typography color="textSecondary">
                         {description}
                     </Typography>
                 </CardContent>
