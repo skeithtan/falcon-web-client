@@ -12,7 +12,7 @@ interface IPropsType {
     title: string;
     description: string;
     addButton?: string;
-    onButtonClick: (event: React.MouseEvent<HTMLElement>) => void;
+    onButtonClick?: (event: React.MouseEvent<HTMLElement>) => void;
     classes: IStyleClasses;
 }
 
@@ -37,15 +37,17 @@ class EmptyState extends React.Component<IPropsType> {
                             {description}
                         </Typography>
                     </CardContent>
-                    <CardActions>
-                        <Button
-                            onClick={onButtonClick}
-                            color="primary"
-                            size="small"
-                        >
-                            {addButton ? addButton : "Add"}
-                        </Button>
-                    </CardActions>
+                    {onButtonClick !== undefined && (
+                        <CardActions>
+                            <Button
+                                onClick={onButtonClick}
+                                color="primary"
+                                size="small"
+                            >
+                                {addButton ? addButton : "Add"}
+                            </Button>
+                        </CardActions>
+                    )}
                 </Card>
             </div>
         );
