@@ -3,6 +3,7 @@ import CardContent from "@material-ui/core/CardContent";
 import IconButton from "@material-ui/core/IconButton";
 import { withStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
+import Tooltip from "@material-ui/core/Tooltip";
 import Typography from "@material-ui/core/Typography";
 import Add from "@material-ui/icons/Add";
 import { inject, observer } from "mobx-react";
@@ -41,9 +42,14 @@ class FacultySubdocumentCard extends React.Component<IPropsType> {
                             <Typography variant="title">{name}</Typography>
                             <div className={classes.grow} />
                             {canAdd && (
-                                <IconButton onClick={onAddClick}>
-                                    <Add />
-                                </IconButton>
+                                <Tooltip
+                                    title={`Add to ${name}`}
+                                    placement="left"
+                                >
+                                    <IconButton onClick={onAddClick}>
+                                        <Add />
+                                    </IconButton>
+                                </Tooltip>
                             )}
                         </Toolbar>
                         <CardContent>{children}</CardContent>
