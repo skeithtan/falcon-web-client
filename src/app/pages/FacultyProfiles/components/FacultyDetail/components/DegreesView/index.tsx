@@ -6,6 +6,9 @@ import Typography from "@material-ui/core/Typography";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
 import Degree from "../../../../../../models/entities/degree";
+import DegreeLevel, {
+    DegreeLevelReadable,
+} from "../../../../../../models/enums/degree_level";
 import AssociatedProgramsItem from "../AssociatedProgramsItem";
 import FacultyDetailItem from "../FacultyDetailItem";
 
@@ -22,6 +25,9 @@ export default class DegreesView extends React.Component<IPropsType> {
             <React.Fragment>
                 {degrees !== undefined &&
                     degrees.map(d => {
+                        const level = DegreeLevelReadable.get(
+                            d.level
+                        ) as DegreeLevel;
                         return (
                             <ExpansionPanel key={d.id}>
                                 <ExpansionPanelSummary>
@@ -33,7 +39,7 @@ export default class DegreesView extends React.Component<IPropsType> {
                                     <List>
                                         <FacultyDetailItem
                                             field="Level"
-                                            value={d.level}
+                                            value={level}
                                         />
                                         <FacultyDetailItem
                                             field="Completion Year"
