@@ -1,8 +1,10 @@
-import { StyleRules, Theme } from "@material-ui/core/styles";
+import { StyleRules } from "@material-ui/core/styles";
 
-export default (theme: Theme): StyleRules => ({
+export default {
     detail: {
-        padding: theme.spacing.unit * 5,
+        width: "90%",
+        maxWidth: 1400,
+        margin: "40px auto",
     },
     item: {
         width: "100%",
@@ -10,4 +12,4 @@ export default (theme: Theme): StyleRules => ({
     detailEmptyState: {
         height: "100%",
     },
-});
+} as StyleRules;
