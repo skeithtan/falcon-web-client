@@ -45,10 +45,10 @@ class FacultyDetail extends React.Component<IPropsType> {
         );
     };
 
-    public renderDetail = (activeFacultyMember: FacultyMember) => {
+    public renderDetail = (fm: FacultyMember) => {
         const { classes } = this.props;
         return (
-            <StateWrapper fetchableState={activeFacultyMember.fetchStatus}>
+            <StateWrapper fetchableState={fm.fetchStatus}>
                 {() => (
                     <Grid
                         container
@@ -60,89 +60,67 @@ class FacultyDetail extends React.Component<IPropsType> {
                     >
                         <Grid item className={classes.item}>
                             <BasicInformationView
-                                facultyMember={activeFacultyMember}
+                                facultyMember={fm}
                                 canUpdate
                             />
                         </Grid>
                         <Grid item className={classes.item}>
                             <FacultySubdocumentCard
-                                empty={
-                                    activeFacultyMember.degrees === undefined
-                                }
+                                empty={fm.degrees!.length === 0}
                                 name="Degrees"
                                 onAddClick={this.temporaryAddClick}
                                 canAdd={true}
                             >
-                                <DegreesView
-                                    degrees={activeFacultyMember.degrees!}
-                                />
+                                <DegreesView degrees={fm.degrees!} />
                             </FacultySubdocumentCard>
                         </Grid>
                         <Grid item className={classes.item}>
                             <FacultySubdocumentCard
-                                empty={
-                                    activeFacultyMember.recognitions ===
-                                    undefined
-                                }
+                                empty={fm.recognitions!.length === 0}
                                 name="Academic Recognitions"
                                 onAddClick={this.temporaryAddClick}
                                 canAdd={true}
                             >
                                 <RecognitionsView
-                                    recognitions={
-                                        activeFacultyMember.recognitions!
-                                    }
+                                    recognitions={fm.recognitions!}
                                 />
                             </FacultySubdocumentCard>
                         </Grid>
                         <Grid item className={classes.item}>
                             <FacultySubdocumentCard
-                                empty={
-                                    activeFacultyMember.presentations ===
-                                    undefined
-                                }
+                                empty={fm.presentations!.length === 0}
                                 name="Presentations"
                                 onAddClick={this.temporaryAddClick}
                                 canAdd={true}
                             >
                                 <PresentationsView
-                                    presentations={
-                                        activeFacultyMember.presentations!
-                                    }
+                                    presentations={fm.presentations!}
                                 />
                             </FacultySubdocumentCard>
                         </Grid>
                         <Grid item className={classes.item}>
                             <FacultySubdocumentCard
-                                empty={
-                                    activeFacultyMember.instructionalMaterials ===
-                                    undefined
-                                }
+                                empty={fm.instructionalMaterials!.length === 0}
                                 name="Instructional Materials"
                                 onAddClick={this.temporaryAddClick}
                                 canAdd={true}
                             >
                                 <InstructionalMaterialsView
                                     instructionalMaterials={
-                                        activeFacultyMember.instructionalMaterials!
+                                        fm.instructionalMaterials!
                                     }
                                 />
                             </FacultySubdocumentCard>
                         </Grid>
                         <Grid item className={classes.item}>
                             <FacultySubdocumentCard
-                                empty={
-                                    activeFacultyMember.extensionWorks ===
-                                    undefined
-                                }
+                                empty={fm.extensionWorks!.length === 0}
                                 name="Extension Works"
                                 onAddClick={this.temporaryAddClick}
                                 canAdd={true}
                             >
                                 <ExtensionWorksView
-                                    extensionWorks={
-                                        activeFacultyMember.extensionWorks!
-                                    }
+                                    extensionWorks={fm.extensionWorks!}
                                 />
                             </FacultySubdocumentCard>
                         </Grid>
