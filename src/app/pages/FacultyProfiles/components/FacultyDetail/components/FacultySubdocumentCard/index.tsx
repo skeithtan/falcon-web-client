@@ -9,6 +9,7 @@ import Add from "@material-ui/icons/Add";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
 import IStyleClasses from "../../../../../../interfaces/style_classes";
+import SubdocumentEmptyState from "../SubdocumentEmptyState";
 import styles from "./styles";
 
 interface IPropsType {
@@ -34,7 +35,14 @@ class FacultySubdocumentCard extends React.Component<IPropsType> {
         } = this.props;
         return (
             <Card className={classes.card}>
-                {empty && <div>ReusableEmptyState goes here</div>}
+                {empty && (
+                    <SubdocumentEmptyState
+                        title={name}
+                        description={`This faculty member does not have ${name} yet.`}
+                        addButton={`Add to ${name}`}
+                        onButtonClick={onAddClick}
+                    />
+                )}
 
                 {!empty && (
                     <React.Fragment>
