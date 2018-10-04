@@ -1,12 +1,14 @@
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
+import ExpansionPanel from "@material-ui/core/ExpansionPanel";
+import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
+import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
+import List from "@material-ui/core/List";
+import Typography from "@material-ui/core/Typography";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
 import ExtensionWork from "../../../../../../models/entities/extension_work";
-import ExtensionWorkItem from "./components/ExtensionWorkItem";
+import AssociatedProgramsItem from "../AssociatedProgramsItem";
+import FacultyDetailItem from "../FacultyDetailItem";
+import ExtensionRolesItem from "./components/ExtensionRolesItem";
 
 interface IPropsType {
     extensionWorks: ExtensionWork[];
@@ -18,29 +20,36 @@ export default class ExtensionWorksView extends React.Component<IPropsType> {
     public render() {
         const { extensionWorks } = this.props;
         return (
-            <Table>
-                <TableHead>
-                    <TableRow>
-                        <TableCell>Title</TableCell>
-                        <TableCell>Venue</TableCell>
-                        <TableCell>Roles</TableCell>
-                        <TableCell>Associated Programs</TableCell>
-                        <TableCell>Actions</TableCell>
-                    </TableRow>
-                </TableHead>
-                {extensionWorks !== undefined && (
-                    <TableBody>
-                        {extensionWorks.map(ew => {
-                            return (
-                                <ExtensionWorkItem
-                                    key={ew.id}
-                                    extensionWork={ew}
-                                />
-                            );
-                        })}
-                    </TableBody>
-                )}
-            </Table>
+            <React.Fragment>
+                {extensionWorks !== undefined &&
+                    extensionWorks.map(ew => {
+                        return (
+                            <ExpansionPanel key={ew.id}>
+                                <ExpansionPanelSummary>
+                                    <Typography variant="subheading">
+                                        {ew.title}
+                                    </Typography>
+                                </ExpansionPanelSummary>
+                                <ExpansionPanelDetails>
+                                    <List>
+                                        <FacultyDetailItem
+                                            field="Level"
+                                            value={ew.venue}
+                                        />
+                                        <ExtensionRolesItem
+                                            field="Roles"
+                                            extensionWorkRoles={ew.roles}
+                                        />
+                                        <AssociatedProgramsItem
+                                            field="Associated Programs"
+                                            programs={ew.associatedPrograms!}
+                                        />
+                                    </List>
+                                </ExpansionPanelDetails>
+                            </ExpansionPanel>
+                        );
+                    })}
+            </React.Fragment>
         );
     }
 }

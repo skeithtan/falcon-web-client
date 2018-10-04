@@ -1,12 +1,19 @@
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
+import ExpansionPanel from "@material-ui/core/ExpansionPanel";
+import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
+import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
+import List from "@material-ui/core/List";
+import Typography from "@material-ui/core/Typography";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
 import InstructionalMaterial from "../../../../../../models/entities/instructional_material";
-import InstructionalMaterialItem from "./components/InstructionalMaterialItem";
+import InstructionalMaterialAudience, {
+    InstructionalMaterialAudienceReadable,
+} from "../../../../../../models/enums/instructional_material_audience";
+import InstructionalMaterialMedium, {
+    InstructionalMaterialMediumReadable,
+} from "../../../../../../models/enums/instructional_material_medium";
+import AssociatedProgramsItem from "../AssociatedProgramsItem";
+import FacultyDetailItem from "../FacultyDetailItem";
 
 interface IPropsType {
     instructionalMaterials: InstructionalMaterial[];
@@ -20,31 +27,52 @@ export default class InstructionalMaterialsView extends React.Component<
     public render() {
         const { instructionalMaterials } = this.props;
         return (
-            <Table>
-                <TableHead>
-                    <TableRow>
-                        <TableCell>Title</TableCell>
-                        <TableCell>Medium</TableCell>
-                        <TableCell>Audience</TableCell>
-                        <TableCell>Usage Year</TableCell>
-                        <TableCell>Student Level</TableCell>
-                        <TableCell>Associated Programs</TableCell>
-                        <TableCell>Actions</TableCell>
-                    </TableRow>
-                </TableHead>
-                {instructionalMaterials !== undefined && (
-                    <TableBody>
-                        {instructionalMaterials.map(im => {
-                            return (
-                                <InstructionalMaterialItem
-                                    key={im.id}
-                                    instructionalMaterial={im}
-                                />
-                            );
-                        })}
-                    </TableBody>
-                )}
-            </Table>
+            <React.Fragment>
+                {instructionalMaterials !== undefined &&
+                    instructionalMaterials.map(im => {
+                        const medium = InstructionalMaterialMediumReadable.get(
+                            im.medium
+                        ) as InstructionalMaterialMedium;
+                        const audience = InstructionalMaterialAudienceReadable.get(
+                            im.audience
+                        ) as InstructionalMaterialAudience;
+                        return (
+                            <ExpansionPanel key={im.id}>
+                                <ExpansionPanelSummary>
+                                    <Typography variant="subheading">
+                                        {im.title}
+                                    </Typography>
+                                </ExpansionPanelSummary>
+                                <ExpansionPanelDetails>
+                                    <List>
+                                        <FacultyDetailItem
+                                            field="Medium"
+                                            value={medium}
+                                        />
+                                        <FacultyDetailItem
+                                            field="Audience"
+                                            value={audience}
+                                        />
+                                        <FacultyDetailItem
+                                            field="Usage Year"
+                                            value={im.usageYear}
+                                        />
+                                        {im.level !== undefined && (
+                                            <FacultyDetailItem
+                                                field="Student Level"
+                                                value={`${im.level}`}
+                                            />
+                                        )}
+                                        <AssociatedProgramsItem
+                                            field="Associated Programs"
+                                            programs={im.associatedPrograms!}
+                                        />
+                                    </List>
+                                </ExpansionPanelDetails>
+                            </ExpansionPanel>
+                        );
+                    })}
+            </React.Fragment>
         );
     }
 }

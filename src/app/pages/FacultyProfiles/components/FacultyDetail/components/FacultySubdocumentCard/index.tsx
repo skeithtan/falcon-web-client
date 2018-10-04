@@ -3,11 +3,13 @@ import CardContent from "@material-ui/core/CardContent";
 import IconButton from "@material-ui/core/IconButton";
 import { withStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
+import Tooltip from "@material-ui/core/Tooltip";
 import Typography from "@material-ui/core/Typography";
 import Add from "@material-ui/icons/Add";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
 import IStyleClasses from "../../../../../../interfaces/style_classes";
+import SubdocumentEmptyState from "../SubdocumentEmptyState";
 import styles from "./styles";
 
 interface IPropsType {
@@ -33,7 +35,14 @@ class FacultySubdocumentCard extends React.Component<IPropsType> {
         } = this.props;
         return (
             <Card className={classes.card}>
-                {empty && <div>ReusableEmptyState goes here</div>}
+                {empty && (
+                    <SubdocumentEmptyState
+                        title={name}
+                        description={`This faculty member does not have ${name} yet.`}
+                        addButton={`Add to ${name}`}
+                        onButtonClick={onAddClick}
+                    />
+                )}
 
                 {!empty && (
                     <React.Fragment>
@@ -41,9 +50,14 @@ class FacultySubdocumentCard extends React.Component<IPropsType> {
                             <Typography variant="title">{name}</Typography>
                             <div className={classes.grow} />
                             {canAdd && (
-                                <IconButton onClick={onAddClick}>
-                                    <Add />
-                                </IconButton>
+                                <Tooltip
+                                    title={`Add to ${name}`}
+                                    placement="left"
+                                >
+                                    <IconButton onClick={onAddClick}>
+                                        <Add />
+                                    </IconButton>
+                                </Tooltip>
                             )}
                         </Toolbar>
                         <CardContent>{children}</CardContent>

@@ -3,7 +3,7 @@ import ListItem from "@material-ui/core/ListItem";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import * as React from "react";
-import IStyleClasses from "../../../../../../../../interfaces/style_classes";
+import IStyleClasses from "../../../../../../interfaces/style_classes";
 import styles from "./styles";
 
 interface IPropsType {
