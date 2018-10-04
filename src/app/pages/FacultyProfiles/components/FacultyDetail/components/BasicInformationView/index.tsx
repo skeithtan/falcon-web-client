@@ -14,7 +14,7 @@ import FacultyMember from "../../../../../../models/entities/faculty_member";
 import FacultyMemberType, {
     FacultyMemberTypeReadable,
 } from "../../../../../../models/enums/faculty_member_type";
-import InformationItem from "./components/InformationItem";
+import FacultyDetailItem from "../FacultyDetailItem";
 import styles from "./styles";
 
 interface IPropsType {
@@ -51,20 +51,20 @@ class BasicInformationView extends React.Component<IPropsType> {
                     </IconButton>
                 </Toolbar>
                 <List>
-                    <InformationItem
+                    <FacultyDetailItem
                         field="Faculty Type"
                         value={readableType!}
                     />
-                    <InformationItem
+                    <FacultyDetailItem
                         field="ID Number"
                         value={facultyMember.formattedPnuId}
                     />
-                    <InformationItem
+                    <FacultyDetailItem
                         field="Email"
                         value={facultyMember.user!.email}
                     />
-                    <InformationItem field="Sex" value={facultyMember.sex} />
-                    <InformationItem
+                    <FacultyDetailItem field="Sex" value={facultyMember.sex} />
+                    <FacultyDetailItem
                         field="Date of Birth"
                         value={dateOfBirth}
                     />
