@@ -65,4 +65,13 @@ export default class FacultyProfilesController {
     public static setActiveFacultyMember(id: number) {
         facultyProfiles.activeFacultyId = id;
     }
+
+    public static toggleAddDegreeForm(shouldShow: boolean) {
+        facultyProfiles.addDegreeFormState.isShowing = shouldShow;
+
+        if (!shouldShow) {
+            // Reset the form on close
+            facultyProfiles.addDegreeFormState.resetAndClose();
+        }
+    }
 }
