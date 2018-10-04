@@ -2,6 +2,7 @@ import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
+import EmptyState from "../../../../components/reusable/EmptyState";
 import IStyleClasses from "../../../../interfaces/style_classes";
 import { FacultyProfilesState } from "../../../../store/faculty_profiles";
 import BasicInformationView from "./components/BasicInformationView";
@@ -30,15 +31,19 @@ class FacultyDetail extends React.Component<IPropsType> {
         const { activeFacultyMember } = facultyProfiles!;
 
         return (
-            <div>
+            <React.Fragment>
                 {activeFacultyMember === undefined && (
                     <Grid
                         container
-                        direction="row"
-                        justify="flex-start"
+                        direction="column"
+                        justify="center"
                         alignItems="center"
+                        className={classes.emptyState}
                     >
-                        <Grid item>Hey select someone</Grid>
+                        <EmptyState
+                            title="Faculty Details"
+                            description="Select a faculty member on the list to view their details."
+                        />
                     </Grid>
                 )}
 
@@ -141,7 +146,7 @@ class FacultyDetail extends React.Component<IPropsType> {
                         </Grid>
                     </Grid>
                 )}
-            </div>
+            </React.Fragment>
         );
     }
 }
