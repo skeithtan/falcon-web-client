@@ -35,7 +35,7 @@ export default class PresentationsView extends React.Component<IPropsType> {
                         const medium = PresentationMediumReadable.get(
                             p.medium
                         ) as PresentationMedium;
-                        const date = moment(p.date).format("LL");
+                        const date = moment(p.date).format("MMMM Do YYYY");
                         const daysDuration = `${p.daysDuration} days`;
                         return (
                             <ExpansionPanel key={p.id}>

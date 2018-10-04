@@ -30,7 +30,7 @@ export default class RecognitionsView extends React.Component<IPropsType> {
                             r.basis
                         ) as RecognitionBasis;
                         const recognitionDate = moment(r.date).format(
-                            "MMMM do YYYY"
+                            "MMMM Do YYYY"
                         );
                         return (
                             <ExpansionPanel key={r.id}>
