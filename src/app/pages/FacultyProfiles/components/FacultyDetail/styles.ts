@@ -7,7 +7,7 @@ export default (theme: Theme): StyleRules => ({
     item: {
         width: "100%",
     },
-    emptyState: {
+    detailEmptyState: {
         height: "100%",
     },
 });
