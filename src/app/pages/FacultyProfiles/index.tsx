@@ -34,56 +34,48 @@ class FacultyProfiles extends React.Component<IPropsType> {
         FacultyProfilesController.toggleAddFacultyMemberForm(shouldShow);
     };
 
-    public renderFetched = () => {
-        const {
-            // match: { params },
-            classes,
-            facultyProfiles,
-        } = this.props;
-
-        const { facultyMembers } = facultyProfiles!;
-        return (
-            <React.Fragment>
-                {facultyMembers!.size === 0 && (
-                    <EmptyState
-                        title="Faculty Profiles"
-                        description="View and add faculty members, degrees, research presentations, instructional materials, academic recognitions, and extension works."
-                        addButton="Add Faculty Member"
-                        onButtonClick={this.addFacultyMemberFormToggle(true)}
-                    />
-                )}
-
-                {facultyMembers!.size > 0 && (
-                    <Grid
-                        className={classes.root}
-                        container
-                        direction="row"
-                        alignItems="stretch"
-                        wrap="nowrap"
-                    >
-                        <React.Fragment>
-                            <Grid item className={classes.list}>
-                                <FacultyList />
-                            </Grid>
-                            <Grid item className={classes.detail}>
-                                <FacultyDetail />
-                            </Grid>
-                        </React.Fragment>
-                    </Grid>
-                )}
-
-                <AddFacultyMemberFormView />
-            </React.Fragment>
-        );
-    };
-
     public render() {
-        const { facultyProfiles } = this.props;
+        const { classes, facultyProfiles } = this.props;
+        const { facultyMembers } = facultyProfiles!;
+
         return (
-            <StateWrapper
-                fetchableState={facultyProfiles!.fetchStatus}
-                renderFetched={this.renderFetched}
-            />
+            <StateWrapper fetchableState={facultyProfiles!.fetchStatus} disableFlex>
+                {() => (
+                    <React.Fragment>
+                        {facultyMembers!.size === 0 && (
+                            <EmptyState
+                                title="Faculty Profiles"
+                                description="View and add faculty members, degrees, research presentations, instructional materials, academic recognitions, and extension works."
+                                addButton="Add Faculty Member"
+                                onButtonClick={this.addFacultyMemberFormToggle(
+                                    true
+                                )}
+                            />
+                        )}
+
+                        {facultyMembers!.size > 0 && (
+                            <Grid
+                                className={classes.root}
+                                container
+                                direction="row"
+                                alignItems="stretch"
+                                wrap="nowrap"
+                            >
+                                <React.Fragment>
+                                    <Grid item className={classes.list}>
+                                        <FacultyList />
+                                    </Grid>
+                                    <Grid item className={classes.detail}>
+                                        <FacultyDetail />
+                                    </Grid>
+                                </React.Fragment>
+                            </Grid>
+                        )}
+
+                        <AddFacultyMemberFormView />
+                    </React.Fragment>
+                )}
+            </StateWrapper>
         );
     }
 }

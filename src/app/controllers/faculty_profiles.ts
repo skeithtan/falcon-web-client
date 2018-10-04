@@ -1,3 +1,4 @@
+import FacultyMember from "../models/entities/faculty_member";
 import FetchableStatus from "../models/enums/fetchable_status";
 import FormStatus from "../models/enums/form_status";
 import AddFacultyMemberForm from "../models/forms/add_faculty_member_form";
@@ -21,12 +22,15 @@ export default class FacultyProfilesController {
             });
     }
 
-    public static get(facultyId: number) {
-        FacultyMembersService.fetchFacultyMember(facultyId)
-            .then(facultyMember => {
-                facultyProfiles.facultyMembers!.set(facultyId, facultyMember);
+    public static getSubdocuments(facultyMember: FacultyMember) {
+        facultyMember.fetchStatus = FetchableStatus.Fetching;
+
+        FacultyMembersService.fetchFacultyMember(facultyMember.id)
+            .then(fm => {
+                facultyProfiles.facultyMembers!.set(facultyMember.id, fm);
             })
             .catch((e: Error) => {
+                facultyMember.fetchStatus = FetchableStatus.Error;
                 facultyProfiles.setStatus(FetchableStatus.Error, e.message);
             });
     }

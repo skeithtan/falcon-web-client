@@ -1,5 +1,6 @@
 enum FetchableStatus {
     Unfetched,
+    Partial,
     Fetched,
     Fetching,
     Error,
@@ -7,6 +8,7 @@ enum FetchableStatus {
 
 export const FetchableStatusReadable = new Map<FetchableStatus, string>([
     [FetchableStatus.Unfetched, "Unfetched"],
+    [FetchableStatus.Partial, "Partial"],
     [FetchableStatus.Fetched, "Fetched"],
     [FetchableStatus.Fetching, "Fetching"],
     [FetchableStatus.Error, "Error"],

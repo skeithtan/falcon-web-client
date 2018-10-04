@@ -1,5 +1,6 @@
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { withStyles } from "@material-ui/core/styles";
+import * as classNames from "classnames";
 import { observer } from "mobx-react";
 import * as React from "react";
 import IStyleClasses from "../../../interfaces/style_classes";
@@ -8,10 +9,11 @@ import styles from "./styles";
 
 interface IPropsType {
     fetchableState: FetchableStatus;
-    renderFetched: () => React.ReactNode;
+    children: () => React.ReactNode;
     errorView?: React.ReactNode;
     loadingView?: React.ReactNode;
     classes: IStyleClasses;
+    disableFlex?: boolean;
 }
 
 @observer
@@ -23,26 +25,40 @@ class StateWrapper extends React.Component<IPropsType> {
     public render() {
         const {
             fetchableState,
-            renderFetched,
+            children,
             errorView,
             loadingView,
             classes,
+            disableFlex,
         } = this.props;
-
-        let child: React.ReactNode = <div />;
 
         switch (fetchableState) {
             case FetchableStatus.Error:
-                child = errorView ? errorView : <div>Error</div>;
-                break;
+                return (
+                    <div className={classNames(classes.root, classes.flex)}>
+                        {errorView ? errorView : <div>Error</div>}
+                    </div>
+                );
             case FetchableStatus.Fetching:
-                child = loadingView ? loadingView : this.renderLoadingView();
-                break;
-            case FetchableStatus.Fetched:
-                child = renderFetched();
+                return (
+                    <div className={classNames(classes.root, classes.flex)}>
+                        {loadingView ? loadingView : this.renderLoadingView()}
+                    </div>
+                );
+            case FetchableStatus.Unfetched:
+            case FetchableStatus.Partial:
+                return <div />;
+            default:
+                return (
+                    <div
+                        className={classNames(classes.root, {
+                            [classes.flex]: disableFlex,
+                        })}
+                    >
+                        {children()}
+                    </div>
+                );
         }
-
-        return <div className={classes.root}>{child}</div>;
     }
 }
 

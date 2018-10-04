@@ -1,8 +1,9 @@
 import { observable } from "mobx";
 import * as moment from "moment";
-import Entity from "../../interfaces/entity";
+import { PartialEntity } from "../../interfaces/partial_entity";
 import ActivityType from "../enums/activity_type";
 import FacultyMemberType from "../enums/faculty_member_type";
+import FetchableStatus from "../enums/fetchable_status";
 import Sex from "../enums/sex";
 import Degree from "./degree";
 import ExtensionWork from "./extension_work";
@@ -11,7 +12,7 @@ import InstructionalMaterial from "./instructional_material";
 import Presentation from "./presentation";
 import Recognition from "./recognition";
 
-export default class FacultyMember extends Entity {
+export default class FacultyMember extends PartialEntity {
     @observable
     public sex: Sex;
 
@@ -23,9 +24,6 @@ export default class FacultyMember extends Entity {
 
     @observable
     public birthDate: moment.Moment;
-
-    @observable
-    public fetchedRelations: boolean = false;
 
     @observable
     public presentations?: Presentation[];
@@ -56,7 +54,8 @@ export default class FacultyMember extends Entity {
         super(fm);
         this.birthDate = moment(fm.birthDate);
         this.user = new FacultyUser(fm.user);
-        const hasRelations = this.presentations;
+
+        const hasRelations = Boolean(this.presentations);
         if (hasRelations) {
             this.populateRelations(fm);
         }
@@ -74,6 +73,6 @@ export default class FacultyMember extends Entity {
             (ew: any) => new ExtensionWork(ew)
         );
         this.degrees = fm.degrees.map((d: any) => new Degree(d));
-        this.fetchedRelations = true;
+        this.fetchStatus = FetchableStatus.Fetched;
     };
 }
