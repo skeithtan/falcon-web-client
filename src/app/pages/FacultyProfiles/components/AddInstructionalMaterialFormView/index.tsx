@@ -12,7 +12,7 @@ import TextField from "@material-ui/core/TextField";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
 import DrawerForm from "../../../../components/reusable/DrawerForm";
-// import FormSubmitBar from "../../../../components/reusable/FormSubmitBar";
+import FormSubmitBar from "../../../../components/reusable/FormSubmitBar";
 import FacultyProfilesController from "../../../../controllers/faculty_profiles";
 import { InstructionalMaterialAudienceReadable } from "../../../../models/enums/instructional_material_audience";
 import { InstructionalMaterialMediumReadable } from "../../../../models/enums/instructional_material_medium";
@@ -21,7 +21,6 @@ import { FacultyProfilesState } from "../../../../store/faculty_profiles";
 
 /**
  * What's missing?
- * Form submit bar (including canSubmit prop)
  * onClickSubmit function
  * FacultyProfilesController function for adding a degree
  */
@@ -35,6 +34,11 @@ interface IPropsType {
 export default class AddInstructionalMaterialFormView extends React.Component<
     IPropsType
 > {
+    public onSubmitClick = () => {
+        // This is temporary
+        global.console.log("Thank you Oliver, very cool.");
+    };
+
     public onClose = () => {
         FacultyProfilesController.toggleAddInstructionalMaterialForm(false);
     };
@@ -70,6 +74,7 @@ export default class AddInstructionalMaterialFormView extends React.Component<
             isShowing,
             validationErrors,
             form,
+            canSubmit,
         } = facultyProfiles!.addInstructionalMaterialFormState;
         return (
             <DrawerForm
@@ -97,59 +102,59 @@ export default class AddInstructionalMaterialFormView extends React.Component<
                             />
                         </Grid>
                     </Grid>
-                    <Grid item xs>
-                        <TextField
-                            select
-                            label="Instructional Material Medium"
-                            variant="outlined"
-                            onChange={this.onChange("medium")}
-                            value={form.medium}
-                            error={"medium" in validationErrors}
-                            helperText={validationErrors.medium}
-                            fullWidth
-                        >
-                            {Array.from(
-                                InstructionalMaterialMediumReadable
-                            ).map(([typeEnum, typeReadable]: any) => (
-                                <MenuItem key={typeEnum} value={typeEnum}>
-                                    {typeReadable}
-                                </MenuItem>
-                            ))}
-                        </TextField>
-                    </Grid>
-                    <Grid item xs>
-                        <TextField
-                            select
-                            label="Instructional Material Audience"
-                            variant="outlined"
-                            onChange={this.onChange("audience")}
-                            value={form.audience}
-                            error={"audience" in validationErrors}
-                            helperText={validationErrors.audience}
-                            fullWidth
-                        >
-                            {Array.from(
-                                InstructionalMaterialAudienceReadable
-                            ).map(([typeEnum, typeReadable]: any) => (
-                                <MenuItem key={typeEnum} value={typeEnum}>
-                                    {typeReadable}
-                                </MenuItem>
-                            ))}
-                        </TextField>
-                    </Grid>
                     <Grid item container spacing={8} direction="row">
                         <Grid item xs>
                             <TextField
-                                label="Instructional Material Usage Year"
+                                select
+                                label="Instructional Material Medium"
                                 variant="outlined"
-                                required
-                                onChange={this.onChange("usageYear")}
-                                value={form.usageYear}
-                                error={"usageYear" in validationErrors}
-                                helperText={validationErrors.usageYear}
+                                onChange={this.onChange("medium")}
+                                value={form.medium}
+                                error={"medium" in validationErrors}
+                                helperText={validationErrors.medium}
                                 fullWidth
-                            />
+                            >
+                                {Array.from(
+                                    InstructionalMaterialMediumReadable
+                                ).map(([typeEnum, typeReadable]: any) => (
+                                    <MenuItem key={typeEnum} value={typeEnum}>
+                                        {typeReadable}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
                         </Grid>
+                        <Grid item xs>
+                            <TextField
+                                select
+                                label="Instructional Material Audience"
+                                variant="outlined"
+                                onChange={this.onChange("audience")}
+                                value={form.audience}
+                                error={"audience" in validationErrors}
+                                helperText={validationErrors.audience}
+                                fullWidth
+                            >
+                                {Array.from(
+                                    InstructionalMaterialAudienceReadable
+                                ).map(([typeEnum, typeReadable]: any) => (
+                                    <MenuItem key={typeEnum} value={typeEnum}>
+                                        {typeReadable}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
+                        </Grid>
+                    </Grid>
+                    <Grid item xs>
+                        <TextField
+                            label="Instructional Material Usage Year"
+                            variant="outlined"
+                            required
+                            onChange={this.onChange("usageYear")}
+                            value={form.usageYear}
+                            error={"usageYear" in validationErrors}
+                            helperText={validationErrors.usageYear}
+                            fullWidth
+                        />
                     </Grid>
                     <Grid item container spacing={8} direction="row">
                         <Grid item xs>
@@ -162,7 +167,7 @@ export default class AddInstructionalMaterialFormView extends React.Component<
                                     Instructional Material Level
                                 </FormLabel>
                                 <RadioGroup
-                                    value={"1"}
+                                    value={form.level}
                                     onChange={this.onChange("level")}
                                 >
                                     <FormControlLabel
@@ -226,6 +231,16 @@ export default class AddInstructionalMaterialFormView extends React.Component<
                                 </FormHelperText>
                             </FormControl>
                         </Grid>
+                    </Grid>
+                    <Grid item>
+                        <FormSubmitBar
+                            disabled={!canSubmit}
+                            formState={
+                                facultyProfiles!
+                                    .addInstructionalMaterialFormState
+                            }
+                            onSubmitClick={this.onSubmitClick}
+                        />
                     </Grid>
                 </Grid>
             </DrawerForm>

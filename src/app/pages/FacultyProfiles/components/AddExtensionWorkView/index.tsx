@@ -9,7 +9,7 @@ import TextField from "@material-ui/core/TextField";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
 import DrawerForm from "../../../../components/reusable/DrawerForm";
-// import FormSubmitBar from "../../../../components/reusable/FormSubmitBar";
+import FormSubmitBar from "../../../../components/reusable/FormSubmitBar";
 import FacultyProfilesController from "../../../../controllers/faculty_profiles";
 import { ExtensionWorkRoleReadable } from "../../../../models/enums/extension_work_role";
 import { ProgramReadable } from "../../../../models/enums/program";
@@ -17,7 +17,6 @@ import { FacultyProfilesState } from "../../../../store/faculty_profiles";
 
 /**
  * What's missing?
- * Form submit bar (including canSubmit prop)
  * onClickSubmit function
  * FacultyProfilesController function for adding a degree
  */
@@ -29,6 +28,11 @@ interface IPropsType {
 @inject("facultyProfiles")
 @observer
 export default class AddExtensionWorkView extends React.Component<IPropsType> {
+    public onSubmitClick = () => {
+        // This is temporary
+        global.console.log("Thank you Oliver, very cool.");
+    };
+
     public onClose = () => {
         FacultyProfilesController.toggleAddExtensionWorkForm(false);
     };
@@ -64,6 +68,7 @@ export default class AddExtensionWorkView extends React.Component<IPropsType> {
             isShowing,
             validationErrors,
             form,
+            canSubmit,
         } = facultyProfiles!.addExtensionWorkFormState;
         return (
             <DrawerForm
@@ -176,6 +181,15 @@ export default class AddExtensionWorkView extends React.Component<IPropsType> {
                                 </FormHelperText>
                             </FormControl>
                         </Grid>
+                    </Grid>
+                    <Grid item>
+                        <FormSubmitBar
+                            disabled={!canSubmit}
+                            formState={
+                                facultyProfiles!.addExtensionWorkFormState
+                            }
+                            onSubmitClick={this.onSubmitClick}
+                        />
                     </Grid>
                 </Grid>
             </DrawerForm>

@@ -10,7 +10,7 @@ import TextField from "@material-ui/core/TextField";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
 import DrawerForm from "../../../../components/reusable/DrawerForm";
-// import FormSubmitBar from "../../../../components/reusable/FormSubmitBar";
+import FormSubmitBar from "../../../../components/reusable/FormSubmitBar";
 import FacultyProfilesController from "../../../../controllers/faculty_profiles";
 import { ProgramReadable } from "../../../../models/enums/program";
 import { RecognitionBasisReadable } from "../../../../models/enums/recognition_basis";
@@ -18,7 +18,6 @@ import { FacultyProfilesState } from "../../../../store/faculty_profiles";
 
 /**
  * What's missing?
- * Form submit bar (including canSubmit prop)
  * onClickSubmit function
  * FacultyProfilesController function for adding a degree
  */
@@ -32,6 +31,11 @@ interface IPropsType {
 export default class AddRecognitionFormView extends React.Component<
     IPropsType
 > {
+    public onSubmitClick = () => {
+        // This is temporary
+        global.console.log("Thank you Oliver, very cool.");
+    };
+
     public onClose = () => {
         FacultyProfilesController.toggleAddRecognitionForm(false);
     };
@@ -67,6 +71,7 @@ export default class AddRecognitionFormView extends React.Component<
             isShowing,
             validationErrors,
             form,
+            canSubmit,
         } = facultyProfiles!.addRecognitionFormState;
         return (
             <DrawerForm
@@ -93,42 +98,45 @@ export default class AddRecognitionFormView extends React.Component<
                                 fullWidth
                             />
                         </Grid>
-                    </Grid>
-                    <Grid item xs>
-                        <TextField
-                            select
-                            label="Recognition Basis"
-                            variant="outlined"
-                            onChange={this.onChange("basis")}
-                            value={form.basis}
-                            error={"basis" in validationErrors}
-                            helperText={validationErrors.basis}
-                            fullWidth
-                        >
-                            {Array.from(RecognitionBasisReadable).map(
-                                ([typeEnum, typeReadable]: any) => (
-                                    <MenuItem key={typeEnum} value={typeEnum}>
-                                        {typeReadable}
-                                    </MenuItem>
-                                )
-                            )}
-                        </TextField>
-                    </Grid>
-                    <Grid item xs>
-                        <TextField
-                            label="Recognition Date"
-                            variant="outlined"
-                            type="date"
-                            onChange={this.onChange("date")}
-                            value={form.date}
-                            error={"date" in validationErrors}
-                            helperText={validationErrors.date}
-                            required
-                            InputLabelProps={{ shrink: true }}
-                            fullWidth
-                        />
+                        <Grid item xs>
+                            <TextField
+                                select
+                                label="Recognition Basis"
+                                variant="outlined"
+                                onChange={this.onChange("basis")}
+                                value={form.basis}
+                                error={"basis" in validationErrors}
+                                helperText={validationErrors.basis}
+                                fullWidth
+                            >
+                                {Array.from(RecognitionBasisReadable).map(
+                                    ([typeEnum, typeReadable]: any) => (
+                                        <MenuItem
+                                            key={typeEnum}
+                                            value={typeEnum}
+                                        >
+                                            {typeReadable}
+                                        </MenuItem>
+                                    )
+                                )}
+                            </TextField>
+                        </Grid>
                     </Grid>
                     <Grid item container spacing={8} direction="row">
+                        <Grid item xs>
+                            <TextField
+                                label="Recognition Date"
+                                variant="outlined"
+                                type="date"
+                                onChange={this.onChange("date")}
+                                value={form.date}
+                                error={"date" in validationErrors}
+                                helperText={validationErrors.date}
+                                required
+                                InputLabelProps={{ shrink: true }}
+                                fullWidth
+                            />
+                        </Grid>
                         <Grid item xs>
                             <TextField
                                 label="Recognition Sponsor"
@@ -178,6 +186,15 @@ export default class AddRecognitionFormView extends React.Component<
                                 </FormHelperText>
                             </FormControl>
                         </Grid>
+                    </Grid>
+                    <Grid item>
+                        <FormSubmitBar
+                            disabled={!canSubmit}
+                            formState={
+                                facultyProfiles!.addRecognitionFormState
+                            }
+                            onSubmitClick={this.onSubmitClick}
+                        />
                     </Grid>
                 </Grid>
             </DrawerForm>

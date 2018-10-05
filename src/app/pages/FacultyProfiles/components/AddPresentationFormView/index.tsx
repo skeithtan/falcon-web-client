@@ -10,7 +10,7 @@ import TextField from "@material-ui/core/TextField";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
 import DrawerForm from "../../../../components/reusable/DrawerForm";
-// import FormSubmitBar from "../../../../components/reusable/FormSubmitBar";
+import FormSubmitBar from "../../../../components/reusable/FormSubmitBar";
 import FacultyProfilesController from "../../../../controllers/faculty_profiles";
 import { PresentationCategoryReadable } from "../../../../models/enums/presentation_category";
 import { PresentationMediumReadable } from "../../../../models/enums/presentation_medium";
@@ -19,7 +19,6 @@ import { FacultyProfilesState } from "../../../../store/faculty_profiles";
 
 /**
  * What's missing?
- * Form submit bar (including canSubmit prop)
  * onClickSubmit function
  * FacultyProfilesController function for adding a degree
  */
@@ -33,6 +32,11 @@ interface IPropsType {
 export default class AddPresentationFormView extends React.Component<
     IPropsType
 > {
+    public onSubmitClick = () => {
+        // This is temporary
+        global.console.log("Thank you Oliver, very cool.");
+    };
+
     public onClose = () => {
         FacultyProfilesController.toggleAddPresentationForm(false);
     };
@@ -68,6 +72,7 @@ export default class AddPresentationFormView extends React.Component<
             isShowing,
             validationErrors,
             form,
+            canSubmit,
         } = facultyProfiles!.addPresentationFormState;
         return (
             <DrawerForm
@@ -95,39 +100,44 @@ export default class AddPresentationFormView extends React.Component<
                             />
                         </Grid>
                     </Grid>
-                    <Grid item xs>
-                        <TextField
-                            select
-                            label="Presentation Category"
-                            variant="outlined"
-                            onChange={this.onChange("category")}
-                            value={form.category}
-                            error={"category" in validationErrors}
-                            helperText={validationErrors.category}
-                            fullWidth
-                        >
-                            {Array.from(PresentationCategoryReadable).map(
-                                ([typeEnum, typeReadable]: any) => (
-                                    <MenuItem key={typeEnum} value={typeEnum}>
-                                        {typeReadable}
-                                    </MenuItem>
-                                )
-                            )}
-                        </TextField>
-                    </Grid>
-                    <Grid item xs>
-                        <TextField
-                            label="Presentation Date"
-                            variant="outlined"
-                            type="date"
-                            onChange={this.onChange("date")}
-                            value={form.date}
-                            error={"date" in validationErrors}
-                            helperText={validationErrors.date}
-                            required
-                            InputLabelProps={{ shrink: true }}
-                            fullWidth
-                        />
+                    <Grid item container spacing={8} direction="row">
+                        <Grid item xs>
+                            <TextField
+                                select
+                                label="Presentation Category"
+                                variant="outlined"
+                                onChange={this.onChange("category")}
+                                value={form.category}
+                                error={"category" in validationErrors}
+                                helperText={validationErrors.category}
+                                fullWidth
+                            >
+                                {Array.from(PresentationCategoryReadable).map(
+                                    ([typeEnum, typeReadable]: any) => (
+                                        <MenuItem
+                                            key={typeEnum}
+                                            value={typeEnum}
+                                        >
+                                            {typeReadable}
+                                        </MenuItem>
+                                    )
+                                )}
+                            </TextField>
+                        </Grid>
+                        <Grid item xs>
+                            <TextField
+                                label="Presentation Date"
+                                variant="outlined"
+                                type="date"
+                                onChange={this.onChange("date")}
+                                value={form.date}
+                                error={"date" in validationErrors}
+                                helperText={validationErrors.date}
+                                required
+                                InputLabelProps={{ shrink: true }}
+                                fullWidth
+                            />
+                        </Grid>
                     </Grid>
                     <Grid item container spacing={8} direction="row">
                         <Grid item xs>
@@ -142,17 +152,15 @@ export default class AddPresentationFormView extends React.Component<
                                 fullWidth
                             />
                         </Grid>
-                    </Grid>
-                    <Grid item container spacing={8} direction="row">
                         <Grid item xs>
                             <TextField
                                 label="Presentation Venue"
                                 variant="outlined"
                                 required
-                                onChange={this.onChange("sponsor")}
-                                value={form.sponsor}
-                                error={"sponsor" in validationErrors}
-                                helperText={validationErrors.sponsor}
+                                onChange={this.onChange("venue")}
+                                value={form.venue}
+                                error={"venue" in validationErrors}
+                                helperText={validationErrors.venue}
                                 fullWidth
                             />
                         </Grid>
@@ -163,35 +171,38 @@ export default class AddPresentationFormView extends React.Component<
                                 label="Presentation Conference"
                                 variant="outlined"
                                 required
-                                onChange={this.onChange("sponsor")}
-                                value={form.sponsor}
-                                error={"sponsor" in validationErrors}
-                                helperText={validationErrors.sponsor}
+                                onChange={this.onChange("conference")}
+                                value={form.conference}
+                                error={"conference" in validationErrors}
+                                helperText={validationErrors.conference}
                                 fullWidth
                             />
                         </Grid>
                     </Grid>
-                    <Grid item xs>
-                        <TextField
-                            select
-                            label="Presentation Medium"
-                            variant="outlined"
-                            onChange={this.onChange("medium")}
-                            value={form.medium}
-                            error={"medium" in validationErrors}
-                            helperText={validationErrors.medium}
-                            fullWidth
-                        >
-                            {Array.from(PresentationMediumReadable).map(
-                                ([typeEnum, typeReadable]: any) => (
-                                    <MenuItem key={typeEnum} value={typeEnum}>
-                                        {typeReadable}
-                                    </MenuItem>
-                                )
-                            )}
-                        </TextField>
-                    </Grid>
                     <Grid item container spacing={8} direction="row">
+                        <Grid item xs>
+                            <TextField
+                                select
+                                label="Presentation Medium"
+                                variant="outlined"
+                                onChange={this.onChange("medium")}
+                                value={form.medium}
+                                error={"medium" in validationErrors}
+                                helperText={validationErrors.medium}
+                                fullWidth
+                            >
+                                {Array.from(PresentationMediumReadable).map(
+                                    ([typeEnum, typeReadable]: any) => (
+                                        <MenuItem
+                                            key={typeEnum}
+                                            value={typeEnum}
+                                        >
+                                            {typeReadable}
+                                        </MenuItem>
+                                    )
+                                )}
+                            </TextField>
+                        </Grid>
                         <Grid item xs>
                             <TextField
                                 label="Days Duration"
@@ -241,6 +252,15 @@ export default class AddPresentationFormView extends React.Component<
                                 </FormHelperText>
                             </FormControl>
                         </Grid>
+                    </Grid>
+                    <Grid item>
+                        <FormSubmitBar
+                            disabled={!canSubmit}
+                            formState={
+                                facultyProfiles!.addPresentationFormState
+                            }
+                            onSubmitClick={this.onSubmitClick}
+                        />
                     </Grid>
                 </Grid>
             </DrawerForm>

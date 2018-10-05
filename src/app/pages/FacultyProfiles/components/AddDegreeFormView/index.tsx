@@ -10,7 +10,7 @@ import TextField from "@material-ui/core/TextField";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
 import DrawerForm from "../../../../components/reusable/DrawerForm";
-// import FormSubmitBar from "../../../../components/reusable/FormSubmitBar";
+import FormSubmitBar from "../../../../components/reusable/FormSubmitBar";
 import FacultyProfilesController from "../../../../controllers/faculty_profiles";
 import { DegreeLevelReadable } from "../../../../models/enums/degree_level";
 import { ProgramReadable } from "../../../../models/enums/program";
@@ -18,7 +18,6 @@ import { FacultyProfilesState } from "../../../../store/faculty_profiles";
 
 /**
  * What's missing?
- * Form submit bar (including canSubmit prop)
  * onClickSubmit function
  * FacultyProfilesController function for adding a degree
  */
@@ -30,6 +29,11 @@ interface IPropsType {
 @inject("facultyProfiles")
 @observer
 export default class AddDegreeFormView extends React.Component<IPropsType> {
+    public onSubmitClick = () => {
+        // This is temporary
+        global.console.log("Thank you Oliver, very cool.");
+    };
+
     public onClose = () => {
         FacultyProfilesController.toggleAddDegreeForm(false);
     };
@@ -65,6 +69,7 @@ export default class AddDegreeFormView extends React.Component<IPropsType> {
             isShowing,
             validationErrors,
             form,
+            canSubmit,
         } = facultyProfiles!.addDegreeFormState;
         return (
             <DrawerForm
@@ -92,27 +97,30 @@ export default class AddDegreeFormView extends React.Component<IPropsType> {
                             />
                         </Grid>
                     </Grid>
-                    <Grid item xs>
-                        <TextField
-                            select
-                            label="Degree Level"
-                            variant="outlined"
-                            onChange={this.onChange("level")}
-                            value={form.level}
-                            error={"level" in validationErrors}
-                            helperText={validationErrors.level}
-                            fullWidth
-                        >
-                            {Array.from(DegreeLevelReadable).map(
-                                ([typeEnum, typeReadable]: any) => (
-                                    <MenuItem key={typeEnum} value={typeEnum}>
-                                        {typeReadable}
-                                    </MenuItem>
-                                )
-                            )}
-                        </TextField>
-                    </Grid>
                     <Grid item container spacing={8} direction="row">
+                        <Grid item xs>
+                            <TextField
+                                select
+                                label="Degree Level"
+                                variant="outlined"
+                                onChange={this.onChange("level")}
+                                value={form.level}
+                                error={"level" in validationErrors}
+                                helperText={validationErrors.level}
+                                fullWidth
+                            >
+                                {Array.from(DegreeLevelReadable).map(
+                                    ([typeEnum, typeReadable]: any) => (
+                                        <MenuItem
+                                            key={typeEnum}
+                                            value={typeEnum}
+                                        >
+                                            {typeReadable}
+                                        </MenuItem>
+                                    )
+                                )}
+                            </TextField>
+                        </Grid>
                         <Grid item xs>
                             <TextField
                                 label="Degree Completion Year"
@@ -162,6 +170,15 @@ export default class AddDegreeFormView extends React.Component<IPropsType> {
                                 </FormHelperText>
                             </FormControl>
                         </Grid>
+                    </Grid>
+                    <Grid item>
+                        <FormSubmitBar
+                            disabled={!canSubmit}
+                            formState={
+                                facultyProfiles!.addDegreeFormState
+                            }
+                            onSubmitClick={this.onSubmitClick}
+                        />
                     </Grid>
                 </Grid>
             </DrawerForm>
