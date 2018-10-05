@@ -20,4 +20,10 @@ export default class UserController {
                 authentication.fetchError = e.message;
             });
     }
+
+    public static signOut() {
+        authentication.currentUser = undefined;
+        authentication.fetchStatus = FetchableStatus.Unfetched;
+        UserService.signOut();
+    }
 }

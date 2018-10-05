@@ -1,4 +1,4 @@
-import { observable } from "mobx";
+import { computed, observable } from "mobx";
 import Entity from "../../interfaces/entity";
 import Page from "../enums/page";
 import UserType from "../enums/user_type";
@@ -18,6 +18,11 @@ export default class User extends Entity {
 
     @observable
     public passwordIsTemporary: boolean;
+
+    @computed
+    get fullName() {
+        return `${this.firstName} ${this.lastName}`;
+    }
 
     public getDefaultPage(): Page {
         switch (this.authorization) {
