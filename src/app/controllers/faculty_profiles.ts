@@ -83,4 +83,31 @@ export default class FacultyProfilesController {
             facultyProfiles.addExtensionWorkFormState.resetAndClose();
         }
     }
+
+    public static toggleAddInstructionalMaterialForm(shouldShow: boolean) {
+        facultyProfiles.addInstructionalMaterialFormState.isShowing = shouldShow;
+
+        if (!shouldShow) {
+            // Reset the form
+            facultyProfiles.addInstructionalMaterialFormState.resetAndClose();
+        }
+    }
+
+    public static toggleAddPresentationForm(shouldShow: boolean) {
+        facultyProfiles.addPresentationFormState.isShowing = shouldShow;
+
+        if (!shouldShow) {
+            // Reset the form
+            facultyProfiles.addPresentationFormState.resetAndClose();
+        }
+    }
+
+    public static toggleAddRecognitionForm(shouldShow: boolean) {
+        facultyProfiles.addRecognitionFormState.isShowing = shouldShow;
+
+        if (!shouldShow) {
+            // Reset the form
+            facultyProfiles.addRecognitionFormState.resetAndClose();
+        }
+    }
 }
