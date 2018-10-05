@@ -25,16 +25,26 @@ interface IPropsType {
 @inject("facultyProfiles")
 @observer
 class FacultyDetail extends React.Component<IPropsType> {
-    public temporaryAddClick() {
-        global.console.log("Cool! You wanna add something!");
-    }
-
     public addDegreeFormToggle = (shouldShow: boolean) => () => {
         FacultyProfilesController.toggleAddDegreeForm(shouldShow);
     };
 
     public addExtensionWorkFormToggle = (shouldShow: boolean) => () => {
         FacultyProfilesController.toggleAddExtensionWorkForm(shouldShow);
+    };
+
+    public addInstructionalMaterialFormToggle = (shouldShow: boolean) => () => {
+        FacultyProfilesController.toggleAddInstructionalMaterialForm(
+            shouldShow
+        );
+    };
+
+    public addPresentationFormToggle = (shouldShow: boolean) => () => {
+        FacultyProfilesController.toggleAddPresentationForm(shouldShow);
+    };
+
+    public addRecognitionFormToggle = (shouldShow: boolean) => () => {
+        FacultyProfilesController.toggleAddRecognitionForm(shouldShow);
     };
 
     public renderEmptyState = () => {
@@ -87,7 +97,7 @@ class FacultyDetail extends React.Component<IPropsType> {
                             <FacultySubdocumentCard
                                 empty={fm.recognitions!.length === 0}
                                 name="Academic Recognitions"
-                                onAddClick={this.temporaryAddClick}
+                                onAddClick={this.addRecognitionFormToggle(true)}
                                 canAdd={true}
                             >
                                 <RecognitionsView
@@ -99,7 +109,9 @@ class FacultyDetail extends React.Component<IPropsType> {
                             <FacultySubdocumentCard
                                 empty={fm.presentations!.length === 0}
                                 name="Presentations"
-                                onAddClick={this.temporaryAddClick}
+                                onAddClick={this.addPresentationFormToggle(
+                                    true
+                                )}
                                 canAdd={true}
                             >
                                 <PresentationsView
@@ -111,7 +123,9 @@ class FacultyDetail extends React.Component<IPropsType> {
                             <FacultySubdocumentCard
                                 empty={fm.instructionalMaterials!.length === 0}
                                 name="Instructional Materials"
-                                onAddClick={this.temporaryAddClick}
+                                onAddClick={this.addInstructionalMaterialFormToggle(
+                                    true
+                                )}
                                 canAdd={true}
                             >
                                 <InstructionalMaterialsView
