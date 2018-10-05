@@ -1,4 +1,11 @@
-import { ArrayNotEmpty, IsArray, IsEnum, IsNotEmpty, IsNumberString, Length } from "class-validator";
+import {
+    ArrayNotEmpty,
+    IsArray,
+    IsEnum,
+    IsNotEmpty,
+    IsNumberString,
+    Length,
+} from "class-validator";
 import { observable } from "mobx";
 import DegreeLevel from "../enums/degree_level";
 import Program from "../enums/program";
