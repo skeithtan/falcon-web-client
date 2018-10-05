@@ -78,7 +78,7 @@ export default class AddPresentationFormView extends React.Component<
             <DrawerForm
                 open={isShowing}
                 onClose={this.onClose}
-                formTitle="Add Degree"
+                formTitle="Add Presentation"
             >
                 <Grid
                     container
