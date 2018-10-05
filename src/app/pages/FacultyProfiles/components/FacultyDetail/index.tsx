@@ -33,6 +33,10 @@ class FacultyDetail extends React.Component<IPropsType> {
         FacultyProfilesController.toggleAddDegreeForm(shouldShow);
     };
 
+    public addExtensionWorkFormToggle = (shouldShow: boolean) => () => {
+        FacultyProfilesController.toggleAddExtensionWorkForm(shouldShow);
+    };
+
     public renderEmptyState = () => {
         const { classes } = this.props;
         return (
@@ -121,7 +125,9 @@ class FacultyDetail extends React.Component<IPropsType> {
                             <FacultySubdocumentCard
                                 empty={fm.extensionWorks!.length === 0}
                                 name="Extension Works"
-                                onAddClick={this.temporaryAddClick}
+                                onAddClick={this.addExtensionWorkFormToggle(
+                                    true
+                                )}
                                 canAdd={true}
                             >
                                 <ExtensionWorksView
