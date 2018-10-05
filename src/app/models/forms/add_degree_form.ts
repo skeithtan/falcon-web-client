@@ -1,6 +1,7 @@
-import { IsEnum, IsNotEmpty, IsNumberString, Length } from "class-validator";
+import { ArrayNotEmpty, IsArray, IsEnum, IsNotEmpty, IsNumberString, Length } from "class-validator";
 import { observable } from "mobx";
 import DegreeLevel from "../enums/degree_level";
+import Program from "../enums/program";
 
 export default class AddDegreeForm {
     @IsNotEmpty({
@@ -27,4 +28,11 @@ export default class AddDegreeForm {
     })
     @observable
     public completionYear: string = "";
+
+    @IsArray()
+    @ArrayNotEmpty({
+        message: "Associated programs is required",
+    })
+    @observable
+    public associatedPrograms: Program[] = [];
 }
