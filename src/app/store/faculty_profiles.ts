@@ -5,6 +5,9 @@ import FacultyMember from "../models/entities/faculty_member";
 import addDegreeFormState, {
     AddDegreeFormState,
 } from "./faculty_profiles/add_degree_form";
+import addExtensionWorkFormState, {
+    AddExtensionWorkFormState,
+} from "./faculty_profiles/add_extension_work_form";
 import addFacultyMemberFormState, {
     AddFacultyMemberFormState,
 } from "./faculty_profiles/add_faculty_member_form";
@@ -18,6 +21,9 @@ export class FacultyProfilesState extends FetchableState {
 
     @observable
     public addDegreeFormState: AddDegreeFormState = addDegreeFormState;
+
+    @observable
+    public addExtensionWorkFormState: AddExtensionWorkFormState = addExtensionWorkFormState;
 
     @observable
     public activeFacultyId?: number = undefined;
