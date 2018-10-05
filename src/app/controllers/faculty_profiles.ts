@@ -74,4 +74,13 @@ export default class FacultyProfilesController {
             facultyProfiles.addDegreeFormState.resetAndClose();
         }
     }
+
+    public static toggleAddExtensionWorkForm(shouldShow: boolean) {
+        facultyProfiles.addExtensionWorkFormState.isShowing = shouldShow;
+
+        if (!shouldShow) {
+            // Reset the form
+            facultyProfiles.addExtensionWorkFormState.resetAndClose();
+        }
+    }
 }
