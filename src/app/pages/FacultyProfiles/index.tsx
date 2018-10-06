@@ -8,7 +8,12 @@ import StateWrapper from "../../components/reusable/StateWrapper";
 import FacultyProfilesController from "../../controllers/faculty_profiles";
 import IStyleClasses from "../../interfaces/style_classes";
 import { FacultyProfilesState } from "../../store/faculty_profiles";
+import AddDegreeFormView from "./components/AddDegreeFormView";
+import AddExtensionWorkView from "./components/AddExtensionWorkView";
 import AddFacultyMemberFormView from "./components/AddFacultyMemberForm";
+import AddInstructionalMaterialFormView from "./components/AddInstructionalMaterialFormView";
+import AddPresentationFormView from "./components/AddPresentationFormView";
+import AddRecognitionFormView from "./components/AddRecognitionFormView";
 import FacultyDetail from "./components/FacultyDetail/index";
 import FacultyList from "./components/FacultyList/index";
 import styles from "./styles";
@@ -39,7 +44,10 @@ class FacultyProfiles extends React.Component<IPropsType> {
         const { facultyMembers } = facultyProfiles!;
 
         return (
-            <StateWrapper fetchableState={facultyProfiles!.fetchStatus} disableFlex>
+            <StateWrapper
+                fetchableState={facultyProfiles!.fetchStatus}
+                disableFlex
+            >
                 {() => (
                     <React.Fragment>
                         {facultyMembers!.size === 0 && (
@@ -73,6 +81,11 @@ class FacultyProfiles extends React.Component<IPropsType> {
                         )}
 
                         <AddFacultyMemberFormView />
+                        <AddDegreeFormView />
+                        <AddExtensionWorkView />
+                        <AddInstructionalMaterialFormView />
+                        <AddPresentationFormView />
+                        <AddRecognitionFormView />
                     </React.Fragment>
                 )}
             </StateWrapper>
