@@ -88,7 +88,7 @@ export default class AddRecognitionFormView extends React.Component<
                     <Grid item container spacing={8} direction="row">
                         <Grid item xs>
                             <TextField
-                                label="Recognition Title"
+                                label="Title"
                                 variant="outlined"
                                 required
                                 onChange={this.onChange("title")}
@@ -101,7 +101,7 @@ export default class AddRecognitionFormView extends React.Component<
                         <Grid item xs>
                             <TextField
                                 select
-                                label="Recognition Basis"
+                                label="Basis"
                                 variant="outlined"
                                 onChange={this.onChange("basis")}
                                 value={form.basis}
@@ -125,7 +125,7 @@ export default class AddRecognitionFormView extends React.Component<
                     <Grid item container spacing={8} direction="row">
                         <Grid item xs>
                             <TextField
-                                label="Recognition Date"
+                                label="Date"
                                 variant="outlined"
                                 type="date"
                                 onChange={this.onChange("date")}
@@ -139,7 +139,7 @@ export default class AddRecognitionFormView extends React.Component<
                         </Grid>
                         <Grid item xs>
                             <TextField
-                                label="Recognition Sponsor"
+                                label="Sponsor"
                                 variant="outlined"
                                 required
                                 onChange={this.onChange("sponsor")}
