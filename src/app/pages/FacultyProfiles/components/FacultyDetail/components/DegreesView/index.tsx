@@ -5,12 +5,12 @@ import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
+import DetailItem from "../../../../../../components/reusable/DetailItem";
 import Degree from "../../../../../../models/entities/degree";
 import DegreeLevel, {
     DegreeLevelReadable,
 } from "../../../../../../models/enums/degree_level";
 import AssociatedProgramsItem from "../AssociatedProgramsItem";
-import FacultyDetailItem from "../FacultyDetailItem";
 
 interface IPropsType {
     degrees: Degree[];
@@ -37,11 +37,11 @@ export default class DegreesView extends React.Component<IPropsType> {
                                 </ExpansionPanelSummary>
                                 <ExpansionPanelDetails>
                                     <List>
-                                        <FacultyDetailItem
+                                        <DetailItem
                                             field="Level"
                                             value={level}
                                         />
-                                        <FacultyDetailItem
+                                        <DetailItem
                                             field="Completion Year"
                                             value={d.completionYear}
                                         />

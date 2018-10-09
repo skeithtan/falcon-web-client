@@ -5,6 +5,7 @@ import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
+import DetailItem from "../../../../../../components/reusable/DetailItem";
 import InstructionalMaterial from "../../../../../../models/entities/instructional_material";
 import InstructionalMaterialAudience, {
     InstructionalMaterialAudienceReadable,
@@ -13,7 +14,6 @@ import InstructionalMaterialMedium, {
     InstructionalMaterialMediumReadable,
 } from "../../../../../../models/enums/instructional_material_medium";
 import AssociatedProgramsItem from "../AssociatedProgramsItem";
-import FacultyDetailItem from "../FacultyDetailItem";
 
 interface IPropsType {
     instructionalMaterials: InstructionalMaterial[];
@@ -45,20 +45,20 @@ export default class InstructionalMaterialsView extends React.Component<
                                 </ExpansionPanelSummary>
                                 <ExpansionPanelDetails>
                                     <List>
-                                        <FacultyDetailItem
+                                        <DetailItem
                                             field="Medium"
                                             value={medium}
                                         />
-                                        <FacultyDetailItem
+                                        <DetailItem
                                             field="Audience"
                                             value={audience}
                                         />
-                                        <FacultyDetailItem
+                                        <DetailItem
                                             field="Usage Year"
                                             value={im.usageYear}
                                         />
                                         {im.level !== undefined && (
-                                            <FacultyDetailItem
+                                            <DetailItem
                                                 field="Student Level"
                                                 value={`${im.level}`}
                                             />

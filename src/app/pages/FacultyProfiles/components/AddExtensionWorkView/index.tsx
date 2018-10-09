@@ -85,7 +85,7 @@ export default class AddExtensionWorkView extends React.Component<IPropsType> {
                     <Grid item container spacing={8} direction="row">
                         <Grid item xs>
                             <TextField
-                                label="Extension Work Title"
+                                label="Title"
                                 variant="outlined"
                                 required
                                 onChange={this.onChange("title")}
@@ -99,7 +99,7 @@ export default class AddExtensionWorkView extends React.Component<IPropsType> {
                     <Grid item container spacing={8} direction="row">
                         <Grid item xs>
                             <TextField
-                                label="Extension Work Venue"
+                                label="Venue"
                                 variant="outlined"
                                 required
                                 onChange={this.onChange("venue")}
@@ -118,7 +118,7 @@ export default class AddExtensionWorkView extends React.Component<IPropsType> {
                                 component="fieldset"
                             >
                                 <FormLabel component="legend">
-                                    Extension Work Roles
+                                    Roles
                                 </FormLabel>
                                 <FormGroup>
                                     {Array.from(ExtensionWorkRoleReadable).map(

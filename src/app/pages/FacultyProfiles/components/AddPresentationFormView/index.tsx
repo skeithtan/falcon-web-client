@@ -89,7 +89,7 @@ export default class AddPresentationFormView extends React.Component<
                     <Grid item container spacing={8} direction="row">
                         <Grid item xs>
                             <TextField
-                                label="Presentation Title"
+                                label="Title"
                                 variant="outlined"
                                 required
                                 onChange={this.onChange("title")}
@@ -104,7 +104,7 @@ export default class AddPresentationFormView extends React.Component<
                         <Grid item xs>
                             <TextField
                                 select
-                                label="Presentation Category"
+                                label="Category"
                                 variant="outlined"
                                 onChange={this.onChange("category")}
                                 value={form.category}
@@ -126,7 +126,7 @@ export default class AddPresentationFormView extends React.Component<
                         </Grid>
                         <Grid item xs>
                             <TextField
-                                label="Presentation Date"
+                                label="Date"
                                 variant="outlined"
                                 type="date"
                                 onChange={this.onChange("date")}
@@ -142,7 +142,7 @@ export default class AddPresentationFormView extends React.Component<
                     <Grid item container spacing={8} direction="row">
                         <Grid item xs>
                             <TextField
-                                label="Presentation Sponsor"
+                                label="Sponsor"
                                 variant="outlined"
                                 required
                                 onChange={this.onChange("sponsor")}
@@ -154,7 +154,7 @@ export default class AddPresentationFormView extends React.Component<
                         </Grid>
                         <Grid item xs>
                             <TextField
-                                label="Presentation Venue"
+                                label="Venue"
                                 variant="outlined"
                                 required
                                 onChange={this.onChange("venue")}
@@ -168,7 +168,7 @@ export default class AddPresentationFormView extends React.Component<
                     <Grid item container spacing={8} direction="row">
                         <Grid item xs>
                             <TextField
-                                label="Presentation Conference"
+                                label="Conference"
                                 variant="outlined"
                                 required
                                 onChange={this.onChange("conference")}
@@ -183,7 +183,7 @@ export default class AddPresentationFormView extends React.Component<
                         <Grid item xs>
                             <TextField
                                 select
-                                label="Presentation Medium"
+                                label="Medium"
                                 variant="outlined"
                                 onChange={this.onChange("medium")}
                                 value={form.medium}

@@ -86,7 +86,7 @@ export default class AddDegreeFormView extends React.Component<IPropsType> {
                     <Grid item container spacing={8} direction="row">
                         <Grid item xs>
                             <TextField
-                                label="Degree Title"
+                                label="Title"
                                 variant="outlined"
                                 required
                                 onChange={this.onChange("title")}
@@ -101,7 +101,7 @@ export default class AddDegreeFormView extends React.Component<IPropsType> {
                         <Grid item xs>
                             <TextField
                                 select
-                                label="Degree Level"
+                                label="Level"
                                 variant="outlined"
                                 onChange={this.onChange("level")}
                                 value={form.level}
@@ -123,7 +123,7 @@ export default class AddDegreeFormView extends React.Component<IPropsType> {
                         </Grid>
                         <Grid item xs>
                             <TextField
-                                label="Degree Completion Year"
+                                label="Completion Year"
                                 variant="outlined"
                                 required
                                 onChange={this.onChange("completionYear")}

@@ -1,4 +1,5 @@
 import Checkbox from "@material-ui/core/Checkbox";
+import Collapse from "@material-ui/core/Collapse";
 import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormGroup from "@material-ui/core/FormGroup";
@@ -14,7 +15,9 @@ import * as React from "react";
 import DrawerForm from "../../../../components/reusable/DrawerForm";
 import FormSubmitBar from "../../../../components/reusable/FormSubmitBar";
 import FacultyProfilesController from "../../../../controllers/faculty_profiles";
-import { InstructionalMaterialAudienceReadable } from "../../../../models/enums/instructional_material_audience";
+import InstructionalMaterialAudience, {
+    InstructionalMaterialAudienceReadable,
+} from "../../../../models/enums/instructional_material_audience";
 import { InstructionalMaterialMediumReadable } from "../../../../models/enums/instructional_material_medium";
 import { ProgramReadable } from "../../../../models/enums/program";
 import { FacultyProfilesState } from "../../../../store/faculty_profiles";
@@ -91,7 +94,7 @@ export default class AddInstructionalMaterialFormView extends React.Component<
                     <Grid item container spacing={8} direction="row">
                         <Grid item xs>
                             <TextField
-                                label="Instructional Material Title"
+                                label="Title"
                                 variant="outlined"
                                 required
                                 onChange={this.onChange("title")}
@@ -106,7 +109,7 @@ export default class AddInstructionalMaterialFormView extends React.Component<
                         <Grid item xs>
                             <TextField
                                 select
-                                label="Instructional Material Medium"
+                                label="Medium"
                                 variant="outlined"
                                 onChange={this.onChange("medium")}
                                 value={form.medium}
@@ -125,112 +128,106 @@ export default class AddInstructionalMaterialFormView extends React.Component<
                         </Grid>
                         <Grid item xs>
                             <TextField
-                                select
-                                label="Instructional Material Audience"
+                                label="Usage Year"
                                 variant="outlined"
-                                onChange={this.onChange("audience")}
-                                value={form.audience}
-                                error={"audience" in validationErrors}
-                                helperText={validationErrors.audience}
+                                required
+                                onChange={this.onChange("usageYear")}
+                                value={form.usageYear}
+                                error={"usageYear" in validationErrors}
+                                helperText={validationErrors.usageYear}
                                 fullWidth
-                            >
-                                {Array.from(
-                                    InstructionalMaterialAudienceReadable
-                                ).map(([typeEnum, typeReadable]: any) => (
-                                    <MenuItem key={typeEnum} value={typeEnum}>
-                                        {typeReadable}
-                                    </MenuItem>
-                                ))}
-                            </TextField>
+                            />
                         </Grid>
                     </Grid>
                     <Grid item xs>
                         <TextField
-                            label="Instructional Material Usage Year"
+                            select
+                            label="Audience"
                             variant="outlined"
-                            required
-                            onChange={this.onChange("usageYear")}
-                            value={form.usageYear}
-                            error={"usageYear" in validationErrors}
-                            helperText={validationErrors.usageYear}
+                            onChange={this.onChange("audience")}
+                            value={form.audience}
+                            error={"audience" in validationErrors}
+                            helperText={validationErrors.audience}
                             fullWidth
-                        />
+                        >
+                            {Array.from(
+                                InstructionalMaterialAudienceReadable
+                            ).map(([typeEnum, typeReadable]: any) => (
+                                <MenuItem key={typeEnum} value={typeEnum}>
+                                    {typeReadable}
+                                </MenuItem>
+                            ))}
+                        </TextField>
                     </Grid>
-                    <Grid item container spacing={8} direction="row">
-                        <Grid item xs>
+                    <Grid item xs>
+                        <Collapse
+                            in={
+                                form.audience ===
+                                InstructionalMaterialAudience.Student
+                            }
+                        >
                             <FormControl
                                 required
                                 error={"level" in validationErrors}
                                 component="fieldset"
                             >
                                 <FormLabel component="legend">
-                                    Instructional Material Level
+                                    Level
                                 </FormLabel>
                                 <RadioGroup
                                     value={form.level}
                                     onChange={this.onChange("level")}
                                 >
-                                    <FormControlLabel
-                                        control={<Radio />}
-                                        value="1"
-                                        label="1"
-                                    />
-                                    <FormControlLabel
-                                        control={<Radio />}
-                                        value="2"
-                                        label="2"
-                                    />
-                                    <FormControlLabel
-                                        control={<Radio />}
-                                        value="3"
-                                        label="3"
-                                    />
-                                    <FormControlLabel
-                                        control={<Radio />}
-                                        value="4"
-                                        label="4"
-                                    />
+                                    {[1, 2, 3, 4]
+                                        .map(levelNumber => String(levelNumber))
+                                        .map(level => (
+                                            <FormControlLabel
+                                                control={<Radio />}
+                                                value={level}
+                                                label={level}
+                                            />
+                                        ))}
                                 </RadioGroup>
                                 <FormHelperText>
                                     {validationErrors.level}
                                 </FormHelperText>
                             </FormControl>
-                        </Grid>
-                        <Grid item xs>
-                            <FormControl
-                                required
-                                error={"associatedPrograms" in validationErrors}
-                                component="fieldset"
-                            >
-                                <FormLabel component="legend">
-                                    Associated Programs
-                                </FormLabel>
-                                <FormGroup>
-                                    {Array.from(ProgramReadable).map(
-                                        ([typeEnum, typeReadable]: any) => (
-                                            <FormControlLabel
-                                                key={typeEnum}
-                                                control={
-                                                    <Checkbox
-                                                        checked={form.associatedPrograms.includes(
-                                                            typeEnum
-                                                        )}
-                                                        onChange={this.onAddMultiple(
-                                                            "associatedPrograms"
-                                                        )}
-                                                        value={typeEnum}
-                                                    />
-                                                }
-                                                label={typeReadable}
-                                            />
-                                        )
-                                    )}
-                                </FormGroup>
-                                <FormHelperText>
-                                    {validationErrors.associatedPrograms}
-                                </FormHelperText>
-                            </FormControl>
-                        </Grid>
+                        </Collapse>
+                    </Grid>
+                    <Grid item xs>
+                        <FormControl
+                            required
+                            error={"associatedPrograms" in validationErrors}
+                            component="fieldset"
+                        >
+                            <FormLabel component="legend">
+                                Associated Programs
+                            </FormLabel>
+                            <FormGroup>
+                                {Array.from(ProgramReadable).map(
+                                    ([typeEnum, typeReadable]: any) => (
+                                        <FormControlLabel
+                                            key={typeEnum}
+                                            control={
+                                                <Checkbox
+                                                    checked={form.associatedPrograms.includes(
+                                                        typeEnum
+                                                    )}
+                                                    onChange={this.onAddMultiple(
+                                                        "associatedPrograms"
+                                                    )}
+                                                    value={typeEnum}
+                                                />
+                                            }
+                                            label={typeReadable}
+                                        />
+                                    )
+                                )}
+                            </FormGroup>
+                            <FormHelperText>
+                                {validationErrors.associatedPrograms}
+                            </FormHelperText>
+                        </FormControl>
                     </Grid>
                     <Grid item>
                         <FormSubmitBar

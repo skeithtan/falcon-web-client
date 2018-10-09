@@ -6,6 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import { inject, observer } from "mobx-react";
 import * as moment from "moment";
 import * as React from "react";
+import DetailItem from "../../../../../../components/reusable/DetailItem";
 import Presentation from "../../../../../../models/entities/presentation";
 import PresentationCategory, {
     PresentationCategoryReadable,
@@ -14,7 +15,6 @@ import PresentationMedium, {
     PresentationMediumReadable,
 } from "../../../../../../models/enums/presentation_medium";
 import AssociatedProgramsItem from "../AssociatedProgramsItem";
-import FacultyDetailItem from "../FacultyDetailItem";
 
 interface IPropsType {
     presentations: Presentation[];
@@ -46,31 +46,28 @@ export default class PresentationsView extends React.Component<IPropsType> {
                                 </ExpansionPanelSummary>
                                 <ExpansionPanelDetails>
                                     <List>
-                                        <FacultyDetailItem
+                                        <DetailItem
                                             field="Category"
                                             value={category}
                                         />
-                                        <FacultyDetailItem
-                                            field="Date"
-                                            value={date}
-                                        />
-                                        <FacultyDetailItem
+                                        <DetailItem field="Date" value={date} />
+                                        <DetailItem
                                             field="Sponsor"
                                             value={p.sponsor}
                                         />
-                                        <FacultyDetailItem
+                                        <DetailItem
                                             field="Venue"
                                             value={p.venue}
                                         />
-                                        <FacultyDetailItem
+                                        <DetailItem
                                             field="Conference"
                                             value={p.conference}
                                         />
-                                        <FacultyDetailItem
+                                        <DetailItem
                                             field="Medium"
                                             value={medium}
                                         />
-                                        <FacultyDetailItem
+                                        <DetailItem
                                             field="Days Duration"
                                             value={daysDuration}
                                         />

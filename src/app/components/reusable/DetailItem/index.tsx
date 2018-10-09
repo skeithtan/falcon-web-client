@@ -3,7 +3,7 @@ import ListItem from "@material-ui/core/ListItem";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import * as React from "react";
-import IStyleClasses from "../../../../../../interfaces/style_classes";
+import IStyleClasses from "../../../interfaces/style_classes";
 import styles from "./styles";
 
 interface IPropsType {
@@ -12,7 +12,7 @@ interface IPropsType {
     classes: IStyleClasses;
 }
 
-class InformationItem extends React.Component<IPropsType> {
+class DetailItem extends React.Component<IPropsType> {
     public render() {
         const { field, value, classes } = this.props;
         return (
@@ -32,4 +32,4 @@ class InformationItem extends React.Component<IPropsType> {
     }
 }
 
-export default withStyles(styles)(InformationItem);
+export default withStyles(styles)(DetailItem);

@@ -3,7 +3,7 @@ import ListItem from "@material-ui/core/ListItem";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import * as React from "react";
-import ProgramChip from "../../../../../../components/reusable/ProgramChip";
+import DetailChip from "../../../../../../components/reusable/DetailChip";
 import IStyleClasses from "../../../../../../interfaces/style_classes";
 import Program, {
     ProgramReadable,
@@ -39,9 +39,9 @@ class AssociatedProgramsItem extends React.Component<IPropsType> {
                                         p
                                     ) as Program;
                                     return (
-                                        <ProgramChip
+                                        <DetailChip
                                             key={readable}
-                                            program={readable}
+                                            detail={readable}
                                         />
                                     );
                                 })}
