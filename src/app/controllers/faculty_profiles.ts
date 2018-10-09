@@ -8,7 +8,13 @@ import AddInstructionalMaterialForm from "../models/forms/add_instructional_mate
 import AddPresentationForm from "../models/forms/add_presentation_form";
 import AddRecognitionForm from "../models/forms/add_recognition_form";
 import FacultyMembersService from "../services/faculty_members";
-import { DegreeService, ExtensionWorksService, InstructionalMaterialService, PresentationsService, RecognitionService } from "../services/faculty_subdocument";
+import {
+    DegreeService,
+    ExtensionWorksService,
+    InstructionalMaterialService,
+    PresentationsService,
+    RecognitionService,
+} from "../services/faculty_subdocument";
 import rootStore from "../store";
 import { groupById } from "../utils/group_by_id";
 
@@ -127,6 +133,8 @@ export default class FacultyProfilesController {
 
     public static addDegree(form: AddDegreeForm) {
         const facultyMember = facultyProfiles.activeFacultyMember;
+        facultyProfiles.addDegreeFormState.setStatus(FormStatus.Submitting);
+
         DegreeService.add(form)
             .then(d => {
                 facultyMember!.degrees!.push(d);
@@ -142,6 +150,10 @@ export default class FacultyProfilesController {
 
     public static addRecognition(form: AddRecognitionForm) {
         const facultyMember = facultyProfiles.activeFacultyMember;
+        facultyProfiles.addRecognitionFormState.setStatus(
+            FormStatus.Submitting
+        );
+
         RecognitionService.add(form)
             .then(r => {
                 facultyMember!.recognitions!.push(r);
@@ -157,6 +169,10 @@ export default class FacultyProfilesController {
 
     public static addPresentation(form: AddPresentationForm) {
         const facultyMember = facultyProfiles.activeFacultyMember;
+        facultyProfiles.addPresentationFormState.setStatus(
+            FormStatus.Submitting
+        );
+
         PresentationsService.add(form)
             .then(p => {
                 facultyMember!.presentations!.push(p);
@@ -172,6 +188,10 @@ export default class FacultyProfilesController {
 
     public static addInstructionalMaterial(form: AddInstructionalMaterialForm) {
         const facultyMember = facultyProfiles.activeFacultyMember;
+        facultyProfiles.addInstructionalMaterialFormState.setStatus(
+            FormStatus.Submitting
+        );
+
         InstructionalMaterialService.add(form)
             .then(im => {
                 facultyMember!.instructionalMaterials!.push(im);
@@ -187,6 +207,10 @@ export default class FacultyProfilesController {
 
     public static addExtensionWork(form: AddExtensionWorkForm) {
         const facultyMember = facultyProfiles.activeFacultyMember;
+        facultyProfiles.addExtensionWorkFormState.setStatus(
+            FormStatus.Submitting
+        );
+
         ExtensionWorksService.add(form)
             .then(ew => {
                 facultyMember!.extensionWorks!.push(ew);
