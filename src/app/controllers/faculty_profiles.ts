@@ -1,8 +1,20 @@
 import FacultyMember from "../models/entities/faculty_member";
 import FetchableStatus from "../models/enums/fetchable_status";
 import FormStatus from "../models/enums/form_status";
+import AddDegreeForm from "../models/forms/add_degree_form";
+import AddExtensionWorkForm from "../models/forms/add_extension_work_form";
 import AddFacultyMemberForm from "../models/forms/add_faculty_member_form";
+import AddInstructionalMaterialForm from "../models/forms/add_instructional_material_form";
+import AddPresentationForm from "../models/forms/add_presentation_form";
+import AddRecognitionForm from "../models/forms/add_recognition_form";
 import FacultyMembersService from "../services/faculty_members";
+import {
+    DegreeService,
+    ExtensionWorksService,
+    InstructionalMaterialService,
+    PresentationsService,
+    RecognitionService,
+} from "../services/faculty_subdocument";
 import rootStore from "../store";
 import { groupById } from "../utils/group_by_id";
 
@@ -66,6 +78,10 @@ export default class FacultyProfilesController {
         facultyProfiles.activeFacultyId = id;
     }
 
+    //
+    // ─── Toggle subdocument forms ───────────────────────────────────────────────────────────────────────────
+    //
+
     public static toggleAddDegreeForm(shouldShow: boolean) {
         facultyProfiles.addDegreeFormState.isShowing = shouldShow;
 
@@ -109,5 +125,102 @@ export default class FacultyProfilesController {
             // Reset the form
             facultyProfiles.addRecognitionFormState.resetAndClose();
         }
+    }
+
+    //
+    // ─── Add subdocuments  ───────────────────────────────────────────────────────────────────────────
+    //
+
+    public static addDegree(form: AddDegreeForm) {
+        const facultyMember = facultyProfiles.activeFacultyMember;
+        facultyProfiles.addDegreeFormState.setStatus(FormStatus.Submitting);
+
+        DegreeService.add(form)
+            .then(d => {
+                facultyMember!.degrees!.push(d);
+                facultyProfiles.addDegreeFormState.resetAndClose();
+            })
+            .catch(e => {
+                facultyProfiles.addDegreeFormState.setStatus(
+                    FormStatus.Error,
+                    e.message
+                );
+            });
+    }
+
+    public static addRecognition(form: AddRecognitionForm) {
+        const facultyMember = facultyProfiles.activeFacultyMember;
+        facultyProfiles.addRecognitionFormState.setStatus(
+            FormStatus.Submitting
+        );
+
+        RecognitionService.add(form)
+            .then(r => {
+                facultyMember!.recognitions!.push(r);
+                facultyProfiles.addRecognitionFormState.resetAndClose();
+            })
+            .catch(e => {
+                facultyProfiles.addRecognitionFormState.setStatus(
+                    FormStatus.Error,
+                    e.message
+                );
+            });
+    }
+
+    public static addPresentation(form: AddPresentationForm) {
+        const facultyMember = facultyProfiles.activeFacultyMember;
+        facultyProfiles.addPresentationFormState.setStatus(
+            FormStatus.Submitting
+        );
+
+        PresentationsService.add(form)
+            .then(p => {
+                facultyMember!.presentations!.push(p);
+                facultyProfiles.addPresentationFormState.resetAndClose();
+            })
+            .catch(e => {
+                facultyProfiles.addPresentationFormState.setStatus(
+                    FormStatus.Error,
+                    e.message
+                );
+            });
+    }
+
+    public static addInstructionalMaterial(form: AddInstructionalMaterialForm) {
+        const facultyMember = facultyProfiles.activeFacultyMember;
+        facultyProfiles.addInstructionalMaterialFormState.setStatus(
+            FormStatus.Submitting
+        );
+
+        InstructionalMaterialService.add(form)
+            .then(im => {
+                facultyMember!.instructionalMaterials!.push(im);
+                facultyProfiles.addInstructionalMaterialFormState.resetAndClose();
+            })
+            .catch(e => {
+                facultyProfiles.addInstructionalMaterialFormState.setStatus(
+                    FormStatus.Error,
+                    e.message
+                );
+            });
+    }
+
+    public static addExtensionWork(form: AddExtensionWorkForm) {
+        const facultyMember = facultyProfiles.activeFacultyMember;
+        facultyProfiles.addExtensionWorkFormState.setStatus(
+            FormStatus.Submitting
+        );
+
+        ExtensionWorksService.add(form)
+            .then(ew => {
+                facultyMember!.extensionWorks!.push(ew);
+                facultyProfiles.addExtensionWorkFormState.resetAndClose();
+            })
+            .catch(e => {
+                facultyProfiles.addExtensionWorkFormState.setStatus(
+                    FormStatus.Error,
+                    e.message
+                );
+            });
     }
 }

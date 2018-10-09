@@ -1,9 +1,9 @@
 import { ArrayNotEmpty, IsArray, IsNotEmpty } from "class-validator";
 import { observable } from "mobx";
+import { AddSubdocumentForm } from "../../interfaces/add_subdocument_form";
 import ExtensionWorkRole from "../enums/extension_work_role";
-import Program from "../enums/program";
 
-export default class AddExtensionWorkForm {
+export default class AddExtensionWorkForm extends AddSubdocumentForm {
     @IsNotEmpty({
         message: "Title should not be empty",
     })
@@ -22,11 +22,4 @@ export default class AddExtensionWorkForm {
     })
     @observable
     public venue: string = "";
-
-    @IsArray()
-    @ArrayNotEmpty({
-        message: "Associated programs is required",
-    })
-    @observable
-    public associatedPrograms: Program[] = [];
 }

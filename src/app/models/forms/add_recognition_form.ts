@@ -1,9 +1,9 @@
-import { ArrayNotEmpty, IsArray, IsEnum, IsNotEmpty } from "class-validator";
+import { IsEnum, IsNotEmpty } from "class-validator";
 import { observable } from "mobx";
-import Program from "../enums/program";
+import { AddSubdocumentForm } from "../../interfaces/add_subdocument_form";
 import RecognitionBasis from "../enums/recognition_basis";
 
-export default class AddRecognitionForm {
+export default class AddRecognitionForm extends AddSubdocumentForm {
     @IsNotEmpty({
         message: "Title should not be empty",
     })
@@ -28,11 +28,4 @@ export default class AddRecognitionForm {
     })
     @observable
     public sponsor: string = "";
-
-    @IsArray()
-    @ArrayNotEmpty({
-        message: "Associated programs is required",
-    })
-    @observable
-    public associatedPrograms: Program[] = [];
 }

@@ -1,17 +1,10 @@
-import {
-    ArrayNotEmpty,
-    IsArray,
-    IsEnum,
-    IsNotEmpty,
-    IsNumberString,
-    Length,
-} from "class-validator";
+import { IsEnum, IsNotEmpty, IsNumberString, Length } from "class-validator";
 import { observable } from "mobx";
+import { AddSubdocumentForm } from "../../interfaces/add_subdocument_form";
 import InstructionalMaterialAudience from "../enums/instructional_material_audience";
 import InstructionalMaterialMedium from "../enums/instructional_material_medium";
-import Program from "../enums/program";
 
-export default class AddInstructionalMaterialForm {
+export default class AddInstructionalMaterialForm extends AddSubdocumentForm {
     @IsNotEmpty({
         message: "Title should not be empty",
     })
@@ -49,11 +42,4 @@ export default class AddInstructionalMaterialForm {
     })
     @observable
     public level: string = "";
-
-    @IsArray()
-    @ArrayNotEmpty({
-        message: "Associated programs is required",
-    })
-    @observable
-    public associatedPrograms: Program[] = [];
 }

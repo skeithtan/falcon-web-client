@@ -1,16 +1,9 @@
-import {
-    ArrayNotEmpty,
-    IsArray,
-    IsEnum,
-    IsNotEmpty,
-    IsNumberString,
-    Length,
-} from "class-validator";
+import { IsEnum, IsNotEmpty, IsNumberString, Length } from "class-validator";
 import { observable } from "mobx";
+import { AddSubdocumentForm } from "../../interfaces/add_subdocument_form";
 import DegreeLevel from "../enums/degree_level";
-import Program from "../enums/program";
 
-export default class AddDegreeForm {
+export default class AddDegreeForm extends AddSubdocumentForm {
     @IsNotEmpty({
         message: "Title should not be empty",
     })
@@ -35,11 +28,4 @@ export default class AddDegreeForm {
     })
     @observable
     public completionYear: string = "";
-
-    @IsArray()
-    @ArrayNotEmpty({
-        message: "Associated programs is required",
-    })
-    @observable
-    public associatedPrograms: Program[] = [];
 }
