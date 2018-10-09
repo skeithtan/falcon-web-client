@@ -19,8 +19,7 @@ export default class FacultyMembersService {
         return axios
             .get(`/faculty-members/${facultyId}`)
             .then((response: AxiosResponse) => {
-                const fm = new FacultyMember(response.data);
-                return fm;
+                return new FacultyMember(response.data);
             })
             .catch(handleAxiosError);
     }
