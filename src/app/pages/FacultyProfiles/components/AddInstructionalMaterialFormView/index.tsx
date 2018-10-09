@@ -182,6 +182,7 @@ export default class AddInstructionalMaterialFormView extends React.Component<
                                         .map(levelNumber => String(levelNumber))
                                         .map(level => (
                                             <FormControlLabel
+                                                key={level}
                                                 control={<Radio />}
                                                 value={level}
                                                 label={level}
