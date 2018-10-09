@@ -1,16 +1,10 @@
-import {
-    ArrayNotEmpty,
-    IsArray,
-    IsEnum,
-    IsNotEmpty,
-    IsNumberString,
-} from "class-validator";
+import { IsEnum, IsNotEmpty, IsNumberString } from "class-validator";
 import { observable } from "mobx";
+import { AddSubdocumentForm } from "../../interfaces/add_subdocument_form";
 import PresentationCategory from "../enums/presentation_category";
 import PresentationMedium from "../enums/presentation_medium";
-import Program from "../enums/program";
 
-export default class AddPresentationForm {
+export default class AddPresentationForm extends AddSubdocumentForm {
     @IsNotEmpty({
         message: "Title should not be empty",
     })
@@ -60,11 +54,4 @@ export default class AddPresentationForm {
     })
     @observable
     public daysDuration: string = "";
-
-    @IsArray()
-    @ArrayNotEmpty({
-        message: "Associated programs is required",
-    })
-    @observable
-    public associatedPrograms: Program[] = [];
 }

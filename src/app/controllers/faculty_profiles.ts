@@ -64,6 +64,11 @@ export default class FacultyProfilesController {
 
     public static setActiveFacultyMember(id: number) {
         facultyProfiles.activeFacultyId = id;
+        facultyProfiles.addDegreeFormState.form.facultyId = id;
+        facultyProfiles.addExtensionWorkFormState.form.facultyId = id;
+        facultyProfiles.addInstructionalMaterialFormState.form.facultyId = id;
+        facultyProfiles.addPresentationFormState.form.facultyId = id;
+        facultyProfiles.addRecognitionFormState.form.facultyId = id;
     }
 
     public static toggleAddDegreeForm(shouldShow: boolean) {
