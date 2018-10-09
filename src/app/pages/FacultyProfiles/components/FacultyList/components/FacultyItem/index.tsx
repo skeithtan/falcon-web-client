@@ -17,7 +17,6 @@ export default class FacultyItem extends React.Component<IPropsType> {
     public onClick = () => {
         const { facultyMember } = this.props;
         FacultyProfilesController.setActiveFacultyMember(facultyMember.id);
-        FacultyProfilesController.getSubdocuments(facultyMember);
     };
 
     public render() {

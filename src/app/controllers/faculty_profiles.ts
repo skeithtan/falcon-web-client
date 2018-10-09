@@ -1,4 +1,3 @@
-import FacultyMember from "../models/entities/faculty_member";
 import FetchableStatus from "../models/enums/fetchable_status";
 import FormStatus from "../models/enums/form_status";
 import AddDegreeForm from "../models/forms/add_degree_form";
@@ -32,19 +31,6 @@ export default class FacultyProfilesController {
             });
     }
 
-    public static getSubdocuments(facultyMember: FacultyMember) {
-        facultyMember.fetchStatus = FetchableStatus.Fetching;
-
-        FacultyMembersService.fetchFacultyMember(facultyMember.id)
-            .then(fm => {
-                facultyProfiles.facultyMembers!.set(facultyMember.id, fm);
-            })
-            .catch((e: Error) => {
-                facultyMember.fetchStatus = FetchableStatus.Error;
-                facultyProfiles.setStatus(FetchableStatus.Error, e.message);
-            });
-    }
-
     public static create(form: AddFacultyMemberForm) {
         facultyProfiles.addFacultyMemberFormState.setStatus(
             FormStatus.Submitting
@@ -74,6 +60,17 @@ export default class FacultyProfilesController {
 
     public static setActiveFacultyMember(id: number) {
         facultyProfiles.activeFacultyId = id;
+        const facultyMember = facultyProfiles.activeFacultyMember!;
+        facultyMember.fetchStatus = FetchableStatus.Fetching;
+
+        FacultyMembersService.fetchFacultyMember(facultyMember.id)
+            .then(fm => {
+                facultyProfiles.facultyMembers!.set(facultyMember.id, fm);
+            })
+            .catch((e: Error) => {
+                facultyMember.fetchStatus = FetchableStatus.Error;
+                facultyProfiles.setStatus(FetchableStatus.Error, e.message);
+            });
     }
 
     //
