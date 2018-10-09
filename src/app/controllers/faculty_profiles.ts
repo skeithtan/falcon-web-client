@@ -8,13 +8,11 @@ import AddInstructionalMaterialForm from "../models/forms/add_instructional_mate
 import AddPresentationForm from "../models/forms/add_presentation_form";
 import AddRecognitionForm from "../models/forms/add_recognition_form";
 import FacultyMembersService from "../services/faculty_members";
-import {
-    DegreeService,
-    ExtensionWorksService,
-    InstructionalMaterialService,
-    PresentationsService,
-    RecognitionService,
-} from "../services/faculty_subdocument";
+import DegreeService from "../services/faculty_subdocument/degree";
+import ExtensionWorkService from "../services/faculty_subdocument/extension_work";
+import InstructionalMaterialService from "../services/faculty_subdocument/instructional_material";
+import PresentationService from "../services/faculty_subdocument/presentation";
+import RecognitionService from "../services/faculty_subdocument/recognition";
 import rootStore from "../store";
 import { groupById } from "../utils/group_by_id";
 
@@ -173,7 +171,7 @@ export default class FacultyProfilesController {
             FormStatus.Submitting
         );
 
-        PresentationsService.add(form)
+        PresentationService.add(form)
             .then(p => {
                 facultyMember!.presentations!.push(p);
                 facultyProfiles.addPresentationFormState.resetAndClose();
@@ -211,7 +209,7 @@ export default class FacultyProfilesController {
             FormStatus.Submitting
         );
 
-        ExtensionWorksService.add(form)
+        ExtensionWorkService.add(form)
             .then(ew => {
                 facultyMember!.extensionWorks!.push(ew);
                 facultyProfiles.addExtensionWorkFormState.resetAndClose();
