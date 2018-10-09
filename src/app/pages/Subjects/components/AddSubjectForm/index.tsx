@@ -100,7 +100,7 @@ export default class AddSubjectFormView extends React.Component<IPropsType> {
                         </Grid>
                     </Grid>
                     <Grid item container direction="row" spacing={8}>
-                        <Grid item xs={4}>
+                        <Grid item xs>
                             <TextField
                                 select
                                 label="Category"
@@ -123,9 +123,7 @@ export default class AddSubjectFormView extends React.Component<IPropsType> {
                                 )}
                             </TextField>
                         </Grid>
-                    </Grid>
-                    <Grid item container direction="row" spacing={8}>
-                        <Grid item xs={4}>
+                        <Grid item xs>
                             <TextField
                                 select
                                 label="Program"
