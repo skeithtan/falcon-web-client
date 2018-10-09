@@ -6,12 +6,12 @@ import Typography from "@material-ui/core/Typography";
 import { inject, observer } from "mobx-react";
 import * as moment from "moment";
 import * as React from "react";
+import DetailItem from "../../../../../../components/reusable/DetailItem";
 import Recognition from "../../../../../../models/entities/recognition";
 import RecognitionBasis, {
     RecognitionBasisReadable,
 } from "../../../../../../models/enums/recognition_basis";
 import AssociatedProgramsItem from "../AssociatedProgramsItem";
-import FacultyDetailItem from "../FacultyDetailItem";
 
 interface IPropsType {
     recognitions: Recognition[];
@@ -41,15 +41,15 @@ export default class RecognitionsView extends React.Component<IPropsType> {
                                 </ExpansionPanelSummary>
                                 <ExpansionPanelDetails>
                                     <List>
-                                        <FacultyDetailItem
+                                        <DetailItem
                                             field="Basis"
                                             value={basis}
                                         />
-                                        <FacultyDetailItem
+                                        <DetailItem
                                             field="Sponsor"
                                             value={r.sponsor}
                                         />
-                                        <FacultyDetailItem
+                                        <DetailItem
                                             field="Date"
                                             value={recognitionDate}
                                         />

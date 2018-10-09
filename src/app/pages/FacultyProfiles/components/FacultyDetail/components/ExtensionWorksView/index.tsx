@@ -5,9 +5,9 @@ import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
+import DetailItem from "../../../../../../components/reusable/DetailItem";
 import ExtensionWork from "../../../../../../models/entities/extension_work";
 import AssociatedProgramsItem from "../AssociatedProgramsItem";
-import FacultyDetailItem from "../FacultyDetailItem";
 import ExtensionRolesItem from "./components/ExtensionRolesItem";
 
 interface IPropsType {
@@ -32,7 +32,7 @@ export default class ExtensionWorksView extends React.Component<IPropsType> {
                                 </ExpansionPanelSummary>
                                 <ExpansionPanelDetails>
                                     <List>
-                                        <FacultyDetailItem
+                                        <DetailItem
                                             field="Level"
                                             value={ew.venue}
                                         />

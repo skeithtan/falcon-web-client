@@ -10,12 +10,12 @@ import Print from "@material-ui/icons/Print";
 import { inject, observer } from "mobx-react";
 import * as moment from "moment";
 import * as React from "react";
+import DetailItem from "../../../../../../components/reusable/DetailItem";
 import IStyleClasses from "../../../../../../interfaces/style_classes";
 import FacultyMember from "../../../../../../models/entities/faculty_member";
 import FacultyMemberType, {
     FacultyMemberTypeReadable,
 } from "../../../../../../models/enums/faculty_member_type";
-import FacultyDetailItem from "../FacultyDetailItem";
 import styles from "./styles";
 
 interface IPropsType {
@@ -56,23 +56,17 @@ class BasicInformationView extends React.Component<IPropsType> {
                     </Tooltip>
                 </Toolbar>
                 <List disablePadding>
-                    <FacultyDetailItem
-                        field="Faculty Type"
-                        value={readableType!}
-                    />
-                    <FacultyDetailItem
+                    <DetailItem field="Faculty Type" value={readableType!} />
+                    <DetailItem
                         field="ID Number"
                         value={facultyMember.formattedPnuId}
                     />
-                    <FacultyDetailItem
+                    <DetailItem
                         field="Email"
                         value={facultyMember.user!.email}
                     />
-                    <FacultyDetailItem field="Sex" value={facultyMember.sex} />
-                    <FacultyDetailItem
-                        field="Date of Birth"
-                        value={dateOfBirth}
-                    />
+                    <DetailItem field="Sex" value={facultyMember.sex} />
+                    <DetailItem field="Date of Birth" value={dateOfBirth} />
                 </List>
             </Card>
         );
