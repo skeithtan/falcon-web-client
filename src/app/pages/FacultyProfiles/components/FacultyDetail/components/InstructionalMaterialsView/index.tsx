@@ -2,9 +2,11 @@ import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import List from "@material-ui/core/List";
+import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
+import IStyleClasses from "src/app/interfaces/style_classes";
 import DetailItem from "../../../../../../components/reusable/DetailItem";
 import InstructionalMaterial from "../../../../../../models/entities/instructional_material";
 import InstructionalMaterialAudience, {
@@ -14,18 +16,18 @@ import InstructionalMaterialMedium, {
     InstructionalMaterialMediumReadable,
 } from "../../../../../../models/enums/instructional_material_medium";
 import AssociatedProgramsItem from "../AssociatedProgramsItem";
+import styles from "./styles";
 
 interface IPropsType {
     instructionalMaterials: InstructionalMaterial[];
+    classes: IStyleClasses;
 }
 
 @inject("facultyProfiles")
 @observer
-export default class InstructionalMaterialsView extends React.Component<
-    IPropsType
-> {
+class InstructionalMaterialsView extends React.Component<IPropsType> {
     public render() {
-        const { instructionalMaterials } = this.props;
+        const { instructionalMaterials, classes } = this.props;
         return (
             <React.Fragment>
                 {instructionalMaterials !== undefined &&
@@ -44,7 +46,7 @@ export default class InstructionalMaterialsView extends React.Component<
                                     </Typography>
                                 </ExpansionPanelSummary>
                                 <ExpansionPanelDetails>
-                                    <List>
+                                    <List className={classes.list}>
                                         <DetailItem
                                             field="Medium"
                                             value={medium}
@@ -76,3 +78,5 @@ export default class InstructionalMaterialsView extends React.Component<
         );
     }
 }
+
+export default withStyles(styles)(InstructionalMaterialsView);

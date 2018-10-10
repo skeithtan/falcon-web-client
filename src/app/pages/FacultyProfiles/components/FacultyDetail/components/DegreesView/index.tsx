@@ -2,25 +2,29 @@ import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import List from "@material-ui/core/List";
+import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
+import IStyleClasses from "src/app/interfaces/style_classes";
 import DetailItem from "../../../../../../components/reusable/DetailItem";
 import Degree from "../../../../../../models/entities/degree";
 import DegreeLevel, {
     DegreeLevelReadable,
 } from "../../../../../../models/enums/degree_level";
 import AssociatedProgramsItem from "../AssociatedProgramsItem";
+import styles from "./styles";
 
 interface IPropsType {
     degrees: Degree[];
+    classes: IStyleClasses;
 }
 
 @inject("facultyProfiles")
 @observer
-export default class DegreesView extends React.Component<IPropsType> {
+class DegreesView extends React.Component<IPropsType> {
     public render() {
-        const { degrees } = this.props;
+        const { degrees, classes } = this.props;
         return (
             <React.Fragment>
                 {degrees !== undefined &&
@@ -36,7 +40,7 @@ export default class DegreesView extends React.Component<IPropsType> {
                                     </Typography>
                                 </ExpansionPanelSummary>
                                 <ExpansionPanelDetails>
-                                    <List>
+                                    <List className={classes.list}>
                                         <DetailItem
                                             field="Level"
                                             value={level}
@@ -58,3 +62,5 @@ export default class DegreesView extends React.Component<IPropsType> {
         );
     }
 }
+
+export default withStyles(styles)(DegreesView);

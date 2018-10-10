@@ -2,10 +2,12 @@ import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import List from "@material-ui/core/List";
+import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { inject, observer } from "mobx-react";
 import * as moment from "moment";
 import * as React from "react";
+import IStyleClasses from "src/app/interfaces/style_classes";
 import DetailItem from "../../../../../../components/reusable/DetailItem";
 import Presentation from "../../../../../../models/entities/presentation";
 import PresentationCategory, {
@@ -15,16 +17,18 @@ import PresentationMedium, {
     PresentationMediumReadable,
 } from "../../../../../../models/enums/presentation_medium";
 import AssociatedProgramsItem from "../AssociatedProgramsItem";
+import styles from "./styles";
 
 interface IPropsType {
     presentations: Presentation[];
+    classes: IStyleClasses;
 }
 
 @inject("facultyProfiles")
 @observer
-export default class PresentationsView extends React.Component<IPropsType> {
+class PresentationsView extends React.Component<IPropsType> {
     public render() {
-        const { presentations } = this.props;
+        const { presentations, classes } = this.props;
         return (
             <React.Fragment>
                 {presentations !== undefined &&
@@ -45,7 +49,7 @@ export default class PresentationsView extends React.Component<IPropsType> {
                                     </Typography>
                                 </ExpansionPanelSummary>
                                 <ExpansionPanelDetails>
-                                    <List>
+                                    <List className={classes.list}>
                                         <DetailItem
                                             field="Category"
                                             value={category}
@@ -84,3 +88,5 @@ export default class PresentationsView extends React.Component<IPropsType> {
         );
     }
 }
+
+export default withStyles(styles)(PresentationsView);

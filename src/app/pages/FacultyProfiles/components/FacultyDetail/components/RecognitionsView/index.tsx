@@ -2,26 +2,30 @@ import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import List from "@material-ui/core/List";
+import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { inject, observer } from "mobx-react";
 import * as moment from "moment";
 import * as React from "react";
+import IStyleClasses from "src/app/interfaces/style_classes";
 import DetailItem from "../../../../../../components/reusable/DetailItem";
 import Recognition from "../../../../../../models/entities/recognition";
 import RecognitionBasis, {
     RecognitionBasisReadable,
 } from "../../../../../../models/enums/recognition_basis";
 import AssociatedProgramsItem from "../AssociatedProgramsItem";
+import styles from "./styles";
 
 interface IPropsType {
     recognitions: Recognition[];
+    classes: IStyleClasses;
 }
 
 @inject("facultyProfiles")
 @observer
-export default class RecognitionsView extends React.Component<IPropsType> {
+class RecognitionsView extends React.Component<IPropsType> {
     public render() {
-        const { recognitions } = this.props;
+        const { recognitions, classes } = this.props;
         return (
             <React.Fragment>
                 {recognitions !== undefined &&
@@ -40,7 +44,7 @@ export default class RecognitionsView extends React.Component<IPropsType> {
                                     </Typography>
                                 </ExpansionPanelSummary>
                                 <ExpansionPanelDetails>
-                                    <List>
+                                    <List className={classes.list}>
                                         <DetailItem
                                             field="Basis"
                                             value={basis}
@@ -66,3 +70,5 @@ export default class RecognitionsView extends React.Component<IPropsType> {
         );
     }
 }
+
+export default withStyles(styles)(RecognitionsView);
