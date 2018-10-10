@@ -1,3 +1,4 @@
+import Degree from "../models/entities/degree";
 import FetchableStatus from "../models/enums/fetchable_status";
 import FormStatus from "../models/enums/form_status";
 import FacultyMembersService from "../services/faculty_members";
@@ -203,5 +204,18 @@ export default class FacultyProfilesController {
             .catch(e => {
                 formState.setStatus(FormStatus.Error, e.message);
             });
+    }
+
+    //
+    // ─── Remove subdocuments  ───────────────────────────────────────────────────────────────────────────
+    //
+
+    public static async removeDegree(degree: Degree) {
+        const facultyMember = facultyProfiles.activeFacultyMember!;
+        const degreeIndex = facultyMember.degrees!.indexOf(degree);
+
+        return await DegreeService.remove(degree.id).then(() => {
+            facultyMember.degrees!.splice(degreeIndex, 1);
+        });
     }
 }
