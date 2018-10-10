@@ -8,4 +8,6 @@ export abstract class AddSubdocumentForm {
     })
     @observable
     public associatedPrograms: Program[] = [];
+
+    public facultyId: number;
 }

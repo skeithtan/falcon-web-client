@@ -6,12 +6,14 @@ import { handleAxiosError } from "src/app/utils/handle_axios_error";
 export default class DegreeService {
     public static async add(form: AddDegreeForm) {
         return axios
-            .post("/degrees", form)
+            .post("/faculty-subdocuments/degrees", form)
             .then((response: AxiosResponse) => new Degree(response.data))
             .catch(handleAxiosError);
     }
 
     public static async remove(id: number) {
-        return axios.delete(`/degrees/${id}`).catch(handleAxiosError);
+        return axios
+            .delete(`/faculty-subdocuments/degrees/${id}`)
+            .catch(handleAxiosError);
     }
 }

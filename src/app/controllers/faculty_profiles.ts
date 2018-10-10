@@ -119,14 +119,15 @@ export default class FacultyProfilesController {
     //
 
     public static submitAddDegree() {
-        const facultyMember = facultyProfiles.activeFacultyMember;
+        const facultyMember = facultyProfiles.activeFacultyMember!;
         const { addDegreeFormState: formState } = facultyProfiles;
         const form = formState.form;
+        form.facultyId = facultyMember.id;
         formState.setStatus(FormStatus.Submitting);
 
         DegreeService.add(form)
             .then(d => {
-                facultyMember!.degrees!.push(d);
+                facultyMember.degrees!.push(d);
                 formState.resetAndClose();
             })
             .catch(e => {
@@ -135,14 +136,15 @@ export default class FacultyProfilesController {
     }
 
     public static submitAddRecognition() {
-        const facultyMember = facultyProfiles.activeFacultyMember;
+        const facultyMember = facultyProfiles.activeFacultyMember!;
         const { addRecognitionFormState: formState } = facultyProfiles;
         const form = formState.form;
+        form.facultyId = facultyMember.id;
         formState.setStatus(FormStatus.Submitting);
 
         RecognitionService.add(form)
             .then(r => {
-                facultyMember!.recognitions!.push(r);
+                facultyMember.recognitions!.push(r);
                 formState.resetAndClose();
             })
             .catch(e => {
@@ -151,14 +153,15 @@ export default class FacultyProfilesController {
     }
 
     public static submitAddPresentation() {
-        const facultyMember = facultyProfiles.activeFacultyMember;
+        const facultyMember = facultyProfiles.activeFacultyMember!;
         const { addPresentationFormState: formState } = facultyProfiles;
         const form = formState.form;
+        form.facultyId = facultyMember.id;
         formState.setStatus(FormStatus.Submitting);
 
         PresentationService.add(form)
             .then(p => {
-                facultyMember!.presentations!.push(p);
+                facultyMember.presentations!.push(p);
                 formState.resetAndClose();
             })
             .catch(e => {
@@ -167,16 +170,17 @@ export default class FacultyProfilesController {
     }
 
     public static submitAddInstructionalMaterial() {
-        const facultyMember = facultyProfiles.activeFacultyMember;
+        const facultyMember = facultyProfiles.activeFacultyMember!;
         const {
             addInstructionalMaterialFormState: formState,
         } = facultyProfiles;
         const form = formState.form;
+        form.facultyId = facultyMember.id;
         formState.setStatus(FormStatus.Submitting);
 
         InstructionalMaterialService.add(form)
             .then(im => {
-                facultyMember!.instructionalMaterials!.push(im);
+                facultyMember.instructionalMaterials!.push(im);
                 formState.resetAndClose();
             })
             .catch(e => {
@@ -185,14 +189,15 @@ export default class FacultyProfilesController {
     }
 
     public static submitAddExtensionWork() {
-        const facultyMember = facultyProfiles.activeFacultyMember;
+        const facultyMember = facultyProfiles.activeFacultyMember!;
         const { addExtensionWorkFormState: formState } = facultyProfiles;
         const form = formState.form;
+        form.facultyId = facultyMember.id;
         formState.setStatus(FormStatus.Submitting);
 
         ExtensionWorkService.add(form)
             .then(ew => {
-                facultyMember!.extensionWorks!.push(ew);
+                facultyMember.extensionWorks!.push(ew);
                 formState.resetAndClose();
             })
             .catch(e => {
