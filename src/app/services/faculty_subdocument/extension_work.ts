@@ -6,12 +6,14 @@ import { handleAxiosError } from "src/app/utils/handle_axios_error";
 export default class ExtensionWorkService {
     public static async add(form: AddExtensionWorkForm) {
         return axios
-            .post("/extension-works", form)
+            .post("/faculty-subdocuments/extension-works", form)
             .then((response: AxiosResponse) => new ExtensionWork(response.data))
             .catch(handleAxiosError);
     }
 
     public static async remove(id: number) {
-        return axios.delete(`/extension-works/${id}`).catch(handleAxiosError);
+        return axios
+            .delete(`/faculty-subdocuments/extension-works/${id}`)
+            .catch(handleAxiosError);
     }
 }

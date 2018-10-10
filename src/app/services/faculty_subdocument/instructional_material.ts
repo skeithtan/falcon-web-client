@@ -6,7 +6,7 @@ import { handleAxiosError } from "src/app/utils/handle_axios_error";
 export default class InstructionalMaterialService {
     public static async add(form: AddInstructionalMaterialForm) {
         return axios
-            .post("/instructional-materials", form)
+            .post("/faculty-subdocuments/instructional-materials", form)
             .then(
                 (response: AxiosResponse) =>
                     new InstructionalMaterial(response.data)
@@ -16,7 +16,7 @@ export default class InstructionalMaterialService {
 
     public static async remove(id: number) {
         return axios
-            .delete(`/instructional-materials/${id}`)
+            .delete(`/faculty-subdocuments/instructional-materials/${id}`)
             .catch(handleAxiosError);
     }
 }
