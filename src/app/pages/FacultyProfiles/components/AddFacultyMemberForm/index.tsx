@@ -27,11 +27,8 @@ export default class AddFacultyMemberFormView extends React.Component<
         FacultyProfilesController.toggleAddFacultyMemberForm(false);
     };
 
-    public onSubmitClick = () => {
-        const { facultyProfiles } = this.props;
-        const { form } = facultyProfiles!.addFacultyMemberFormState;
-        FacultyProfilesController.create(form);
-    };
+    public onSubmitClick = () =>
+        FacultyProfilesController.submitAddFacultyMember();
 
     public onChange = (
         property: string

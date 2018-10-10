@@ -1,6 +1,5 @@
 import FetchableStatus from "../models/enums/fetchable_status";
 import FormStatus from "../models/enums/form_status";
-import AddFacultyMemberForm from "../models/forms/add_faculty_member_form";
 import FacultyMembersService from "../services/faculty_members";
 import DegreeService from "../services/faculty_subdocument/degree";
 import ExtensionWorkService from "../services/faculty_subdocument/extension_work";
@@ -26,21 +25,19 @@ export default class FacultyProfilesController {
             });
     }
 
-    public static create(form: AddFacultyMemberForm) {
-        facultyProfiles.addFacultyMemberFormState.setStatus(
-            FormStatus.Submitting
-        );
+    public static submitAddFacultyMember() {
+        const { addFacultyMemberFormState: formState } = facultyProfiles;
+        const form = formState.form;
+        formState.setStatus(FormStatus.Submitting);
 
         FacultyMembersService.addFacultyMember(form)
             .then(fm => {
                 facultyProfiles.facultyMembers!.set(fm.id, fm);
-                facultyProfiles.addFacultyMemberFormState.resetAndClose();
+                formState.resetAndClose();
+                this.setActiveFacultyMember(fm.id);
             })
-            .catch((e: Error) => {
-                facultyProfiles.addFacultyMemberFormState.setStatus(
-                    FormStatus.Error,
-                    e.message
-                );
+            .catch(e => {
+                formState.setStatus(FormStatus.Error, e.message);
             });
     }
 
