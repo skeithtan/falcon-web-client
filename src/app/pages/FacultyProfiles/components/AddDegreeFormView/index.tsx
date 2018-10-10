@@ -29,10 +29,7 @@ interface IPropsType {
 @inject("facultyProfiles")
 @observer
 export default class AddDegreeFormView extends React.Component<IPropsType> {
-    public onSubmitClick = () => {
-        // This is temporary
-        global.console.log("Thank you Oliver, very cool.");
-    };
+    public onSubmitClick = () => FacultyProfilesController.submitAddDegree();
 
     public onClose = () => {
         FacultyProfilesController.toggleAddDegreeForm(false);
@@ -174,9 +171,7 @@ export default class AddDegreeFormView extends React.Component<IPropsType> {
                     <Grid item>
                         <FormSubmitBar
                             disabled={!canSubmit}
-                            formState={
-                                facultyProfiles!.addDegreeFormState
-                            }
+                            formState={facultyProfiles!.addDegreeFormState}
                             onSubmitClick={this.onSubmitClick}
                         />
                     </Grid>

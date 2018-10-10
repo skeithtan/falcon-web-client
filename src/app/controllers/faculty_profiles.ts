@@ -1,11 +1,6 @@
 import FetchableStatus from "../models/enums/fetchable_status";
 import FormStatus from "../models/enums/form_status";
-import AddDegreeForm from "../models/forms/add_degree_form";
-import AddExtensionWorkForm from "../models/forms/add_extension_work_form";
 import AddFacultyMemberForm from "../models/forms/add_faculty_member_form";
-import AddInstructionalMaterialForm from "../models/forms/add_instructional_material_form";
-import AddPresentationForm from "../models/forms/add_presentation_form";
-import AddRecognitionForm from "../models/forms/add_recognition_form";
 import FacultyMembersService from "../services/faculty_members";
 import DegreeService from "../services/faculty_subdocument/degree";
 import ExtensionWorkService from "../services/faculty_subdocument/extension_work";
@@ -123,99 +118,88 @@ export default class FacultyProfilesController {
     }
 
     //
-    // ─── Add subdocuments  ───────────────────────────────────────────────────────────────────────────
+    // ─── Submit Add subdocuments  ───────────────────────────────────────────────────────────────────────────
     //
 
-    public static addDegree(form: AddDegreeForm) {
+    public static submitAddDegree() {
         const facultyMember = facultyProfiles.activeFacultyMember;
-        facultyProfiles.addDegreeFormState.setStatus(FormStatus.Submitting);
+        const { addDegreeFormState: formState } = facultyProfiles;
+        const form = formState.form;
+        formState.setStatus(FormStatus.Submitting);
 
         DegreeService.add(form)
             .then(d => {
                 facultyMember!.degrees!.push(d);
-                facultyProfiles.addDegreeFormState.resetAndClose();
+                formState.resetAndClose();
             })
             .catch(e => {
-                facultyProfiles.addDegreeFormState.setStatus(
-                    FormStatus.Error,
-                    e.message
-                );
+                formState.setStatus(FormStatus.Error, e.message);
             });
     }
 
-    public static addRecognition(form: AddRecognitionForm) {
+    public static submitAddRecognition() {
         const facultyMember = facultyProfiles.activeFacultyMember;
-        facultyProfiles.addRecognitionFormState.setStatus(
-            FormStatus.Submitting
-        );
+        const { addRecognitionFormState: formState } = facultyProfiles;
+        const form = formState.form;
+        formState.setStatus(FormStatus.Submitting);
 
         RecognitionService.add(form)
             .then(r => {
                 facultyMember!.recognitions!.push(r);
-                facultyProfiles.addRecognitionFormState.resetAndClose();
+                formState.resetAndClose();
             })
             .catch(e => {
-                facultyProfiles.addRecognitionFormState.setStatus(
-                    FormStatus.Error,
-                    e.message
-                );
+                formState.setStatus(FormStatus.Error, e.message);
             });
     }
 
-    public static addPresentation(form: AddPresentationForm) {
+    public static submitAddPresentation() {
         const facultyMember = facultyProfiles.activeFacultyMember;
-        facultyProfiles.addPresentationFormState.setStatus(
-            FormStatus.Submitting
-        );
+        const { addPresentationFormState: formState } = facultyProfiles;
+        const form = formState.form;
+        formState.setStatus(FormStatus.Submitting);
 
         PresentationService.add(form)
             .then(p => {
                 facultyMember!.presentations!.push(p);
-                facultyProfiles.addPresentationFormState.resetAndClose();
+                formState.resetAndClose();
             })
             .catch(e => {
-                facultyProfiles.addPresentationFormState.setStatus(
-                    FormStatus.Error,
-                    e.message
-                );
+                formState.setStatus(FormStatus.Error, e.message);
             });
     }
 
-    public static addInstructionalMaterial(form: AddInstructionalMaterialForm) {
+    public static submitAddInstructionalMaterial() {
         const facultyMember = facultyProfiles.activeFacultyMember;
-        facultyProfiles.addInstructionalMaterialFormState.setStatus(
-            FormStatus.Submitting
-        );
+        const {
+            addInstructionalMaterialFormState: formState,
+        } = facultyProfiles;
+        const form = formState.form;
+        formState.setStatus(FormStatus.Submitting);
 
         InstructionalMaterialService.add(form)
             .then(im => {
                 facultyMember!.instructionalMaterials!.push(im);
-                facultyProfiles.addInstructionalMaterialFormState.resetAndClose();
+                formState.resetAndClose();
             })
             .catch(e => {
-                facultyProfiles.addInstructionalMaterialFormState.setStatus(
-                    FormStatus.Error,
-                    e.message
-                );
+                formState.setStatus(FormStatus.Error, e.message);
             });
     }
 
-    public static addExtensionWork(form: AddExtensionWorkForm) {
+    public static submitAddExtensionWork() {
         const facultyMember = facultyProfiles.activeFacultyMember;
-        facultyProfiles.addExtensionWorkFormState.setStatus(
-            FormStatus.Submitting
-        );
+        const { addExtensionWorkFormState: formState } = facultyProfiles;
+        const form = formState.form;
+        formState.setStatus(FormStatus.Submitting);
 
         ExtensionWorkService.add(form)
             .then(ew => {
                 facultyMember!.extensionWorks!.push(ew);
-                facultyProfiles.addExtensionWorkFormState.resetAndClose();
+                formState.resetAndClose();
             })
             .catch(e => {
-                facultyProfiles.addExtensionWorkFormState.setStatus(
-                    FormStatus.Error,
-                    e.message
-                );
+                formState.setStatus(FormStatus.Error, e.message);
             });
     }
 }
