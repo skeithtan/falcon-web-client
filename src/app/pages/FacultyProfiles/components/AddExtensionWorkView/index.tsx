@@ -15,12 +15,6 @@ import { ExtensionWorkRoleReadable } from "../../../../models/enums/extension_wo
 import { ProgramReadable } from "../../../../models/enums/program";
 import { FacultyProfilesState } from "../../../../store/faculty_profiles";
 
-/**
- * What's missing?
- * onClickSubmit function
- * FacultyProfilesController function for adding a degree
- */
-
 interface IPropsType {
     facultyProfiles?: FacultyProfilesState;
 }
@@ -29,8 +23,9 @@ interface IPropsType {
 @observer
 export default class AddExtensionWorkView extends React.Component<IPropsType> {
     public onSubmitClick = () => {
-        // This is temporary
-        global.console.log("Thank you Oliver, very cool.");
+        const { facultyProfiles } = this.props;
+        const { form } = facultyProfiles!.addExtensionWorkFormState;
+        FacultyProfilesController.addExtensionWork(form);
     };
 
     public onClose = () => {
@@ -117,9 +112,7 @@ export default class AddExtensionWorkView extends React.Component<IPropsType> {
                                 error={"roles" in validationErrors}
                                 component="fieldset"
                             >
-                                <FormLabel component="legend">
-                                    Roles
-                                </FormLabel>
+                                <FormLabel component="legend">Roles</FormLabel>
                                 <FormGroup>
                                     {Array.from(ExtensionWorkRoleReadable).map(
                                         ([typeEnum, typeReadable]: any) => (

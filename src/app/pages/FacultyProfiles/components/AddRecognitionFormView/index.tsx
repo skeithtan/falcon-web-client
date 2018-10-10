@@ -16,12 +16,6 @@ import { ProgramReadable } from "../../../../models/enums/program";
 import { RecognitionBasisReadable } from "../../../../models/enums/recognition_basis";
 import { FacultyProfilesState } from "../../../../store/faculty_profiles";
 
-/**
- * What's missing?
- * onClickSubmit function
- * FacultyProfilesController function for adding a degree
- */
-
 interface IPropsType {
     facultyProfiles?: FacultyProfilesState;
 }
@@ -32,8 +26,9 @@ export default class AddRecognitionFormView extends React.Component<
     IPropsType
 > {
     public onSubmitClick = () => {
-        // This is temporary
-        global.console.log("Thank you Oliver, very cool.");
+        const { facultyProfiles } = this.props;
+        const { form } = facultyProfiles!.addRecognitionFormState;
+        FacultyProfilesController.addRecognition(form);
     };
 
     public onClose = () => {
@@ -190,9 +185,7 @@ export default class AddRecognitionFormView extends React.Component<
                     <Grid item>
                         <FormSubmitBar
                             disabled={!canSubmit}
-                            formState={
-                                facultyProfiles!.addRecognitionFormState
-                            }
+                            formState={facultyProfiles!.addRecognitionFormState}
                             onSubmitClick={this.onSubmitClick}
                         />
                     </Grid>
