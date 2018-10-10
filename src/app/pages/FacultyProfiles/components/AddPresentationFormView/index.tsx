@@ -17,12 +17,6 @@ import { PresentationMediumReadable } from "../../../../models/enums/presentatio
 import { ProgramReadable } from "../../../../models/enums/program";
 import { FacultyProfilesState } from "../../../../store/faculty_profiles";
 
-/**
- * What's missing?
- * onClickSubmit function
- * FacultyProfilesController function for adding a degree
- */
-
 interface IPropsType {
     facultyProfiles?: FacultyProfilesState;
 }
@@ -33,8 +27,9 @@ export default class AddPresentationFormView extends React.Component<
     IPropsType
 > {
     public onSubmitClick = () => {
-        // This is temporary
-        global.console.log("Thank you Oliver, very cool.");
+        const { facultyProfiles } = this.props;
+        const { form } = facultyProfiles!.addPresentationFormState;
+        FacultyProfilesController.addPresentation(form);
     };
 
     public onClose = () => {

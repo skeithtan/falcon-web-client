@@ -17,7 +17,6 @@ export default class SubjectItem extends React.Component<IPropsType> {
     public onClick = () => {
         const { subject } = this.props;
         SubjectsController.setActiveSubject(subject.id);
-        SubjectsController.getExperiencedFaculties(subject);
     };
 
     public render() {

@@ -1,4 +1,3 @@
-import Subject from "../models/entities/subject";
 import FetchableStatus from "../models/enums/fetchable_status";
 import FormStatus from "../models/enums/form_status";
 import AddSubjectForm from "../models/forms/add_subject_form";
@@ -22,19 +21,6 @@ export default class SubjectsController {
             });
     }
 
-    public static getExperiencedFaculties(subject: Subject) {
-        subject.fetchStatus = FetchableStatus.Fetching;
-
-        SubjectsService.fetchSubject(subject.id)
-            .then(s => {
-                subjects.subjectItems!.set(subject.id, s);
-            })
-            .catch((e: Error) => {
-                subject.fetchStatus = FetchableStatus.Error;
-                subjects.setStatus(FetchableStatus.Error, e.message);
-            });
-    }
-
     public static create(form: AddSubjectForm) {
         subjects.addSubjectFormState.setStatus(FormStatus.Submitting);
 
@@ -53,6 +39,19 @@ export default class SubjectsController {
 
     public static setActiveSubject(id: number) {
         subjects.activeSubjectId = id;
+        const subject = subjects.activeSubject!;
+        subject.fetchStatus = FetchableStatus.Fetching;
+
+        SubjectsService.fetchSubject(subject.id)
+            .then(s => {
+                // REMOVE THIS HACK IN THE FUTURE
+                s.fetchStatus = FetchableStatus.Fetched;
+                subjects.subjectItems!.set(subject.id, s);
+            })
+            .catch((e: Error) => {
+                subject.fetchStatus = FetchableStatus.Error;
+                subjects.setStatus(FetchableStatus.Error, e.message);
+            });
     }
 
     public static toggleAddSubjectForm(shouldShow: boolean) {

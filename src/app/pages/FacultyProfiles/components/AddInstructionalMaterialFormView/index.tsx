@@ -22,12 +22,6 @@ import { InstructionalMaterialMediumReadable } from "../../../../models/enums/in
 import { ProgramReadable } from "../../../../models/enums/program";
 import { FacultyProfilesState } from "../../../../store/faculty_profiles";
 
-/**
- * What's missing?
- * onClickSubmit function
- * FacultyProfilesController function for adding a degree
- */
-
 interface IPropsType {
     facultyProfiles?: FacultyProfilesState;
 }
@@ -38,8 +32,9 @@ export default class AddInstructionalMaterialFormView extends React.Component<
     IPropsType
 > {
     public onSubmitClick = () => {
-        // This is temporary
-        global.console.log("Thank you Oliver, very cool.");
+        const { facultyProfiles } = this.props;
+        const { form } = facultyProfiles!.addInstructionalMaterialFormState;
+        FacultyProfilesController.addInstructionalMaterial(form);
     };
 
     public onClose = () => {
@@ -182,6 +177,7 @@ export default class AddInstructionalMaterialFormView extends React.Component<
                                         .map(levelNumber => String(levelNumber))
                                         .map(level => (
                                             <FormControlLabel
+                                                key={level}
                                                 control={<Radio />}
                                                 value={level}
                                                 label={level}

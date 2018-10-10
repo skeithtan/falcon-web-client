@@ -16,12 +16,6 @@ import { DegreeLevelReadable } from "../../../../models/enums/degree_level";
 import { ProgramReadable } from "../../../../models/enums/program";
 import { FacultyProfilesState } from "../../../../store/faculty_profiles";
 
-/**
- * What's missing?
- * onClickSubmit function
- * FacultyProfilesController function for adding a degree
- */
-
 interface IPropsType {
     facultyProfiles?: FacultyProfilesState;
 }
