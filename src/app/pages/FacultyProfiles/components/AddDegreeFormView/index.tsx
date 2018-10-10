@@ -16,12 +16,6 @@ import { DegreeLevelReadable } from "../../../../models/enums/degree_level";
 import { ProgramReadable } from "../../../../models/enums/program";
 import { FacultyProfilesState } from "../../../../store/faculty_profiles";
 
-/**
- * What's missing?
- * onClickSubmit function
- * FacultyProfilesController function for adding a degree
- */
-
 interface IPropsType {
     facultyProfiles?: FacultyProfilesState;
 }
@@ -30,8 +24,9 @@ interface IPropsType {
 @observer
 export default class AddDegreeFormView extends React.Component<IPropsType> {
     public onSubmitClick = () => {
-        // This is temporary
-        global.console.log("Thank you Oliver, very cool.");
+        const { facultyProfiles } = this.props;
+        const { form } = facultyProfiles!.addDegreeFormState;
+        FacultyProfilesController.addDegree(form);
     };
 
     public onClose = () => {
@@ -174,9 +169,7 @@ export default class AddDegreeFormView extends React.Component<IPropsType> {
                     <Grid item>
                         <FormSubmitBar
                             disabled={!canSubmit}
-                            formState={
-                                facultyProfiles!.addDegreeFormState
-                            }
+                            formState={facultyProfiles!.addDegreeFormState}
                             onSubmitClick={this.onSubmitClick}
                         />
                     </Grid>
