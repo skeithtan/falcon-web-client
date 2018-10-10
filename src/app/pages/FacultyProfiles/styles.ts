@@ -6,7 +6,7 @@ export default {
     },
     list: {
         minWidth: 280,
-        overflowY: "scroll",
+        position: "relative",
     },
     detail: {
         width: "100%",
