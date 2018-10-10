@@ -22,11 +22,8 @@ interface IPropsType {
 @inject("facultyProfiles")
 @observer
 export default class AddExtensionWorkView extends React.Component<IPropsType> {
-    public onSubmitClick = () => {
-        const { facultyProfiles } = this.props;
-        const { form } = facultyProfiles!.addExtensionWorkFormState;
-        FacultyProfilesController.addExtensionWork(form);
-    };
+    public onSubmitClick = () =>
+        FacultyProfilesController.submitAddExtensionWork();
 
     public onClose = () => {
         FacultyProfilesController.toggleAddExtensionWorkForm(false);

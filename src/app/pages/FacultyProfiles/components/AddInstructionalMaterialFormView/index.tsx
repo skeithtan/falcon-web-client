@@ -31,11 +31,8 @@ interface IPropsType {
 export default class AddInstructionalMaterialFormView extends React.Component<
     IPropsType
 > {
-    public onSubmitClick = () => {
-        const { facultyProfiles } = this.props;
-        const { form } = facultyProfiles!.addInstructionalMaterialFormState;
-        FacultyProfilesController.addInstructionalMaterial(form);
-    };
+    public onSubmitClick = () =>
+        FacultyProfilesController.submitAddInstructionalMaterial();
 
     public onClose = () => {
         FacultyProfilesController.toggleAddInstructionalMaterialForm(false);
@@ -166,9 +163,7 @@ export default class AddInstructionalMaterialFormView extends React.Component<
                                 error={"level" in validationErrors}
                                 component="fieldset"
                             >
-                                <FormLabel component="legend">
-                                    Level
-                                </FormLabel>
+                                <FormLabel component="legend">Level</FormLabel>
                                 <RadioGroup
                                     value={form.level}
                                     onChange={this.onChange("level")}

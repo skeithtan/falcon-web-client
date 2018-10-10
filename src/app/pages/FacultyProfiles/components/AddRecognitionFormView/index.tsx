@@ -25,11 +25,8 @@ interface IPropsType {
 export default class AddRecognitionFormView extends React.Component<
     IPropsType
 > {
-    public onSubmitClick = () => {
-        const { facultyProfiles } = this.props;
-        const { form } = facultyProfiles!.addRecognitionFormState;
-        FacultyProfilesController.addRecognition(form);
-    };
+    public onSubmitClick = () =>
+        FacultyProfilesController.submitAddRecognition();
 
     public onClose = () => {
         FacultyProfilesController.toggleAddRecognitionForm(false);

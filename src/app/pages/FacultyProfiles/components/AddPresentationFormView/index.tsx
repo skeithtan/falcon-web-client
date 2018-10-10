@@ -26,11 +26,8 @@ interface IPropsType {
 export default class AddPresentationFormView extends React.Component<
     IPropsType
 > {
-    public onSubmitClick = () => {
-        const { facultyProfiles } = this.props;
-        const { form } = facultyProfiles!.addPresentationFormState;
-        FacultyProfilesController.addPresentation(form);
-    };
+    public onSubmitClick = () =>
+        FacultyProfilesController.submitAddPresentation();
 
     public onClose = () => {
         FacultyProfilesController.toggleAddPresentationForm(false);
