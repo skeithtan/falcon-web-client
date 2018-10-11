@@ -8,12 +8,12 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
-import DrawerForm from "../../../../components/reusable/DrawerForm";
-import FormSubmitBar from "../../../../components/reusable/FormSubmitBar";
-import FacultyProfilesController from "../../../../controllers/faculty_profiles";
-import { ExtensionWorkRoleReadable } from "../../../../models/enums/extension_work_role";
-import { ProgramReadable } from "../../../../models/enums/program";
-import { FacultyProfilesState } from "../../../../store/faculty_profiles";
+import DrawerForm from "../../../../../components/reusable/DrawerForm";
+import FormSubmitBar from "../../../../../components/reusable/FormSubmitBar";
+import FacultyProfilesController from "../../../../../controllers/faculty_profiles";
+import { ExtensionWorkRoleReadable } from "../../../../../models/enums/extension_work_role";
+import { ProgramReadable } from "../../../../../models/enums/program";
+import { FacultyProfilesState } from "../../../../../store/faculty_profiles";
 
 interface IPropsType {
     facultyProfiles?: FacultyProfilesState;

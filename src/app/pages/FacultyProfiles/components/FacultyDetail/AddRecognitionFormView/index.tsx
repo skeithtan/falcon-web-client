@@ -9,12 +9,12 @@ import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
-import DrawerForm from "../../../../components/reusable/DrawerForm";
-import FormSubmitBar from "../../../../components/reusable/FormSubmitBar";
-import FacultyProfilesController from "../../../../controllers/faculty_profiles";
-import { ProgramReadable } from "../../../../models/enums/program";
-import { RecognitionBasisReadable } from "../../../../models/enums/recognition_basis";
-import { FacultyProfilesState } from "../../../../store/faculty_profiles";
+import DrawerForm from "../../../../../components/reusable/DrawerForm";
+import FormSubmitBar from "../../../../../components/reusable/FormSubmitBar";
+import FacultyProfilesController from "../../../../../controllers/faculty_profiles";
+import { ProgramReadable } from "../../../../../models/enums/program";
+import { RecognitionBasisReadable } from "../../../../../models/enums/recognition_basis";
+import { FacultyProfilesState } from "../../../../../store/faculty_profiles";
 
 interface IPropsType {
     facultyProfiles?: FacultyProfilesState;
