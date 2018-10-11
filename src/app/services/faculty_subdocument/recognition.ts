@@ -6,12 +6,14 @@ import { handleAxiosError } from "src/app/utils/handle_axios_error";
 export default class RecognitionService {
     public static async add(form: AddRecognitionForm) {
         return axios
-            .post("/recognitions", form)
+            .post("/faculty-subdocuments/recognitions", form)
             .then((response: AxiosResponse) => new Recognition(response.data))
             .catch(handleAxiosError);
     }
 
     public static async remove(id: number) {
-        return axios.delete(`/recognitions/${id}`).catch(handleAxiosError);
+        return axios
+            .delete(`/faculty-subdocuments/recognitions/${id}`)
+            .catch(handleAxiosError);
     }
 }

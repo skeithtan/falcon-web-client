@@ -1,3 +1,8 @@
+import Degree from "../models/entities/degree";
+import ExtensionWork from "../models/entities/extension_work";
+import InstructionalMaterial from "../models/entities/instructional_material";
+import Presentation from "../models/entities/presentation";
+import Recognition from "../models/entities/recognition";
 import FetchableStatus from "../models/enums/fetchable_status";
 import FormStatus from "../models/enums/form_status";
 import FacultyMembersService from "../services/faculty_members";
@@ -203,5 +208,60 @@ export default class FacultyProfilesController {
             .catch(e => {
                 formState.setStatus(FormStatus.Error, e.message);
             });
+    }
+
+    //
+    // ─── Remove subdocuments  ───────────────────────────────────────────────────────────────────────────
+    //
+
+    public static async removeDegree(degree: Degree) {
+        const facultyMember = facultyProfiles.activeFacultyMember!;
+        const index = facultyMember.degrees!.indexOf(degree);
+
+        return await DegreeService.remove(degree.id).then(() => {
+            facultyMember.degrees!.splice(index, 1);
+        });
+    }
+
+    public static async removeExtensionWork(extensionWork: ExtensionWork) {
+        const facultyMember = facultyProfiles.activeFacultyMember!;
+        const index = facultyMember.extensionWorks!.indexOf(extensionWork);
+
+        return await ExtensionWorkService.remove(extensionWork.id).then(() => {
+            facultyMember.extensionWorks!.splice(index, 1);
+        });
+    }
+
+    public static async removeInstructionalMaterial(
+        instructionalMaterial: InstructionalMaterial
+    ) {
+        const facultyMember = facultyProfiles.activeFacultyMember!;
+        const index = facultyMember.instructionalMaterials!.indexOf(
+            instructionalMaterial
+        );
+
+        return await InstructionalMaterialService.remove(
+            instructionalMaterial.id
+        ).then(() => {
+            facultyMember.instructionalMaterials!.splice(index, 1);
+        });
+    }
+
+    public static async removePresentation(presentation: Presentation) {
+        const facultyMember = facultyProfiles.activeFacultyMember!;
+        const index = facultyMember.presentations!.indexOf(presentation);
+
+        return await PresentationService.remove(presentation.id).then(() => {
+            facultyMember.presentations!.splice(index, 1);
+        });
+    }
+
+    public static async removeRecognition(recognition: Recognition) {
+        const facultyMember = facultyProfiles.activeFacultyMember!;
+        const index = facultyMember.recognitions!.indexOf(recognition);
+
+        return await RecognitionService.remove(recognition.id).then(() => {
+            facultyMember.recognitions!.splice(index, 1);
+        });
     }
 }

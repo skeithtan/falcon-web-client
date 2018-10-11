@@ -13,4 +13,10 @@ export default (theme: Theme): StyleRules => ({
         borderRight: `1px solid ${theme.palette.grey["200"]}`,
         height: "100%",
     },
+    addButton: {
+        position: "absolute",
+        bottom: 24,
+        right: 24,
+        zIndex: theme.zIndex.drawer,
+    },
 });

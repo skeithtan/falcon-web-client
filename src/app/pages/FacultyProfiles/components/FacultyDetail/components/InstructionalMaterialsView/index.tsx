@@ -1,10 +1,15 @@
+import Button from "@material-ui/core/Button";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
+import Grid from "@material-ui/core/Grid";
 import List from "@material-ui/core/List";
+import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
+import FacultyProfilesController from "src/app/controllers/faculty_profiles";
+import IStyleClasses from "src/app/interfaces/style_classes";
 import DetailItem from "../../../../../../components/reusable/DetailItem";
 import InstructionalMaterial from "../../../../../../models/entities/instructional_material";
 import InstructionalMaterialAudience, {
@@ -14,18 +19,40 @@ import InstructionalMaterialMedium, {
     InstructionalMaterialMediumReadable,
 } from "../../../../../../models/enums/instructional_material_medium";
 import AssociatedProgramsItem from "../AssociatedProgramsItem";
+import styles from "./styles";
 
 interface IPropsType {
     instructionalMaterials: InstructionalMaterial[];
+    classes: IStyleClasses;
 }
 
 @inject("facultyProfiles")
 @observer
-export default class InstructionalMaterialsView extends React.Component<
-    IPropsType
-> {
+class InstructionalMaterialsView extends React.Component<IPropsType> {
+    public onDeleteClick = (
+        instructionalMaterial: InstructionalMaterial
+    ) => () => {
+        if (
+            confirm(
+                `Are you sure you want to delete the instructional material ${
+                    instructionalMaterial.title
+                }`
+            )
+        ) {
+            FacultyProfilesController.removeInstructionalMaterial(
+                instructionalMaterial
+            ).catch((e: Error) =>
+                alert(
+                    `An error occurred while deleting the instructional material ${
+                        e.message
+                    }`
+                )
+            );
+        }
+    };
+
     public render() {
-        const { instructionalMaterials } = this.props;
+        const { instructionalMaterials, classes } = this.props;
         return (
             <React.Fragment>
                 {instructionalMaterials !== undefined &&
@@ -44,30 +71,48 @@ export default class InstructionalMaterialsView extends React.Component<
                                     </Typography>
                                 </ExpansionPanelSummary>
                                 <ExpansionPanelDetails>
-                                    <List>
-                                        <DetailItem
-                                            field="Medium"
-                                            value={medium}
-                                        />
-                                        <DetailItem
-                                            field="Audience"
-                                            value={audience}
-                                        />
-                                        <DetailItem
-                                            field="Usage Year"
-                                            value={im.usageYear}
-                                        />
-                                        {im.level !== undefined && (
-                                            <DetailItem
-                                                field="Student Level"
-                                                value={`${im.level}`}
-                                            />
-                                        )}
-                                        <AssociatedProgramsItem
-                                            field="Associated Programs"
-                                            programs={im.associatedPrograms!}
-                                        />
-                                    </List>
+                                    <Grid
+                                        container
+                                        direction="column"
+                                        alignContent="flex-start"
+                                    >
+                                        <Grid item>
+                                            <List className={classes.list}>
+                                                <DetailItem
+                                                    field="Medium"
+                                                    value={medium}
+                                                />
+                                                <DetailItem
+                                                    field="Audience"
+                                                    value={audience}
+                                                />
+                                                <DetailItem
+                                                    field="Usage Year"
+                                                    value={im.usageYear}
+                                                />
+                                                {im.level !== undefined && (
+                                                    <DetailItem
+                                                        field="Student Level"
+                                                        value={`${im.level}`}
+                                                    />
+                                                )}
+                                                <AssociatedProgramsItem
+                                                    field="Associated Programs"
+                                                    programs={
+                                                        im.associatedPrograms!
+                                                    }
+                                                />
+                                            </List>
+                                        </Grid>
+                                        <Grid item>
+                                            <Button
+                                                color="secondary"
+                                                onClick={this.onDeleteClick(im)}
+                                            >
+                                                Remove
+                                            </Button>
+                                        </Grid>
+                                    </Grid>
                                 </ExpansionPanelDetails>
                             </ExpansionPanel>
                         );
@@ -76,3 +121,5 @@ export default class InstructionalMaterialsView extends React.Component<
         );
     }
 }
+
+export default withStyles(styles)(InstructionalMaterialsView);
