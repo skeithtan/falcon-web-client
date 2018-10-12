@@ -92,7 +92,7 @@ class InstructionalMaterialsView extends React.Component<IPropsType> {
                                                     field="Usage Year"
                                                     value={im.usageYear}
                                                 />
-                                                {im.level !== undefined && (
+                                                {Boolean(im.level) && (
                                                     <DetailItem
                                                         field="Student Level"
                                                         value={`${im.level}`}
