@@ -5,6 +5,7 @@ import FacultyProfilesIcon from "@material-ui/icons/Contacts";
 import UsersIcon from "@material-ui/icons/SupervisedUserCircle";
 import * as React from "react";
 import FacultyProfilesPage from "../../pages/FacultyProfiles";
+import MyProfilePage from "../../pages/MyProfile";
 import SubjectsPage from "../../pages/Subjects";
 
 enum Page {
@@ -95,7 +96,7 @@ export const PAGE_SPECIFICATION = new Map<Page, IPageSpecification>([
             page: Page.MyProfile,
             path: "my-profile",
             icon: FacultyProfilesIcon,
-            component: undefined,
+            component: MyProfilePage,
             name: "My Profile",
             description:
                 "View profile, expert subjects, and create add requests",
