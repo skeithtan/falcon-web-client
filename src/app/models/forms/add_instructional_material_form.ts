@@ -1,4 +1,12 @@
-import { IsEnum, IsNotEmpty, IsNumberString, Length } from "class-validator";
+import {
+    IsEnum,
+    IsNotEmpty,
+    IsNumberString,
+    Length,
+    registerDecorator,
+    ValidationArguments,
+    ValidationOptions,
+} from "class-validator";
 import { observable } from "mobx";
 import { AddSubdocumentForm } from "../../interfaces/add_subdocument_form";
 import InstructionalMaterialAudience from "../enums/instructional_material_audience";
@@ -37,9 +45,29 @@ export default class AddInstructionalMaterialForm extends AddSubdocumentForm {
     @observable
     public usageYear: string = "";
 
-    @IsNotEmpty({
+    @IsValidLevel({
         message: "Material level is required",
     })
     @observable
     public level: string = "";
+}
+
+function IsValidLevel(validationOptions?: ValidationOptions) {
+    return (form: AddInstructionalMaterialForm, propertyName: string) =>
+        registerDecorator({
+            name: "IsValidLevel",
+            target: form.constructor,
+            propertyName,
+            options: validationOptions,
+            validator: {
+                validate(value: string, args: ValidationArguments) {
+                    const {
+                        audience,
+                    } = args.object as AddInstructionalMaterialForm;
+                    return audience === InstructionalMaterialAudience.Student
+                        ? value.length !== 0
+                        : true;
+                },
+            },
+        });
 }
