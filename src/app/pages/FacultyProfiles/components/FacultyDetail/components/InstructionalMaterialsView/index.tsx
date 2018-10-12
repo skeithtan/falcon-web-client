@@ -76,7 +76,10 @@ class InstructionalMaterialsView extends React.Component<IPropsType> {
                                         alignContent="flex-start"
                                     >
                                         <Grid item>
-                                            <List className={classes.list}>
+                                            <List
+                                                className={classes.list}
+                                                disablePadding
+                                            >
                                                 <DetailItem
                                                     field="Medium"
                                                     value={medium}
@@ -89,7 +92,7 @@ class InstructionalMaterialsView extends React.Component<IPropsType> {
                                                     field="Usage Year"
                                                     value={im.usageYear}
                                                 />
-                                                {im.level !== undefined && (
+                                                {Boolean(im.level) && (
                                                     <DetailItem
                                                         field="Student Level"
                                                         value={`${im.level}`}

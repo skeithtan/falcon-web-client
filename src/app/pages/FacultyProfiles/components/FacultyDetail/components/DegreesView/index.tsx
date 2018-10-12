@@ -12,7 +12,9 @@ import FacultyProfilesController from "src/app/controllers/faculty_profiles";
 import IStyleClasses from "src/app/interfaces/style_classes";
 import DetailItem from "../../../../../../components/reusable/DetailItem";
 import Degree from "../../../../../../models/entities/degree";
-import DegreeLevel, { DegreeLevelReadable } from "../../../../../../models/enums/degree_level";
+import DegreeLevel, {
+    DegreeLevelReadable,
+} from "../../../../../../models/enums/degree_level";
 import AssociatedProgramsItem from "../AssociatedProgramsItem";
 import styles from "./styles";
 
@@ -60,7 +62,10 @@ class DegreesView extends React.Component<IPropsType> {
                                         alignContent="flex-start"
                                     >
                                         <Grid item>
-                                            <List className={classes.list}>
+                                            <List
+                                                className={classes.list}
+                                                disablePadding
+                                            >
                                                 <DetailItem
                                                     field="Level"
                                                     value={level}
