@@ -34,4 +34,14 @@ export default class FacultyMembersService {
             })
             .catch(handleAxiosError);
     }
+
+    public static async fetchCurrentFaculty(): Promise<FacultyMember> {
+        return axios
+            .get("/faculty-members/current")
+            .then(
+                (response: AxiosResponse<any>) =>
+                    new FacultyMember(response.data)
+            )
+            .catch(handleAxiosError);
+    }
 }

@@ -30,6 +30,20 @@ export default class FacultyProfilesController {
             });
     }
 
+    public static getCurrentFaculty() {
+        facultyProfiles.setStatus(FetchableStatus.Fetching);
+
+        FacultyMembersService.fetchCurrentFaculty()
+            .then(fm => {
+                facultyProfiles.facultyMembers = new Map([[fm.id, fm]]);
+                facultyProfiles.activeFacultyId = fm.id;
+                facultyProfiles.setStatus(FetchableStatus.Fetched);
+            })
+            .catch((e: Error) => {
+                facultyProfiles.setStatus(FetchableStatus.Error, e.message);
+            });
+    }
+
     public static submitAddFacultyMember() {
         const { addFacultyMemberFormState: formState } = facultyProfiles;
         const form = formState.form;

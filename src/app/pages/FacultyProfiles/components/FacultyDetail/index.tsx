@@ -8,6 +8,12 @@ import FacultyProfilesController from "../../../../controllers/faculty_profiles"
 import IStyleClasses from "../../../../interfaces/style_classes";
 import FacultyMember from "../../../../models/entities/faculty_member";
 import { FacultyProfilesState } from "../../../../store/faculty_profiles";
+import AddFacultyMemberFormView from "../AddFacultyMemberForm";
+import AddDegreeFormView from "./AddDegreeFormView";
+import AddExtensionWorkView from "./AddExtensionWorkView";
+import AddInstructionalMaterialFormView from "./AddInstructionalMaterialFormView";
+import AddPresentationFormView from "./AddPresentationFormView";
+import AddRecognitionFormView from "./AddRecognitionFormView";
 import BasicInformationView from "./components/BasicInformationView";
 import DegreesView from "./components/DegreesView";
 import ExtensionWorksView from "./components/ExtensionWorksView";
@@ -69,87 +75,99 @@ class FacultyDetail extends React.Component<IPropsType> {
         return (
             <StateWrapper fetchableState={fm.fetchStatus}>
                 {() => (
-                    <Grid
-                        container
-                        direction="column"
-                        justify="flex-start"
-                        alignItems="center"
-                        className={classes.detail}
-                        spacing={24}
-                    >
-                        <Grid item className={classes.item}>
-                            <BasicInformationView
-                                facultyMember={fm}
-                                canUpdate
-                            />
-                        </Grid>
-                        <Grid item className={classes.item}>
-                            <FacultySubdocumentCard
-                                empty={fm.degrees!.length === 0}
-                                name="Degrees"
-                                onAddClick={this.addDegreeFormToggle(true)}
-                                canAdd={true}
-                            >
-                                <DegreesView degrees={fm.degrees!} />
-                            </FacultySubdocumentCard>
-                        </Grid>
-                        <Grid item className={classes.item}>
-                            <FacultySubdocumentCard
-                                empty={fm.recognitions!.length === 0}
-                                name="Academic Recognitions"
-                                onAddClick={this.addRecognitionFormToggle(true)}
-                                canAdd={true}
-                            >
-                                <RecognitionsView
-                                    recognitions={fm.recognitions!}
+                    <React.Fragment>
+                        <Grid
+                            container
+                            direction="column"
+                            justify="flex-start"
+                            alignItems="center"
+                            className={classes.detail}
+                            spacing={24}
+                        >
+                            <Grid item className={classes.item}>
+                                <BasicInformationView
+                                    facultyMember={fm}
+                                    canUpdate
                                 />
-                            </FacultySubdocumentCard>
-                        </Grid>
-                        <Grid item className={classes.item}>
-                            <FacultySubdocumentCard
-                                empty={fm.presentations!.length === 0}
-                                name="Presentations"
-                                onAddClick={this.addPresentationFormToggle(
-                                    true
-                                )}
-                                canAdd={true}
-                            >
-                                <PresentationsView
-                                    presentations={fm.presentations!}
-                                />
-                            </FacultySubdocumentCard>
-                        </Grid>
-                        <Grid item className={classes.item}>
-                            <FacultySubdocumentCard
-                                empty={fm.instructionalMaterials!.length === 0}
-                                name="Instructional Materials"
-                                onAddClick={this.addInstructionalMaterialFormToggle(
-                                    true
-                                )}
-                                canAdd={true}
-                            >
-                                <InstructionalMaterialsView
-                                    instructionalMaterials={
-                                        fm.instructionalMaterials!
+                            </Grid>
+                            <Grid item className={classes.item}>
+                                <FacultySubdocumentCard
+                                    empty={fm.degrees!.length === 0}
+                                    name="Degrees"
+                                    onAddClick={this.addDegreeFormToggle(true)}
+                                    canAdd={true}
+                                >
+                                    <DegreesView degrees={fm.degrees!} />
+                                </FacultySubdocumentCard>
+                            </Grid>
+                            <Grid item className={classes.item}>
+                                <FacultySubdocumentCard
+                                    empty={fm.recognitions!.length === 0}
+                                    name="Academic Recognitions"
+                                    onAddClick={this.addRecognitionFormToggle(
+                                        true
+                                    )}
+                                    canAdd={true}
+                                >
+                                    <RecognitionsView
+                                        recognitions={fm.recognitions!}
+                                    />
+                                </FacultySubdocumentCard>
+                            </Grid>
+                            <Grid item className={classes.item}>
+                                <FacultySubdocumentCard
+                                    empty={fm.presentations!.length === 0}
+                                    name="Presentations"
+                                    onAddClick={this.addPresentationFormToggle(
+                                        true
+                                    )}
+                                    canAdd={true}
+                                >
+                                    <PresentationsView
+                                        presentations={fm.presentations!}
+                                    />
+                                </FacultySubdocumentCard>
+                            </Grid>
+                            <Grid item className={classes.item}>
+                                <FacultySubdocumentCard
+                                    empty={
+                                        fm.instructionalMaterials!.length === 0
                                     }
-                                />
-                            </FacultySubdocumentCard>
+                                    name="Instructional Materials"
+                                    onAddClick={this.addInstructionalMaterialFormToggle(
+                                        true
+                                    )}
+                                    canAdd={true}
+                                >
+                                    <InstructionalMaterialsView
+                                        instructionalMaterials={
+                                            fm.instructionalMaterials!
+                                        }
+                                    />
+                                </FacultySubdocumentCard>
+                            </Grid>
+                            <Grid item className={classes.item}>
+                                <FacultySubdocumentCard
+                                    empty={fm.extensionWorks!.length === 0}
+                                    name="Extension Works"
+                                    onAddClick={this.addExtensionWorkFormToggle(
+                                        true
+                                    )}
+                                    canAdd={true}
+                                >
+                                    <ExtensionWorksView
+                                        extensionWorks={fm.extensionWorks!}
+                                    />
+                                </FacultySubdocumentCard>
+                            </Grid>
                         </Grid>
-                        <Grid item className={classes.item}>
-                            <FacultySubdocumentCard
-                                empty={fm.extensionWorks!.length === 0}
-                                name="Extension Works"
-                                onAddClick={this.addExtensionWorkFormToggle(
-                                    true
-                                )}
-                                canAdd={true}
-                            >
-                                <ExtensionWorksView
-                                    extensionWorks={fm.extensionWorks!}
-                                />
-                            </FacultySubdocumentCard>
-                        </Grid>
-                    </Grid>
+                        <AddFacultyMemberFormView />
+                        <AddDegreeFormView />
+                        <AddExtensionWorkView />
+                        <AddInstructionalMaterialFormView />
+                        <AddPresentationFormView />
+                        <AddRecognitionFormView />
+                    </React.Fragment>
                 )}
             </StateWrapper>
         );

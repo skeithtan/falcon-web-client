@@ -9,13 +9,12 @@ import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
-import DrawerForm from "../../../../components/reusable/DrawerForm";
-import FormSubmitBar from "../../../../components/reusable/FormSubmitBar";
-import FacultyProfilesController from "../../../../controllers/faculty_profiles";
-import { PresentationCategoryReadable } from "../../../../models/enums/presentation_category";
-import { PresentationMediumReadable } from "../../../../models/enums/presentation_medium";
-import { ProgramReadable } from "../../../../models/enums/program";
-import { FacultyProfilesState } from "../../../../store/faculty_profiles";
+import DrawerForm from "../../../../../components/reusable/DrawerForm";
+import FormSubmitBar from "../../../../../components/reusable/FormSubmitBar";
+import FacultyProfilesController from "../../../../../controllers/faculty_profiles";
+import { DegreeLevelReadable } from "../../../../../models/enums/degree_level";
+import { ProgramReadable } from "../../../../../models/enums/program";
+import { FacultyProfilesState } from "../../../../../store/faculty_profiles";
 
 interface IPropsType {
     facultyProfiles?: FacultyProfilesState;
@@ -23,14 +22,11 @@ interface IPropsType {
 
 @inject("facultyProfiles")
 @observer
-export default class AddPresentationFormView extends React.Component<
-    IPropsType
-> {
-    public onSubmitClick = () =>
-        FacultyProfilesController.submitAddPresentation();
+export default class AddDegreeFormView extends React.Component<IPropsType> {
+    public onSubmitClick = () => FacultyProfilesController.submitAddDegree();
 
     public onClose = () => {
-        FacultyProfilesController.toggleAddPresentationForm(false);
+        FacultyProfilesController.toggleAddDegreeForm(false);
     };
 
     public onChange = (
@@ -39,7 +35,7 @@ export default class AddPresentationFormView extends React.Component<
         HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     > => event => {
         const { facultyProfiles } = this.props;
-        const { form } = facultyProfiles!.addPresentationFormState;
+        const { form } = facultyProfiles!.addDegreeFormState;
         form[property] = event.target.value;
     };
 
@@ -49,7 +45,7 @@ export default class AddPresentationFormView extends React.Component<
         HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     > => event => {
         const { facultyProfiles } = this.props;
-        const { form } = facultyProfiles!.addPresentationFormState;
+        const { form } = facultyProfiles!.addDegreeFormState;
         if (form[property].includes(event.target.value)) {
             const index = form[property].indexOf(event.target.value);
             form[property].splice(index, 1);
@@ -65,12 +61,12 @@ export default class AddPresentationFormView extends React.Component<
             validationErrors,
             form,
             canSubmit,
-        } = facultyProfiles!.addPresentationFormState;
+        } = facultyProfiles!.addDegreeFormState;
         return (
             <DrawerForm
                 open={isShowing}
                 onClose={this.onClose}
-                formTitle="Add Presentation"
+                formTitle="Add Degree"
             >
                 <Grid
                     container
@@ -96,15 +92,15 @@ export default class AddPresentationFormView extends React.Component<
                         <Grid item xs>
                             <TextField
                                 select
-                                label="Category"
+                                label="Level"
                                 variant="outlined"
-                                onChange={this.onChange("category")}
-                                value={form.category}
-                                error={"category" in validationErrors}
-                                helperText={validationErrors.category}
+                                onChange={this.onChange("level")}
+                                value={form.level}
+                                error={"level" in validationErrors}
+                                helperText={validationErrors.level}
                                 fullWidth
                             >
-                                {Array.from(PresentationCategoryReadable).map(
+                                {Array.from(DegreeLevelReadable).map(
                                     ([typeEnum, typeReadable]: any) => (
                                         <MenuItem
                                             key={typeEnum}
@@ -118,92 +114,13 @@ export default class AddPresentationFormView extends React.Component<
                         </Grid>
                         <Grid item xs>
                             <TextField
-                                label="Date"
-                                variant="outlined"
-                                type="date"
-                                onChange={this.onChange("date")}
-                                value={form.date}
-                                error={"date" in validationErrors}
-                                helperText={validationErrors.date}
-                                required
-                                InputLabelProps={{ shrink: true }}
-                                fullWidth
-                            />
-                        </Grid>
-                    </Grid>
-                    <Grid item container spacing={8} direction="row">
-                        <Grid item xs>
-                            <TextField
-                                label="Sponsor"
+                                label="Completion Year"
                                 variant="outlined"
                                 required
-                                onChange={this.onChange("sponsor")}
-                                value={form.sponsor}
-                                error={"sponsor" in validationErrors}
-                                helperText={validationErrors.sponsor}
-                                fullWidth
-                            />
-                        </Grid>
-                        <Grid item xs>
-                            <TextField
-                                label="Venue"
-                                variant="outlined"
-                                required
-                                onChange={this.onChange("venue")}
-                                value={form.venue}
-                                error={"venue" in validationErrors}
-                                helperText={validationErrors.venue}
-                                fullWidth
-                            />
-                        </Grid>
-                    </Grid>
-                    <Grid item container spacing={8} direction="row">
-                        <Grid item xs>
-                            <TextField
-                                label="Conference"
-                                variant="outlined"
-                                required
-                                onChange={this.onChange("conference")}
-                                value={form.conference}
-                                error={"conference" in validationErrors}
-                                helperText={validationErrors.conference}
-                                fullWidth
-                            />
-                        </Grid>
-                    </Grid>
-                    <Grid item container spacing={8} direction="row">
-                        <Grid item xs>
-                            <TextField
-                                select
-                                label="Medium"
-                                variant="outlined"
-                                onChange={this.onChange("medium")}
-                                value={form.medium}
-                                error={"medium" in validationErrors}
-                                helperText={validationErrors.medium}
-                                fullWidth
-                            >
-                                {Array.from(PresentationMediumReadable).map(
-                                    ([typeEnum, typeReadable]: any) => (
-                                        <MenuItem
-                                            key={typeEnum}
-                                            value={typeEnum}
-                                        >
-                                            {typeReadable}
-                                        </MenuItem>
-                                    )
-                                )}
-                            </TextField>
-                        </Grid>
-                        <Grid item xs>
-                            <TextField
-                                label="Days Duration"
-                                variant="outlined"
-                                required
-                                onChange={this.onChange("daysDuration")}
-                                value={form.daysDuration}
-                                error={"daysDuration" in validationErrors}
-                                helperText={validationErrors.daysDuration}
+                                onChange={this.onChange("completionYear")}
+                                value={form.completionYear}
+                                error={"completionYear" in validationErrors}
+                                helperText={validationErrors.completionYear}
                                 fullWidth
                             />
                         </Grid>
@@ -248,9 +165,7 @@ export default class AddPresentationFormView extends React.Component<
                     <Grid item>
                         <FormSubmitBar
                             disabled={!canSubmit}
-                            formState={
-                                facultyProfiles!.addPresentationFormState
-                            }
+                            formState={facultyProfiles!.addDegreeFormState}
                             onSubmitClick={this.onSubmitClick}
                         />
                     </Grid>

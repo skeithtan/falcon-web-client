@@ -12,15 +12,15 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import TextField from "@material-ui/core/TextField";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
-import DrawerForm from "../../../../components/reusable/DrawerForm";
-import FormSubmitBar from "../../../../components/reusable/FormSubmitBar";
-import FacultyProfilesController from "../../../../controllers/faculty_profiles";
+import DrawerForm from "../../../../../components/reusable/DrawerForm";
+import FormSubmitBar from "../../../../../components/reusable/FormSubmitBar";
+import FacultyProfilesController from "../../../../../controllers/faculty_profiles";
 import InstructionalMaterialAudience, {
     InstructionalMaterialAudienceReadable,
-} from "../../../../models/enums/instructional_material_audience";
-import { InstructionalMaterialMediumReadable } from "../../../../models/enums/instructional_material_medium";
-import { ProgramReadable } from "../../../../models/enums/program";
-import { FacultyProfilesState } from "../../../../store/faculty_profiles";
+} from "../../../../../models/enums/instructional_material_audience";
+import { InstructionalMaterialMediumReadable } from "../../../../../models/enums/instructional_material_medium";
+import { ProgramReadable } from "../../../../../models/enums/program";
+import { FacultyProfilesState } from "../../../../../store/faculty_profiles";
 
 interface IPropsType {
     facultyProfiles?: FacultyProfilesState;

@@ -6,7 +6,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Tooltip from "@material-ui/core/Tooltip";
 import Typography from "@material-ui/core/Typography";
 import Add from "@material-ui/icons/Add";
-import { inject, observer } from "mobx-react";
+import { observer } from "mobx-react";
 import * as React from "react";
 import IStyleClasses from "../../../../../../interfaces/style_classes";
 import SubdocumentEmptyState from "../SubdocumentEmptyState";
@@ -21,7 +21,6 @@ interface IPropsType {
     classes: IStyleClasses;
 }
 
-@inject("facultyProfiles")
 @observer
 class FacultySubdocumentCard extends React.Component<IPropsType> {
     public render() {

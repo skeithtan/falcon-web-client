@@ -3,7 +3,7 @@ import User from "../models/entities/user";
 import { handleAxiosError } from "../utils/handle_axios_error";
 
 export default class UserService {
-    public static fetchCurrentUser(): Promise<User | undefined> {
+    public static async fetchCurrentUser(): Promise<User | undefined> {
         return axios
             .get("/current-user")
             .then((response: AxiosResponse<any>) => new User(response.data))
@@ -17,7 +17,7 @@ export default class UserService {
             });
     }
 
-    public static signIn(email: string, password: string): Promise<User> {
+    public static async signIn(email: string, password: string): Promise<User> {
         return axios
             .post("/sign-in", { email, password })
             .then((response: AxiosResponse<any>) => new User(response.data))
@@ -32,7 +32,7 @@ export default class UserService {
             });
     }
 
-    public static signOut(): Promise<AxiosResponse> {
+    public static async signOut(): Promise<AxiosResponse> {
         return axios.post("/sign-out");
     }
 }

@@ -7,7 +7,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import Typography from "@material-ui/core/Typography";
 import Create from "@material-ui/icons/Create";
 import Print from "@material-ui/icons/Print";
-import { inject, observer } from "mobx-react";
+import { observer } from "mobx-react";
 import * as moment from "moment";
 import * as React from "react";
 import DetailItem from "../../../../../../components/reusable/DetailItem";
@@ -24,7 +24,6 @@ interface IPropsType {
     facultyMember: FacultyMember;
 }
 
-@inject("facultyProfiles")
 @observer
 class BasicInformationView extends React.Component<IPropsType> {
     public render() {
