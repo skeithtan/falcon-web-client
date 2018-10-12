@@ -6,15 +6,13 @@ import Grid from "@material-ui/core/Grid";
 import List from "@material-ui/core/List";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import { inject, observer } from "mobx-react";
+import { observer } from "mobx-react";
 import * as React from "react";
 import FacultyProfilesController from "src/app/controllers/faculty_profiles";
 import IStyleClasses from "src/app/interfaces/style_classes";
 import DetailItem from "../../../../../../components/reusable/DetailItem";
 import Degree from "../../../../../../models/entities/degree";
-import DegreeLevel, {
-    DegreeLevelReadable,
-} from "../../../../../../models/enums/degree_level";
+import DegreeLevel, { DegreeLevelReadable } from "../../../../../../models/enums/degree_level";
 import AssociatedProgramsItem from "../AssociatedProgramsItem";
 import styles from "./styles";
 
@@ -23,7 +21,6 @@ interface IPropsType {
     classes: IStyleClasses;
 }
 
-@inject("facultyProfiles")
 @observer
 class DegreesView extends React.Component<IPropsType> {
     public onDeleteClick = (degree: Degree) => () => {
