@@ -76,7 +76,10 @@ class InstructionalMaterialsView extends React.Component<IPropsType> {
                                         alignContent="flex-start"
                                     >
                                         <Grid item>
-                                            <List className={classes.list}>
+                                            <List
+                                                className={classes.list}
+                                                disablePadding
+                                            >
                                                 <DetailItem
                                                     field="Medium"
                                                     value={medium}
