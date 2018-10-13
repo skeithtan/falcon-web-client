@@ -22,12 +22,13 @@ interface IPropsType {
     canUpdate: boolean;
     classes: IStyleClasses;
     facultyMember: FacultyMember;
+    onPrintClick: () => void;
 }
 
 @observer
 class BasicInformationView extends React.Component<IPropsType> {
     public render() {
-        const { canUpdate, classes, facultyMember } = this.props;
+        const { canUpdate, classes, facultyMember, onPrintClick } = this.props;
         const readableType = FacultyMemberTypeReadable.get(
             facultyMember.type as FacultyMemberType
         );
@@ -49,7 +50,7 @@ class BasicInformationView extends React.Component<IPropsType> {
                         </Tooltip>
                     )}
                     <Tooltip title="Print profile">
-                        <IconButton>
+                        <IconButton onClick={onPrintClick}>
                             <Print />
                         </IconButton>
                     </Tooltip>
