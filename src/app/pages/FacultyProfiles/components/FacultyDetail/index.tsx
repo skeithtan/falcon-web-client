@@ -3,6 +3,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
+import PrintPreviewDialog from "src/app/components/reusable/PrintPreviewDialog";
 import StateWrapper from "../../../../components/reusable/StateWrapper";
 import FacultyProfilesController from "../../../../controllers/faculty_profiles";
 import IStyleClasses from "../../../../interfaces/style_classes";
@@ -21,6 +22,7 @@ import FacultySubdocumentCard from "./components/FacultySubdocumentCard";
 import InstructionalMaterialsView from "./components/InstructionalMaterialsView";
 import PresentationsView from "./components/PresentationsView";
 import RecognitionsView from "./components/RecognitionsView";
+import PrintProfileView from "./PrintProfileView";
 import styles from "./styles";
 
 interface IPropsType {
@@ -53,6 +55,10 @@ class FacultyDetail extends React.Component<IPropsType> {
         FacultyProfilesController.toggleAddRecognitionForm(shouldShow);
     };
 
+    public printProfileToggle = (shouldShow: boolean) => () => {
+        FacultyProfilesController.toggleProfilePrintPreview(shouldShow);
+    };
+
     public renderEmptyState = () => {
         const { classes } = this.props;
         return (
@@ -71,7 +77,8 @@ class FacultyDetail extends React.Component<IPropsType> {
     };
 
     public renderDetail = (fm: FacultyMember) => {
-        const { classes } = this.props;
+        const { classes, facultyProfiles } = this.props;
+        const { profilePrintPreviewState } = facultyProfiles!;
         return (
             <StateWrapper fetchableState={fm.fetchStatus}>
                 {() => (
@@ -88,6 +95,7 @@ class FacultyDetail extends React.Component<IPropsType> {
                                 <BasicInformationView
                                     facultyMember={fm}
                                     canUpdate
+                                    onPrintClick={this.printProfileToggle(true)}
                                 />
                             </Grid>
                             <Grid item className={classes.item}>
@@ -167,6 +175,12 @@ class FacultyDetail extends React.Component<IPropsType> {
                         <AddInstructionalMaterialFormView />
                         <AddPresentationFormView />
                         <AddRecognitionFormView />
+                        <PrintPreviewDialog
+                            title="Print Profile"
+                            open={profilePrintPreviewState.isShowing}
+                        >
+                            <PrintProfileView />
+                        </PrintPreviewDialog>
                     </React.Fragment>
                 )}
             </StateWrapper>
