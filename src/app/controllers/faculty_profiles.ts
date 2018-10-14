@@ -85,6 +85,39 @@ export default class FacultyProfilesController {
     }
 
     //
+    // ─── Profile Print Preview ───────────────────────────────────────────────────────────────────────────
+    //
+
+    public static toggleProfilePrintPreview(shouldShow: boolean) {
+        facultyProfiles.profilePrintPreviewState.isShowing = shouldShow;
+
+        if (!shouldShow) {
+            // Reset the form on close
+            facultyProfiles.profilePrintPreviewState.resetAndClose();
+        }
+    }
+
+    public static toggleIncludeDegrees(isIncluded: boolean) {
+        facultyProfiles.profilePrintPreviewState.withDegrees = isIncluded;
+    }
+
+    public static toggleIncludeRecognitions(isIncluded: boolean) {
+        facultyProfiles.profilePrintPreviewState.withRecognitions = isIncluded;
+    }
+
+    public static toggleIncludePresentations(isIncluded: boolean) {
+        facultyProfiles.profilePrintPreviewState.withPresentations = isIncluded;
+    }
+
+    public static toggleIncludeInstructionalMaterials(isIncluded: boolean) {
+        facultyProfiles.profilePrintPreviewState.withInstructionalMaterials = isIncluded;
+    }
+
+    public static toggleIncludeExtensionWorks(isIncluded: boolean) {
+        facultyProfiles.profilePrintPreviewState.withExtensionWorks = isIncluded;
+    }
+
+    //
     // ─── Toggle subdocument forms ───────────────────────────────────────────────────────────────────────────
     //
 

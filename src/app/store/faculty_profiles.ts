@@ -20,6 +20,9 @@ import addPresentationFormState, {
 import addRecognitionFormState, {
     AddRecognitionFormState,
 } from "./faculty_profiles/add_recognition_form";
+import profilePrintPreviewState, {
+    ProfilePrintPreviewState,
+} from "./faculty_profiles/profile_print_preview";
 
 export class FacultyProfilesState extends FetchableState {
     @observable
@@ -42,6 +45,9 @@ export class FacultyProfilesState extends FetchableState {
 
     @observable
     public addRecognitionFormState: AddRecognitionFormState = addRecognitionFormState;
+
+    @observable
+    public profilePrintPreviewState: ProfilePrintPreviewState = profilePrintPreviewState;
 
     @observable
     public activeFacultyId?: number = undefined;
