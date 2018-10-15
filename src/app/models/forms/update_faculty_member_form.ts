@@ -2,8 +2,12 @@ import {
     IsEmail,
     IsEnum,
     IsNotEmpty,
+    IsNumberString,
+    Length,
 } from "class-validator";
 import { observable } from "mobx";
+import * as moment from "moment";
+import FacultyMember from "../entities/faculty_member";
 import ActivityType from "../enums/activity_type";
 import FacultyMemberType from "../enums/faculty_member_type";
 import Sex from "../enums/sex";
@@ -54,4 +58,24 @@ export default class UpdateFacultyMemberForm {
     })
     @observable
     public birthDate: string = "";
+
+    @IsNumberString({
+        message: "Must be numbers",
+    })
+    @Length(3, 3, {
+        message: "Must be 3 characters",
+    })
+    @observable
+    public pnuId: string = "";
+
+    public prefillForm(fm: FacultyMember) {
+        this.firstName = fm.user!.firstName;
+        this.lastName = fm.user!.lastName;
+        this.email = fm.user!.email;
+        this.sex = fm.sex;
+        this.type = fm.type;
+        this.activity = fm.activity;
+        this.birthDate = fm.birthDate.format(moment.HTML5_FMT.DATE);
+        this.pnuId = fm.pnuId;
+    }
 }
