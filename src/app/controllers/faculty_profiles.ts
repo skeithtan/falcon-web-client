@@ -26,7 +26,7 @@ export default class FacultyProfilesController {
                 facultyProfiles.setStatus(FetchableStatus.Fetched);
             })
             .catch((e: Error) => {
-                facultyProfiles.setStatus(FetchableStatus.Error, e.message);
+                facultyProfiles.setStatus(FetchableStatus.Error, e);
             });
     }
 
@@ -40,7 +40,7 @@ export default class FacultyProfilesController {
                 facultyProfiles.setStatus(FetchableStatus.Fetched);
             })
             .catch((e: Error) => {
-                facultyProfiles.setStatus(FetchableStatus.Error, e.message);
+                facultyProfiles.setStatus(FetchableStatus.Error, e);
             });
     }
 
@@ -56,7 +56,22 @@ export default class FacultyProfilesController {
                 this.setActiveFacultyMember(fm.id);
             })
             .catch(e => {
-                formState.setStatus(FormStatus.Error, e.message);
+                formState.setStatus(FormStatus.Error, e);
+            });
+    }
+
+    public static updateFacultyMember(activeId: number) {
+        const { updateFacultyMemberFormState: formState } = facultyProfiles;
+        const form = formState.form;
+        formState.setStatus(FormStatus.Submitting);
+
+        FacultyMembersService.updateFacultyMember(form, activeId)
+            .then(fm => {
+                facultyProfiles.facultyMembers!.set(fm.id, fm);
+                formState.resetAndClose();
+            })
+            .catch(e => {
+                formState.setStatus(FormStatus.Error, e);
             });
     }
 
@@ -66,6 +81,18 @@ export default class FacultyProfilesController {
         if (!shouldShow) {
             // Reset the form on close
             facultyProfiles.addFacultyMemberFormState.resetAndClose();
+        }
+    }
+
+    public static toggleUpdateFacultyMemberForm(shouldShow: boolean) {
+        const { updateFacultyMemberFormState: fs } = facultyProfiles;
+
+        fs.isShowing = shouldShow;
+
+        if (!shouldShow) {
+            fs.resetAndClose();
+        } else {
+            fs.form.prefillForm(facultyProfiles.activeFacultyMember!);
         }
     }
 
@@ -80,7 +107,7 @@ export default class FacultyProfilesController {
             })
             .catch((e: Error) => {
                 facultyMember.fetchStatus = FetchableStatus.Error;
-                facultyProfiles.setStatus(FetchableStatus.Error, e.message);
+                facultyProfiles.setStatus(FetchableStatus.Error, e);
             });
     }
 
@@ -183,7 +210,7 @@ export default class FacultyProfilesController {
                 formState.resetAndClose();
             })
             .catch(e => {
-                formState.setStatus(FormStatus.Error, e.message);
+                formState.setStatus(FormStatus.Error, e);
             });
     }
 
@@ -200,7 +227,7 @@ export default class FacultyProfilesController {
                 formState.resetAndClose();
             })
             .catch(e => {
-                formState.setStatus(FormStatus.Error, e.message);
+                formState.setStatus(FormStatus.Error, e);
             });
     }
 
@@ -217,7 +244,7 @@ export default class FacultyProfilesController {
                 formState.resetAndClose();
             })
             .catch(e => {
-                formState.setStatus(FormStatus.Error, e.message);
+                formState.setStatus(FormStatus.Error, e);
             });
     }
 
@@ -236,7 +263,7 @@ export default class FacultyProfilesController {
                 formState.resetAndClose();
             })
             .catch(e => {
-                formState.setStatus(FormStatus.Error, e.message);
+                formState.setStatus(FormStatus.Error, e);
             });
     }
 
@@ -253,7 +280,7 @@ export default class FacultyProfilesController {
                 formState.resetAndClose();
             })
             .catch(e => {
-                formState.setStatus(FormStatus.Error, e.message);
+                formState.setStatus(FormStatus.Error, e);
             });
     }
 
