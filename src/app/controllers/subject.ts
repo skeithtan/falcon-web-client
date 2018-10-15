@@ -1,6 +1,7 @@
 import FetchableStatus from "../models/enums/fetchable_status";
 import FormStatus from "../models/enums/form_status";
 import AddSubjectForm from "../models/forms/add_subject_form";
+import UpdateSubjectForm from "../models/forms/update_subject_form";
 import SubjectsService from "../services/subjects";
 import rootStore from "../store";
 import { groupById } from "../utils/group_by_id";
@@ -17,7 +18,7 @@ export default class SubjectsController {
                 subjects.setStatus(FetchableStatus.Fetched);
             })
             .catch((e: Error) => {
-                subjects.setStatus(FetchableStatus.Error, e.message);
+                subjects.setStatus(FetchableStatus.Error, e);
             });
     }
 
@@ -27,13 +28,26 @@ export default class SubjectsController {
         SubjectsService.addSubject(form)
             .then(s => {
                 subjects.subjectItems!.set(s.id, s);
+                subjects.activeSubjectId = s.id;
                 subjects.addSubjectFormState.resetAndClose();
             })
             .catch((e: Error) => {
-                subjects.addSubjectFormState.setStatus(
-                    FormStatus.Error,
-                    e.message
-                );
+                subjects.addSubjectFormState.setStatus(FormStatus.Error, e);
+            });
+    }
+
+    public static updateSubject(form: UpdateSubjectForm, activeId: number) {
+        subjects.updateSubjectFormState.setStatus(FormStatus.Submitting);
+
+        SubjectsService.updateSubject(form, activeId)
+            .then(s => {
+                // REMOVE THIS HACK IN THE FUTURE
+                s.fetchStatus = FetchableStatus.Fetched;
+                subjects.subjectItems!.set(s.id, s);
+                subjects.updateSubjectFormState.resetAndClose();
+            })
+            .catch((e: Error) => {
+                subjects.updateSubjectFormState.setStatus(FormStatus.Error, e);
             });
     }
 
@@ -50,7 +64,7 @@ export default class SubjectsController {
             })
             .catch((e: Error) => {
                 subject.fetchStatus = FetchableStatus.Error;
-                subjects.setStatus(FetchableStatus.Error, e.message);
+                subjects.setStatus(FetchableStatus.Error, e);
             });
     }
 
@@ -60,6 +74,18 @@ export default class SubjectsController {
         if (!shouldShow) {
             // Reset the form on close
             subjects.addSubjectFormState.resetAndClose();
+        }
+    }
+
+    public static toggleUpdateSubjectForm(shouldShow: boolean) {
+        subjects.updateSubjectFormState.isShowing = shouldShow;
+
+        if (!shouldShow) {
+            subjects.updateSubjectFormState.resetAndClose();
+        } else {
+            subjects.updateSubjectFormState.form.prefillForm(
+                subjects.activeSubject!
+            );
         }
     }
 }

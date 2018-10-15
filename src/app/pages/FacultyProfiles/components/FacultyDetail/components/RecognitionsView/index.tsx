@@ -38,7 +38,7 @@ class RecognitionsView extends React.Component<IPropsType> {
                 (e: Error) =>
                     alert(
                         `An error occurred while deleting the recognition ${
-                            e.message
+                            e
                         }`
                     )
             );

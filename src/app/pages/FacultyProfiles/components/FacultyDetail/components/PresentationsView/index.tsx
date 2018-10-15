@@ -41,7 +41,7 @@ class PresentationsView extends React.Component<IPropsType> {
                 (e: Error) =>
                     alert(
                         `An error occurred while deleting the presentation ${
-                            e.message
+                            e
                         }`
                     )
             );

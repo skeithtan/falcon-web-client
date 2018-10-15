@@ -5,6 +5,9 @@ import Subject from "../models/entities/subject";
 import addSubjectFormState, {
     AddSubjectFormState,
 } from "./subjects/add_subject_form";
+import updateSubjectFormState, {
+    UpdateSubjectFormState,
+} from "./subjects/update_subject_form";
 
 export class SubjectsState extends FetchableState {
     @observable
@@ -12,6 +15,9 @@ export class SubjectsState extends FetchableState {
 
     @observable
     public addSubjectFormState: AddSubjectFormState = addSubjectFormState;
+
+    @observable
+    public updateSubjectFormState: UpdateSubjectFormState = updateSubjectFormState;
 
     @observable
     public activeSubjectId?: number = undefined;

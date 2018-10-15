@@ -23,6 +23,9 @@ import addRecognitionFormState, {
 import profilePrintPreviewState, {
     ProfilePrintPreviewState,
 } from "./faculty_profiles/profile_print_preview";
+import updateFacultyMemberFormState, {
+    UpdateFacultyMemberFormState,
+} from "./faculty_profiles/update_faculty_member_form";
 
 export class FacultyProfilesState extends FetchableState {
     @observable
@@ -30,6 +33,9 @@ export class FacultyProfilesState extends FetchableState {
 
     @observable
     public addFacultyMemberFormState: AddFacultyMemberFormState = addFacultyMemberFormState;
+
+    @observable
+    public updateFacultyMemberFormState: UpdateFacultyMemberFormState = updateFacultyMemberFormState;
 
     @observable
     public addDegreeFormState: AddDegreeFormState = addDegreeFormState;

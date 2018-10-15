@@ -43,7 +43,7 @@ class InstructionalMaterialsView extends React.Component<IPropsType> {
             ).catch((e: Error) =>
                 alert(
                     `An error occurred while deleting the instructional material ${
-                        e.message
+                        e
                     }`
                 )
             );
