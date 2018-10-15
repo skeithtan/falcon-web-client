@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import Subject from "../models/entities/subject";
 import AddSubjectForm from "../models/forms/add_subject_form";
+import UpdateSubjectForm from "../models/forms/update_subject_form";
 import { handleAxiosError } from "../utils/handle_axios_error";
 
 export default class SubjectsService {
@@ -25,6 +26,18 @@ export default class SubjectsService {
     public static async addSubject(form: AddSubjectForm): Promise<Subject> {
         return axios
             .post("/subjects/", form)
+            .then((response: AxiosResponse) => {
+                return new Subject(response.data);
+            })
+            .catch(handleAxiosError);
+    }
+
+    public static async updateSubject(
+        form: UpdateSubjectForm,
+        activeId: number
+    ): Promise<Subject> {
+        return axios
+            .put(`/subjects/${activeId}`, form)
             .then((response: AxiosResponse) => {
                 return new Subject(response.data);
             })
