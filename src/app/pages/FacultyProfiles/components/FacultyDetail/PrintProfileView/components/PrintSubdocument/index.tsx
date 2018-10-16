@@ -13,7 +13,7 @@ export default class PrintSubdocument extends React.Component<IPropsType> {
         return (
             <Grid container direction="column">
                 <Grid item>
-                    <Typography>{title}</Typography>
+                    <Typography variant="overline">{title}</Typography>
                 </Grid>
                 <Grid item>{children}</Grid>
             </Grid>

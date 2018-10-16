@@ -30,12 +30,12 @@ class PrintPreviewHead extends React.Component<IPropsType> {
                 </Grid>
                 <Grid item container direction="column">
                     <Grid item>
-                        <Typography component="h5">
+                        <Typography variant="h6">
                             Philippine Normal University
                         </Typography>
                     </Grid>
                     <Grid item>
-                        <Typography component="h6" color="textSecondary">
+                        <Typography variant="overline" color="textSecondary">
                             Faculty of Arts and Languages
                         </Typography>
                     </Grid>

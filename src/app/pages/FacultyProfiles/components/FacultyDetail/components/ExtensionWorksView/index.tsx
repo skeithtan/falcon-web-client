@@ -51,7 +51,7 @@ class ExtensionWorksView extends React.Component<IPropsType> {
                         return (
                             <ExpansionPanel key={ew.id}>
                                 <ExpansionPanelSummary>
-                                    <Typography variant="subheading">
+                                    <Typography variant="subtitle1">
                                         {ew.title}
                                     </Typography>
                                 </ExpansionPanelSummary>

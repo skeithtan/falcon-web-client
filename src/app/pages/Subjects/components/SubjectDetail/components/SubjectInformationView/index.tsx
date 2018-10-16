@@ -43,7 +43,7 @@ class SubjectInformationView extends React.Component<IPropsType> {
         return (
             <Card>
                 <Toolbar>
-                    <Typography variant="headline">{subject.code}</Typography>
+                    <Typography variant="h5">{subject.code}</Typography>
                     <div className={classes.grow} />
                     {canUpdate && (
                         <Tooltip title="Update information">

@@ -28,7 +28,7 @@ class SubjectDetail extends React.Component<IPropsType> {
                 alignItems="center"
                 className={classes.detailEmptyState}
             >
-                <Typography variant="headline" color="textSecondary">
+                <Typography variant="h5" color="textSecondary">
                     Select a subject to view its details
                 </Typography>
             </Grid>

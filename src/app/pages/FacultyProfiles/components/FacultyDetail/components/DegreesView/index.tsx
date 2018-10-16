@@ -51,7 +51,7 @@ class DegreesView extends React.Component<IPropsType> {
                         return (
                             <ExpansionPanel key={d.id}>
                                 <ExpansionPanelSummary>
-                                    <Typography variant="subheading">
+                                    <Typography variant="subtitle1">
                                         {d.title}
                                     </Typography>
                                 </ExpansionPanelSummary>

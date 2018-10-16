@@ -60,7 +60,7 @@ class RecognitionsView extends React.Component<IPropsType> {
                         return (
                             <ExpansionPanel key={r.id}>
                                 <ExpansionPanelSummary>
-                                    <Typography variant="subheading">
+                                    <Typography variant="subtitle1">
                                         {r.title}
                                     </Typography>
                                 </ExpansionPanelSummary>

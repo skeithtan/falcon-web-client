@@ -47,7 +47,7 @@ class BasicInformationView extends React.Component<IPropsType> {
             <Card className={classes.card}>
                 <Toolbar>
                     <div onClick={this.toggleUpdateFacultyForm(true)} />
-                    <Typography variant="headline">
+                    <Typography variant="h5">
                         {facultyMember.user!.fullName}
                     </Typography>
                     <div className={classes.grow} />

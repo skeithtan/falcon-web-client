@@ -42,7 +42,7 @@ class PrintPreviewDialog extends React.Component<IPropsType> {
                         >
                             <CloseButton />
                         </IconButton>
-                        <Typography variant="headline" color="inherit">
+                        <Typography variant="h5" color="inherit">
                             {title}
                         </Typography>
                     </Toolbar>
