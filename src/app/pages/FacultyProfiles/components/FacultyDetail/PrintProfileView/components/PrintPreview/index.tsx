@@ -49,18 +49,27 @@ class PrintPreview extends React.Component<IPropsType> {
                         alignItems="center"
                     >
                         <Grid item>
-                            <Typography component="h4">{`${
+                            <Typography variant="h6">{`${
                                 activeFacultyMember!.user!.fullName
                             }'s Profile`}</Typography>
                         </Grid>
                         <Grid item>
-                            <Typography component="h6" color="textSecondary">
+                            <Typography
+                                variant="overline"
+                                color="textSecondary"
+                            >
                                 Generation Date
                             </Typography>
                         </Grid>
                     </Grid>
                 </Grid>
-                <Grid item container direction="column" spacing={16}>
+                <Grid
+                    item
+                    container
+                    direction="column"
+                    spacing={24}
+                    wrap="nowrap"
+                >
                     <Grid item>
                         <PrintBasicInformation
                             facultyMember={activeFacultyMember!}
