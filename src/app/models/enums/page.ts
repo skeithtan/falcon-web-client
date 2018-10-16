@@ -4,6 +4,7 @@ import FacultyLoadingIcons from "@material-ui/icons/CalendarToday";
 import FacultyProfilesIcon from "@material-ui/icons/Contacts";
 import UsersIcon from "@material-ui/icons/SupervisedUserCircle";
 import * as React from "react";
+import FacultyLoadingPage from "../../pages/FacultyLoading";
 import FacultyProfilesPage from "../../pages/FacultyProfiles";
 import MyProfilePage from "../../pages/MyProfile";
 import SubjectsPage from "../../pages/Subjects";
@@ -72,7 +73,7 @@ export const PAGE_SPECIFICATION = new Map<Page, IPageSpecification>([
             page: Page.FacultyLoading,
             path: "faculty-loading",
             icon: FacultyLoadingIcons,
-            component: undefined,
+            component: FacultyLoadingPage,
             name: "Faculty Loading",
             description: "Create schedules, assign faculty members to classes",
         },
