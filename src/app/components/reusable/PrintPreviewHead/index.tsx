@@ -14,7 +14,13 @@ class PrintPreviewHead extends React.Component<IPropsType> {
     public render() {
         const { classes } = this.props;
         return (
-            <Grid container direction="row">
+            <Grid
+                container
+                direction="row"
+                wrap="nowrap"
+                alignItems="center"
+                spacing={16}
+            >
                 <Grid item>
                     <img
                         src={pnuLogo}
