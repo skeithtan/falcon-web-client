@@ -6,6 +6,8 @@ export default (theme: Theme): StyleRules => ({
     },
     preview: {
         backgroundColor: "grey",
+        padding: theme.spacing.unit * 4,
+        overflow: "scroll",
     },
     settings: {
         backgroundColor: theme.palette.background.paper,

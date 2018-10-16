@@ -66,7 +66,7 @@ class FacultyDetail extends React.Component<IPropsType> {
                 alignItems="center"
                 className={classes.detailEmptyState}
             >
-                <Typography variant="headline" color="textSecondary">
+                <Typography variant="h5" color="textSecondary">
                     Select a faculty member to view their details
                 </Typography>
             </Grid>

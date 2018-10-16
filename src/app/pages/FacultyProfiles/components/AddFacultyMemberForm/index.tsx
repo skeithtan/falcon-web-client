@@ -216,7 +216,7 @@ export default class AddFacultyMemberFormView extends React.Component<
                             <Typography>Temporary Password</Typography>
                         </Grid>
                         <Grid item>
-                            <Typography variant="headline">
+                            <Typography variant="h5">
                                 {form.password}
                             </Typography>
                         </Grid>

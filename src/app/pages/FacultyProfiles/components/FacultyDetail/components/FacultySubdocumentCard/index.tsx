@@ -46,7 +46,7 @@ class FacultySubdocumentCard extends React.Component<IPropsType> {
                 {!empty && (
                     <React.Fragment>
                         <Toolbar>
-                            <Typography variant="title">{name}</Typography>
+                            <Typography variant="h6">{name}</Typography>
                             <div className={classes.grow} />
                             {canAdd && (
                                 <Tooltip
