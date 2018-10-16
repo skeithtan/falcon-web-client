@@ -21,7 +21,7 @@ export default class Presentations extends React.Component<IPropsType> {
 
                 {presentations.length > 0 && (
                     <PrintSubdocument title="Presentations">
-                        <Grid container direction="row">
+                        <Grid container direction="row" spacing={8}>
                             {presentations.map(p => {
                                 const date = moment(p.date).format(
                                     "MMMM Do YYYY"

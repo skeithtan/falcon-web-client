@@ -21,7 +21,7 @@ export default class ExtensionWorks extends React.Component<IPropsType> {
 
                 {extensionWorks.length > 0 && (
                     <PrintSubdocument title="Extension Works">
-                        <Grid container direction="row">
+                        <Grid container direction="row" spacing={8}>
                             {extensionWorks.map(ew => {
                                 return (
                                     <Grid item xs key={ew.id}>

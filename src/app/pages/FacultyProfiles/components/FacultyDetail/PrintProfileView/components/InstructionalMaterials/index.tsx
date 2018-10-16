@@ -23,7 +23,7 @@ export default class InstructionalMaterials extends React.Component<
 
                 {instructionalMaterials.length > 0 && (
                     <PrintSubdocument title="Instructional Materials">
-                        <Grid container direction="row">
+                        <Grid container direction="row" spacing={8}>
                             {instructionalMaterials.map(im => {
                                 return (
                                     <Grid item xs key={im.id}>
