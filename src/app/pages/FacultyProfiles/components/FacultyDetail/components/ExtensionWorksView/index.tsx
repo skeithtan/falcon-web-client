@@ -67,7 +67,7 @@ class ExtensionWorksView extends React.Component<IPropsType> {
                                                 disablePadding
                                             >
                                                 <DetailItem
-                                                    field="Level"
+                                                    field="Venue"
                                                     value={ew.venue}
                                                 />
                                                 <ExtensionRolesItem
