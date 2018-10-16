@@ -22,29 +22,20 @@ class AssociatedProgramsItem extends React.Component<IPropsType> {
         return (
             <ListItem divider>
                 <Grid className={classes.listItem}>
-                    <Grid container>
+                    <Grid container alignItems="center">
                         <Grid item sm zeroMinWidth>
                             <Typography variant="body2">{field}</Typography>
                         </Grid>
                         <Grid item sm={9} zeroMinWidth>
-                            {programs === undefined && (
+                            {programs ? (
+                                programs
+                                    .map(p => ProgramReadable.get(p)!)
+                                    .map(p => <DetailChip key={p} detail={p} />)
+                            ) : (
                                 <Typography color="textSecondary">
                                     No associated programs
                                 </Typography>
                             )}
-
-                            {programs !== undefined &&
-                                programs.map(p => {
-                                    const readable = ProgramReadable.get(
-                                        p
-                                    ) as Program;
-                                    return (
-                                        <DetailChip
-                                            key={readable}
-                                            detail={readable}
-                                        />
-                                    );
-                                })}
                         </Grid>
                     </Grid>
                 </Grid>

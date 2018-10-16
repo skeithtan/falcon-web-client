@@ -1,8 +1,8 @@
 import Button from "@material-ui/core/Button";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
+import ExpansionPanelActions from "@material-ui/core/ExpansionPanelActions";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
-import Grid from "@material-ui/core/Grid";
 import List from "@material-ui/core/List";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
@@ -55,45 +55,35 @@ class ExtensionWorksView extends React.Component<IPropsType> {
                                         {ew.title}
                                     </Typography>
                                 </ExpansionPanelSummary>
-                                <ExpansionPanelDetails>
-                                    <Grid
-                                        container
-                                        direction="column"
-                                        alignContent="flex-start"
+                                <ExpansionPanelDetails
+                                    className={classes.panelDetail}
+                                >
+                                    <List
+                                        className={classes.list}
+                                        disablePadding
                                     >
-                                        <Grid item>
-                                            <List
-                                                className={classes.list}
-                                                disablePadding
-                                            >
-                                                <DetailItem
-                                                    field="Level"
-                                                    value={ew.venue}
-                                                />
-                                                <ExtensionRolesItem
-                                                    field="Roles"
-                                                    extensionWorkRoles={
-                                                        ew.roles
-                                                    }
-                                                />
-                                                <AssociatedProgramsItem
-                                                    field="Associated Programs"
-                                                    programs={
-                                                        ew.associatedPrograms!
-                                                    }
-                                                />
-                                            </List>
-                                        </Grid>
-                                        <Grid item>
-                                            <Button
-                                                color="secondary"
-                                                onClick={this.onDeleteClick(ew)}
-                                            >
-                                                Remove
-                                            </Button>
-                                        </Grid>
-                                    </Grid>
+                                        <DetailItem
+                                            field="Level"
+                                            value={ew.venue}
+                                        />
+                                        <ExtensionRolesItem
+                                            field="Roles"
+                                            extensionWorkRoles={ew.roles}
+                                        />
+                                        <AssociatedProgramsItem
+                                            field="Associated Programs"
+                                            programs={ew.associatedPrograms!}
+                                        />
+                                    </List>
                                 </ExpansionPanelDetails>
+                                <ExpansionPanelActions>
+                                    <Button
+                                        color="secondary"
+                                        onClick={this.onDeleteClick(ew)}
+                                    >
+                                        Remove
+                                    </Button>
+                                </ExpansionPanelActions>
                             </ExpansionPanel>
                         );
                     })}

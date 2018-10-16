@@ -1,8 +1,8 @@
 import Button from "@material-ui/core/Button";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
+import ExpansionPanelActions from "@material-ui/core/ExpansionPanelActions";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
-import Grid from "@material-ui/core/Grid";
 import List from "@material-ui/core/List";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
@@ -69,63 +69,52 @@ class PresentationsView extends React.Component<IPropsType> {
                                         {p.title}
                                     </Typography>
                                 </ExpansionPanelSummary>
-                                <ExpansionPanelDetails>
-                                    <Grid
-                                        container
-                                        direction="column"
-                                        alignContent="flex-start"
+                                <ExpansionPanelDetails
+                                    className={classes.panelDetail}
+                                >
+                                    <List
+                                        className={classes.list}
+                                        disablePadding
                                     >
-                                        <Grid item>
-                                            <List
-                                                className={classes.list}
-                                                disablePadding
-                                            >
-                                                <DetailItem
-                                                    field="Category"
-                                                    value={category}
-                                                />
-                                                <DetailItem
-                                                    field="Date"
-                                                    value={date}
-                                                />
-                                                <DetailItem
-                                                    field="Sponsor"
-                                                    value={p.sponsor}
-                                                />
-                                                <DetailItem
-                                                    field="Venue"
-                                                    value={p.venue}
-                                                />
-                                                <DetailItem
-                                                    field="Conference"
-                                                    value={p.conference}
-                                                />
-                                                <DetailItem
-                                                    field="Medium"
-                                                    value={medium}
-                                                />
-                                                <DetailItem
-                                                    field="Days Duration"
-                                                    value={daysDuration}
-                                                />
-                                                <AssociatedProgramsItem
-                                                    field="Associated Programs"
-                                                    programs={
-                                                        p.associatedPrograms!
-                                                    }
-                                                />
-                                            </List>
-                                        </Grid>
-                                        <Grid item>
-                                            <Button
-                                                color="secondary"
-                                                onClick={this.onDeleteClick(p)}
-                                            >
-                                                Remove
-                                            </Button>
-                                        </Grid>
-                                    </Grid>
+                                        <DetailItem
+                                            field="Category"
+                                            value={category}
+                                        />
+                                        <DetailItem field="Date" value={date} />
+                                        <DetailItem
+                                            field="Sponsor"
+                                            value={p.sponsor}
+                                        />
+                                        <DetailItem
+                                            field="Venue"
+                                            value={p.venue}
+                                        />
+                                        <DetailItem
+                                            field="Conference"
+                                            value={p.conference}
+                                        />
+                                        <DetailItem
+                                            field="Medium"
+                                            value={medium}
+                                        />
+                                        <DetailItem
+                                            field="Days Duration"
+                                            value={daysDuration}
+                                        />
+                                        <AssociatedProgramsItem
+                                            field="Associated Programs"
+                                            programs={p.associatedPrograms!}
+                                        />
+                                    </List>
                                 </ExpansionPanelDetails>
+                                <ExpansionPanelActions>
+                                    <Button
+                                        color="secondary"
+                                        onClick={this.onDeleteClick(p)}
+                                    >
+                                        Remove
+                                    </Button>
+                                </ExpansionPanelActions>
                             </ExpansionPanel>
                         );
                     })}

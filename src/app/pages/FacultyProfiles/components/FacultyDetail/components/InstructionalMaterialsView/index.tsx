@@ -1,8 +1,8 @@
 import Button from "@material-ui/core/Button";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
+import ExpansionPanelActions from "@material-ui/core/ExpansionPanelActions";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
-import Grid from "@material-ui/core/Grid";
 import List from "@material-ui/core/List";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
@@ -12,12 +12,8 @@ import FacultyProfilesController from "src/app/controllers/faculty_profiles";
 import IStyleClasses from "src/app/interfaces/style_classes";
 import DetailItem from "../../../../../../components/reusable/DetailItem";
 import InstructionalMaterial from "../../../../../../models/entities/instructional_material";
-import InstructionalMaterialAudience, {
-    InstructionalMaterialAudienceReadable,
-} from "../../../../../../models/enums/instructional_material_audience";
-import InstructionalMaterialMedium, {
-    InstructionalMaterialMediumReadable,
-} from "../../../../../../models/enums/instructional_material_medium";
+import InstructionalMaterialAudience, { InstructionalMaterialAudienceReadable } from "../../../../../../models/enums/instructional_material_audience";
+import InstructionalMaterialMedium, { InstructionalMaterialMediumReadable } from "../../../../../../models/enums/instructional_material_medium";
 import AssociatedProgramsItem from "../AssociatedProgramsItem";
 import styles from "./styles";
 
@@ -69,53 +65,45 @@ class InstructionalMaterialsView extends React.Component<IPropsType> {
                                         {im.title}
                                     </Typography>
                                 </ExpansionPanelSummary>
-                                <ExpansionPanelDetails>
-                                    <Grid
-                                        container
-                                        direction="column"
-                                        alignContent="flex-start"
+                                <ExpansionPanelDetails
+                                    className={classes.panelDetail}
+                                >
+                                    <List
+                                        className={classes.list}
+                                        disablePadding
                                     >
-                                        <Grid item>
-                                            <List
-                                                className={classes.list}
-                                                disablePadding
-                                            >
-                                                <DetailItem
-                                                    field="Medium"
-                                                    value={medium}
-                                                />
-                                                <DetailItem
-                                                    field="Audience"
-                                                    value={audience}
-                                                />
-                                                <DetailItem
-                                                    field="Usage Year"
-                                                    value={im.usageYear}
-                                                />
-                                                {Boolean(im.level) && (
-                                                    <DetailItem
-                                                        field="Student Level"
-                                                        value={`${im.level}`}
-                                                    />
-                                                )}
-                                                <AssociatedProgramsItem
-                                                    field="Associated Programs"
-                                                    programs={
-                                                        im.associatedPrograms!
-                                                    }
-                                                />
-                                            </List>
-                                        </Grid>
-                                        <Grid item>
-                                            <Button
-                                                color="secondary"
-                                                onClick={this.onDeleteClick(im)}
-                                            >
-                                                Remove
-                                            </Button>
-                                        </Grid>
-                                    </Grid>
+                                        <DetailItem
+                                            field="Medium"
+                                            value={medium}
+                                        />
+                                        <DetailItem
+                                            field="Audience"
+                                            value={audience}
+                                        />
+                                        <DetailItem
+                                            field="Usage Year"
+                                            value={im.usageYear}
+                                        />
+                                        {Boolean(im.level) && (
+                                            <DetailItem
+                                                field="Student Level"
+                                                value={`${im.level}`}
+                                            />
+                                        )}
+                                        <AssociatedProgramsItem
+                                            field="Associated Programs"
+                                            programs={im.associatedPrograms!}
+                                        />
+                                    </List>
                                 </ExpansionPanelDetails>
+                                <ExpansionPanelActions>
+                                    <Button
+                                        color="secondary"
+                                        onClick={this.onDeleteClick(im)}
+                                    >
+                                        Remove
+                                    </Button>
+                                </ExpansionPanelActions>
                             </ExpansionPanel>
                         );
                     })}

@@ -5,4 +5,7 @@ export default (theme: Theme): StyleRules => ({
         width: "100%",
         backgroundColor: theme.palette.background.paper,
     },
+    panelDetail: {
+        padding: 0,
+    },
 });
