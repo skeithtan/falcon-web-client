@@ -11,6 +11,7 @@ import { observer } from "mobx-react";
 import * as moment from "moment";
 import * as React from "react";
 import DetailItem from "../../../../../../components/reusable/DetailItem";
+import FacultyProfilesController from "../../../../../../controllers/faculty_profiles";
 import IStyleClasses from "../../../../../../interfaces/style_classes";
 import FacultyMember from "../../../../../../models/entities/faculty_member";
 import FacultyMemberType, {
@@ -22,13 +23,20 @@ interface IPropsType {
     canUpdate: boolean;
     classes: IStyleClasses;
     facultyMember: FacultyMember;
-    onPrintClick: () => void;
 }
 
 @observer
 class BasicInformationView extends React.Component<IPropsType> {
+    public toggleUpdateFacultyForm = (shouldShow: boolean) => () => {
+        FacultyProfilesController.toggleUpdateFacultyMemberForm(shouldShow);
+    };
+
+    public printProfileToggle = (shouldShow: boolean) => () => {
+        FacultyProfilesController.toggleProfilePrintPreview(shouldShow);
+    };
+
     public render() {
-        const { canUpdate, classes, facultyMember, onPrintClick } = this.props;
+        const { canUpdate, classes, facultyMember } = this.props;
         const readableType = FacultyMemberTypeReadable.get(
             facultyMember.type as FacultyMemberType
         );
@@ -38,19 +46,22 @@ class BasicInformationView extends React.Component<IPropsType> {
         return (
             <Card className={classes.card}>
                 <Toolbar>
-                    <Typography variant="headline">
+                    <div onClick={this.toggleUpdateFacultyForm(true)} />
+                    <Typography variant="h5">
                         {facultyMember.user!.fullName}
                     </Typography>
                     <div className={classes.grow} />
                     {canUpdate && (
                         <Tooltip title="Update information">
-                            <IconButton>
+                            <IconButton
+                                onClick={this.toggleUpdateFacultyForm(true)}
+                            >
                                 <Create />
                             </IconButton>
                         </Tooltip>
                     )}
                     <Tooltip title="Print profile">
-                        <IconButton onClick={onPrintClick}>
+                        <IconButton onClick={this.printProfileToggle(true)}>
                             <Print />
                         </IconButton>
                     </Tooltip>

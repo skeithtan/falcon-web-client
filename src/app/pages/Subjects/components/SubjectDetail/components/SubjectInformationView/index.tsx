@@ -9,6 +9,7 @@ import Create from "@material-ui/icons/Create";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
 import DetailItem from "../../../../../../components/reusable/DetailItem";
+import SubjectsController from "../../../../../../controllers/subject";
 import IStyleClasses from "../../../../../../interfaces/style_classes";
 import Subject from "../../../../../../models/entities/subject";
 import Program, {
@@ -28,6 +29,10 @@ interface IPropsType {
 @inject("subjects")
 @observer
 class SubjectInformationView extends React.Component<IPropsType> {
+    public toggleUpdateSubjectForm = (shouldShow: boolean) => () => {
+        SubjectsController.toggleUpdateSubjectForm(shouldShow);
+    };
+
     public render() {
         const { canUpdate, classes, subject } = this.props;
         const readableCategory = SubjectCategoryReadable.get(
@@ -38,11 +43,13 @@ class SubjectInformationView extends React.Component<IPropsType> {
         return (
             <Card>
                 <Toolbar>
-                    <Typography variant="headline">{subject.code}</Typography>
+                    <Typography variant="h5">{subject.code}</Typography>
                     <div className={classes.grow} />
                     {canUpdate && (
                         <Tooltip title="Update information">
-                            <IconButton>
+                            <IconButton
+                                onClick={this.toggleUpdateSubjectForm(true)}
+                            >
                                 <Create />
                             </IconButton>
                         </Tooltip>

@@ -9,12 +9,12 @@ export default abstract class FetchableState implements IFetchable {
     @observable
     public fetchError?: string = undefined;
 
-    public setStatus(newStatus: FetchableStatus, error?: string) {
+    public setStatus(newStatus: FetchableStatus, error?: Error) {
         this.fetchError = undefined;
         this.fetchStatus = newStatus;
 
         if (this.fetchStatus === FetchableStatus.Error && error) {
-            this.fetchError = error;
+            this.fetchError = error.message;
             console.log("An error occurred", error);
         }
     }

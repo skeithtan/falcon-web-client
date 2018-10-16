@@ -18,6 +18,7 @@ export const handleAxiosError = (error: AxiosError) => {
 
     // If the API has a custom error message, throw with that message
     if (responseData && responseData.message) {
+        console.error("API Error occurred", responseData);
         throw new Error(responseData.message);
     }
 

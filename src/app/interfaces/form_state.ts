@@ -26,12 +26,12 @@ export default abstract class FormState<F> {
         return Object.keys(this.validationErrors).length === 0;
     }
 
-    public setStatus(newStatus: FormStatus, error?: string) {
+    public setStatus(newStatus: FormStatus, error?: Error) {
         this.submissionError = undefined;
         this.status = newStatus;
 
         if (newStatus === FormStatus.Error && error) {
-            this.submissionError = error;
+            this.submissionError = error.message;
             console.log("An error occurred", error);
         }
     }

@@ -77,7 +77,7 @@ class SignInPage extends React.Component<IPropsType> {
                                 />
                             </Grid>
                             <Grid item>
-                                <Typography variant="headline" color="primary">
+                                <Typography variant="h5" color="primary">
                                     Sign in to Falcon
                                 </Typography>
                                 <Typography

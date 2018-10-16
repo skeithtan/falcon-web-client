@@ -11,6 +11,7 @@ import { SubjectsState } from "../../store/subjects";
 import AddSubjectFormView from "./components/AddSubjectForm";
 import SubjectDetail from "./components/SubjectDetail";
 import SubjectList from "./components/SubjectList";
+import UpdateSubjectFormView from "./components/UpdateSubjectForm";
 import styles from "./styles";
 
 interface IRouteParameters {
@@ -70,6 +71,7 @@ class Subjects extends React.Component<IPropsType> {
                         )}
 
                         <AddSubjectFormView />
+                        <UpdateSubjectFormView />
                     </React.Fragment>
                 )}
             </StateWrapper>

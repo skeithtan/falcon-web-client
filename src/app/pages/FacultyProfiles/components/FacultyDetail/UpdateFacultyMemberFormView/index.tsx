@@ -1,18 +1,16 @@
-import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
-import Typography from "@material-ui/core/Typography";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
-import DrawerForm from "../../../../components/reusable/DrawerForm";
-import FormSubmitBar from "../../../../components/reusable/FormSubmitBar";
-import FacultyProfilesController from "../../../../controllers/faculty_profiles";
-import { ActivityTypeReadable } from "../../../../models/enums/activity_type";
-import { FacultyMemberTypeReadable } from "../../../../models/enums/faculty_member_type";
-import { SexReadable } from "../../../../models/enums/sex";
-import { FacultyProfilesState } from "../../../../store/faculty_profiles";
+import DrawerForm from "../../../../../components/reusable/DrawerForm";
+import FormSubmitBar from "../../../../../components/reusable/FormSubmitBar";
+import FacultyProfilesController from "../../../../../controllers/faculty_profiles";
+import { ActivityTypeReadable } from "../../../../../models/enums/activity_type";
+import { FacultyMemberTypeReadable } from "../../../../../models/enums/faculty_member_type";
+import { SexReadable } from "../../../../../models/enums/sex";
+import { FacultyProfilesState } from "../../../../../store/faculty_profiles";
 
 interface IPropsType {
     facultyProfiles?: FacultyProfilesState;
@@ -20,15 +18,18 @@ interface IPropsType {
 
 @inject("facultyProfiles")
 @observer
-export default class AddFacultyMemberFormView extends React.Component<
+export default class UpdateFacultyMemberFormView extends React.Component<
     IPropsType
 > {
     public onClose = () => {
-        FacultyProfilesController.toggleAddFacultyMemberForm(false);
+        FacultyProfilesController.toggleUpdateFacultyMemberForm(false);
     };
 
-    public onSubmitClick = () =>
-        FacultyProfilesController.submitAddFacultyMember();
+    public onSubmitClick = () => {
+        const { facultyProfiles } = this.props;
+        const { activeFacultyMember } = facultyProfiles!;
+        FacultyProfilesController.updateFacultyMember(activeFacultyMember!.id);
+    };
 
     public onChange = (
         property: string
@@ -36,7 +37,7 @@ export default class AddFacultyMemberFormView extends React.Component<
         HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     > => event => {
         const { facultyProfiles } = this.props;
-        const { form } = facultyProfiles!.addFacultyMemberFormState;
+        const { form } = facultyProfiles!.updateFacultyMemberFormState;
         form[property] = event.target.value;
     };
 
@@ -47,13 +48,12 @@ export default class AddFacultyMemberFormView extends React.Component<
             form,
             validationErrors,
             canSubmit,
-        } = facultyProfiles!.addFacultyMemberFormState;
-
+        } = facultyProfiles!.updateFacultyMemberFormState;
         return (
             <DrawerForm
                 open={isShowing}
                 onClose={this.onClose}
-                formTitle="Add Faculty Member"
+                formTitle="Update Faculty Member"
             >
                 <Grid
                     container
@@ -208,35 +208,11 @@ export default class AddFacultyMemberFormView extends React.Component<
                         </Grid>
                     </Grid>
 
-                    <Grid item />
-
-                    <Divider />
-                    <Grid item container direction="column" spacing={8}>
-                        <Grid item>
-                            <Typography>Temporary Password</Typography>
-                        </Grid>
-                        <Grid item>
-                            <Typography variant="h5">
-                                {form.password}
-                            </Typography>
-                        </Grid>
-                        <Grid item>
-                            <Typography variant="caption">
-                                Use this password to sign in as this faculty
-                                member for the first time. Save this password
-                                elsewhere as this will be the last time it will
-                                be shown.
-                            </Typography>
-                        </Grid>
-                    </Grid>
-                    <Divider />
-
-                    <Grid item />
                     <Grid item>
                         <FormSubmitBar
                             disabled={!canSubmit}
                             formState={
-                                facultyProfiles!.addFacultyMemberFormState
+                                facultyProfiles!.updateFacultyMemberFormState
                             }
                             onSubmitClick={this.onSubmitClick}
                         />

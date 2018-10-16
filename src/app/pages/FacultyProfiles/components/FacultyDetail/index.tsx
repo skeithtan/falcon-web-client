@@ -24,6 +24,7 @@ import PresentationsView from "./components/PresentationsView";
 import RecognitionsView from "./components/RecognitionsView";
 import PrintProfileView from "./PrintProfileView";
 import styles from "./styles";
+import UpdateFacultyMemberFormView from "./UpdateFacultyMemberFormView";
 
 interface IPropsType {
     classes: IStyleClasses;
@@ -55,10 +56,6 @@ class FacultyDetail extends React.Component<IPropsType> {
         FacultyProfilesController.toggleAddRecognitionForm(shouldShow);
     };
 
-    public printProfileToggle = (shouldShow: boolean) => () => {
-        FacultyProfilesController.toggleProfilePrintPreview(shouldShow);
-    };
-
     public renderEmptyState = () => {
         const { classes } = this.props;
         return (
@@ -69,7 +66,7 @@ class FacultyDetail extends React.Component<IPropsType> {
                 alignItems="center"
                 className={classes.detailEmptyState}
             >
-                <Typography variant="headline" color="textSecondary">
+                <Typography variant="h5" color="textSecondary">
                     Select a faculty member to view their details
                 </Typography>
             </Grid>
@@ -95,7 +92,6 @@ class FacultyDetail extends React.Component<IPropsType> {
                                 <BasicInformationView
                                     facultyMember={fm}
                                     canUpdate
-                                    onPrintClick={this.printProfileToggle(true)}
                                 />
                             </Grid>
                             <Grid item className={classes.item}>
@@ -181,6 +177,7 @@ class FacultyDetail extends React.Component<IPropsType> {
                         >
                             <PrintProfileView />
                         </PrintPreviewDialog>
+                        <UpdateFacultyMemberFormView />
                     </React.Fragment>
                 )}
             </StateWrapper>

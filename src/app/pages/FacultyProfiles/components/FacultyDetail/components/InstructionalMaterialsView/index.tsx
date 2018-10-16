@@ -39,7 +39,7 @@ class InstructionalMaterialsView extends React.Component<IPropsType> {
             ).catch((e: Error) =>
                 alert(
                     `An error occurred while deleting the instructional material ${
-                        e.message
+                        e
                     }`
                 )
             );
@@ -61,7 +61,7 @@ class InstructionalMaterialsView extends React.Component<IPropsType> {
                         return (
                             <ExpansionPanel key={im.id}>
                                 <ExpansionPanelSummary>
-                                    <Typography variant="subheading">
+                                    <Typography variant="subtitle1">
                                         {im.title}
                                     </Typography>
                                 </ExpansionPanelSummary>

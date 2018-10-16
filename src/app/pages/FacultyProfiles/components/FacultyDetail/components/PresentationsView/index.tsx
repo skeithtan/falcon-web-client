@@ -41,7 +41,7 @@ class PresentationsView extends React.Component<IPropsType> {
                 (e: Error) =>
                     alert(
                         `An error occurred while deleting the presentation ${
-                            e.message
+                            e
                         }`
                     )
             );
@@ -65,7 +65,7 @@ class PresentationsView extends React.Component<IPropsType> {
                         return (
                             <ExpansionPanel key={p.id}>
                                 <ExpansionPanelSummary>
-                                    <Typography variant="subheading">
+                                    <Typography variant="subtitle1">
                                         {p.title}
                                     </Typography>
                                 </ExpansionPanelSummary>

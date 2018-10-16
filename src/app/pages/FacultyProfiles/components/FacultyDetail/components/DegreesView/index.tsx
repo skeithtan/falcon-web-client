@@ -31,7 +31,7 @@ class DegreesView extends React.Component<IPropsType> {
         ) {
             FacultyProfilesController.removeDegree(degree).catch((e: Error) =>
                 alert(
-                    `An error occurred while deleting the degree ${e.message}`
+                    `An error occurred while deleting the degree ${e}`
                 )
             );
         }
@@ -49,7 +49,7 @@ class DegreesView extends React.Component<IPropsType> {
                         return (
                             <ExpansionPanel key={d.id}>
                                 <ExpansionPanelSummary>
-                                    <Typography variant="subheading">
+                                    <Typography variant="subtitle1">
                                         {d.title}
                                     </Typography>
                                 </ExpansionPanelSummary>
