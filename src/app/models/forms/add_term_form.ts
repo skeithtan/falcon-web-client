@@ -1,7 +1,6 @@
 import { IsEnum, IsNotEmpty, IsNumberString, Length } from "class-validator";
 import { observable } from "mobx";
 import OrdinalTerm from "../enums/ordinal_term";
-import TermStatus from "../enums/term_status";
 
 export default class AddTermForm {
     @IsNumberString({
@@ -22,11 +21,4 @@ export default class AddTermForm {
     })
     @observable
     public term: string = "";
-
-    @IsEnum(TermStatus)
-    @IsNotEmpty({
-        message: "Status is required"
-    })
-    @observable
-    public status: string = "";
 }
