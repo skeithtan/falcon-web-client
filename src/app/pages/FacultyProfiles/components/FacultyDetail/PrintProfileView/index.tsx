@@ -20,11 +20,12 @@ class PrintProfileView extends React.Component<IPropsType> {
                 direction="row"
                 alignItems="stretch"
                 className={classes.root}
+                wrap="nowrap"
             >
-                <Grid item xs={9} xl={11} className={classes.preview}>
+                <Grid item xs={9} className={classes.preview}>
                     <PrintPreview />
                 </Grid>
-                <Grid item xs={3} xl={1} className={classes.settings}>
+                <Grid item xs={3} className={classes.settings}>
                     <PrintSettings />
                 </Grid>
             </Grid>
