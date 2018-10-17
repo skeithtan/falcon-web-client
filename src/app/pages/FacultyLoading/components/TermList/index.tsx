@@ -25,6 +25,7 @@ class TermList extends React.Component<IPropsType> {
 
     public setActiveTerm = (id: number) => () => {
         FacultyLoadingController.setActiveTerm(id);
+        this.onClose();
     };
 
     public onAddClick = (shouldShow: boolean) => () => {
