@@ -15,6 +15,8 @@ export default class FacultyLoadingController {
             .then(t => {
                 facultyLoading.terms = groupById(t);
                 facultyLoading.setStatus(FetchableStatus.Fetched);
+                // set the first term as the active term
+                this.setActiveTerm(facultyLoading.terms.get(0)!.id);
             })
             .catch((e: Error) => {
                 facultyLoading.setStatus(FetchableStatus.Error, e);
