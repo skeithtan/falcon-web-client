@@ -6,7 +6,7 @@ import { handleAxiosError } from "../utils/handle_axios_error";
 export default class FacultyLoadingService {
     public static async fetchAllTerms(): Promise<Term[]> {
         return axios
-            .get("/faculty-loading")
+            .get("/terms")
             .then((response: AxiosResponse) => {
                 return response.data.map((t: any) => new Term(t));
             })
@@ -15,14 +15,14 @@ export default class FacultyLoadingService {
 
     public static async fetchTerm(termId: number): Promise<Term> {
         return axios
-            .get(`/faculty-loading/${termId}`)
+            .get(`/terms/${termId}`)
             .then((response: AxiosResponse) => new Term(response.data))
             .catch(handleAxiosError);
     }
 
     public static async addTerm(form: AddTermForm): Promise<Term> {
         return axios
-            .post("/faculty-loading/", form)
+            .post("/terms/", form)
             .then((response: AxiosResponse) => new Term(response.data))
             .catch(handleAxiosError);
     }
