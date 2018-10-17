@@ -133,7 +133,6 @@ class SignInPage extends React.Component<IPropsType> {
                                             <Grid item>
                                                 <Button
                                                     type="submit"
-                                                    variant="raised"
                                                     color="primary"
                                                     disabled={
                                                         formIsIncomplete ||
