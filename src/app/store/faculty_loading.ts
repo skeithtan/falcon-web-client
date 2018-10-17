@@ -5,6 +5,7 @@ import FacultyLoadingTab from "../models/enums/faculty_loading_tab";
 import addTermFormState, {
     AddTermFormState,
 } from "./faculty_loading/add_term_form";
+import termListState, { TermListState } from "./faculty_loading/term_list";
 
 export class FacultyLoadingState extends FetchableState {
     @observable
@@ -18,6 +19,9 @@ export class FacultyLoadingState extends FetchableState {
 
     @observable
     public addTermState: AddTermFormState = addTermFormState;
+
+    @observable
+    public termListState: TermListState = termListState;
 
     @computed
     get activeTerm() {
