@@ -4,6 +4,7 @@ import EmptyState from "../../components/reusable/EmptyState";
 import StateWrapper from "../../components/reusable/StateWrapper";
 import FacultyLoadingController from "../../controllers/faculty_loading";
 import { FacultyLoadingState } from "../../store/faculty_loading";
+import LoadingDetail from "./components/LoadingDetail";
 
 interface IPropsType {
     facultyLoading?: FacultyLoadingState;
@@ -39,6 +40,8 @@ export default class FacultyLoading extends React.Component<IPropsType> {
                                 onButtonClick={this.addTermFormToggle(true)}
                             />
                         )}
+
+                        {terms!.size > 0 && <LoadingDetail />}
                     </React.Fragment>
                 )}
             </StateWrapper>
