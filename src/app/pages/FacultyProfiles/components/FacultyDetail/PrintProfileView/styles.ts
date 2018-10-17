@@ -1,3 +1,4 @@
+import Grey from "@material-ui/core/colors/grey";
 import { StyleRules, Theme } from "@material-ui/core/styles";
 
 export default (theme: Theme): StyleRules => ({
@@ -5,9 +6,9 @@ export default (theme: Theme): StyleRules => ({
         height: "100%",
     },
     preview: {
-        backgroundColor: "grey",
-        padding: theme.spacing.unit * 4,
-        overflow: "scroll",
+        backgroundColor: Grey["700"],
+        position: "relative",
+        height: "100%",
     },
     settings: {
         backgroundColor: theme.palette.background.paper,
