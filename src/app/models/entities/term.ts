@@ -16,8 +16,8 @@ export default class Term extends Entity {
     @computed
     get readableString(): string {
         const ordinalTermReadable = OrdinalTermReadable.get(this.term);
-        return `${this.startYear} - ${this.readableString +
-            1} Term ${ordinalTermReadable}`;
+        return `${this.startYear} - ${this.startYear +
+            1} ${ordinalTermReadable} Term`;
     }
 
     // things about class schedules and time constraints
