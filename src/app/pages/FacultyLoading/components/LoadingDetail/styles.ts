@@ -6,7 +6,4 @@ export default {
         overflowY: "scroll",
         overflowX: "hidden",
     },
-    detailEmptyState: {
-        height: "100%",
-    },
 } as StyleRules;
