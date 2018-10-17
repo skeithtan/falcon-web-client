@@ -13,15 +13,19 @@ interface IPropsType {
 @inject("facultyLoading")
 @observer
 export default class TermTabs extends React.Component<IPropsType> {
-    public setTab = (event: any) => {
-        FacultyLoadingController.setActiveTab(event);
-    };
+    public setTab = (event: React.ChangeEvent, tab: FacultyLoadingTab) =>
+        FacultyLoadingController.setActiveTab(tab);
 
     public render() {
         const { facultyLoading } = this.props;
         const { activeTab } = facultyLoading!;
         return (
-            <Tabs value={activeTab} onChange={this.setTab}>
+            <Tabs
+                value={activeTab}
+                onChange={this.setTab}
+                indicatorColor="primary"
+                textColor="primary"
+            >
                 <Tab label="Overview" value={FacultyLoadingTab.Overview} />
                 <Tab label="Faculty" value={FacultyLoadingTab.Faculty} />
                 <Tab label="Classes" value={FacultyLoadingTab.Classes} />
