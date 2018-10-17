@@ -14,9 +14,15 @@ export default class FacultyLoadingController {
         FacultyLoadingService.fetchAllTerms()
             .then(t => {
                 facultyLoading.terms = groupById(t);
+
+                if (t.length > 0) {
+                    // Find Max ID (Likely most recent) and make it active
+                    facultyLoading.activeTermId = Math.max(
+                        ...Array.from(facultyLoading.terms.keys())
+                    );
+                }
+
                 facultyLoading.setStatus(FetchableStatus.Fetched);
-                // set the first term as the active term
-                this.setActiveTerm(facultyLoading.terms.get(0)!.id);
             })
             .catch((e: Error) => {
                 facultyLoading.setStatus(FetchableStatus.Error, e);
@@ -62,5 +68,9 @@ export default class FacultyLoadingController {
 
     public static setActiveTab(tab: FacultyLoadingTab) {
         facultyLoading.activeTab = tab;
+    }
+
+    public static toggleTermList(shouldShow: boolean) {
+        facultyLoading.termListState.isShowing = shouldShow;
     }
 }
