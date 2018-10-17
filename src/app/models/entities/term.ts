@@ -1,6 +1,6 @@
-import { observable } from "mobx";
+import { computed, observable } from "mobx";
 import Entity from "../../interfaces/entity";
-import OrdinalTerm from "../enums/ordinal_term";
+import OrdinalTerm, { OrdinalTermReadable } from "../enums/ordinal_term";
 import TermStatus from "../enums/term_status";
 
 export default class Term extends Entity {
@@ -12,6 +12,13 @@ export default class Term extends Entity {
 
     @observable
     public status: TermStatus;
+
+    @computed
+    get readableString(): string {
+        const ordinalTermReadable = OrdinalTermReadable.get(this.term);
+        return `${this.startYear} - ${this.readableString +
+            1} Term ${ordinalTermReadable}`;
+    }
 
     // things about class schedules and time constraints
     // computed things? maybe?
