@@ -75,15 +75,16 @@ export default class FacultyLoadingController {
     }
 
     public static getAllFaculty() {
-        facultyLoading.setStatus(FetchableStatus.Fetching);
+        const state = facultyLoading.facultyTabState;
+        state.setStatus(FetchableStatus.Fetching);
 
-        FacultyLoadingService.fetchAllFaculty(facultyLoading!.activeTermId!)
+        FacultyLoadingService.fetchAllFaculty(facultyLoading.activeTermId!)
             .then(fm => {
-                facultyLoading.facultyMembers = groupById(fm);
-                facultyLoading.setStatus(FetchableStatus.Fetched);
+                state.facultyMembers = fm;
+                state.setStatus(FetchableStatus.Fetched);
             })
             .catch((e: Error) => {
-                facultyLoading.setStatus(FetchableStatus.Error, e);
+                state.setStatus(FetchableStatus.Error, e);
             });
     }
 }
