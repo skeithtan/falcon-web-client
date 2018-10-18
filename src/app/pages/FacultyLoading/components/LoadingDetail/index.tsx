@@ -7,6 +7,7 @@ import FacultyLoadingTab from "../../../../models/enums/faculty_loading_tab";
 import { FacultyLoadingState } from "../../../../store/faculty_loading";
 import AddTermFormView from "../AddTermFormView";
 import TermList from "../TermList";
+import FacultyContent from "./components/FacultyContent";
 import LoadingBar from "./components/LoadingBar";
 import OverviewContent from "./components/OverviewContent";
 import styles from "./styles";
@@ -20,29 +21,30 @@ interface IPropsType {
 @observer
 class LoadingDetail extends React.Component<IPropsType> {
     public render() {
-        const { classes, facultyLoading } = this.props;
+        const { facultyLoading, classes } = this.props;
         const { activeTab } = facultyLoading!;
         return (
-            <React.Fragment>
-                <Grid
-                    container
-                    direction="column"
-                    wrap="nowrap"
-                    alignItems="stretch"
-                    className={classes.detail}
-                >
-                    <Grid item>
-                        <LoadingBar />
-                    </Grid>
+            <Grid
+                container
+                direction="column"
+                wrap="nowrap"
+                alignItems="stretch"
+                className={classes.detail}
+            >
+                <Grid item xs>
+                    <LoadingBar />
+                </Grid>
+                <Grid item xs="auto" className={classes.tabGridItem}>
                     {activeTab === FacultyLoadingTab.Overview && (
-                        <Grid item className={classes.tab}>
-                            <OverviewContent />
-                        </Grid>
+                        <OverviewContent />
+                    )}
+                    {activeTab === FacultyLoadingTab.Faculty && (
+                        <FacultyContent />
                     )}
                 </Grid>
                 <TermList />
                 <AddTermFormView />
-            </React.Fragment>
+            </Grid>
         );
     }
 }
