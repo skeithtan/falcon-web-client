@@ -1,11 +1,13 @@
 import { computed, observable } from "mobx";
 import FetchableState from "../interfaces/fetchable_state";
-import FacultyLoadingFacultyMember from "../models/entities/faculty_loading_faculty_member";
 import Term from "../models/entities/term";
 import FacultyLoadingTab from "../models/enums/faculty_loading_tab";
 import addTermFormState, {
     AddTermFormState,
 } from "./faculty_loading/add_term_form";
+import facultyTabState, {
+    FacultyTabState,
+} from "./faculty_loading/faculty_tab";
 import termListState, { TermListState } from "./faculty_loading/term_list";
 
 export class FacultyLoadingState extends FetchableState {
@@ -25,13 +27,7 @@ export class FacultyLoadingState extends FetchableState {
     public termListState: TermListState = termListState;
 
     @observable
-    public facultyMembers?: Map<
-        number,
-        FacultyLoadingFacultyMember
-    > = undefined;
-
-    @observable
-    public activefacultyId?: number = undefined;
+    public facultyTabState: FacultyTabState = facultyTabState;
 
     @computed
     get activeTabIndex(): number {
@@ -46,16 +42,7 @@ export class FacultyLoadingState extends FetchableState {
             return undefined;
         }
 
-        return this.terms!.get(this.activeTermId);
-    }
-
-    @computed
-    get activeFaculty() {
-        if (!this.activefacultyId || !this.facultyMembers) {
-            return undefined;
-        }
-
-        return this.facultyMembers!.get(this.activefacultyId);
+        return this.terms!.get(this.activeTermId)!;
     }
 }
 
