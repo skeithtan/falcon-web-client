@@ -1,6 +1,7 @@
-import { observable } from "mobx";
+import { computed, observable } from "mobx";
 import Entity from "../../interfaces/entity";
 import FacultyMemberType from "../enums/faculty_member_type";
+import LoadAmountStatus from "../enums/load_amount_status";
 import ClassSchedule from "./class_schedule";
 import TimeConstraint from "./time_constraint";
 
@@ -14,6 +15,9 @@ export default class FacultyLoadingFacultyMember extends Entity {
     public pnuId: string;
 
     @observable
+    public loadAmountStatus: LoadAmountStatus;
+
+    @observable
     public type: FacultyMemberType;
 
     @observable
@@ -21,6 +25,11 @@ export default class FacultyLoadingFacultyMember extends Entity {
 
     @observable
     public timeConstraints: TimeConstraint[];
+
+    @computed
+    get fullName() {
+        return `${this.firstName} ${this.lastName}`;
+    }
 
     constructor(plainObject: any) {
         super(plainObject);
