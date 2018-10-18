@@ -1,9 +1,16 @@
-import { StyleRules } from "@material-ui/core/styles";
+import { StyleRules, Theme } from "@material-ui/core/styles";
 
-export default {
+export default (theme: Theme): StyleRules => ({
     detail: {
         height: "100%",
         overflowY: "scroll",
         overflowX: "hidden",
     },
-} as StyleRules;
+    tab: {
+        height: "100%",
+        width: "90%",
+        margin: theme.spacing.unit * 4,
+        overflowY: "scroll",
+        overflowX: "hidden",
+    },
+});
