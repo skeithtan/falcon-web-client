@@ -1,4 +1,5 @@
 import authentication, { AuthenticationState } from "./authentication";
+import facultyLoading, { FacultyLoadingState } from "./faculty_loading";
 import facultyProfiles, { FacultyProfilesState } from "./faculty_profiles";
 import subjects, { SubjectsState } from "./subjects";
 
@@ -6,12 +7,14 @@ interface IRootStore {
     authentication: AuthenticationState;
     facultyProfiles: FacultyProfilesState;
     subjects: SubjectsState;
+    facultyLoading: FacultyLoadingState;
 }
 
 const rootStore: IRootStore = {
     authentication,
     facultyProfiles,
     subjects,
+    facultyLoading,
 };
 
 // Put rootStore as window variable when debugging

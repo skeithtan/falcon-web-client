@@ -86,8 +86,7 @@ class PrintPreview extends React.Component<IPropsType> {
                                             variant="overline"
                                             color="textSecondary"
                                         >
-                                            Generation Date{" "}
-                                            {moment().format("LLLL")}
+                                            Generated {moment().format("LLLL")}
                                         </Typography>
                                     </Grid>
                                 </Grid>
