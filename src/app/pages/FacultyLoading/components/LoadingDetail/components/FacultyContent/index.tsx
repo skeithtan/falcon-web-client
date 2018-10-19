@@ -9,6 +9,7 @@ import IStyleClasses from "../../../../../../interfaces/style_classes";
 import { FacultyLoadingState } from "../../../../../../store/faculty_loading";
 import FacultyList from "./components/FacultyList";
 import FacultyOverview from "./components/FacultyOverview";
+import FacultySchedule from "./components/FacultySchedule";
 import styles from "./styles";
 
 interface IPropsType {
@@ -70,10 +71,15 @@ class FacultyContent extends React.Component<IPropsType> {
                                     item
                                     container
                                     direction="column"
-                                    spacing={16}
+                                    spacing={8}
                                 >
                                     <Grid item>
                                         <FacultyOverview
+                                            facultyMember={activeFaculty!}
+                                        />
+                                    </Grid>
+                                    <Grid item>
+                                        <FacultySchedule
                                             facultyMember={activeFaculty!}
                                         />
                                     </Grid>
