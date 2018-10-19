@@ -73,7 +73,9 @@ class FacultyContent extends React.Component<IPropsType> {
                                     spacing={16}
                                 >
                                     <Grid item>
-                                        <FacultyOverview />
+                                        <FacultyOverview
+                                            facultyMember={activeFaculty!}
+                                        />
                                     </Grid>
                                 </Grid>
                             )}

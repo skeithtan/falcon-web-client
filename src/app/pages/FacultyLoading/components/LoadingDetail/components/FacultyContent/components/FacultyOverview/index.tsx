@@ -3,27 +3,22 @@ import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import { inject, observer } from "mobx-react";
 import * as React from "react";
 import IStyleClasses from "../../../../../../../../interfaces/style_classes";
+import FacultyLoadingFacultyMember from "../../../../../../../../models/entities/faculty_loading_faculty_member";
 import FacultyMemberType, {
     FacultyMemberTypeReadable,
 } from "../../../../../../../../models/enums/faculty_member_type";
-import { FacultyLoadingState } from "../../../../../../../../store/faculty_loading";
 import styles from "./styles";
 
 interface IPropsType {
-    facultyLoading?: FacultyLoadingState;
+    facultyMember: FacultyLoadingFacultyMember;
     classes: IStyleClasses;
 }
 
-@inject("facultyLoading")
-@observer
 class FacultyOverview extends React.Component<IPropsType> {
     public render() {
-        const { facultyLoading, classes } = this.props;
-        const { facultyTabState } = facultyLoading!;
-        const { activeFaculty } = facultyTabState;
+        const { facultyMember, classes } = this.props;
         return (
             <Card className={classes.card}>
                 <CardContent>
@@ -41,19 +36,19 @@ class FacultyOverview extends React.Component<IPropsType> {
                         >
                             <Grid item>
                                 <Typography variant="h5">
-                                    {activeFaculty!.fullName}
+                                    {facultyMember.fullName}
                                 </Typography>
                             </Grid>
                             <Grid item>
                                 <Typography variant="h6">{`T-${
-                                    activeFaculty!.pnuId
+                                    facultyMember.pnuId
                                 }`}</Typography>
                             </Grid>
                             <Grid item>
                                 <Typography>
                                     {
                                         FacultyMemberTypeReadable.get(
-                                            activeFaculty!.type
+                                            facultyMember.type
                                         ) as FacultyMemberType
                                     }
                                 </Typography>
@@ -62,7 +57,7 @@ class FacultyOverview extends React.Component<IPropsType> {
                         <Grid item container direction="column">
                             <Grid item>
                                 <Typography variant="h6">
-                                    {activeFaculty!.loadAmountStatus}
+                                    {facultyMember.loadAmountStatus}
                                 </Typography>
                             </Grid>
                         </Grid>
