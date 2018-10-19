@@ -30,20 +30,18 @@ export default class FacultyLoading extends React.Component<IPropsType> {
                 fetchableState={facultyLoading!.fetchStatus}
                 disableFlex
             >
-                {() => (
-                    <React.Fragment>
-                        {terms!.size === 0 && (
-                            <EmptyState
-                                title="FacultyLoading"
-                                description="Add classes and schedule faculty members."
-                                addButton="Add Term"
-                                onButtonClick={this.addTermFormToggle(true)}
-                            />
-                        )}
-
-                        {terms!.size > 0 && <LoadingDetail />}
-                    </React.Fragment>
-                )}
+                {() => {
+                    return terms!.size === 0 ? (
+                        <EmptyState
+                            title="FacultyLoading"
+                            description="Add classes and schedule faculty members."
+                            addButton="Add Term"
+                            onButtonClick={this.addTermFormToggle(true)}
+                        />
+                    ) : (
+                        <LoadingDetail />
+                    );
+                }}
             </StateWrapper>
         );
     }

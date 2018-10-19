@@ -43,7 +43,7 @@ class LoadingBar extends React.Component<IPropsType> {
                                 color="primary"
                                 onClick={this.toggleTermList(true)}
                             >
-                                {activeTerm!.readableString}{" "}
+                                {activeTerm!.readableString}
                                 <ArrowDropDownIcon />
                             </Button>
                         </Grid>

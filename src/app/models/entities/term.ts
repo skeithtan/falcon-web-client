@@ -19,7 +19,4 @@ export default class Term extends Entity {
         return `${this.startYear} - ${this.startYear +
             1} ${ordinalTermReadable} Term`;
     }
-
-    // things about class schedules and time constraints
-    // computed things? maybe?
 }

@@ -5,6 +5,9 @@ import FacultyLoadingTab from "../models/enums/faculty_loading_tab";
 import addTermFormState, {
     AddTermFormState,
 } from "./faculty_loading/add_term_form";
+import facultyTabState, {
+    FacultyTabState,
+} from "./faculty_loading/faculty_tab";
 import termListState, { TermListState } from "./faculty_loading/term_list";
 
 export class FacultyLoadingState extends FetchableState {
@@ -23,13 +26,23 @@ export class FacultyLoadingState extends FetchableState {
     @observable
     public termListState: TermListState = termListState;
 
+    @observable
+    public facultyTabState: FacultyTabState = facultyTabState;
+
+    @computed
+    get activeTabIndex(): number {
+        return Array.from(Object.values(FacultyLoadingTab)).indexOf(
+            this.activeTab
+        );
+    }
+
     @computed
     get activeTerm() {
         if (!this.activeTermId || !this.terms) {
             return undefined;
         }
 
-        return this.terms!.get(this.activeTermId);
+        return this.terms!.get(this.activeTermId)!;
     }
 }
 

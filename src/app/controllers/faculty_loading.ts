@@ -73,4 +73,23 @@ export default class FacultyLoadingController {
     public static toggleTermList(shouldShow: boolean) {
         facultyLoading.termListState.isShowing = shouldShow;
     }
+
+    public static getAllFaculty() {
+        const state = facultyLoading.facultyTabState;
+        state.setStatus(FetchableStatus.Fetching);
+
+        FacultyLoadingService.fetchAllFaculty(facultyLoading.activeTermId!)
+            .then(fm => {
+                state.facultyMembers = fm;
+                state.setStatus(FetchableStatus.Fetched);
+            })
+            .catch((e: Error) => {
+                state.setStatus(FetchableStatus.Error, e);
+            });
+    }
+
+    public static setActiveFaculty(facultyId: number) {
+        const state = facultyLoading.facultyTabState;
+        state.activefacultyId = facultyId;
+    }
 }
