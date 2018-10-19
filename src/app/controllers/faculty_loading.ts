@@ -87,4 +87,9 @@ export default class FacultyLoadingController {
                 state.setStatus(FetchableStatus.Error, e);
             });
     }
+
+    public static setActiveFaculty(facultyId: number) {
+        const state = facultyLoading.facultyTabState;
+        state.activefacultyId = facultyId;
+    }
 }
