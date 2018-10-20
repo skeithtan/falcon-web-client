@@ -1,22 +1,29 @@
 import { IsEnum, IsNotEmpty } from "class-validator";
 import { observable } from "mobx";
-import Subject from "../entities/subject";
-import Term from "../entities/term";
 import MeetingDays from "../enums/meeting_days";
 import MeetingHours from "../enums/meeting_hours";
 
 export default class AddClassForm {
     @observable
-    public term?: Term = undefined;
+    public termId?: number = undefined;
 
+    @IsNotEmpty({
+        message: "Subject is required",
+    })
     @observable
-    public subject?: Subject = undefined;
+    public subjectId?: number = undefined;
 
     @IsEnum(MeetingDays)
+    @IsNotEmpty({
+        message: "Meeting days is required",
+    })
     @observable
     public meetingDays: string = "";
 
     @IsEnum(MeetingHours)
+    @IsNotEmpty({
+        message: "Meeting hours is required",
+    })
     @observable
     public meetingHours: string = "";
 
