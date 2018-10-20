@@ -5,6 +5,9 @@ import FacultyLoadingTab from "../models/enums/faculty_loading_tab";
 import addTermFormState, {
     AddTermFormState,
 } from "./faculty_loading/add_term_form";
+import classesTabState, {
+    ClassesTabState,
+} from "./faculty_loading/classes_tab";
 import facultyTabState, {
     FacultyTabState,
 } from "./faculty_loading/faculty_tab";
@@ -28,6 +31,9 @@ export class FacultyLoadingState extends FetchableState {
 
     @observable
     public facultyTabState: FacultyTabState = facultyTabState;
+
+    @observable
+    public classesTabState: ClassesTabState = classesTabState;
 
     @computed
     get activeTabIndex(): number {
