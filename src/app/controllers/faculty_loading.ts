@@ -3,6 +3,7 @@ import FetchableStatus from "../models/enums/fetchable_status";
 import FormStatus from "../models/enums/form_status";
 import MeetingDays from "../models/enums/meeting_days";
 import FacultyLoadingService from "../services/faculty_loading";
+import SubjectsService from "../services/subjects";
 import rootStore from "../store";
 import { groupById } from "../utils/group_by_id";
 
@@ -89,6 +90,27 @@ export default class FacultyLoadingController {
             });
     }
 
+    public static getAllClassSchedulesTabPrerequisites() {
+        const state = facultyLoading.classesTabState;
+        state.setStatus(FetchableStatus.Fetching);
+
+        console.log("Fetching");
+        const fetchSubjects = SubjectsService.fetchAllSubjects().then(s => {
+            state.subjects = s;
+            return s;
+        });
+
+        const fetchClassSchedules = Promise.resolve(); // TODO: Real promise with real service
+
+        Promise.all([fetchSubjects, fetchClassSchedules])
+            .then(() => {
+                state.setStatus(FetchableStatus.Fetched);
+            })
+            .catch((e: Error) => {
+                state.setStatus(FetchableStatus.Error, e);
+            });
+    }
+
     public static setActiveFaculty(facultyId: number) {
         const state = facultyLoading.facultyTabState;
         state.activefacultyId = facultyId;
@@ -106,6 +128,7 @@ export default class FacultyLoadingController {
 
     public static toggleAddClassForm(shouldShow: boolean) {
         facultyLoading.addClassState.isShowing = shouldShow;
+        facultyLoading.addClassState.form.termId = facultyLoading.activeTermId!;
 
         if (!shouldShow) {
             facultyLoading.addClassState.resetAndClose();
