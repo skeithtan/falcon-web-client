@@ -3,12 +3,8 @@ import Typography from "@material-ui/core/Typography";
 import * as React from "react";
 import TimeSlotCard from "../../../../../../../../../../components/reusable/TimeSlotCard";
 import FacultyLoadingFacultyMember from "../../../../../../../../../../models/entities/faculty_loading_faculty_member";
-import MeetingDays, {
-    MeetingDaysReadable,
-} from "../../../../../../../../../../models/enums/meeting_days";
-import MeetingHours, {
-    MeetingHoursReadable,
-} from "../../../../../../../../../../models/enums/meeting_hours";
+import MeetingDays, { MeetingDaysReadable } from "../../../../../../../../../../models/enums/meeting_days";
+import { MeetingHoursReadable } from "../../../../../../../../../../models/enums/meeting_hours";
 
 interface IPropsType {
     meetingDays: MeetingDays;
@@ -31,7 +27,7 @@ export default class FacultyScheduleSection extends React.Component<
                     </Typography>
                 </Grid>
                 <Grid item container direction="row" spacing={0}>
-                    {Array.from(MeetingHoursReadable).map(([mhrEnum]: any) => {
+                    {Array.from(MeetingHoursReadable).map(([mhrEnum]) => {
                         const timeConstraint = timeConstraints.find(
                             tc =>
                                 tc.meetingDays === meetingDays &&
@@ -42,11 +38,7 @@ export default class FacultyScheduleSection extends React.Component<
                             <Grid item xs key={mhrEnum}>
                                 <TimeSlotCard
                                     variant="timeConstraint"
-                                    meetingHours={
-                                        MeetingHoursReadable.get(
-                                            mhrEnum
-                                        ) as MeetingHours
-                                    }
+                                    meetingHours={mhrEnum}
                                     isAvailable={timeConstraint !== undefined}
                                     isPreferred={
                                         timeConstraint !== undefined &&
