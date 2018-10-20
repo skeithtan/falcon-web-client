@@ -1,10 +1,17 @@
-import { StyleRules } from "@material-ui/core/styles";
+import { StyleRules, Theme } from "@material-ui/core/styles";
 
-export default {
+export default (theme: Theme): StyleRules => ({
     gridContainer: {
         height: "100%",
     },
     facultyListGridItem: {
         height: "100%",
     },
-} as StyleRules;
+    detailEmptyState: {
+        height: "100%",
+    },
+    content: {
+        width: "100%",
+        margin: theme.spacing.unit * 2,
+    },
+});

@@ -7,6 +7,7 @@ import FacultyLoadingTab from "../../../../models/enums/faculty_loading_tab";
 import { FacultyLoadingState } from "../../../../store/faculty_loading";
 import AddTermFormView from "../AddTermFormView";
 import TermList from "../TermList";
+import ClassesContent from "./components/ClassesContent";
 import FacultyContent from "./components/FacultyContent";
 import LoadingBar from "./components/LoadingBar";
 import OverviewContent from "./components/OverviewContent";
@@ -40,6 +41,9 @@ class LoadingDetail extends React.Component<IPropsType> {
                     )}
                     {activeTab === FacultyLoadingTab.Faculty && (
                         <FacultyContent />
+                    )}
+                    {activeTab === FacultyLoadingTab.Classes && (
+                        <ClassesContent />
                     )}
                 </Grid>
                 <TermList />
