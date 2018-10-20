@@ -103,4 +103,12 @@ export default class FacultyLoadingController {
         const state = facultyLoading.classesTabState;
         state.showOnlyUnassigned = shouldShow;
     }
+
+    public static toggleAddClassForm(shouldShow: boolean) {
+        facultyLoading.addClassState.isShowing = shouldShow;
+
+        if (!shouldShow) {
+            facultyLoading.addClassState.resetAndClose();
+        }
+    }
 }
