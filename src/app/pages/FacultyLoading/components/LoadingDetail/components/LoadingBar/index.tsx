@@ -28,7 +28,7 @@ class LoadingBar extends React.Component<IPropsType> {
         const { facultyLoading, classes } = this.props;
         const { activeTerm } = facultyLoading!;
         return (
-            <AppBar color="default" position="static">
+            <AppBar color="default" position="relative">
                 <Toolbar className={classes.toolbar}>
                     <Grid
                         container

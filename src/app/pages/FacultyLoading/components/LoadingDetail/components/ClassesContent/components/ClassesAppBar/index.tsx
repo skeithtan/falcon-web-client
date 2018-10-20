@@ -32,7 +32,7 @@ export default class ClassesAppBar extends React.Component<IPropsType> {
         const { classesTabState } = facultyLoading!;
         const { activeTab, showOnlyUnassigned } = classesTabState;
         return (
-            <AppBar color="default" position="static">
+            <AppBar color="default" position="relative">
                 <Grid container direction="row" alignItems="stretch">
                     <Grid item xs={10}>
                         <Tabs
