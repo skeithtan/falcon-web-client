@@ -4,8 +4,8 @@ enum MeetingDays {
 }
 
 export const MeetingDaysReadable = new Map<MeetingDays, string>([
-    [MeetingDays.MondayThursday, "Monday - Thursday"],
-    [MeetingDays.TuesdayFriday, "Tuesday - Friday"],
+    [MeetingDays.MondayThursday, "Mondays and Thursdays"],
+    [MeetingDays.TuesdayFriday, "Tuesdays and Fridays"],
 ]);
 
 export default MeetingDays;

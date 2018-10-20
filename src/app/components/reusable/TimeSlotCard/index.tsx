@@ -8,12 +8,15 @@ import DoneAll from "@material-ui/icons/DoneAll";
 import * as React from "react";
 import ClassSchedule from "../../../models/entities/class_schedule";
 import Feedback from "../../../models/entities/feedback";
+import MeetingHours, {
+    MeetingHoursReadable,
+} from "../../../models/enums/meeting_hours";
 
 type TimeSlotVariant = "timeConstraint" | "feedback" | "scheduling";
 
 interface IPropsType {
     variant: TimeSlotVariant;
-    meetingHours: string;
+    meetingHours: MeetingHours;
     isAvailable?: boolean;
     isPreferred?: boolean;
     onClick?: () => void;
@@ -33,13 +36,13 @@ export default class TimeSlotCard extends React.Component<IPropsType> {
             // feedback,
         } = this.props;
         return (
-            <Card>
+            <Card square>
                 <CardActionArea onClick={onClick}>
                     <CardContent>
                         <Grid container direction="row" justify="space-between">
                             <Grid item>
                                 <Typography variant="caption">
-                                    {meetingHours}
+                                    {MeetingHoursReadable.get(meetingHours)}
                                 </Typography>
                             </Grid>
                             <Grid item>

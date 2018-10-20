@@ -12,6 +12,10 @@ export default (theme: Theme): StyleRules => ({
     },
     content: {
         width: "100%",
-        margin: theme.spacing.unit * 2,
+        padding: theme.spacing.unit * 5,
+        overflowY: "scroll",
+    },
+    activeFacultyDetailView: {
+        maxWidth: 1600,
     },
 });

@@ -3,6 +3,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Grid from "@material-ui/core/Grid";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
+import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
@@ -33,41 +34,53 @@ export default class ClassesAppBar extends React.Component<IPropsType> {
         const { activeTab, showOnlyUnassigned } = classesTabState;
         return (
             <AppBar color="default" position="relative">
-                <Grid container direction="row" alignItems="stretch">
-                    <Grid item xs={10}>
-                        <Tabs
-                            value={activeTab}
-                            onChange={this.setTab}
-                            textColor="secondary"
-                        >
-                            {Array.from(MeetingDaysReadable.entries()).map(
-                                ([md, mdStr]) => (
-                                    <Tab key={md} value={md} label={mdStr} />
-                                )
-                            )}
-                        </Tabs>
-                    </Grid>
-                    <Grid item xs={2}>
-                        <Grid
-                            item
-                            container
-                            direction="row"
-                            alignItems="center"
-                        >
-                            <Grid item>
-                                <Checkbox
-                                    checked={showOnlyUnassigned}
-                                    onChange={this.toggleShowUnassigned}
-                                />
-                            </Grid>
-                            <Grid item>
-                                <Typography variant="caption">
-                                    Show only unassigned classes
-                                </Typography>
+                <Toolbar variant="dense">
+                    <Grid
+                        container
+                        direction="row"
+                        alignItems="center"
+                        justify="space-between"
+                        wrap="nowrap"
+                    >
+                        <Grid item>
+                            <Tabs
+                                value={activeTab}
+                                onChange={this.setTab}
+                                textColor="secondary"
+                            >
+                                {Array.from(MeetingDaysReadable.entries()).map(
+                                    ([md, mdStr]) => (
+                                        <Tab
+                                            key={md}
+                                            value={md}
+                                            label={mdStr}
+                                        />
+                                    )
+                                )}
+                            </Tabs>
+                        </Grid>
+                        <Grid item>
+                            <Grid
+                                item
+                                container
+                                direction="row"
+                                alignItems="center"
+                            >
+                                <Grid item>
+                                    <Checkbox
+                                        checked={showOnlyUnassigned}
+                                        onChange={this.toggleShowUnassigned}
+                                    />
+                                </Grid>
+                                <Grid item>
+                                    <Typography variant="caption">
+                                        Show only unassigned classes
+                                    </Typography>
+                                </Grid>
                             </Grid>
                         </Grid>
                     </Grid>
-                </Grid>
+                </Toolbar>
             </AppBar>
         );
     }

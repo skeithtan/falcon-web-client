@@ -8,12 +8,12 @@ enum MeetingHours {
 }
 
 export const MeetingHoursReadable = new Map<MeetingHours, string>([
-    [MeetingHours.AM_7_9, "7 - 9"],
-    [MeetingHours.AM_9_11, "9 - 11"],
-    [MeetingHours.AM_11_1, "11 - 1"],
-    [MeetingHours.PM_1_3, "1 - 3"],
-    [MeetingHours.PM_3_5, "3 - 5"],
-    [MeetingHours.PM_5_7, "5 - 7"],
+    [MeetingHours.AM_7_9, "7 AM - 9 AM"],
+    [MeetingHours.AM_9_11, "9 AM - 11 AM"],
+    [MeetingHours.AM_11_1, "11 AM - 1 PM"],
+    [MeetingHours.PM_1_3, "1 PM - 3 PM"],
+    [MeetingHours.PM_3_5, "3 PM - 5 PM"],
+    [MeetingHours.PM_5_7, "5 PM - 7 PM"],
 ]);
 
 export default MeetingHours;
