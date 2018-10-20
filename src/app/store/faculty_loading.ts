@@ -2,6 +2,9 @@ import { computed, observable } from "mobx";
 import FetchableState from "../interfaces/fetchable_state";
 import Term from "../models/entities/term";
 import FacultyLoadingTab from "../models/enums/faculty_loading_tab";
+import addClassFormState, {
+    AddClassFormState,
+} from "./faculty_loading/add_class_form";
 import addTermFormState, {
     AddTermFormState,
 } from "./faculty_loading/add_term_form";
@@ -34,6 +37,9 @@ export class FacultyLoadingState extends FetchableState {
 
     @observable
     public classesTabState: ClassesTabState = classesTabState;
+
+    @observable
+    public addClassState: AddClassFormState = addClassFormState;
 
     @computed
     get activeTabIndex(): number {
