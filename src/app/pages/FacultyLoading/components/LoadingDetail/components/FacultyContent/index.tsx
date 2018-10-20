@@ -71,7 +71,9 @@ class FacultyContent extends React.Component<IPropsType> {
                                     item
                                     container
                                     direction="column"
-                                    spacing={8}
+                                    className={classes.activeFacultyDetailView}
+                                    wrap="nowrap"
+                                    spacing={24}
                                 >
                                     <Grid item>
                                         <FacultyOverview

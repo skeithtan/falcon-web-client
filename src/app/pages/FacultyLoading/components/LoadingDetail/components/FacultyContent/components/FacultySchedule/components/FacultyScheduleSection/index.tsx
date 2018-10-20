@@ -1,9 +1,12 @@
+import Card from "@material-ui/core/Card";
+import CardHeader from "@material-ui/core/CardHeader";
 import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
 import * as React from "react";
 import TimeSlotCard from "../../../../../../../../../../components/reusable/TimeSlotCard";
 import FacultyLoadingFacultyMember from "../../../../../../../../../../models/entities/faculty_loading_faculty_member";
-import MeetingDays, { MeetingDaysReadable } from "../../../../../../../../../../models/enums/meeting_days";
+import MeetingDays, {
+    MeetingDaysReadable,
+} from "../../../../../../../../../../models/enums/meeting_days";
 import { MeetingHoursReadable } from "../../../../../../../../../../models/enums/meeting_hours";
 
 interface IPropsType {
@@ -20,13 +23,9 @@ export default class FacultyScheduleSection extends React.Component<
             facultyMember: { timeConstraints },
         } = this.props;
         return (
-            <Grid item container direction="column" spacing={16}>
-                <Grid item>
-                    <Typography variant="h6">
-                        {MeetingDaysReadable.get(meetingDays) as MeetingDays}
-                    </Typography>
-                </Grid>
-                <Grid item container direction="row" spacing={0}>
+            <Card>
+                <CardHeader title={MeetingDaysReadable.get(meetingDays)} />
+                <Grid container direction="row" spacing={0}>
                     {Array.from(MeetingHoursReadable).map(([mhrEnum]) => {
                         const timeConstraint = timeConstraints.find(
                             tc =>
@@ -49,7 +48,7 @@ export default class FacultyScheduleSection extends React.Component<
                         );
                     })}
                 </Grid>
-            </Grid>
+            </Card>
         );
     }
 }
