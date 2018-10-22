@@ -1,7 +1,10 @@
-import { StyleRules } from "@material-ui/core/styles";
+import { StyleRules, Theme } from "@material-ui/core/styles";
 
-export default {
+export default (theme: Theme): StyleRules => ({
     root: {
         height: "100%",
     },
-} as StyleRules;
+    meetingHourHeader: {
+        padding: theme.spacing.unit * 2,
+    },
+});
