@@ -2,11 +2,12 @@ import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import * as classNames from "classnames";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
 import IStyleClasses from "../../../../../../../../interfaces/style_classes";
-import MeetingHours, { MeetingHoursReadable } from "../../../../../../../../models/enums/meeting_hours";
+import MeetingHours, {
+    MeetingHoursReadable,
+} from "../../../../../../../../models/enums/meeting_hours";
 import { FacultyLoadingState } from "../../../../../../../../store/faculty_loading";
 import ScheduleColumn from "../ScheduleColumn";
 import styles from "./styles";
@@ -25,7 +26,13 @@ class ScheduleCalendar extends React.Component<IPropsType> {
             .activeMeetingDaysClassSchedules;
 
         return (
-            <Grid container alignItems="stretch" className={classes.root}>
+            <Grid
+                container
+                direction="column"
+                alignItems="stretch"
+                className={classes.root}
+                wrap="nowrap"
+            >
                 <Grid item className={classes.padded} container direction="row">
                     {Array.from(Object.keys(MeetingHours)).map(
                         (mhr: MeetingHours) => (
@@ -52,11 +59,10 @@ class ScheduleCalendar extends React.Component<IPropsType> {
                 </Grid>
                 <Grid
                     item
-                    className={classNames(
-                        classes.scheduleColumsGridItemContainer,
-                        classes.padded
-                    )}
                     container
+                    xs
+                    wrap="nowrap"
+                    className={classes.scheduleColumsGridItemContainer}
                 >
                     {Array.from(Object.keys(MeetingHours)).map(
                         (mhr: MeetingHours) => (
