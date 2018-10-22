@@ -2,9 +2,9 @@ import { observable } from "mobx";
 import Entity from "../../interfaces/entity";
 import MeetingDays from "../enums/meeting_days";
 import MeetingHours from "../enums/meeting_hours";
-import Feedback from "./feedback";
-import Subject from "./subject";
-import Term from "./term";
+import Program from "../enums/program";
+import SubjectCategory from "../enums/subject_category";
+import ClassScheduleFacultyMember from "./class_schedule_faculty_member";
 
 export default class ClassSchedule extends Entity {
     @observable
@@ -17,22 +17,27 @@ export default class ClassSchedule extends Entity {
     public room: string;
 
     @observable
-    public course: string;
-
-    @observable
     public section: string;
 
     @observable
-    public subject: Subject;
+    public course: string;
+
+    public subjectName: string;
+    public subjectCode: string;
+    public subjectDescription: string;
+    public subjectCategory: SubjectCategory;
+    public subjectProgram: Program;
 
     @observable
-    public feedback: Feedback;
-
-    @observable
-    public term: Term;
+    public facultyMember?: ClassScheduleFacultyMember;
 
     constructor(plainObject: any) {
         super(plainObject);
-        this.feedback = new Feedback(plainObject.feedback);
+
+        if (plainObject.facultyMember) {
+            this.facultyMember = new ClassScheduleFacultyMember(
+                plainObject.facultyMember!
+            );
+        }
     }
 }
