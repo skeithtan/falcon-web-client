@@ -94,13 +94,19 @@ export default class FacultyLoadingController {
         const state = facultyLoading.classesTabState;
         state.setStatus(FetchableStatus.Fetching);
 
-        console.log("Fetching");
         const fetchSubjects = SubjectsService.fetchAllSubjects().then(s => {
             state.subjects = s;
             return s;
         });
 
-        const fetchClassSchedules = Promise.resolve(); // TODO: Real promise with real service
+        const fetchClassSchedules = FacultyLoadingService.fetchAllClasses(
+            facultyLoading.activeTermId!
+        )
+            .then(cs => {
+                state.classSchedules = groupById(cs, "classScheduleId");
+                state.setStatus(FetchableStatus.Fetched);
+            })
+            .catch((e: Error) => state.setStatus(FetchableStatus.Error, e));
 
         Promise.all([fetchSubjects, fetchClassSchedules])
             .then(() => {
@@ -128,10 +134,26 @@ export default class FacultyLoadingController {
 
     public static toggleAddClassForm(shouldShow: boolean) {
         facultyLoading.addClassState.isShowing = shouldShow;
-        facultyLoading.addClassState.form.termId = facultyLoading.activeTermId!;
 
         if (!shouldShow) {
             facultyLoading.addClassState.resetAndClose();
         }
+    }
+
+    public static submitAddClass() {
+        const { addClassState: formState } = facultyLoading;
+        const { form } = formState;
+
+        formState.setStatus(FormStatus.Submitting);
+        const term = facultyLoading.activeTermId!;
+
+        FacultyLoadingService.addClassSchedule(term, form)
+            .then(cs => {
+                facultyLoading.classesTabState.classSchedules!.set(cs.id, cs);
+                formState.resetAndClose();
+            })
+            .catch(e => {
+                formState.setStatus(FormStatus.Error, e);
+            });
     }
 }
