@@ -8,7 +8,7 @@ export default class AddClassForm {
         message: "Subject is required",
     })
     @observable
-    public subjectId?: number = undefined;
+    public subject?: number = undefined;
 
     @IsEnum(MeetingDays)
     @IsNotEmpty({
