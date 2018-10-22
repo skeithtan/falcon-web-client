@@ -23,7 +23,7 @@ export default class SubdocumentEmptyState extends React.Component<IPropsType> {
         return (
             <div>
                 <CardContent>
-                    <Typography gutterBottom variant="title">
+                    <Typography gutterBottom variant="h6">
                         {title}
                     </Typography>
                     <Typography color="textSecondary">
