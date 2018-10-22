@@ -15,14 +15,22 @@ class ScheduleColumn extends React.Component<IPropsType> {
     public render() {
         const { classSchedules, classes } = this.props;
         return (
-            <Grid container direction="column">
+            <Grid
+                container
+                direction="column"
+                className={classes.padded}
+                wrap="nowrap"
+                spacing={16}
+            >
                 {classSchedules.map(cs => (
-                    <div key={cs.id} className={classes.classSchedule}>
-                        <Typography variant="subtitle2">{`${cs.subjectCode} ${
-                            cs.section
-                        }`}</Typography>
-                        <Typography>{cs.room}</Typography>
-                    </div>
+                    <Grid item key={cs.id}>
+                        <div className={classes.classSchedule}>
+                            <Typography variant="subtitle2">{`${
+                                cs.subjectCode
+                            } ${cs.section}`}</Typography>
+                            <Typography>{cs.room}</Typography>
+                        </div>
+                    </Grid>
                 ))}
             </Grid>
         );
