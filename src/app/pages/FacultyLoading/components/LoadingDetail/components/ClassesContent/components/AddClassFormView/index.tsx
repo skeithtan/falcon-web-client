@@ -22,7 +22,7 @@ export default class AddClassFormView extends React.Component<IPropsType> {
     };
 
     public onSubmitClick = () => {
-        // function for adding a class
+        FacultyLoadingController.submitAddClass();
     };
 
     public onChange = (
@@ -59,7 +59,7 @@ export default class AddClassFormView extends React.Component<IPropsType> {
                                 label="Subject"
                                 variant="outlined"
                                 onChange={this.onChange("subjectId")}
-                                value={form.subjectId}
+                                value={form.subjectId || ""}
                                 error={"subjectId" in validationErrors}
                                 helperText={validationErrors.subjectId}
                                 fullWidth
@@ -143,6 +143,20 @@ export default class AddClassFormView extends React.Component<IPropsType> {
                                 value={form.section}
                                 error={"section" in validationErrors}
                                 helperText={validationErrors.section}
+                                fullWidth
+                            />
+                        </Grid>
+                    </Grid>
+                    <Grid item container spacing={8} direction="row">
+                        <Grid item xs>
+                            <TextField
+                                label="Course"
+                                variant="outlined"
+                                required
+                                onChange={this.onChange("course")}
+                                value={form.course}
+                                error={"course" in validationErrors}
+                                helperText={validationErrors.course}
                                 fullWidth
                             />
                         </Grid>
