@@ -6,7 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import Done from "@material-ui/icons/Done";
 import DoneAll from "@material-ui/icons/DoneAll";
 import * as React from "react";
-import ClassSchedule from "../../../models/entities/class_schedule";
+import FacultyClassSchedule from "../../../models/entities/faculty_class_schedule";
 import Feedback from "../../../models/entities/feedback";
 import MeetingHours, {
     MeetingHoursReadable,
@@ -20,7 +20,7 @@ interface IPropsType {
     isAvailable?: boolean;
     isPreferred?: boolean;
     onClick?: () => void;
-    classSchedule?: ClassSchedule;
+    classSchedule?: FacultyClassSchedule;
     feedback?: Feedback;
 }
 
