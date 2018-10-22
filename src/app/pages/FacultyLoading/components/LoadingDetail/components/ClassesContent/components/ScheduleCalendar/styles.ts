@@ -5,16 +5,13 @@ export default (theme: Theme): StyleRules => ({
         height: "100%",
         backgroundColor: theme.palette.background.paper,
     },
-    padded: {
-        paddingLeft: theme.spacing.unit * 3,
-        paddingRight: theme.spacing.unit * 3,
-    },
     divider: {
         width: "100%",
     },
     scheduleColumsGridItemContainer: {
         paddingTop: theme.spacing.unit,
         height: "100%",
+        overflowY: "scroll",
     },
     meetingHourHeader: {
         paddingTop: theme.spacing.unit * 2,
