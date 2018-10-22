@@ -3,6 +3,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import { withStyles } from "@material-ui/core/styles";
+import AddIcon from "@material-ui/icons/Add";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
 import DrawerForm from "../../../../components/reusable/DrawerForm";
@@ -60,11 +61,11 @@ class TermList extends React.Component<IPropsType> {
                     </List>
                     <Button
                         variant="extendedFab"
-                        size="small"
                         color="primary"
                         onClick={this.onAddClick(true)}
                         className={classes.addButton}
                     >
+                        <AddIcon />
                         New Term
                     </Button>
                 </React.Fragment>
