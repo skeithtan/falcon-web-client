@@ -58,10 +58,10 @@ export default class AddClassFormView extends React.Component<IPropsType> {
                                 select
                                 label="Subject"
                                 variant="outlined"
-                                onChange={this.onChange("subjectId")}
-                                value={form.subjectId || ""}
-                                error={"subjectId" in validationErrors}
-                                helperText={validationErrors.subjectId}
+                                onChange={this.onChange("subject")}
+                                value={form.subject || ""}
+                                error={"subject" in validationErrors}
+                                helperText={validationErrors.subject}
                                 fullWidth
                             >
                                 {subjects!.length > 0 &&
