@@ -31,7 +31,7 @@ export default class ClassesAppBar extends React.Component<IPropsType> {
     public render() {
         const { facultyLoading } = this.props;
         const { classesTabState } = facultyLoading!;
-        const { activeTab, showOnlyUnassigned } = classesTabState;
+        const { activeMeetingDays, showOnlyUnassigned } = classesTabState;
         return (
             <AppBar color="default" position="relative">
                 <Toolbar variant="dense">
@@ -44,7 +44,7 @@ export default class ClassesAppBar extends React.Component<IPropsType> {
                     >
                         <Grid item>
                             <Tabs
-                                value={activeTab}
+                                value={activeMeetingDays}
                                 onChange={this.setTab}
                                 textColor="secondary"
                             >
