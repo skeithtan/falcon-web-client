@@ -1,5 +1,7 @@
+import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";
+import AddIcon from "@material-ui/icons/Add";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
 import StateWrapper from "../../../../../../components/reusable/StateWrapper";
@@ -23,19 +25,37 @@ class ClassesContent extends React.Component<IPropsType> {
         FacultyLoadingController.getAllClassSchedulesTabPrerequisites();
     }
 
+    public toggleAddClassForm = (shouldShow: boolean) => () => {
+        FacultyLoadingController.toggleAddClassForm(shouldShow);
+    };
+
     public render() {
         const { facultyLoading, classes } = this.props;
         const { classesTabState } = facultyLoading!;
         return (
             <StateWrapper fetchableState={classesTabState.fetchStatus}>
                 {() => (
-                    <Grid container direction="column" className={classes.root}>
+                    <Grid
+                        container
+                        direction="column"
+                        className={classes.root}
+                        wrap="nowrap"
+                    >
                         <Grid item>
                             <ClassesAppBar />
                         </Grid>
                         <Grid item xs>
                             <ScheduleCalendar />
                         </Grid>
+                        <Button
+                            variant="extendedFab"
+                            color="primary"
+                            className={classes.addButton}
+                            onClick={this.toggleAddClassForm(true)}
+                        >
+                            <AddIcon />
+                            Add a class
+                        </Button>
                         <AddClassFormView />
                     </Grid>
                 )}
