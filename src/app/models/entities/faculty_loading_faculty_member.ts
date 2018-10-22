@@ -2,7 +2,7 @@ import { computed, observable } from "mobx";
 import Entity from "../../interfaces/entity";
 import FacultyMemberType from "../enums/faculty_member_type";
 import LoadAmountStatus from "../enums/load_amount_status";
-import ClassSchedule from "./class_schedule";
+import FacultyClassSchedule from "./faculty_class_schedule";
 import TimeConstraint from "./time_constraint";
 
 export default class FacultyLoadingFacultyMember extends Entity {
@@ -21,7 +21,7 @@ export default class FacultyLoadingFacultyMember extends Entity {
     public type: FacultyMemberType;
 
     @observable
-    public classSchedules: ClassSchedule[];
+    public classSchedules: FacultyClassSchedule[];
 
     @observable
     public timeConstraints: TimeConstraint[];
@@ -34,7 +34,7 @@ export default class FacultyLoadingFacultyMember extends Entity {
     constructor(plainObject: any) {
         super(plainObject);
         this.classSchedules = plainObject.classSchedules.map(
-            (cs: any) => new ClassSchedule(cs)
+            (cs: any) => new FacultyClassSchedule(cs)
         );
 
         this.timeConstraints = plainObject.timeConstraints.map(
