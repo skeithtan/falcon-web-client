@@ -124,7 +124,7 @@ export default class FacultyLoadingController {
 
     public static setActiveClassesTab(tab: MeetingDays) {
         const state = facultyLoading.classesTabState;
-        state.activeTab = tab;
+        state.activeMeetingDays = tab;
     }
 
     public static showOnlyUnassigned(shouldShow: boolean) {
