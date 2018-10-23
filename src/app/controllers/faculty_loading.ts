@@ -156,4 +156,14 @@ export default class FacultyLoadingController {
                 formState.setStatus(FormStatus.Error, e);
             });
     }
+
+    public static setSelectedClassSchedule(id: number) {
+        const state = facultyLoading.classesTabState;
+        state.selectedClassScheduleId = id;
+    }
+
+    public static toggleClassScheduleDetails(shouldShow: boolean) {
+        const state = facultyLoading.classesTabState.classScheduleDetailsState;
+        state.isShowing = shouldShow;
+    }
 }
