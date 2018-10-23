@@ -10,5 +10,6 @@ export default (theme: Theme): StyleRules => ({
         padding: theme.spacing.unit * 2,
         border: "1px solid",
         borderColor: grey["300"],
+        cursor: "pointer",
     },
 });
