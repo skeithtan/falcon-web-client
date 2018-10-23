@@ -1,4 +1,4 @@
-import { observable } from "mobx";
+import { computed, observable } from "mobx";
 import FetchableState from "../../interfaces/fetchable_state";
 import ClassSchedule from "../../models/entities/class_schedule";
 import Subject from "../../models/entities/subject";
@@ -12,10 +12,17 @@ export class ClassesTabState extends FetchableState {
     public subjects?: Subject[] = undefined;
 
     @observable
-    public activeTab: MeetingDays = MeetingDays.MondayThursday;
+    public activeMeetingDays: MeetingDays = MeetingDays.MondayThursday;
 
     @observable
     public showOnlyUnassigned: boolean = false;
+
+    @computed
+    get activeMeetingDaysClassSchedules() {
+        return Array.from(this.classSchedules!.values()).filter(
+            cs => cs.meetingDays === this.activeMeetingDays
+        );
+    }
 }
 
 export default new ClassesTabState();

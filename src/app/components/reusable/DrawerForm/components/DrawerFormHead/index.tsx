@@ -29,7 +29,7 @@ export default class DrawerFormHead extends React.Component<IPropsType> {
                         </IconButton>
                     </Grid>
                     <Grid item>
-                        <Typography variant="title">{formTitle}</Typography>
+                        <Typography variant="h6">{formTitle}</Typography>
                     </Grid>
                 </Grid>
             </CardActions>

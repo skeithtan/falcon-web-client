@@ -4,14 +4,11 @@ import MeetingDays from "../enums/meeting_days";
 import MeetingHours from "../enums/meeting_hours";
 
 export default class AddClassForm {
-    @observable
-    public termId?: number = undefined;
-
     @IsNotEmpty({
         message: "Subject is required",
     })
     @observable
-    public subjectId?: number = undefined;
+    public subject?: number = undefined;
 
     @IsEnum(MeetingDays)
     @IsNotEmpty({

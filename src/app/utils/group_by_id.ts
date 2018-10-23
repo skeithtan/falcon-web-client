@@ -1,7 +1,10 @@
 import * as _ from "lodash";
 import Entity from "../interfaces/entity";
 
-export function groupById<E extends Entity>(entities: E[]): Map<number, E> {
+export function groupById<E extends Entity>(
+    entities: E[],
+    idKey: string = "id"
+): Map<number, E> {
     const grouped = _.groupBy(entities, "id");
     const aggregatedEntities = new Map<number, E>();
 
