@@ -14,7 +14,7 @@ export default class FacultyLoadingController {
     public static getAllTerms() {
         facultyLoading.setStatus(FetchableStatus.Fetching);
 
-        FacultyLoadingService.fetchAllTerms()
+        return FacultyLoadingService.fetchAllTerms()
             .then(t => {
                 facultyLoading.terms = groupById(t);
 
@@ -93,12 +93,12 @@ export default class FacultyLoadingController {
 
     public static getCurrentFaculty() {
         facultyLoading.facultyTabState.setStatus(FetchableStatus.Fetching);
-        this.getAllTerms();
-        const term = facultyLoading.activeTermId;
+        const term = facultyLoading.activeTermId!;
 
-        FacultyLoadingService.fetchCurrentFaculty(term!)
+        FacultyLoadingService.fetchCurrentFaculty(term)
             .then(flfm => {
-                facultyLoading.facultyTabState.activefacultyId = flfm.id;
+                facultyLoading.facultyTabState.activefacultyId = flfm.facultyId;
+                facultyLoading.facultyTabState.facultyMembers = [flfm];
                 facultyLoading.facultyTabState.setStatus(
                     FetchableStatus.Fetched
                 );
