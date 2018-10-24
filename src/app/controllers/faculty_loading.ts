@@ -199,4 +199,33 @@ export default class FacultyLoadingController {
             this.toggleClassScheduleDetails(false);
         });
     }
+
+    public static toggleTimeConstraintsForm(shouldShow: boolean) {
+        const state =
+            facultyLoading.facultyTabState.submitTimeConstraintsFormState;
+        state.isShowing = shouldShow;
+
+        if (!shouldShow) {
+            state.resetAndClose();
+        }
+    }
+
+    public static submitTimeConstraints() {
+        const {
+            facultyTabState: { submitTimeConstraintsFormState: formState },
+        } = facultyLoading;
+        const { form } = formState;
+
+        formState.setStatus(FormStatus.Submitting);
+        const term = facultyLoading.activeTermId!;
+
+        FacultyLoadingService.submitTimeConstraints(term, form)
+            .then(tc => {
+                facultyLoading.facultyTabState.activeFaculty!.timeConstraints = tc;
+                formState.resetAndClose();
+            })
+            .catch(e => {
+                formState.setStatus(FormStatus.Error, e);
+            });
+    }
 }
