@@ -14,9 +14,17 @@ export default class Term extends Entity {
     public status: TermStatus;
 
     @computed
-    get readableString(): string {
-        const ordinalTermReadable = OrdinalTermReadable.get(this.term);
-        return `${this.startYear} - ${this.startYear +
-            1} ${ordinalTermReadable} Term`;
+    get readable(): string {
+        return `${this.yearRangeReadable} ${this.ordinalTermReadable}`;
+    }
+
+    @computed
+    get ordinalTermReadable(): string {
+        return `${OrdinalTermReadable.get(this.term)!} Term`;
+    }
+
+    @computed
+    get yearRangeReadable(): string {
+        return `${this.startYear} - ${this.startYear + 1}`;
     }
 }
