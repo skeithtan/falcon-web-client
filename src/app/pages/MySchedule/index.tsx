@@ -1,5 +1,6 @@
 import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
 import StateWrapper from "../../components/reusable/StateWrapper";
@@ -20,12 +21,14 @@ interface IPropsType {
 class MySchedule extends React.Component<IPropsType> {
     public componentDidMount() {
         document.title = "My Schedule - Falcon";
-        FacultyLoadingController.getCurrentFaculty();
+        FacultyLoadingController.getAllTerms().then(() => {
+            FacultyLoadingController.getCurrentFaculty();
+        });
     }
 
     public render() {
         const { facultyLoading, classes } = this.props;
-        const { facultyTabState } = facultyLoading!;
+        const { facultyTabState, activeTerm } = facultyLoading!;
         const { activeFaculty } = facultyTabState;
         return (
             <StateWrapper fetchableState={facultyTabState.fetchStatus}>
@@ -33,9 +36,16 @@ class MySchedule extends React.Component<IPropsType> {
                     <Grid
                         item
                         container
+                        direction="column"
                         justify="center"
                         className={classes.content}
+                        spacing={24}
                     >
+                        <Grid item>
+                            <Typography variant="h5">{`${
+                                activeTerm!.ordinalTermReadable
+                            } ${activeTerm!.yearRangeReadable}`}</Typography>
+                        </Grid>
                         <Grid item>
                             <FacultyOverview facultyMember={activeFaculty!} />
                         </Grid>
