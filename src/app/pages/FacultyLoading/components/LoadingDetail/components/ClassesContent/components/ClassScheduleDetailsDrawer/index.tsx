@@ -1,20 +1,17 @@
+import Button from "@material-ui/core/Button";
+import CardActions from "@material-ui/core/CardActions";
 import Divider from "@material-ui/core/Divider";
+import Grid from "@material-ui/core/Grid";
 import List from "@material-ui/core/List";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
 import DetailItem from "../../../../../../../../components/reusable/DetailItem";
 import DrawerForm from "../../../../../../../../components/reusable/DrawerForm";
 import FacultyLoadingController from "../../../../../../../../controllers/faculty_loading";
-import MeetingDays, {
-    MeetingDaysReadable,
-} from "../../../../../../../../models/enums/meeting_days";
-import MeetingHours, {
-    MeetingHoursReadable,
-} from "../../../../../../../../models/enums/meeting_hours";
+import ClassSchedule from "../../../../../../../../models/entities/class_schedule";
+import MeetingDays, { MeetingDaysReadable } from "../../../../../../../../models/enums/meeting_days";
+import MeetingHours, { MeetingHoursReadable } from "../../../../../../../../models/enums/meeting_hours";
 import { FacultyLoadingState } from "../../../../../../../../store/faculty_loading";
-
-// TODO: Add faculty member section
-// TODO: Remove button and function for classes
 
 interface IPropsType {
     facultyLoading?: FacultyLoadingState;
@@ -29,59 +26,101 @@ export default class ClassScheduleDetailsDrawer extends React.Component<
         FacultyLoadingController.toggleClassScheduleDetails(false);
     };
 
+    public onRemoveClick = (classSchedule: ClassSchedule) => () => {
+        if (confirm("Are you sure you want to delete this class?")) {
+            FacultyLoadingController.removeClassSchedule(classSchedule).catch(
+                (e: Error) =>
+                    alert("An error occurred while deleting the class.")
+            );
+        }
+    };
+
+    public renderActiveClassSchedule = () => {
+        const { facultyLoading } = this.props;
+        const { classesTabState } = facultyLoading!;
+        const { activeClassSchedule } = classesTabState;
+
+        return (
+            <Grid container direction="column" spacing={16} wrap="nowrap">
+                <Grid item>
+                    <List>
+                        <DetailItem
+                            field="Subject Code"
+                            value={activeClassSchedule!.subjectCode}
+                        />
+                        <DetailItem
+                            field="Subject Name"
+                            value={activeClassSchedule!.subjectName}
+                        />
+                        <DetailItem
+                            field="Meeting Days"
+                            value={
+                                MeetingDaysReadable.get(
+                                    activeClassSchedule!.meetingDays
+                                ) as MeetingDays
+                            }
+                        />
+                        <DetailItem
+                            field="Meeting Hours"
+                            value={
+                                MeetingHoursReadable.get(
+                                    activeClassSchedule!.meetingHours
+                                ) as MeetingHours
+                            }
+                        />
+                        <DetailItem
+                            field="Section"
+                            value={activeClassSchedule!.section}
+                        />
+                        <DetailItem
+                            field="Room"
+                            value={activeClassSchedule!.room}
+                        />
+                        <DetailItem
+                            field="Course"
+                            value={activeClassSchedule!.course}
+                        />
+                    </List>
+                </Grid>
+
+                <Grid item>
+                    <CardActions>
+                        <Button
+                            variant="outlined"
+                            color="secondary"
+                            onClick={this.onRemoveClick(activeClassSchedule!)}
+                        >
+                            Remove
+                        </Button>
+                    </CardActions>
+                </Grid>
+
+                <Divider />
+            </Grid>
+        );
+    };
+
     public render() {
         const { facultyLoading } = this.props;
         const { classesTabState } = facultyLoading!;
         const {
             classScheduleDetailsState,
-            selectedClassSchedule,
+            activeClassSchedule,
         } = classesTabState;
         return (
             <DrawerForm
+                disablePadding
                 open={classScheduleDetailsState.isShowing}
                 onClose={this.onClose}
-                formTitle="Class Details"
+                formTitle={
+                    activeClassSchedule
+                        ? `${activeClassSchedule.subjectCode} ${
+                              activeClassSchedule.section
+                          }`
+                        : "Class Details"
+                }
             >
-                <List>
-                    <DetailItem
-                        field="Subject Code"
-                        value={selectedClassSchedule!.subjectCode}
-                    />
-                    <DetailItem
-                        field="Subject Name"
-                        value={selectedClassSchedule!.subjectName}
-                    />
-                    <DetailItem
-                        field="Meeting Days"
-                        value={
-                            MeetingDaysReadable.get(
-                                selectedClassSchedule!.meetingDays
-                            ) as MeetingDays
-                        }
-                    />
-                    <DetailItem
-                        field="Meeting Hours"
-                        value={
-                            MeetingHoursReadable.get(
-                                selectedClassSchedule!.meetingHours
-                            ) as MeetingHours
-                        }
-                    />
-                    <DetailItem
-                        field="Section"
-                        value={selectedClassSchedule!.section}
-                    />
-                    <DetailItem
-                        field="Room"
-                        value={selectedClassSchedule!.room}
-                    />
-                    <DetailItem
-                        field="Course"
-                        value={selectedClassSchedule!.course}
-                    />
-                </List>
-
-                <Divider />
+                {activeClassSchedule && this.renderActiveClassSchedule()}
             </DrawerForm>
         );
     }
