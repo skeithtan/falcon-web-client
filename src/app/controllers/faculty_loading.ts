@@ -1,3 +1,4 @@
+import ClassSchedule from "../models/entities/class_schedule";
 import FacultyLoadingTab from "../models/enums/faculty_loading_tab";
 import FetchableStatus from "../models/enums/fetchable_status";
 import FormStatus from "../models/enums/form_status";
@@ -90,6 +91,26 @@ export default class FacultyLoadingController {
             });
     }
 
+    public static getCurrentFaculty() {
+        facultyLoading.facultyTabState.setStatus(FetchableStatus.Fetching);
+        this.getAllTerms();
+        const term = facultyLoading.activeTermId;
+
+        FacultyLoadingService.fetchCurrentFaculty(term!)
+            .then(flfm => {
+                facultyLoading.facultyTabState.activefacultyId = flfm.id;
+                facultyLoading.facultyTabState.setStatus(
+                    FetchableStatus.Fetched
+                );
+            })
+            .catch((e: Error) => {
+                facultyLoading.facultyTabState.setStatus(
+                    FetchableStatus.Error,
+                    e
+                );
+            });
+    }
+
     public static getAllClassSchedulesTabPrerequisites() {
         const state = facultyLoading.classesTabState;
         state.setStatus(FetchableStatus.Fetching);
@@ -157,13 +178,25 @@ export default class FacultyLoadingController {
             });
     }
 
-    public static setSelectedClassSchedule(id: number) {
+    public static setActiveClassSchedule(id: number) {
         const state = facultyLoading.classesTabState;
         state.selectedClassScheduleId = id;
+        this.toggleClassScheduleDetails(true);
     }
 
     public static toggleClassScheduleDetails(shouldShow: boolean) {
         const state = facultyLoading.classesTabState.classScheduleDetailsState;
         state.isShowing = shouldShow;
+    }
+
+    public static async removeClassSchedule(classSchedule: ClassSchedule) {
+        const state = facultyLoading.classesTabState;
+
+        return await FacultyLoadingService.removeClassSchedule(
+            classSchedule.id
+        ).then(() => {
+            state.classSchedules!.delete(classSchedule.id);
+            this.toggleClassScheduleDetails(false);
+        });
     }
 }
