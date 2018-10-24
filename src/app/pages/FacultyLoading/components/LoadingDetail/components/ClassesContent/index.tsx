@@ -10,6 +10,7 @@ import IStyleClasses from "../../../../../../interfaces/style_classes";
 import { FacultyLoadingState } from "../../../../../../store/faculty_loading";
 import AddClassFormView from "./components/AddClassFormView";
 import ClassesAppBar from "./components/ClassesAppBar";
+import ClassScheduleDetailsDrawer from "./components/ClassScheduleDetailsDrawer";
 import ScheduleCalendar from "./components/ScheduleCalendar";
 import styles from "./styles";
 
@@ -57,6 +58,7 @@ class ClassesContent extends React.Component<IPropsType> {
                             Add a class
                         </Button>
                         <AddClassFormView />
+                        <ClassScheduleDetailsDrawer />
                     </Grid>
                 )}
             </StateWrapper>

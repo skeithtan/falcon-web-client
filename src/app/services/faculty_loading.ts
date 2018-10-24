@@ -2,8 +2,10 @@ import axios, { AxiosResponse } from "axios";
 import ClassSchedule from "../models/entities/class_schedule";
 import FacultyLoadingFacultyMember from "../models/entities/faculty_loading_faculty_member";
 import Term from "../models/entities/term";
+import TimeConstraint from "../models/entities/time_constraint";
 import AddClassForm from "../models/forms/add_class_form";
 import AddTermForm from "../models/forms/add_term_form";
+import SubmitTimeConstraintsForm from "../models/forms/submit_time_constraints_form";
 import { handleAxiosError } from "../utils/handle_axios_error";
 
 export default class FacultyLoadingService {
@@ -43,6 +45,18 @@ export default class FacultyLoadingService {
             .catch(handleAxiosError);
     }
 
+    public static async fetchCurrentFaculty(
+        termId: number
+    ): Promise<FacultyLoadingFacultyMember> {
+        return axios
+            .get(`/terms/${termId}/my-schedules`)
+            .then(
+                (response: AxiosResponse) =>
+                    new FacultyLoadingFacultyMember(response.data)
+            )
+            .catch(handleAxiosError);
+    }
+
     public static async fetchAllClasses(
         termId: number
     ): Promise<ClassSchedule[]> {
@@ -61,6 +75,26 @@ export default class FacultyLoadingService {
         return axios
             .post(`/terms/${termId}/class-schedules`, form)
             .then((response: AxiosResponse) => new ClassSchedule(response.data))
+            .catch(handleAxiosError);
+    }
+
+    public static async removeClassSchedule(classId: number) {
+        return axios
+            .delete(`/class-schedules/${classId}`)
+            .catch(handleAxiosError);
+    }
+
+    public static async submitTimeConstraints(
+        termId: number,
+        form: SubmitTimeConstraintsForm
+    ): Promise<TimeConstraint[]> {
+        return axios
+            .post(`/terms/${termId}/my-schedules/time-constraints`, form)
+            .then((response: AxiosResponse) => {
+                return response.data.map(
+                    (tc: any) => new TimeConstraint(response.data)
+                );
+            })
             .catch(handleAxiosError);
     }
 }

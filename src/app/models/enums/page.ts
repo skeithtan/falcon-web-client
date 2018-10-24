@@ -7,6 +7,7 @@ import * as React from "react";
 import FacultyLoadingPage from "../../pages/FacultyLoading";
 import FacultyProfilesPage from "../../pages/FacultyProfiles";
 import MyProfilePage from "../../pages/MyProfile";
+import MySchedulePage from "../../pages/MySchedule";
 import SubjectsPage from "../../pages/Subjects";
 
 enum Page {
@@ -110,8 +111,8 @@ export const PAGE_SPECIFICATION = new Map<Page, IPageSpecification>([
             page: Page.MySchedule,
             path: "my-schedule",
             icon: SubjectsIcon,
-            component: undefined,
-            name: "My Schedue",
+            component: MySchedulePage,
+            name: "My Schedule",
             description:
                 "View term schedules, submit time availability and feedback",
         },

@@ -18,7 +18,7 @@ class DetailItem extends React.Component<IPropsType> {
         return (
             <ListItem divider>
                 <Grid className={classes.listItem}>
-                    <Grid container>
+                    <Grid container wrap="nowrap">
                         <Grid item sm zeroMinWidth>
                             <Typography variant="body2">{field}</Typography>
                         </Grid>

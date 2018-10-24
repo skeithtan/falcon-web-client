@@ -1,3 +1,4 @@
+import ClassSchedule from "../models/entities/class_schedule";
 import FacultyLoadingTab from "../models/enums/faculty_loading_tab";
 import FetchableStatus from "../models/enums/fetchable_status";
 import FormStatus from "../models/enums/form_status";
@@ -13,7 +14,7 @@ export default class FacultyLoadingController {
     public static getAllTerms() {
         facultyLoading.setStatus(FetchableStatus.Fetching);
 
-        FacultyLoadingService.fetchAllTerms()
+        return FacultyLoadingService.fetchAllTerms()
             .then(t => {
                 facultyLoading.terms = groupById(t);
 
@@ -90,6 +91,26 @@ export default class FacultyLoadingController {
             });
     }
 
+    public static getCurrentFaculty() {
+        facultyLoading.facultyTabState.setStatus(FetchableStatus.Fetching);
+        const term = facultyLoading.activeTermId!;
+
+        FacultyLoadingService.fetchCurrentFaculty(term)
+            .then(flfm => {
+                facultyLoading.facultyTabState.activefacultyId = flfm.facultyId;
+                facultyLoading.facultyTabState.facultyMembers = [flfm];
+                facultyLoading.facultyTabState.setStatus(
+                    FetchableStatus.Fetched
+                );
+            })
+            .catch((e: Error) => {
+                facultyLoading.facultyTabState.setStatus(
+                    FetchableStatus.Error,
+                    e
+                );
+            });
+    }
+
     public static getAllClassSchedulesTabPrerequisites() {
         const state = facultyLoading.classesTabState;
         state.setStatus(FetchableStatus.Fetching);
@@ -150,6 +171,57 @@ export default class FacultyLoadingController {
         FacultyLoadingService.addClassSchedule(term, form)
             .then(cs => {
                 facultyLoading.classesTabState.classSchedules!.set(cs.id, cs);
+                formState.resetAndClose();
+            })
+            .catch(e => {
+                formState.setStatus(FormStatus.Error, e);
+            });
+    }
+
+    public static setActiveClassSchedule(id: number) {
+        const state = facultyLoading.classesTabState;
+        state.selectedClassScheduleId = id;
+        this.toggleClassScheduleDetails(true);
+    }
+
+    public static toggleClassScheduleDetails(shouldShow: boolean) {
+        const state = facultyLoading.classesTabState.classScheduleDetailsState;
+        state.isShowing = shouldShow;
+    }
+
+    public static async removeClassSchedule(classSchedule: ClassSchedule) {
+        const state = facultyLoading.classesTabState;
+
+        return await FacultyLoadingService.removeClassSchedule(
+            classSchedule.id
+        ).then(() => {
+            state.classSchedules!.delete(classSchedule.id);
+            this.toggleClassScheduleDetails(false);
+        });
+    }
+
+    public static toggleTimeConstraintsForm(shouldShow: boolean) {
+        const state =
+            facultyLoading.facultyTabState.submitTimeConstraintsFormState;
+        state.isShowing = shouldShow;
+
+        if (!shouldShow) {
+            state.resetAndClose();
+        }
+    }
+
+    public static submitTimeConstraints() {
+        const {
+            facultyTabState: { submitTimeConstraintsFormState: formState },
+        } = facultyLoading;
+        const { form } = formState;
+
+        formState.setStatus(FormStatus.Submitting);
+        const term = facultyLoading.activeTermId!;
+
+        FacultyLoadingService.submitTimeConstraints(term, form)
+            .then(tc => {
+                facultyLoading.facultyTabState.activeFaculty!.timeConstraints = tc;
                 formState.resetAndClose();
             })
             .catch(e => {
