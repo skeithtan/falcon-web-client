@@ -21,28 +21,6 @@ class MyProfile extends React.Component<IPropsType> {
         FacultyProfilesController.getCurrentFaculty();
     }
 
-    public addDegreeFormToggle = (shouldShow: boolean) => () => {
-        FacultyProfilesController.toggleAddDegreeForm(shouldShow);
-    };
-
-    public addExtensionWorkFormToggle = (shouldShow: boolean) => () => {
-        FacultyProfilesController.toggleAddExtensionWorkForm(shouldShow);
-    };
-
-    public addInstructionalMaterialFormToggle = (shouldShow: boolean) => () => {
-        FacultyProfilesController.toggleAddInstructionalMaterialForm(
-            shouldShow
-        );
-    };
-
-    public addPresentationFormToggle = (shouldShow: boolean) => () => {
-        FacultyProfilesController.toggleAddPresentationForm(shouldShow);
-    };
-
-    public addRecognitionFormToggle = (shouldShow: boolean) => () => {
-        FacultyProfilesController.toggleAddRecognitionForm(shouldShow);
-    };
-
     public render() {
         const { facultyProfiles, classes } = this.props;
         return (
