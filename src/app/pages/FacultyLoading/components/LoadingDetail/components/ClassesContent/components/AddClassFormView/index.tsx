@@ -64,8 +64,9 @@ export default class AddClassFormView extends React.Component<IPropsType> {
                                 helperText={validationErrors.subject}
                                 fullWidth
                             >
-                                {subjects!.length > 0 &&
-                                    subjects!.map(s => (
+                                {subjects &&
+                                    subjects.length > 0 &&
+                                    subjects.map(s => (
                                         <MenuItem key={s.id} value={s.id}>
                                             {s.name}
                                         </MenuItem>
