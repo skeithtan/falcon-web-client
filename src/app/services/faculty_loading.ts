@@ -43,6 +43,18 @@ export default class FacultyLoadingService {
             .catch(handleAxiosError);
     }
 
+    public static async fetchCurrentFaculty(
+        termId: number
+    ): Promise<FacultyLoadingFacultyMember> {
+        return axios
+            .get(`/terms/${termId}/my-schedules`)
+            .then(
+                (response: AxiosResponse) =>
+                    new FacultyLoadingFacultyMember(response.data)
+            )
+            .catch(handleAxiosError);
+    }
+
     public static async fetchAllClasses(
         termId: number
     ): Promise<ClassSchedule[]> {
@@ -61,6 +73,12 @@ export default class FacultyLoadingService {
         return axios
             .post(`/terms/${termId}/class-schedules`, form)
             .then((response: AxiosResponse) => new ClassSchedule(response.data))
+            .catch(handleAxiosError);
+    }
+
+    public static async removeClassSchedule(classId: number) {
+        return axios
+            .delete(`/class-schedules/${classId}`)
             .catch(handleAxiosError);
     }
 }
