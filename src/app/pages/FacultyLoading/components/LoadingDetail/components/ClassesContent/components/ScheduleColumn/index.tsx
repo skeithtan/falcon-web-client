@@ -1,3 +1,6 @@
+import Card from "@material-ui/core/Card";
+import CardActionArea from "@material-ui/core/CardActionArea";
+import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
@@ -13,12 +16,8 @@ interface IPropsType {
 }
 
 class ScheduleColumn extends React.Component<IPropsType> {
-    public showClassScheduleDetails = (
-        cs: number,
-        shouldShow: boolean
-    ) => () => {
-        FacultyLoadingController.setSelectedClassSchedule(cs);
-        FacultyLoadingController.toggleClassScheduleDetails(shouldShow);
+    public setActiveClassSchedule = (cs: number) => () => {
+        FacultyLoadingController.setActiveClassSchedule(cs);
     };
 
     public render() {
@@ -35,14 +34,18 @@ class ScheduleColumn extends React.Component<IPropsType> {
                     <Grid
                         item
                         key={cs.id}
-                        onClick={this.showClassScheduleDetails(cs.id, true)}
+                        onClick={this.setActiveClassSchedule(cs.id)}
                     >
-                        <div className={classes.classSchedule}>
-                            <Typography variant="subtitle2">{`${
-                                cs.subjectCode
-                            } ${cs.section}`}</Typography>
-                            <Typography>{cs.room}</Typography>
-                        </div>
+                        <Card>
+                            <CardActionArea>
+                                <CardContent>
+                                    <Typography variant="subtitle2">{`${
+                                        cs.subjectCode
+                                    } ${cs.section}`}</Typography>
+                                    <Typography>{cs.room}</Typography>
+                                </CardContent>
+                            </CardActionArea>
+                        </Card>
                     </Grid>
                 ))}
             </Grid>
