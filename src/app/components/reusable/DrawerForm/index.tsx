@@ -16,6 +16,7 @@ interface IPropsType {
     onClose?: () => void;
     classes: IStyleClasses;
     formTitle: string;
+    disablePadding?: boolean;
 }
 
 class DrawerForm extends React.Component<IPropsType> {
@@ -27,7 +28,14 @@ class DrawerForm extends React.Component<IPropsType> {
     };
 
     public render() {
-        const { open, children, className, classes, formTitle } = this.props;
+        const {
+            open,
+            children,
+            className,
+            classes,
+            formTitle,
+            disablePadding,
+        } = this.props;
         return (
             <Drawer
                 onClose={this.onClose}
@@ -50,7 +58,11 @@ class DrawerForm extends React.Component<IPropsType> {
                     <Divider light />
                     <Grid item className={classes.childrenGridItem} xs={12}>
                         <div className={classes.childrenWrapper}>
-                            <CardContent>{children}</CardContent>
+                            {disablePadding ? (
+                                children
+                            ) : (
+                                <CardContent>{children}</CardContent>
+                            )}
                         </div>
                     </Grid>
                 </Grid>
