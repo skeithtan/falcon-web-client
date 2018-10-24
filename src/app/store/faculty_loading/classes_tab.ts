@@ -34,7 +34,7 @@ export class ClassesTabState extends FetchableState {
     }
 
     @computed
-    get selectedClassSchedule() {
+    get activeClassSchedule() {
         if (!this.classSchedules || !this.selectedClassScheduleId) {
             return undefined;
         }
