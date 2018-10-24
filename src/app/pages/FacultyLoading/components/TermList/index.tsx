@@ -35,25 +35,28 @@ class TermList extends React.Component<IPropsType> {
 
     public render() {
         const { facultyLoading, classes } = this.props;
-        const { terms, termListState } = facultyLoading!;
+        const { terms, termListState, activeTermId } = facultyLoading!;
         const { isShowing } = termListState!;
         return (
             <DrawerForm
+                disablePadding
                 open={isShowing}
                 onClose={this.onClose}
                 formTitle="Term List"
             >
                 <React.Fragment>
                     <List>
-                        {Array.from(terms!).map(([termId, term]: any) => {
+                        {Array.from(terms!).map(([termId, term]) => {
                             return (
                                 <ListItem
                                     key={termId}
+                                    selected={activeTermId === termId}
                                     button
                                     onClick={this.setActiveTerm(termId)}
                                 >
                                     <ListItemText
-                                        primary={term.readableString}
+                                        primary={term.ordinalTermReadable}
+                                        secondary={term.yearRangeReadable}
                                     />
                                 </ListItem>
                             );
