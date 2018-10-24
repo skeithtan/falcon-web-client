@@ -37,7 +37,7 @@ class MySchedule extends React.Component<IPropsType> {
                         item
                         container
                         direction="column"
-                        justify="center"
+                        justify="flex-start"
                         className={classes.content}
                         spacing={24}
                     >
