@@ -228,4 +228,9 @@ export default class FacultyLoadingController {
                 formState.setStatus(FormStatus.Error, e);
             });
     }
+
+    public static toggleAutoAssignWizardDialog(shouldShow: boolean) {
+        const state = facultyLoading.classesTabState.autoAssignWizardState;
+        state.isShowing = shouldShow;
+    }
 }
