@@ -21,11 +21,26 @@ interface IPropsType {
 @inject("authentication")
 @observer
 class UserTray extends React.Component<IPropsType> {
+    public onChangePasswordClick = () => {
+        const password = prompt(
+            "Enter your new password (It must be at least 10 characters)"
+        );
+
+        if (!password) {
+            return;
+        }
+
+        if (password.length < 10) {
+            this.onChangePasswordClick();
+            return;
+        }
+        
+        UserController.setPassword(password!);
+    };
+
     public render() {
         const { anchorEl, onClose, authentication, classes } = this.props;
         const { currentUser } = authentication!;
-        // tslint:disable-next-line
-        window["lol"] = onClose;
 
         return (
             <Popover
@@ -44,6 +59,9 @@ class UserTray extends React.Component<IPropsType> {
                         </Typography>
                     </div>
                     <Divider />
+                    <MenuItem onClick={this.onChangePasswordClick}>
+                        Change Password
+                    </MenuItem>
                     <MenuItem onClick={UserController.signOut}>
                         Sign out from Falcon
                     </MenuItem>
