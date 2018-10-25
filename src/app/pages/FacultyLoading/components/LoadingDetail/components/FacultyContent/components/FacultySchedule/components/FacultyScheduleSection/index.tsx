@@ -25,7 +25,12 @@ export default class FacultyScheduleSection extends React.Component<
         return (
             <Card>
                 <CardHeader title={MeetingDaysReadable.get(meetingDays)} />
-                <Grid container direction="row" spacing={0}>
+                <Grid
+                    container
+                    direction="row"
+                    spacing={0}
+                    alignItems="stretch"
+                >
                     {Array.from(MeetingHoursReadable).map(([mhrEnum]) => {
                         const timeConstraint = timeConstraints.find(
                             tc =>
