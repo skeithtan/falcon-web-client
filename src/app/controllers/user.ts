@@ -21,6 +21,17 @@ export default class UserController {
             });
     }
 
+    public static setPassword(password: string) {
+        UserService.changePassword(password)
+            .then(() => {
+                alert("Successfully changed the password");
+            })
+            .catch((e: Error) => {
+                console.log("Password changing error occurred", e);
+                alert("An error occurred while changing the password");
+            });
+    }
+
     public static signOut() {
         authentication.currentUser = undefined;
         authentication.fetchStatus = FetchableStatus.Unfetched;
