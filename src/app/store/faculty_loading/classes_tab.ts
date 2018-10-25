@@ -34,6 +34,12 @@ export class ClassesTabState extends FetchableState {
 
     @computed
     get activeMeetingDaysClassSchedules() {
+        if (this.showOnlyUnassigned) {
+            return Array.from(this.classSchedules!.values())
+                .filter(cs => cs.facultyMember === undefined)
+                .filter(cs => cs.meetingDays === this.activeMeetingDays);
+        }
+
         return Array.from(this.classSchedules!.values()).filter(
             cs => cs.meetingDays === this.activeMeetingDays
         );
