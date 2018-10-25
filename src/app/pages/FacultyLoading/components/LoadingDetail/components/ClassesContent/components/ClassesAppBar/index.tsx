@@ -29,6 +29,10 @@ class ClassesAppBar extends React.Component<IPropsType> {
     public setTab = (event: React.ChangeEvent, tab: MeetingDays) =>
         FacultyLoadingController.setActiveClassesTab(tab);
 
+    public toggleAutoAssignWizardDialog = (shouldShow: boolean) => () => {
+        FacultyLoadingController.toggleAutoAssignWizardDialog(shouldShow);
+    };
+
     public toggleShowUnassigned = (
         event: React.ChangeEvent,
         shouldShow: boolean
@@ -74,7 +78,12 @@ class ClassesAppBar extends React.Component<IPropsType> {
                             wrap="nowrap"
                         >
                             <Grid item>
-                                <Button color="secondary">
+                                <Button
+                                    color="secondary"
+                                    onClick={this.toggleAutoAssignWizardDialog(
+                                        true
+                                    )}
+                                >
                                     <TouchAppIcon />
                                     Auto-assign
                                 </Button>
