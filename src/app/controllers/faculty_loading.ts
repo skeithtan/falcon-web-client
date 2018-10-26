@@ -1,5 +1,6 @@
 import ClassSchedule from "../models/entities/class_schedule";
 import FacultyLoadingTab from "../models/enums/faculty_loading_tab";
+import FeedbackStatus from "../models/enums/feedback_status";
 import FetchableStatus from "../models/enums/fetchable_status";
 import FormStatus from "../models/enums/form_status";
 import MeetingDays from "../models/enums/meeting_days";
@@ -180,13 +181,17 @@ export default class FacultyLoadingController {
 
     public static setActiveClassSchedule(id: number) {
         const state = facultyLoading.classesTabState;
-        state.selectedClassScheduleId = id;
+        state.activeClassScheduleId = id;
         this.toggleClassScheduleDetails(true);
     }
 
     public static toggleClassScheduleDetails(shouldShow: boolean) {
         const state = facultyLoading.classesTabState.classScheduleDetailsState;
         state.isShowing = shouldShow;
+
+        if (!shouldShow) {
+            state.resetAndClose();
+        }
     }
 
     public static async removeClassSchedule(classSchedule: ClassSchedule) {
@@ -201,8 +206,7 @@ export default class FacultyLoadingController {
     }
 
     public static toggleTimeConstraintsForm(shouldShow: boolean) {
-        const state =
-            facultyLoading.facultyTabState.submitTimeConstraintsFormState;
+        const state = facultyLoading.facultyTabState.timeConstraintsFormState;
         state.isShowing = shouldShow;
 
         if (!shouldShow) {
@@ -212,7 +216,7 @@ export default class FacultyLoadingController {
 
     public static submitTimeConstraints() {
         const {
-            facultyTabState: { submitTimeConstraintsFormState: formState },
+            facultyTabState: { timeConstraintsFormState: formState },
         } = facultyLoading;
         const { form } = formState;
 
@@ -227,6 +231,27 @@ export default class FacultyLoadingController {
             .catch(e => {
                 formState.setStatus(FormStatus.Error, e);
             });
+    }
+
+    public static toggleFeedbackForm(shouldShow: boolean) {
+        const state = facultyLoading.facultyTabState.feedbackFormState;
+        state.isShowing = shouldShow;
+
+        if (!shouldShow) {
+            state.resetAndClose();
+        } else {
+            const feedbacks = state.form.classScheduleFeedbacks;
+            feedbacks.clear();
+            facultyLoading.facultyTabState.activeFaculty!.classSchedules.forEach(
+                cs => {
+                    feedbacks.set(cs, FeedbackStatus.Accepted);
+                }
+            );
+        }
+    }
+
+    public static submitFeedback() {
+        // TODO: this
     }
 
     public static toggleAutoAssignWizardDialog(shouldShow: boolean) {
