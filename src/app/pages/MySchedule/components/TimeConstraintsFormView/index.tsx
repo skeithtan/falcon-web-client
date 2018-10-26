@@ -24,7 +24,7 @@ interface IPropsType {
 
 @inject("facultyLoading")
 @observer
-export default class SubmitTimeConstraintsFormView extends React.Component<
+export default class TimeConstraintsFormView extends React.Component<
     IPropsType
 > {
     public onClose = () => {
@@ -41,7 +41,7 @@ export default class SubmitTimeConstraintsFormView extends React.Component<
         const { facultyTabState } = facultyLoading!;
         const {
             form: { timeConstraints },
-        } = facultyTabState.submitTimeConstraintsFormState;
+        } = facultyTabState.timeConstraintsFormState;
 
         const tcIndex = timeConstraints.findIndex(
             tcCandidate =>
@@ -78,7 +78,7 @@ export default class SubmitTimeConstraintsFormView extends React.Component<
             isShowing,
             form,
             validationErrors,
-        } = facultyTabState.submitTimeConstraintsFormState;
+        } = facultyTabState.timeConstraintsFormState;
         const formIsValid =
             form.mondayThursdayCount >= 3 && form.tuesdayFridayCount >= 3;
         return (
@@ -171,7 +171,7 @@ export default class SubmitTimeConstraintsFormView extends React.Component<
                             disabled={!formIsValid}
                             formState={
                                 facultyLoading!.facultyTabState
-                                    .submitTimeConstraintsFormState
+                                    .timeConstraintsFormState
                             }
                             onSubmitClick={this.onSubmitClick}
                         />
