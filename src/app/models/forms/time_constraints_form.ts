@@ -2,7 +2,7 @@ import { computed, observable } from "mobx";
 import TimeConstraint from "../entities/time_constraint";
 import MeetingDays from "../enums/meeting_days";
 
-export default class SubmitTimeConstraintsForm {
+export default class TimeConstraintsForm {
     @observable
     public timeConstraints: TimeConstraint[] = [];
 

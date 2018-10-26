@@ -5,7 +5,7 @@ import Term from "../models/entities/term";
 import TimeConstraint from "../models/entities/time_constraint";
 import AddClassForm from "../models/forms/add_class_form";
 import AddTermForm from "../models/forms/add_term_form";
-import SubmitTimeConstraintsForm from "../models/forms/submit_time_constraints_form";
+import TimeConstraintsForm from "../models/forms/time_constraints_form";
 import { handleAxiosError } from "../utils/handle_axios_error";
 
 export default class FacultyLoadingService {
@@ -86,7 +86,7 @@ export default class FacultyLoadingService {
 
     public static async submitTimeConstraints(
         termId: number,
-        form: SubmitTimeConstraintsForm
+        form: TimeConstraintsForm
     ): Promise<TimeConstraint[]> {
         return axios
             .post(`/terms/${termId}/my-schedules/time-constraints`, form)

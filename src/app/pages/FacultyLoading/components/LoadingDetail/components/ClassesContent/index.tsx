@@ -9,6 +9,7 @@ import FacultyLoadingController from "../../../../../../controllers/faculty_load
 import IStyleClasses from "../../../../../../interfaces/style_classes";
 import { FacultyLoadingState } from "../../../../../../store/faculty_loading";
 import AddClassFormView from "./components/AddClassFormView";
+import AutoAssignWizard from "./components/AutoAssignWizard";
 import ClassesAppBar from "./components/ClassesAppBar";
 import ClassScheduleDetailsDrawer from "./components/ClassScheduleDetailsDrawer";
 import ScheduleCalendar from "./components/ScheduleCalendar";
@@ -59,6 +60,7 @@ class ClassesContent extends React.Component<IPropsType> {
                         </Button>
                         <AddClassFormView />
                         <ClassScheduleDetailsDrawer />
+                        <AutoAssignWizard />
                     </Grid>
                 )}
             </StateWrapper>

@@ -33,7 +33,7 @@ export default class FacultyLoading extends React.Component<IPropsType> {
                 {() => {
                     return terms!.size === 0 ? (
                         <EmptyState
-                            title="FacultyLoading"
+                            title="Faculty Loading"
                             description="Add classes and schedule faculty members."
                             addButton="Add Term"
                             onButtonClick={this.addTermFormToggle(true)}

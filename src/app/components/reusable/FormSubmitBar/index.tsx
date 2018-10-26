@@ -8,7 +8,7 @@ import FormState from "../../../interfaces/form_state";
 import FormStatus from "../../../models/enums/form_status";
 
 interface IPropsType {
-    disabled: boolean;
+    disabled?: boolean;
     onSubmitClick: () => any;
     formState: FormState<any>;
     submitText?: string;

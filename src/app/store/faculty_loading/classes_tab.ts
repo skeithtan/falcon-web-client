@@ -3,6 +3,9 @@ import FetchableState from "../../interfaces/fetchable_state";
 import ClassSchedule from "../../models/entities/class_schedule";
 import Subject from "../../models/entities/subject";
 import MeetingDays from "../../models/enums/meeting_days";
+import autoAssignWizardState, {
+    AutoAssignWizardState,
+} from "./auto_assign_wizard";
 import classScheduleDetailsState, {
     ClassScheduleDetailsState,
 } from "./class_schedule_details";
@@ -12,7 +15,7 @@ export class ClassesTabState extends FetchableState {
     public classSchedules?: Map<number, ClassSchedule> = undefined;
 
     @observable
-    public selectedClassScheduleId?: number = undefined;
+    public activeClassScheduleId?: number = undefined;
 
     @observable
     public subjects?: Subject[] = undefined;
@@ -26,8 +29,17 @@ export class ClassesTabState extends FetchableState {
     @observable
     public classScheduleDetailsState: ClassScheduleDetailsState = classScheduleDetailsState;
 
+    @observable
+    public autoAssignWizardState: AutoAssignWizardState = autoAssignWizardState;
+
     @computed
     get activeMeetingDaysClassSchedules() {
+        if (this.showOnlyUnassigned) {
+            return Array.from(this.classSchedules!.values())
+                .filter(cs => cs.facultyMember === undefined)
+                .filter(cs => cs.meetingDays === this.activeMeetingDays);
+        }
+
         return Array.from(this.classSchedules!.values()).filter(
             cs => cs.meetingDays === this.activeMeetingDays
         );
@@ -35,11 +47,11 @@ export class ClassesTabState extends FetchableState {
 
     @computed
     get activeClassSchedule() {
-        if (!this.classSchedules || !this.selectedClassScheduleId) {
+        if (!this.classSchedules || !this.activeClassScheduleId) {
             return undefined;
         }
 
-        return this.classSchedules!.get(this.selectedClassScheduleId);
+        return this.classSchedules!.get(this.activeClassScheduleId);
     }
 }
 

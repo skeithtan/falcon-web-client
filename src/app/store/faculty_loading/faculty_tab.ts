@@ -5,9 +5,10 @@ import FeedbackStatus from "../../models/enums/feedback_status";
 import LoadAmountStatus from "../../models/enums/load_amount_status";
 import TermStatus from "../../models/enums/term_status";
 import facultyLoadingState from "../faculty_loading";
-import submitTimeConstraintsFormState, {
-    SubmitTimeConstraintsFormState,
-} from "./submit_time_constraints_form";
+import feedbackFormState, { FeedbackFormState } from "./feedback_form";
+import timeConstraintsFormState, {
+    TimeConstraintsFormState,
+} from "./time_constraints_form";
 
 export class FacultyTabState extends FetchableState {
     @observable
@@ -17,7 +18,10 @@ export class FacultyTabState extends FetchableState {
     public activefacultyId?: number = undefined;
 
     @observable
-    public submitTimeConstraintsFormState: SubmitTimeConstraintsFormState = submitTimeConstraintsFormState;
+    public timeConstraintsFormState: TimeConstraintsFormState = timeConstraintsFormState;
+
+    @observable
+    public feedbackFormState: FeedbackFormState = feedbackFormState;
 
     @computed
     get activeFaculty() {

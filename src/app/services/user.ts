@@ -32,6 +32,15 @@ export default class UserService {
             });
     }
 
+    public static async changePassword(password: string): Promise<void> {
+        return axios
+            .post("/set-password", { password })
+            .then((response: AxiosResponse<any>) => {
+                return;
+            })
+            .catch(handleAxiosError);
+    }
+
     public static async signOut(): Promise<AxiosResponse> {
         return axios.post("/sign-out");
     }

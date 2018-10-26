@@ -11,7 +11,8 @@ import TermStatus from "../../models/enums/term_status";
 import { FacultyLoadingState } from "../../store/faculty_loading";
 import FacultyOverview from "../FacultyLoading/components/LoadingDetail/components/FacultyContent/components/FacultyOverview";
 import FacultySchedule from "../FacultyLoading/components/LoadingDetail/components/FacultyContent/components/FacultySchedule";
-import SubmitTimeConstraintsFormView from "./components/SubmitTimeConstraintsFormView";
+import FeedbackFormView from "./components/FeedbackFormView";
+import TimeConstraintsFormView from "./components/TimeConstraintsFormView";
 import styles from "./styles";
 
 interface IPropsType {
@@ -94,7 +95,8 @@ class MySchedule extends React.Component<IPropsType> {
                         <Grid item>
                             <FacultySchedule facultyMember={activeFaculty!} />
                         </Grid>
-                        <SubmitTimeConstraintsFormView />
+                        <TimeConstraintsFormView />
+                        <FeedbackFormView />
                     </Grid>
                 )}
             </StateWrapper>
