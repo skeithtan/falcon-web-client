@@ -15,7 +15,7 @@ export class ClassesTabState extends FetchableState {
     public classSchedules?: Map<number, ClassSchedule> = undefined;
 
     @observable
-    public selectedClassScheduleId?: number = undefined;
+    public activeClassScheduleId?: number = undefined;
 
     @observable
     public subjects?: Subject[] = undefined;
@@ -47,11 +47,11 @@ export class ClassesTabState extends FetchableState {
 
     @computed
     get activeClassSchedule() {
-        if (!this.classSchedules || !this.selectedClassScheduleId) {
+        if (!this.classSchedules || !this.activeClassScheduleId) {
             return undefined;
         }
 
-        return this.classSchedules!.get(this.selectedClassScheduleId);
+        return this.classSchedules!.get(this.activeClassScheduleId);
     }
 }
 
