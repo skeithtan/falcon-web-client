@@ -2,13 +2,13 @@ import List from "@material-ui/core/List";
 import * as moment from "moment";
 import * as React from "react";
 import DetailItem from "../../../../../../../components/reusable/DetailItem";
-import FacultyMember from "../../../../../../../models/entities/faculty_member";
+import FacultyProfile from "../../../../../../../models/entities/faculty_profile";
 import FacultyMemberType, {
     FacultyMemberTypeReadable,
 } from "../../../../../../../models/enums/faculty_member_type";
 
 interface IPropsType {
-    facultyMember: FacultyMember;
+    facultyMember: FacultyProfile;
 }
 
 export default class PrintBasicInformation extends React.Component<IPropsType> {
@@ -27,7 +27,7 @@ export default class PrintBasicInformation extends React.Component<IPropsType> {
                     value={facultyMember.formattedPnuId}
                 />
                 <DetailItem field="Employment Type" value={type!} />
-                <DetailItem field="Email" value={facultyMember.user!.email} />
+                <DetailItem field="Email" value={facultyMember.email} />
                 <DetailItem field="Sex" value={facultyMember.sex} />
                 <DetailItem field="Date of Birth" value={dateOfBirth} />
             </List>

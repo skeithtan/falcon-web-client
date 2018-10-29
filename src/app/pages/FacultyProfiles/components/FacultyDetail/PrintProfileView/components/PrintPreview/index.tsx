@@ -78,7 +78,7 @@ class PrintPreview extends React.Component<IPropsType> {
                                 >
                                     <Grid item>
                                         <Typography variant="h6">{`${
-                                            activeFacultyMember!.user!.fullName
+                                            activeFacultyMember!.fullName
                                         }'s Profile`}</Typography>
                                     </Grid>
                                     <Grid item>

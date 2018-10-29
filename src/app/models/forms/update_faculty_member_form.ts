@@ -7,7 +7,7 @@ import {
 } from "class-validator";
 import { observable } from "mobx";
 import * as moment from "moment";
-import FacultyMember from "../entities/faculty_member";
+import FacultyProfile from "../entities/faculty_profile";
 import ActivityType from "../enums/activity_type";
 import FacultyMemberType from "../enums/faculty_member_type";
 import Sex from "../enums/sex";
@@ -68,10 +68,10 @@ export default class UpdateFacultyMemberForm {
     @observable
     public pnuId: string = "";
 
-    public prefillForm(fm: FacultyMember) {
-        this.firstName = fm.user!.firstName;
-        this.lastName = fm.user!.lastName;
-        this.email = fm.user!.email;
+    public prefillForm(fm: FacultyProfile) {
+        this.firstName = fm.firstName;
+        this.lastName = fm.lastName;
+        this.email = fm.email;
         this.sex = fm.sex;
         this.type = fm.type;
         this.activity = fm.activity;

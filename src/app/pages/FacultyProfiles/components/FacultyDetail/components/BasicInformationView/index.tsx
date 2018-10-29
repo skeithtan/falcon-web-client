@@ -7,24 +7,23 @@ import Tooltip from "@material-ui/core/Tooltip";
 import Typography from "@material-ui/core/Typography";
 import Create from "@material-ui/icons/Create";
 import Print from "@material-ui/icons/Print";
-import { observer } from "mobx-react";
+import { inject, observer } from "mobx-react";
 import * as moment from "moment";
 import * as React from "react";
 import DetailItem from "../../../../../../components/reusable/DetailItem";
 import FacultyProfilesController from "../../../../../../controllers/faculty_profiles";
 import IStyleClasses from "../../../../../../interfaces/style_classes";
-import FacultyMember from "../../../../../../models/entities/faculty_member";
-import FacultyMemberType, {
-    FacultyMemberTypeReadable,
-} from "../../../../../../models/enums/faculty_member_type";
+import FacultyMemberType, { FacultyMemberTypeReadable } from "../../../../../../models/enums/faculty_member_type";
+import { FacultyProfilesState } from "../../../../../../store/faculty_profiles";
 import styles from "./styles";
 
 interface IPropsType {
     canUpdate: boolean;
     classes: IStyleClasses;
-    facultyMember: FacultyMember;
+    facultyProfiles?: FacultyProfilesState;
 }
 
+@inject("facultyProfiles")
 @observer
 class BasicInformationView extends React.Component<IPropsType> {
     public toggleUpdateFacultyForm = (shouldShow: boolean) => () => {
@@ -36,7 +35,8 @@ class BasicInformationView extends React.Component<IPropsType> {
     };
 
     public render() {
-        const { canUpdate, classes, facultyMember } = this.props;
+        const { canUpdate, classes, facultyProfiles } = this.props;
+        const facultyMember = facultyProfiles!.activeFacultyMember!;
         const readableType = FacultyMemberTypeReadable.get(
             facultyMember.type as FacultyMemberType
         );
@@ -48,7 +48,7 @@ class BasicInformationView extends React.Component<IPropsType> {
                 <Toolbar>
                     <div onClick={this.toggleUpdateFacultyForm(true)} />
                     <Typography variant="h5">
-                        {facultyMember.user!.fullName}
+                        {facultyMember.fullName}
                     </Typography>
                     <div className={classes.grow} />
                     {canUpdate && (
@@ -74,7 +74,7 @@ class BasicInformationView extends React.Component<IPropsType> {
                     />
                     <DetailItem
                         field="Email"
-                        value={facultyMember.user!.email}
+                        value={facultyMember.email}
                     />
                     <DetailItem field="Sex" value={facultyMember.sex} />
                     <DetailItem field="Date of Birth" value={dateOfBirth} />

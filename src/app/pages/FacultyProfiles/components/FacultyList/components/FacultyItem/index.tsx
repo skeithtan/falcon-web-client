@@ -3,11 +3,11 @@ import ListItemText from "@material-ui/core/ListItemText";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
 import FacultyProfilesController from "../../../../../../controllers/faculty_profiles";
-import FacultyMember from "../../../../../../models/entities/faculty_member";
+import FacultyProfile from "../../../../../../models/entities/faculty_profile";
 import { FacultyProfilesState } from "../../../../../../store/faculty_profiles";
 
 interface IPropsType {
-    facultyMember: FacultyMember;
+    facultyMember: FacultyProfile;
     facultyProfiles?: FacultyProfilesState;
 }
 
@@ -30,7 +30,7 @@ export default class FacultyItem extends React.Component<IPropsType> {
                 onClick={this.onClick}
             >
                 <ListItemText
-                    primary={facultyMember.user!.fullName}
+                    primary={facultyMember.fullName}
                     secondary={facultyMember.formattedPnuId}
                 />
             </ListItem>
