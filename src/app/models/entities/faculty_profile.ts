@@ -1,4 +1,4 @@
-import { observable } from "mobx";
+import { computed, observable } from "mobx";
 import * as moment from "moment";
 import { PartialEntity } from "../../interfaces/partial_entity";
 import ActivityType from "../enums/activity_type";
@@ -7,12 +7,20 @@ import FetchableStatus from "../enums/fetchable_status";
 import Sex from "../enums/sex";
 import Degree from "./degree";
 import ExtensionWork from "./extension_work";
-import FacultyUser from "./faculty_user";
 import InstructionalMaterial from "./instructional_material";
 import Presentation from "./presentation";
 import Recognition from "./recognition";
 
-export default class FacultyMember extends PartialEntity {
+export default class FacultyProfile extends PartialEntity {
+    @observable
+    public firstName: string;
+
+    @observable
+    public lastName: string;
+
+    @observable
+    public email: string;
+
     @observable
     public sex: Sex;
 
@@ -43,17 +51,21 @@ export default class FacultyMember extends PartialEntity {
     @observable
     public degrees?: Degree[];
 
-    @observable
-    public user?: FacultyUser;
+    @computed
+    get fullName() {
+        return `${this.firstName} ${this.lastName}`;
+    }
 
+    @computed
     get formattedPnuId() {
         return `T-${this.pnuId}`;
     }
 
+    public taughtSubjects?: { [key: string]: number };
+
     constructor(fm: any) {
         super(fm);
         this.birthDate = moment(fm.birthDate);
-        this.user = new FacultyUser(fm.user);
 
         const hasRelations = Boolean(this.presentations);
         if (hasRelations) {
