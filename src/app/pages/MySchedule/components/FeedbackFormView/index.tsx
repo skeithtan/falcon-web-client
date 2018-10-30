@@ -45,17 +45,12 @@ export default class FeedbackFormView extends React.Component<IPropsType> {
         const { facultyTabState } = facultyLoading!;
         const {
             feedbackFormState,
-            activeFaculty,
             feedbackFormState: {
                 form: { classScheduleFeedbacks },
             },
         } = facultyTabState;
 
-        const {
-            isShowing,
-            form,
-            canSubmit,
-        } = facultyTabState.feedbackFormState;
+        const { isShowing } = facultyTabState.feedbackFormState;
 
         return (
             <DrawerForm

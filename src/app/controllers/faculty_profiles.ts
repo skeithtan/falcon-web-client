@@ -64,10 +64,19 @@ export default class FacultyProfilesController {
         const { updateFacultyMemberFormState: formState } = facultyProfiles;
         const form = formState.form;
         formState.setStatus(FormStatus.Submitting);
+        const oldFm = facultyProfiles.facultyMembers!.get(activeId)!;
 
         FacultyMembersService.updateFacultyMember(form, activeId)
             .then(fm => {
-                facultyProfiles.facultyMembers!.set(fm.id, fm);
+                oldFm.firstName = fm.firstName;
+                oldFm.lastName = fm.lastName;
+                oldFm.email = fm.email;
+                oldFm.sex = fm.sex;
+                oldFm.type = fm.type;
+                oldFm.activity = fm.activity;
+                oldFm.birthDate = fm.birthDate;
+                oldFm.pnuId = fm.pnuId;
+                oldFm.fetchStatus = FetchableStatus.Fetched;
                 formState.resetAndClose();
             })
             .catch(e => {

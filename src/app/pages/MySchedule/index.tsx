@@ -70,7 +70,8 @@ class MySchedule extends React.Component<IPropsType> {
                             </Grid>
                             <Grid item>
                                 <Button
-                                    color="secondary"
+                                    variant="contained"
+                                    color="primary"
                                     onClick={
                                         activeTerm!.status ===
                                         TermStatus.Initializing

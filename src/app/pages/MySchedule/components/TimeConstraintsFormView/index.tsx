@@ -1,3 +1,4 @@
+import FormHelperText from "@material-ui/core/FormHelperText";
 import Grid from "@material-ui/core/Grid";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
@@ -79,7 +80,7 @@ export default class TimeConstraintsFormView extends React.Component<
             form,
             validationErrors,
         } = facultyTabState.timeConstraintsFormState;
-        const formIsValid =
+        const sufficientConstraints =
             form.mondayThursdayCount >= 3 && form.tuesdayFridayCount >= 3;
         return (
             <DrawerForm
@@ -166,9 +167,17 @@ export default class TimeConstraintsFormView extends React.Component<
                             )
                         )}
                     </Grid>
+                    {!sufficientConstraints && (
+                        <Grid item>
+                            <FormHelperText error>
+                                You need to submit at least three (3) time
+                                constraints per day.
+                            </FormHelperText>
+                        </Grid>
+                    )}
                     <Grid item>
                         <FormSubmitBar
-                            disabled={!formIsValid}
+                            disabled={!sufficientConstraints}
                             formState={
                                 facultyLoading!.facultyTabState
                                     .timeConstraintsFormState

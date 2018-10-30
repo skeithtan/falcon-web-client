@@ -7,7 +7,7 @@ import PrintPreviewDialog from "src/app/components/reusable/PrintPreviewDialog";
 import StateWrapper from "../../../../components/reusable/StateWrapper";
 import FacultyProfilesController from "../../../../controllers/faculty_profiles";
 import IStyleClasses from "../../../../interfaces/style_classes";
-import FacultyMember from "../../../../models/entities/faculty_member";
+import FacultyProfile from "../../../../models/entities/faculty_profile";
 import { FacultyProfilesState } from "../../../../store/faculty_profiles";
 import AddFacultyMemberFormView from "../AddFacultyMemberForm";
 import AddDegreeFormView from "./AddDegreeFormView";
@@ -73,7 +73,7 @@ class FacultyDetail extends React.Component<IPropsType> {
         );
     };
 
-    public renderDetail = (fm: FacultyMember) => {
+    public renderDetail = (fm: FacultyProfile) => {
         const { classes, facultyProfiles } = this.props;
         const { profilePrintPreviewState } = facultyProfiles!;
         return (
@@ -89,10 +89,7 @@ class FacultyDetail extends React.Component<IPropsType> {
                             spacing={24}
                         >
                             <Grid item className={classes.item}>
-                                <BasicInformationView
-                                    facultyMember={fm}
-                                    canUpdate
-                                />
+                                <BasicInformationView canUpdate />
                             </Grid>
                             <Grid item className={classes.item}>
                                 <FacultySubdocumentCard

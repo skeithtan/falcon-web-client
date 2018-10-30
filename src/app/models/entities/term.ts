@@ -15,7 +15,7 @@ export default class Term extends Entity {
 
     @computed
     get readable(): string {
-        return `${this.yearRangeReadable} ${this.ordinalTermReadable}`;
+        return `${this.ordinalTermReadable} ${this.yearRangeReadable}`;
     }
 
     @computed

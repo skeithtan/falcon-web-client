@@ -1,7 +1,7 @@
 import * as _ from "lodash";
 import { computed, observable } from "mobx";
 import FetchableState from "../interfaces/fetchable_state";
-import FacultyMember from "../models/entities/faculty_member";
+import FacultyProfile from "../models/entities/faculty_profile";
 import addDegreeFormState, {
     AddDegreeFormState,
 } from "./faculty_profiles/add_degree_form";
@@ -29,7 +29,7 @@ import updateFacultyMemberFormState, {
 
 export class FacultyProfilesState extends FetchableState {
     @observable
-    public facultyMembers?: Map<number, FacultyMember> = undefined;
+    public facultyMembers?: Map<number, FacultyProfile> = undefined;
 
     @observable
     public addFacultyMemberFormState: AddFacultyMemberFormState = addFacultyMemberFormState;
