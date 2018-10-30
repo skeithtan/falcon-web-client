@@ -10,7 +10,9 @@ import * as React from "react";
 import IStyleClasses from "../../../interfaces/style_classes";
 import FacultyClassSchedule from "../../../models/entities/faculty_class_schedule";
 import Feedback from "../../../models/entities/feedback";
-import MeetingHours, { MeetingHoursReadable } from "../../../models/enums/meeting_hours";
+import MeetingHours, {
+    MeetingHoursReadable,
+} from "../../../models/enums/meeting_hours";
 import styles from "./styles";
 
 type TimeSlotVariant = "timeConstraint" | "feedback" | "scheduling";
@@ -20,7 +22,6 @@ interface IPropsType {
     meetingHours: MeetingHours;
     isAvailable?: boolean;
     isPreferred?: boolean;
-    onClick?: () => void;
     classSchedule?: FacultyClassSchedule;
     feedback?: Feedback;
     classes: IStyleClasses;
@@ -29,19 +30,17 @@ interface IPropsType {
 class TimeSlotCard extends React.Component<IPropsType> {
     public render() {
         const {
-            // variant,
+            variant,
             meetingHours,
             isAvailable,
             isPreferred,
-            onClick,
-            // classSchedule,
+            classSchedule,
             // feedback,
             classes,
         } = this.props;
         return (
             <Card square className={classes.card}>
                 <CardContent
-                    onClick={onClick}
                     className={classNames(
                         classes.card,
                         isAvailable && !isPreferred && classes.availableCard,
@@ -50,19 +49,51 @@ class TimeSlotCard extends React.Component<IPropsType> {
                 >
                     <Grid
                         container
-                        direction="row"
-                        justify="space-between"
-                        alignItems="center"
+                        direction="column"
+                        justify="center"
+                        alignItems="flex-start"
+                        wrap="nowrap"
                     >
-                        <Grid item>
-                            <Typography variant="caption">
-                                {MeetingHoursReadable.get(meetingHours)}
-                            </Typography>
+                        <Grid
+                            item
+                            container
+                            direction="row"
+                            justify="space-between"
+                            alignItems="center"
+                            wrap="nowrap"
+                        >
+                            <Grid item>
+                                <Typography variant="caption">
+                                    {MeetingHoursReadable.get(meetingHours)}
+                                </Typography>
+                            </Grid>
+                            <Grid item>
+                                {isAvailable && !isPreferred && <Done />}
+                                {isPreferred && <DoneAll />}
+                            </Grid>
                         </Grid>
-                        <Grid item>
-                            {isAvailable && !isPreferred && <Done />}
-                            {isPreferred && <DoneAll />}
-                        </Grid>
+                        {classSchedule &&
+                            variant !== "timeConstraint" && (
+                                <Grid
+                                    item
+                                    container
+                                    direction="column"
+                                    wrap="nowrap"
+                                >
+                                    <Grid item>
+                                        <Typography variant="overline">
+                                            {`${classSchedule.subject.code} ${
+                                                classSchedule.section
+                                            }`}
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item>
+                                        <Typography variant="body2">
+                                            {classSchedule.room}
+                                        </Typography>
+                                    </Grid>
+                                </Grid>
+                            )}
                     </Grid>
                 </CardContent>
             </Card>
