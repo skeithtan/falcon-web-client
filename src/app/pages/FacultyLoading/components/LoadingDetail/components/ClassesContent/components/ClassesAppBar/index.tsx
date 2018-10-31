@@ -15,6 +15,7 @@ import IStyleClasses from "../../../../../../../../interfaces/style_classes";
 import MeetingDays, {
     MeetingDaysReadable,
 } from "../../../../../../../../models/enums/meeting_days";
+import TermStatus from "../../../../../../../../models/enums/term_status";
 import { FacultyLoadingState } from "../../../../../../../../store/faculty_loading";
 import styles from "./styles";
 
@@ -40,7 +41,7 @@ class ClassesAppBar extends React.Component<IPropsType> {
 
     public render() {
         const { facultyLoading, classes } = this.props;
-        const { classesTabState } = facultyLoading!;
+        const { classesTabState, activeTerm } = facultyLoading!;
         const { activeMeetingDays, showOnlyUnassigned } = classesTabState;
         return (
             <AppBar color="default" position="relative">
@@ -77,17 +78,19 @@ class ClassesAppBar extends React.Component<IPropsType> {
                             justify="flex-end"
                             wrap="nowrap"
                         >
-                            <Grid item>
-                                <Button
-                                    color="secondary"
-                                    onClick={this.toggleAutoAssignWizardDialog(
-                                        true
-                                    )}
-                                >
-                                    <TouchAppIcon />
-                                    Auto-assign
-                                </Button>
-                            </Grid>
+                            {activeTerm!.status === TermStatus.Scheduling && (
+                                <Grid item>
+                                    <Button
+                                        color="secondary"
+                                        onClick={this.toggleAutoAssignWizardDialog(
+                                            true
+                                        )}
+                                    >
+                                        <TouchAppIcon />
+                                        Auto-assign
+                                    </Button>
+                                </Grid>
+                            )}
                             <Grid
                                 item
                                 container
