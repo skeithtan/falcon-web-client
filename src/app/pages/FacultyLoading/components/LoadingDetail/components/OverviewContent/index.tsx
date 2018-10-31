@@ -8,6 +8,7 @@ import IStyleClasses from "../../../../../../interfaces/style_classes";
 import TermStatus from "../../../../../../models/enums/term_status";
 import { FacultyLoadingState } from "../../../../../../store/faculty_loading";
 import FacultyLoadingSteps from "./components/FacultyLoadingSteps";
+import TrackedMetricsView from "./components/TrackedMetricsView";
 import styles from "./styles";
 
 interface IPropsType {
@@ -79,6 +80,9 @@ class OverviewContent extends React.Component<IPropsType> {
                     </Grid>
                     <Grid item>
                         <FacultyLoadingSteps />
+                    </Grid>
+                    <Grid item>
+                        <TrackedMetricsView variant="adding" />
                     </Grid>
                 </Grid>
             </div>
