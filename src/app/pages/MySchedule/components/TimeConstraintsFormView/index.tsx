@@ -1,7 +1,12 @@
+import Divider from "@material-ui/core/Divider";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormGroup from "@material-ui/core/FormGroup";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import Grid from "@material-ui/core/Grid";
 import MenuItem from "@material-ui/core/MenuItem";
+import Switch from "@material-ui/core/Switch";
 import TextField from "@material-ui/core/TextField";
+import Typography from "@material-ui/core/Typography";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
 import DrawerForm from "../../../../components/reusable/DrawerForm";
@@ -30,6 +35,13 @@ export default class TimeConstraintsFormView extends React.Component<
 > {
     public onClose = () => {
         FacultyLoadingController.toggleTimeConstraintsForm(false);
+    };
+
+    public onExternalLoadChange = (hasExternalLoad: boolean) => () => {
+        const { facultyLoading } = this.props;
+        const { facultyTabState } = facultyLoading!;
+        const { form } = facultyTabState.timeConstraintsFormState;
+        form.hasExternalLoad = hasExternalLoad;
     };
 
     public onSubmitClick = () => {
@@ -166,6 +178,42 @@ export default class TimeConstraintsFormView extends React.Component<
                                 </Grid>
                             )
                         )}
+                    </Grid>
+                    <Grid item>
+                        <Divider />
+                    </Grid>
+                    <Grid
+                        item
+                        container
+                        direction="column"
+                        wrap="nowrap"
+                        spacing={8}
+                    >
+                        <Grid item>
+                            <FormGroup>
+                                <FormControlLabel
+                                    control={
+                                        <Switch
+                                            checked={form.hasExternalLoad}
+                                            value={form.hasExternalLoad}
+                                            onChange={this.onExternalLoadChange(
+                                                !form.hasExternalLoad
+                                            )}
+                                        />
+                                    }
+                                    label="Outside / study load"
+                                />
+                            </FormGroup>
+                        </Grid>
+                        <Grid item>
+                            <Typography variant="caption">
+                                Enabling this will mean less prioritization or
+                                no assignment for extra loads.
+                            </Typography>
+                        </Grid>
+                    </Grid>
+                    <Grid item>
+                        <Divider />
                     </Grid>
                     {!sufficientConstraints && (
                         <Grid item>
