@@ -26,6 +26,9 @@ export default class FacultyLoadingFacultyMember extends Entity {
     @observable
     public timeConstraints: TimeConstraint[];
 
+    @observable
+    public hasExternalLoad: boolean;
+
     @computed
     get fullName() {
         return `${this.firstName} ${this.lastName}`;

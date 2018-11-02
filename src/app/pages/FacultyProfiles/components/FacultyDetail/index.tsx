@@ -22,6 +22,7 @@ import FacultySubdocumentCard from "./components/FacultySubdocumentCard";
 import InstructionalMaterialsView from "./components/InstructionalMaterialsView";
 import PresentationsView from "./components/PresentationsView";
 import RecognitionsView from "./components/RecognitionsView";
+import TaughtSubjectsView from "./components/TaughtSubjectsView";
 import PrintProfileView from "./PrintProfileView";
 import styles from "./styles";
 import UpdateFacultyMemberFormView from "./UpdateFacultyMemberFormView";
@@ -160,6 +161,9 @@ class FacultyDetail extends React.Component<IPropsType> {
                                         extensionWorks={fm.extensionWorks!}
                                     />
                                 </FacultySubdocumentCard>
+                            </Grid>
+                            <Grid item className={classes.item}>
+                                <TaughtSubjectsView facultyProfile={fm} />
                             </Grid>
                         </Grid>
                         <AddFacultyMemberFormView />

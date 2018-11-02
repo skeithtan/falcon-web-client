@@ -6,6 +6,9 @@ export default class TimeConstraintsForm {
     @observable
     public timeConstraints: TimeConstraint[] = [];
 
+    @observable
+    public hasExternalLoad: boolean = false;
+
     @computed
     get mondayThursdayCount(): number {
         return this.timeConstraints.filter(
