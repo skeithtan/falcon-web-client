@@ -20,7 +20,7 @@ export default class FacultyScheduleSection extends React.Component<
     public render() {
         const {
             meetingDays,
-            facultyMember: { timeConstraints },
+            facultyMember: { timeConstraints, classSchedules },
         } = this.props;
         return (
             <Card>
@@ -38,12 +38,18 @@ export default class FacultyScheduleSection extends React.Component<
                                 tc.meetingHours === mhrEnum
                         );
 
+                        const classSchedule = classSchedules.find(
+                            cs =>
+                                cs.meetingDays === meetingDays &&
+                                cs.meetingHours === mhrEnum
+                        );
+
                         return (
                             <Grid item xs key={mhrEnum}>
                                 <TimeSlotCard
-                                    variant="timeConstraint"
                                     meetingHours={mhrEnum}
                                     isAvailable={timeConstraint !== undefined}
+                                    classSchedule={classSchedule}
                                     isPreferred={
                                         timeConstraint !== undefined &&
                                         timeConstraint.isPreferred
