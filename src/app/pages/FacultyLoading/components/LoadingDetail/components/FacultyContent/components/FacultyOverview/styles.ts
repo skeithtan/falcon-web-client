@@ -5,6 +5,7 @@ export default (theme: Theme): StyleRules => ({
     card: {
         width: "100%",
         margin: "auto",
+        padding: theme.spacing.unit * 3,
     },
     overview: {
         borderRight: "1px solid",
