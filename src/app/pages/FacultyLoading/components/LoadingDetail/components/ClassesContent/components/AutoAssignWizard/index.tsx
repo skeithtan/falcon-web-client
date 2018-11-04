@@ -22,6 +22,7 @@ export default class AutoAssignWizard extends React.Component<IPropsType> {
 
     public onAssignClick = () => {
         FacultyLoadingController.autoAssignFaculty();
+        this.onClose();
     };
 
     public render() {
