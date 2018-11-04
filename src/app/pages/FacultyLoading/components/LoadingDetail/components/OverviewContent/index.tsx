@@ -4,6 +4,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
+import FacultyLoadingController from "../../../../../../controllers/faculty_loading";
 import IStyleClasses from "../../../../../../interfaces/style_classes";
 import TermStatus from "../../../../../../models/enums/term_status";
 import { FacultyLoadingState } from "../../../../../../store/faculty_loading";
@@ -19,6 +20,18 @@ interface IPropsType {
 @inject("facultyLoading")
 @observer
 class OverviewContent extends React.Component<IPropsType> {
+    public onPreviousClick = () => {
+        if (confirm("Are you sure you want to go back?")) {
+            FacultyLoadingController.regress();
+        }
+    };
+
+    public onProceedClick = () => {
+        if (confirm("Are you sure you want to proceed?")) {
+            FacultyLoadingController.advance();
+        }
+    };
+
     public render() {
         const { facultyLoading, classes } = this.props;
         const { activeTerm } = facultyLoading!;
@@ -63,12 +76,24 @@ class OverviewContent extends React.Component<IPropsType> {
                                             activeTerm!.status ===
                                             TermStatus.Initializing
                                         }
+                                        onClick={this.onPreviousClick}
                                     >
-                                        Back
+                                        {activeTerm!.status ===
+                                        TermStatus.Published
+                                            ? "Unpublish"
+                                            : "Back"}
                                     </Button>
                                 </Grid>
                                 <Grid item>
-                                    <Button color="primary" variant="contained">
+                                    <Button
+                                        color="primary"
+                                        variant="contained"
+                                        disabled={
+                                            activeTerm!.status ===
+                                            TermStatus.Published
+                                        }
+                                        onClick={this.onProceedClick}
+                                    >
                                         {activeTerm!.status ===
                                         TermStatus.FeedbackGathering
                                             ? "Publish"
