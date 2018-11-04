@@ -97,4 +97,27 @@ export default class FacultyLoadingService {
             })
             .catch(handleAxiosError);
     }
+
+    public static async advance(): Promise<Term> {
+        return axios
+            .post("/terms/advance")
+            .then((response: AxiosResponse) => new Term(response.data))
+            .catch(handleAxiosError);
+    }
+
+    public static async regress(): Promise<Term> {
+        return axios
+            .post("/terms/regress")
+            .then((response: AxiosResponse) => new Term(response.data))
+            .catch(handleAxiosError);
+    }
+
+    public static async autoAssignFaculty(): Promise<ClassSchedule[]> {
+        return axios
+            .post("/terms/auto-assign")
+            .then((response: AxiosResponse) => {
+                return response.data.map((cs: any) => new ClassSchedule(cs));
+            })
+            .catch(handleAxiosError);
+    }
 }
