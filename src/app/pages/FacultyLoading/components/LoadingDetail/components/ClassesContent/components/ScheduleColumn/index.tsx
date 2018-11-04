@@ -49,6 +49,13 @@ class ScheduleColumn extends React.Component<IPropsType> {
                                         cs.subjectCode
                                     } ${cs.section}`}</Typography>
                                     <Typography>{cs.room}</Typography>
+                                    {cs.facultyMember !== undefined && (
+                                        <Typography variant="overline">{`${
+                                            cs.facultyMember!.firstName
+                                        } ${
+                                            cs.facultyMember!.lastName
+                                        }`}</Typography>
+                                    )}
                                 </CardContent>
                             </CardActionArea>
                         </Card>
