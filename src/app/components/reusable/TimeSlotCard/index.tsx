@@ -15,10 +15,7 @@ import MeetingHours, {
 } from "../../../models/enums/meeting_hours";
 import styles from "./styles";
 
-type TimeSlotVariant = "timeConstraint" | "feedback" | "scheduling";
-
 interface IPropsType {
-    variant: TimeSlotVariant;
     meetingHours: MeetingHours;
     isAvailable?: boolean;
     isPreferred?: boolean;
@@ -30,7 +27,6 @@ interface IPropsType {
 class TimeSlotCard extends React.Component<IPropsType> {
     public render() {
         const {
-            variant,
             meetingHours,
             isAvailable,
             isPreferred,
@@ -72,28 +68,27 @@ class TimeSlotCard extends React.Component<IPropsType> {
                                 {isPreferred && <DoneAll />}
                             </Grid>
                         </Grid>
-                        {classSchedule &&
-                            variant !== "timeConstraint" && (
-                                <Grid
-                                    item
-                                    container
-                                    direction="column"
-                                    wrap="nowrap"
-                                >
-                                    <Grid item>
-                                        <Typography variant="overline">
-                                            {`${classSchedule.subject.code} ${
-                                                classSchedule.section
-                                            }`}
-                                        </Typography>
-                                    </Grid>
-                                    <Grid item>
-                                        <Typography variant="body2">
-                                            {classSchedule.room}
-                                        </Typography>
-                                    </Grid>
+                        {classSchedule && (
+                            <Grid
+                                item
+                                container
+                                direction="column"
+                                wrap="nowrap"
+                            >
+                                <Grid item>
+                                    <Typography variant="overline">
+                                        {`${classSchedule.subject.code} ${
+                                            classSchedule.section
+                                        }`}
+                                    </Typography>
                                 </Grid>
-                            )}
+                                <Grid item>
+                                    <Typography variant="body2">
+                                        {classSchedule.room}
+                                    </Typography>
+                                </Grid>
+                            </Grid>
+                        )}
                     </Grid>
                 </CardContent>
             </Card>
