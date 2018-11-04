@@ -2,6 +2,7 @@ import { computed, observable } from "mobx";
 import FetchableState from "../interfaces/fetchable_state";
 import Term from "../models/entities/term";
 import FacultyLoadingTab from "../models/enums/faculty_loading_tab";
+import TermStatus from "../models/enums/term_status";
 import addClassFormState, {
     AddClassFormState,
 } from "./faculty_loading/add_class_form";
@@ -42,9 +43,9 @@ export class FacultyLoadingState extends FetchableState {
     public addClassState: AddClassFormState = addClassFormState;
 
     @computed
-    get activeTabIndex(): number {
-        return Array.from(Object.values(FacultyLoadingTab)).indexOf(
-            this.activeTab
+    get activeTermStatusIndex(): number {
+        return Array.from(Object.values(TermStatus)).indexOf(
+            this.activeTerm!.status
         );
     }
 

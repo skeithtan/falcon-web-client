@@ -16,7 +16,7 @@ export default class FacultyLoadingSteps extends React.Component<IPropsType> {
     public render() {
         const { facultyLoading } = this.props;
         return (
-            <Stepper activeStep={facultyLoading!.activeTabIndex}>
+            <Stepper activeStep={facultyLoading!.activeTermStatusIndex}>
                 {Array.from(TermStatusReadable).map(
                     ([statusEnum, readable]: any) => (
                         <Step key={statusEnum}>
