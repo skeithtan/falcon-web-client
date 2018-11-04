@@ -4,6 +4,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
+import * as classNames from "classnames";
 import * as React from "react";
 import FacultyLoadingController from "../../../../../../../../controllers/faculty_loading";
 import IStyleClasses from "../../../../../../../../interfaces/style_classes";
@@ -36,7 +37,12 @@ class ScheduleColumn extends React.Component<IPropsType> {
                         key={cs.id}
                         onClick={this.setActiveClassSchedule(cs.id)}
                     >
-                        <Card>
+                        <Card
+                            className={classNames({
+                                [classes.assigned]:
+                                    cs.facultyMember !== undefined,
+                            })}
+                        >
                             <CardActionArea>
                                 <CardContent>
                                     <Typography variant="subtitle2">{`${
