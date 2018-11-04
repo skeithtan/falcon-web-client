@@ -20,6 +20,10 @@ export default class AutoAssignWizard extends React.Component<IPropsType> {
         FacultyLoadingController.toggleAutoAssignWizardDialog(false);
     };
 
+    public onAssignClick = () => {
+        FacultyLoadingController.autoAssignFaculty();
+    };
+
     public render() {
         const { facultyLoading } = this.props;
         const { classesTabState } = facultyLoading!;
@@ -43,7 +47,9 @@ export default class AutoAssignWizard extends React.Component<IPropsType> {
                     <Button color="secondary" onClick={this.onClose}>
                         Cancel
                     </Button>
-                    <Button color="primary">Auto Assign</Button>
+                    <Button color="primary" onClick={this.onAssignClick}>
+                        Auto Assign
+                    </Button>
                 </DialogActions>
             </Dialog>
         );
