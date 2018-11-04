@@ -258,4 +258,44 @@ export default class FacultyLoadingController {
         const state = facultyLoading.classesTabState.autoAssignWizardState;
         state.isShowing = shouldShow;
     }
+
+    public static advance() {
+        facultyLoading.setStatus(FetchableStatus.Fetching);
+
+        FacultyLoadingService.advance()
+            .then(t => {
+                facultyLoading.terms!.set(t.id, t);
+                facultyLoading.activeTermId = t.id;
+                facultyLoading.setStatus(FetchableStatus.Fetched);
+            })
+            .catch((e: Error) => {
+                facultyLoading.setStatus(FetchableStatus.Error, e);
+            });
+    }
+
+    public static regress() {
+        facultyLoading.setStatus(FetchableStatus.Fetching);
+
+        FacultyLoadingService.regress()
+            .then(t => {
+                facultyLoading.terms!.set(t.id, t);
+                facultyLoading.activeTermId = t.id;
+                facultyLoading.setStatus(FetchableStatus.Fetched);
+            })
+            .catch((e: Error) => {
+                facultyLoading.setStatus(FetchableStatus.Error, e);
+            });
+    }
+
+    public static autoAssignFaculty() {
+        const state = facultyLoading.classesTabState;
+        state.setStatus(FetchableStatus.Fetching);
+
+        FacultyLoadingService.autoAssignFaculty()
+            .then(cs => {
+                state.classSchedules = groupById(cs);
+                state.setStatus(FetchableStatus.Fetched);
+            })
+            .catch((e: Error) => state.setStatus(FetchableStatus.Error, e));
+    }
 }
