@@ -35,7 +35,7 @@ class MySchedule extends React.Component<IPropsType> {
     };
 
     public submitFeedbackFormToggle = (shouldShow: boolean) => () => {
-        // controller function
+        FacultyLoadingController.toggleFeedbackForm(shouldShow);
     };
 
     public render() {
