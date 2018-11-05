@@ -17,7 +17,7 @@ export default class SchedulingStageMetrics extends React.Component {
                     spacing={24}
                 >
                     <Grid item>
-                        <Typography variant="h6">Assign Classes</Typography>
+                        <Typography variant="h6">Assigned Classes</Typography>
                     </Grid>
                     <Grid item>
                         {/* TODO: Value prop for linear progress */}
