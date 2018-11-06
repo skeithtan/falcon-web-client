@@ -5,13 +5,14 @@ import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
+import { RouteComponentProps, withRouter } from "react-router-dom";
 import UserController from "../../../../../controllers/user";
 import IStyleClasses from "../../../../../interfaces/style_classes";
 import { UserTypeReadable } from "../../../../../models/enums/user_type";
 import { AuthenticationState } from "../../../../../store/authentication";
 import styles from "./styles";
 
-interface IPropsType {
+interface IPropsType extends RouteComponentProps<void> {
     anchorEl: null | HTMLElement | ((element: HTMLElement) => HTMLElement);
     onClose: () => void;
     authentication?: AuthenticationState;
@@ -34,8 +35,14 @@ class UserTray extends React.Component<IPropsType> {
             this.onChangePasswordClick();
             return;
         }
-        
+
         UserController.setPassword(password!);
+    };
+
+    public onSignOutClick = () => {
+        const { history } = this.props;
+        UserController.signOut();
+        history.push("/");
     };
 
     public render() {
@@ -62,7 +69,7 @@ class UserTray extends React.Component<IPropsType> {
                     <MenuItem onClick={this.onChangePasswordClick}>
                         Change Password
                     </MenuItem>
-                    <MenuItem onClick={UserController.signOut}>
+                    <MenuItem onClick={this.onSignOutClick}>
                         Sign out from Falcon
                     </MenuItem>
                 </div>
@@ -71,4 +78,4 @@ class UserTray extends React.Component<IPropsType> {
     }
 }
 
-export default withStyles(styles)(UserTray);
+export default withStyles(styles)(withRouter(UserTray));
