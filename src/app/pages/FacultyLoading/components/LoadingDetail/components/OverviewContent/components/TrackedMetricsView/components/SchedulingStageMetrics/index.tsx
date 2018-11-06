@@ -30,45 +30,45 @@ export default class SchedulingStageMetrics extends React.Component {
                     </Grid>
                 </Grid>
                 <Grid item container direction="row" wrap="nowrap" spacing={24}>
-                    <Grid item>
+                    <Grid item xs>
                         <Card>
                             <CardContent>
                                 <Typography>
                                     Unassigned Faculty Members
                                 </Typography>
-                                {/* TODO: Number and map of chips */}
+                                {/* TODO: Map of chips */}
                             </CardContent>
                         </Card>
                     </Grid>
-                    <Grid item>
+                    <Grid item xs>
                         <Card>
                             <CardContent>
                                 <Typography>
                                     Underloaded Faculty Members
                                 </Typography>
-                                {/* TODO: Number and map of chips */}
+                                {/* TODO: Map of chips */}
                             </CardContent>
                         </Card>
                     </Grid>
                 </Grid>
                 <Grid item container direction="row" wrap="nowrap" spacing={24}>
-                    <Grid item>
+                    <Grid item xs>
                         <Card>
                             <CardContent>
                                 <Typography>
                                     Overloaded Faculty Members
                                 </Typography>
-                                {/* TODO: Number and map of chips */}
+                                {/* TODO: Map of chips */}
                             </CardContent>
                         </Card>
                     </Grid>
-                    <Grid item>
+                    <Grid item xs>
                         <Card>
                             <CardContent>
                                 <Typography>
                                     Incompatible Faculty Members
                                 </Typography>
-                                {/* TODO: Number and map of chips */}
+                                {/* TODO: Map of chips */}
                             </CardContent>
                         </Card>
                     </Grid>

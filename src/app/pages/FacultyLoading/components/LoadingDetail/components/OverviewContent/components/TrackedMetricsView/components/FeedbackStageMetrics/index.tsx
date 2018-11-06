@@ -8,7 +8,7 @@ import * as React from "react";
 export default class FeedbackStageMetrics extends React.Component {
     public render() {
         return (
-            <Grid container direction="column" wrap="nowrap" spacing={24}>
+            <Grid container direction="column" wrap="nowrap" spacing={24} xs>
                 <Grid item container direction="column" wrap="nowrap" spacing={24}>
                     <Grid item>
                         <Typography variant="h6">
@@ -26,19 +26,19 @@ export default class FeedbackStageMetrics extends React.Component {
                     </Grid>
                 </Grid>
                 <Grid item container direction="row" wrap="nowrap" spacing={24}>
-                    <Grid item>
+                    <Grid item xs>
                         <Card>
                             <CardContent>
-                                <Typography>Number of Rejections</Typography>
-                                {/* TODO: Number and map of chips */}
+                                <Typography>Number of Rejected Classes</Typography>
+                                {/* TODO: Map of chips */}
                             </CardContent>
                         </Card>
                     </Grid>
-                    <Grid item>
+                    <Grid item xs>
                         <Card>
                             <CardContent>
-                                <Typography>Number of Acceptance</Typography>
-                                {/* TODO: Number and map of chips */}
+                                <Typography>Number of Accepted Classes</Typography>
+                                {/* TODO: Map of chips */}
                             </CardContent>
                         </Card>
                     </Grid>
