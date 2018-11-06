@@ -107,7 +107,7 @@ class OverviewContent extends React.Component<IPropsType> {
                         <FacultyLoadingSteps />
                     </Grid>
                     <Grid item>
-                        <TrackedMetricsView variant="adding" />
+                        <TrackedMetricsView />
                     </Grid>
                 </Grid>
             </div>
