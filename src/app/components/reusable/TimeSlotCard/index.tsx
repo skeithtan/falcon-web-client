@@ -10,6 +10,7 @@ import * as React from "react";
 import IStyleClasses from "../../../interfaces/style_classes";
 import FacultyClassSchedule from "../../../models/entities/faculty_class_schedule";
 import Feedback from "../../../models/entities/feedback";
+import FeedbackStatus from "../../../models/enums/feedback_status";
 import MeetingHours, {
     MeetingHoursReadable,
 } from "../../../models/enums/meeting_hours";
@@ -31,7 +32,7 @@ class TimeSlotCard extends React.Component<IPropsType> {
             isAvailable,
             isPreferred,
             classSchedule,
-            // feedback,
+            feedback,
             classes,
         } = this.props;
         return (
@@ -94,6 +95,21 @@ class TimeSlotCard extends React.Component<IPropsType> {
                                         {classSchedule.room}
                                     </Typography>
                                 </Grid>
+                            </Grid>
+                        )}
+                        {feedback && (
+                            <Grid item>
+                                <Typography
+                                    variant="overline"
+                                    color={
+                                        feedback.status ===
+                                        FeedbackStatus.Rejected
+                                            ? "secondary"
+                                            : "default"
+                                    }
+                                >
+                                    {feedback.status}
+                                </Typography>
                             </Grid>
                         )}
                     </Grid>
