@@ -1,6 +1,7 @@
 import Grid from "@material-ui/core/Grid";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
+import Typography from "@material-ui/core/Typography";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
 import DrawerForm from "../../../../components/reusable/DrawerForm";
@@ -52,6 +53,10 @@ export default class FeedbackFormView extends React.Component<IPropsType> {
 
         const { isShowing } = facultyTabState.feedbackFormState;
 
+        const allAccepted = Array.from(classScheduleFeedbacks.values()).every(
+            feedbackStatus => feedbackStatus === FeedbackStatus.Accepted
+        );
+
         return (
             <DrawerForm
                 open={isShowing}
@@ -80,6 +85,15 @@ export default class FeedbackFormView extends React.Component<IPropsType> {
                             )}
                         </List>
                     </Grid>
+                    {!allAccepted && (
+                        <Grid item>
+                            <Typography variant="subtitle2" color="secondary">
+                                Because you have at least one rejected class
+                                schedule, the time constraint form will appear
+                                after submission.
+                            </Typography>
+                        </Grid>
+                    )}
                     <Grid item>
                         <FormSubmitBar
                             formState={feedbackFormState}
