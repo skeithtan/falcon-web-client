@@ -118,6 +118,12 @@ export default class TimeConstraintsFormView extends React.Component<
                                     xs
                                     key={md}
                                 >
+                                    <Grid item>
+                                        <Typography variant="overline">
+                                            {mdStr}
+                                        </Typography>
+                                    </Grid>
+
                                     {Array.from(
                                         MeetingHoursReadable.entries()
                                     ).map(([mh, mhStr]) => {
