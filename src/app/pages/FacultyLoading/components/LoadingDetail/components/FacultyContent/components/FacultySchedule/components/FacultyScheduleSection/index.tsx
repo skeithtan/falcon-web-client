@@ -50,6 +50,9 @@ export default class FacultyScheduleSection extends React.Component<
                                     meetingHours={mhrEnum}
                                     isAvailable={timeConstraint !== undefined}
                                     classSchedule={classSchedule}
+                                    feedback={
+                                        classSchedule && classSchedule.feedback
+                                    }
                                     isPreferred={
                                         timeConstraint !== undefined &&
                                         timeConstraint.isPreferred
