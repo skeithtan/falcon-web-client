@@ -8,9 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import * as React from "react";
 import IStyleClasses from "../../../../../../interfaces/style_classes";
 import FacultyClassSchedule from "../../../../../../models/entities/faculty_class_schedule";
-import FeedbackStatus, {
-    FeedbackStatusReadable,
-} from "../../../../../../models/enums/feedback_status";
+import FeedbackStatus from "../../../../../../models/enums/feedback_status";
 import { MeetingDaysReadable } from "../../../../../../models/enums/meeting_days";
 import { MeetingHoursReadable } from "../../../../../../models/enums/meeting_hours";
 import styles from "./styles";
@@ -68,16 +66,18 @@ class ClassScheduleFeedbackItem extends React.Component<IPropsType> {
                                 value={feedback}
                                 fullWidth
                             >
-                                {Array.from(FeedbackStatusReadable).map(
-                                    ([typeEnum, typeReadable]) => (
-                                        <MenuItem
-                                            key={typeEnum}
-                                            value={typeEnum}
-                                        >
-                                            {typeReadable}
-                                        </MenuItem>
-                                    )
-                                )}
+                                <MenuItem
+                                    key={"Accepted"}
+                                    value={FeedbackStatus.Accepted}
+                                >
+                                    Accepted
+                                </MenuItem>
+                                <MenuItem
+                                    key={"Rejected"}
+                                    value={FeedbackStatus.Rejected}
+                                >
+                                    Rejected
+                                </MenuItem>
                             </TextField>
                         </Grid>
                     </Grid>
