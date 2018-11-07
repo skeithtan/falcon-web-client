@@ -93,7 +93,7 @@ export default class FacultyLoadingService {
             .post(`/terms/${termId}/my-schedules/time-constraints`, form)
             .then((response: AxiosResponse) => {
                 return response.data.map(
-                    (tc: any) => new TimeConstraint(response.data)
+                    (tc: any) => new TimeConstraint(tc)
                 );
             })
             .catch(handleAxiosError);
