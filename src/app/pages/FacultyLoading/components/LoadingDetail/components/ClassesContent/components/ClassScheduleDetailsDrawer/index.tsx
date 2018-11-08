@@ -18,6 +18,7 @@ import MeetingHours, {
     MeetingHoursReadable,
 } from "../../../../../../../../models/enums/meeting_hours";
 import { FacultyLoadingState } from "../../../../../../../../store/faculty_loading";
+import AssignFacultyDialog from "./components/AssignFacultyDialog";
 
 interface IPropsType {
     facultyLoading?: FacultyLoadingState;
@@ -41,18 +42,14 @@ export default class ClassScheduleDetailsDrawer extends React.Component<
         }
     };
 
-    public onAssignFacultyClick = () => {
-        // TODO: this
+    public onAssignFacultyClick = (shouldShow: boolean) => () => {
+        FacultyLoadingController.toggleAssignFacultyDialog(shouldShow);
     };
 
     public renderActiveClassSchedule = () => {
         const { facultyLoading } = this.props;
         const { classesTabState } = facultyLoading!;
-        const {
-            activeClassSchedule,
-            classScheduleDetailsState,
-        } = classesTabState;
-        const { form } = classScheduleDetailsState;
+        const { activeClassSchedule } = classesTabState;
         return (
             <Grid container direction="column" spacing={16} wrap="nowrap">
                 <Grid item>
@@ -114,25 +111,31 @@ export default class ClassScheduleDetailsDrawer extends React.Component<
 
                 <Grid item container direction="column" spacing={16}>
                     <CardContent>
-                        <Typography variant="h6">Faculty Members</Typography>
-                        <Typography variant="caption">
-                            The faculty members are arranged according to their
-                            eligibility for assignment to the class.
+                        <Typography variant="overline">
+                            Assigned Faculty Member
                         </Typography>
-
-                        {/* TODO: Sorted list of faculty candidate items */}
-                        
+                        <Typography variant="h6">
+                            {activeClassSchedule!.facultyMember
+                                ? `${
+                                      activeClassSchedule!.facultyMember!
+                                          .firstName
+                                  } ${
+                                      activeClassSchedule!.facultyMember!
+                                          .lastName
+                                  }`
+                                : "No assigned faculty member"}
+                        </Typography>
                     </CardContent>
                     <CardActions>
                         <Button
-                            disabled={form.facultyMember === undefined}
-                            onClick={this.onAssignFacultyClick}
+                            onClick={this.onAssignFacultyClick(true)}
                             color="primary"
                         >
                             Assign Faculty Member
                         </Button>
                     </CardActions>
                 </Grid>
+                <AssignFacultyDialog />
             </Grid>
         );
     };
