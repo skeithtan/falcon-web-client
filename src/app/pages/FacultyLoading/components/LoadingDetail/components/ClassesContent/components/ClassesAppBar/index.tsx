@@ -1,8 +1,8 @@
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
-import Checkbox from "@material-ui/core/Checkbox";
 import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";
+import Switch from "@material-ui/core/Switch";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -12,9 +12,7 @@ import { inject, observer } from "mobx-react";
 import * as React from "react";
 import FacultyLoadingController from "../../../../../../../../controllers/faculty_loading";
 import IStyleClasses from "../../../../../../../../interfaces/style_classes";
-import MeetingDays, {
-    MeetingDaysReadable,
-} from "../../../../../../../../models/enums/meeting_days";
+import MeetingDays, { MeetingDaysReadable } from "../../../../../../../../models/enums/meeting_days";
 import TermStatus from "../../../../../../../../models/enums/term_status";
 import { FacultyLoadingState } from "../../../../../../../../store/faculty_loading";
 import styles from "./styles";
@@ -99,7 +97,7 @@ class ClassesAppBar extends React.Component<IPropsType> {
                                 className={classes.unassignedToggle}
                             >
                                 <Grid item>
-                                    <Checkbox
+                                    <Switch
                                         checked={showOnlyUnassigned}
                                         onChange={this.toggleShowUnassigned}
                                     />
