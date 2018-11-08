@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import ClassSchedule from "../models/entities/class_schedule";
 import FacultyLoadingFacultyMember from "../models/entities/faculty_loading_faculty_member";
+import FacultyProfile from "../models/entities/faculty_profile";
 import Term from "../models/entities/term";
 import TimeConstraint from "../models/entities/time_constraint";
 import FeedbackStatus from "../models/enums/feedback_status";
@@ -92,9 +93,7 @@ export default class FacultyLoadingService {
         return axios
             .post(`/terms/${termId}/my-schedules/time-constraints`, form)
             .then((response: AxiosResponse) => {
-                return response.data.map(
-                    (tc: any) => new TimeConstraint(tc)
-                );
+                return response.data.map((tc: any) => new TimeConstraint(tc));
             })
             .catch(handleAxiosError);
     }
@@ -131,6 +130,18 @@ export default class FacultyLoadingService {
             .post("/terms/auto-assign")
             .then((response: AxiosResponse) => {
                 return response.data.map((cs: any) => new ClassSchedule(cs));
+            })
+            .catch(handleAxiosError);
+    }
+
+    public static async getRecommendedFaculties(
+        termId: number,
+        csId: number
+    ): Promise<FacultyProfile[]> {
+        return axios
+            .get(`/terms/${termId}/class-schedules/${csId}/`)
+            .then((response: AxiosResponse) => {
+                return response.data.map((fp: any) => new FacultyProfile(fp));
             })
             .catch(handleAxiosError);
     }

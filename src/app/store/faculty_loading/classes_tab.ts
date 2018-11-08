@@ -3,6 +3,9 @@ import FetchableState from "../../interfaces/fetchable_state";
 import ClassSchedule from "../../models/entities/class_schedule";
 import Subject from "../../models/entities/subject";
 import MeetingDays from "../../models/enums/meeting_days";
+import assignFacultyDialogState, {
+    AssignFacultyDialogState,
+} from "./assign_faculty_dialog";
 import autoAssignWizardState, {
     AutoAssignWizardState,
 } from "./auto_assign_wizard";
@@ -31,6 +34,9 @@ export class ClassesTabState extends FetchableState {
 
     @observable
     public autoAssignWizardState: AutoAssignWizardState = autoAssignWizardState;
+
+    @observable
+    public assignFacultyDialogState: AssignFacultyDialogState = assignFacultyDialogState;
 
     @computed
     get activeMeetingDaysClassSchedules() {

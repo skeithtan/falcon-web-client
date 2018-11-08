@@ -1,7 +1,7 @@
 import { observable } from "mobx";
-import FacultyLoadingFacultyMember from "../entities/faculty_loading_faculty_member";
+import FacultyProfile from "../entities/faculty_profile";
 
 export default class AssignFacultyDialog {
     @observable
-    public facultyMember?: FacultyLoadingFacultyMember = undefined;
+    public facultyMember?: FacultyProfile = undefined;
 }
