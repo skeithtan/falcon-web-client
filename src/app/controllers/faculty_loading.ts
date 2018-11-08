@@ -251,7 +251,43 @@ export default class FacultyLoadingController {
     }
 
     public static submitFeedback() {
-        // TODO: this
+        const {
+            facultyTabState: { feedbackFormState: formState },
+        } = facultyLoading;
+        const {
+            form: { classScheduleFeedbacks },
+        } = formState;
+
+        const serverForm: { [key: number]: FeedbackStatus } = {};
+
+        Array.from(classScheduleFeedbacks.entries()).forEach(
+            ([cs, feedbackStatus]) => {
+                serverForm[cs.id] = feedbackStatus;
+            }
+        );
+
+        const allAccepted = Array.from(classScheduleFeedbacks.values()).every(
+            feedbackStatus => feedbackStatus === FeedbackStatus.Accepted
+        );
+
+        formState.setStatus(FormStatus.Submitting);
+        const termId = facultyLoading.activeTermId!;
+
+        FacultyLoadingService.submitFeedback(termId, serverForm)
+            .then(flfm => {
+                facultyLoading.facultyTabState.activefacultyId = flfm.facultyId;
+                facultyLoading.facultyTabState.facultyMembers = [flfm];
+                facultyLoading.facultyTabState.setStatus(
+                    FetchableStatus.Fetched
+                );
+                formState.resetAndClose();
+                if (!allAccepted) {
+                    this.toggleTimeConstraintsForm(true);
+                }
+            })
+            .catch(e => {
+                formState.setStatus(FormStatus.Error, e);
+            });
     }
 
     public static toggleAutoAssignWizardDialog(shouldShow: boolean) {

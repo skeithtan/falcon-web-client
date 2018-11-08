@@ -3,6 +3,7 @@ import ClassSchedule from "../models/entities/class_schedule";
 import FacultyLoadingFacultyMember from "../models/entities/faculty_loading_faculty_member";
 import Term from "../models/entities/term";
 import TimeConstraint from "../models/entities/time_constraint";
+import FeedbackStatus from "../models/enums/feedback_status";
 import AddClassForm from "../models/forms/add_class_form";
 import AddTermForm from "../models/forms/add_term_form";
 import TimeConstraintsForm from "../models/forms/time_constraints_form";
@@ -92,8 +93,21 @@ export default class FacultyLoadingService {
             .post(`/terms/${termId}/my-schedules/time-constraints`, form)
             .then((response: AxiosResponse) => {
                 return response.data.map(
-                    (tc: any) => new TimeConstraint(response.data)
+                    (tc: any) => new TimeConstraint(tc)
                 );
+            })
+            .catch(handleAxiosError);
+    }
+
+    public static async submitFeedback(
+        termId: number,
+        form: { [key: number]: FeedbackStatus }
+    ): Promise<FacultyLoadingFacultyMember> {
+        console.log(form);
+        return axios
+            .post(`/terms/${termId}/my-schedules/feedback`, form)
+            .then((response: AxiosResponse) => {
+                return new FacultyLoadingFacultyMember(response.data);
             })
             .catch(handleAxiosError);
     }

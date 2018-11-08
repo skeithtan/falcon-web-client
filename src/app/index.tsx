@@ -3,7 +3,10 @@ import * as React from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import AuthenticatedView from "./components/universal/AuthenticatedView";
 import User from "./models/entities/user";
-import Page, { IPageSpecification, PAGE_SPECIFICATION } from "./models/enums/page";
+import Page, {
+    IPageSpecification,
+    PAGE_SPECIFICATION,
+} from "./models/enums/page";
 import SignInPage from "./pages/SignIn";
 import { AuthenticationState } from "./store/authentication";
 

@@ -1,6 +1,7 @@
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import Grid from "@material-ui/core/Grid";
+import { observer } from "mobx-react";
 import * as React from "react";
 import TimeSlotCard from "../../../../../../../../../../components/reusable/TimeSlotCard";
 import FacultyLoadingFacultyMember from "../../../../../../../../../../models/entities/faculty_loading_faculty_member";
@@ -14,6 +15,7 @@ interface IPropsType {
     facultyMember: FacultyLoadingFacultyMember;
 }
 
+@observer
 export default class FacultyScheduleSection extends React.Component<
     IPropsType
 > {
@@ -50,6 +52,9 @@ export default class FacultyScheduleSection extends React.Component<
                                     meetingHours={mhrEnum}
                                     isAvailable={timeConstraint !== undefined}
                                     classSchedule={classSchedule}
+                                    feedback={
+                                        classSchedule && classSchedule.feedback
+                                    }
                                     isPreferred={
                                         timeConstraint !== undefined &&
                                         timeConstraint.isPreferred
