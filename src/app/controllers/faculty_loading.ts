@@ -188,10 +188,6 @@ export default class FacultyLoadingController {
     public static toggleClassScheduleDetails(shouldShow: boolean) {
         const state = facultyLoading.classesTabState.classScheduleDetailsState;
         state.isShowing = shouldShow;
-
-        if (!shouldShow) {
-            state.resetAndClose();
-        }
     }
 
     public static async removeClassSchedule(classSchedule: ClassSchedule) {
@@ -295,6 +291,11 @@ export default class FacultyLoadingController {
         state.isShowing = shouldShow;
     }
 
+    public static toggleAssignFacultyDialog(shouldShow: boolean) {
+        const state = facultyLoading.classesTabState.assignFacultyDialogState;
+        state.isShowing = shouldShow;
+    }
+
     public static advance() {
         facultyLoading.setStatus(FetchableStatus.Fetching);
 
@@ -333,5 +334,23 @@ export default class FacultyLoadingController {
                 state.setStatus(FetchableStatus.Fetched);
             })
             .catch((e: Error) => state.setStatus(FetchableStatus.Error, e));
+    }
+
+    public static getRecommendedFaculties() {
+        const termId = facultyLoading.activeTermId!;
+        const csId = facultyLoading.classesTabState.activeClassScheduleId!;
+        const state = facultyLoading.classesTabState.assignFacultyDialogState;
+
+        state.fetchStatus = FetchableStatus.Fetching;
+
+        FacultyLoadingService.getRecommendedFaculties(termId, csId)
+            .then(cs => {
+                state.facultyMembers = cs;
+                state.fetchStatus = FetchableStatus.Fetched;
+            })
+            .catch((e: Error) => {
+                state.fetchStatus = FetchableStatus.Error;
+                state.fetchError = e.message;
+            });
     }
 }
