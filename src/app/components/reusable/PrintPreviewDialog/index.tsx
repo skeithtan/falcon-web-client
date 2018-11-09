@@ -1,5 +1,6 @@
 import AppBar from "@material-ui/core/AppBar";
 import Dialog from "@material-ui/core/Dialog";
+import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import Slide from "@material-ui/core/Slide";
 import { withStyles } from "@material-ui/core/styles";
@@ -49,7 +50,14 @@ class PrintPreviewDialog extends React.Component<IPropsType> {
                         </Typography>
                     </Toolbar>
                 </AppBar>
-                <React.Fragment>{children}</React.Fragment>
+                <Grid
+                    container
+                    justify="center"
+                    alignItems="center"
+                    className={classes.content}
+                >
+                    {children}
+                </Grid>
             </Dialog>
         );
     }
