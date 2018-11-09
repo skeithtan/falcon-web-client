@@ -9,6 +9,7 @@ import CloseButton from "@material-ui/icons/Close";
 import * as React from "react";
 import FacultyProfilesController from "src/app/controllers/faculty_profiles";
 import IStyleClasses from "src/app/interfaces/style_classes";
+import FacultyLoadingController from "../../../controllers/faculty_loading";
 import styles from "./styles";
 
 const Transition = (props: any) => <Slide direction="up" {...props} />;
@@ -23,6 +24,7 @@ interface IPropsType {
 class PrintPreviewDialog extends React.Component<IPropsType> {
     public onClose = (shouldShow: boolean) => () => {
         FacultyProfilesController.toggleProfilePrintPreview(shouldShow);
+        FacultyLoadingController.togglePrintFacultySchedule(shouldShow);
     };
 
     public render() {
