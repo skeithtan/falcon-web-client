@@ -353,4 +353,9 @@ export default class FacultyLoadingController {
                 state.fetchError = e.message;
             });
     }
+
+    public static togglePrintFacultySchedule(shouldShow: boolean) {
+        const state = facultyLoading.facultyTabState.printScheduleDialogState;
+        state.isShowing = shouldShow;
+    }
 }
