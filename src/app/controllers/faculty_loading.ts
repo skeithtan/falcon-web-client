@@ -60,10 +60,12 @@ export default class FacultyLoadingController {
     public static setActiveTerm(id: number) {
         facultyLoading.activeTermId = id;
         const term = facultyLoading.activeTerm!;
+        facultyLoading.setStatus(FetchableStatus.Fetching);
 
         FacultyLoadingService.fetchTerm(term.id)
             .then(t => {
                 facultyLoading.terms!.set(t.id, t);
+                facultyLoading.setStatus(FetchableStatus.Fetched);
             })
             .catch((e: Error) =>
                 facultyLoading.setStatus(FetchableStatus.Error, e)
