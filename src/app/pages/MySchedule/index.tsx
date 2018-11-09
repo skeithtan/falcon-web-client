@@ -1,7 +1,7 @@
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
+import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
 import StateWrapper from "../../components/reusable/StateWrapper";
@@ -11,6 +11,7 @@ import TermStatus from "../../models/enums/term_status";
 import { FacultyLoadingState } from "../../store/faculty_loading";
 import FacultyOverview from "../FacultyLoading/components/LoadingDetail/components/FacultyContent/components/FacultyOverview";
 import FacultySchedule from "../FacultyLoading/components/LoadingDetail/components/FacultyContent/components/FacultySchedule";
+import TermList from "../FacultyLoading/components/TermList";
 import FeedbackFormView from "./components/FeedbackFormView";
 import TimeConstraintsFormView from "./components/TimeConstraintsFormView";
 import styles from "./styles";
@@ -38,6 +39,10 @@ class MySchedule extends React.Component<IPropsType> {
         FacultyLoadingController.toggleFeedbackForm(shouldShow);
     };
 
+    public toggleTermList = (shouldShow: boolean) => () => {
+        FacultyLoadingController.toggleTermList(shouldShow);
+    };
+
     public render() {
         const { facultyLoading, classes } = this.props;
         const { facultyTabState, activeTerm } = facultyLoading!;
@@ -62,11 +67,16 @@ class MySchedule extends React.Component<IPropsType> {
                             justify="space-between"
                         >
                             <Grid item>
-                                <Typography variant="h5">{`${
-                                    activeTerm!.ordinalTermReadable
-                                } ${
-                                    activeTerm!.yearRangeReadable
-                                }`}</Typography>
+                                <Button
+                                    size="large"
+                                    color="primary"
+                                    onClick={this.toggleTermList(true)}
+                                >
+                                    {`${activeTerm!.ordinalTermReadable} ${
+                                        activeTerm!.yearRangeReadable
+                                    }`}
+                                    <ArrowDropDownIcon />
+                                </Button>
                             </Grid>
                             <Grid item>
                                 <Button
@@ -90,14 +100,27 @@ class MySchedule extends React.Component<IPropsType> {
                                 </Button>
                             </Grid>
                         </Grid>
-                        <Grid item>
-                            <FacultyOverview facultyMember={activeFaculty!} />
-                        </Grid>
-                        <Grid item>
-                            <FacultySchedule facultyMember={activeFaculty!} />
-                        </Grid>
-                        <TimeConstraintsFormView />
-                        <FeedbackFormView />
+                        <StateWrapper
+                            fetchableState={facultyLoading!.fetchStatus}
+                        >
+                            {() => (
+                                <React.Fragment>
+                                    <Grid item>
+                                        <FacultyOverview
+                                            facultyMember={activeFaculty!}
+                                        />
+                                    </Grid>
+                                    <Grid item>
+                                        <FacultySchedule
+                                            facultyMember={activeFaculty!}
+                                        />
+                                    </Grid>
+                                    <TimeConstraintsFormView />
+                                    <FeedbackFormView />
+                                    <TermList />
+                                </React.Fragment>
+                            )}
+                        </StateWrapper>
                     </Grid>
                 )}
             </StateWrapper>
