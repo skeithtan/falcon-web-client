@@ -51,13 +51,13 @@ class MySchedule extends React.Component<IPropsType> {
             <StateWrapper fetchableState={facultyTabState.fetchStatus}>
                 {() => (
                     <Grid
-                        item
                         container
                         direction="column"
-                        justify="flex-start"
+                        justify="center"
+                        alignItems="center"
                         className={classes.content}
-                        spacing={24}
                         wrap="nowrap"
+                        spacing={16}
                     >
                         <Grid
                             item
@@ -100,27 +100,35 @@ class MySchedule extends React.Component<IPropsType> {
                                 </Button>
                             </Grid>
                         </Grid>
-                        <StateWrapper
-                            fetchableState={facultyLoading!.fetchStatus}
-                        >
-                            {() => (
-                                <React.Fragment>
-                                    <Grid item>
-                                        <FacultyOverview
-                                            facultyMember={activeFaculty!}
-                                        />
+                        <Grid item container>
+                            <StateWrapper
+                                fetchableState={facultyLoading!.fetchStatus}
+                            >
+                                {() => (
+                                    <Grid
+                                        item
+                                        container
+                                        direction="column"
+                                        spacing={16}
+                                        wrap="nowrap"
+                                    >
+                                        <Grid item>
+                                            <FacultyOverview
+                                                facultyMember={activeFaculty!}
+                                            />
+                                        </Grid>
+                                        <Grid item>
+                                            <FacultySchedule
+                                                facultyMember={activeFaculty!}
+                                            />
+                                        </Grid>
+                                        <TimeConstraintsFormView />
+                                        <FeedbackFormView />
+                                        <TermList />
                                     </Grid>
-                                    <Grid item>
-                                        <FacultySchedule
-                                            facultyMember={activeFaculty!}
-                                        />
-                                    </Grid>
-                                    <TimeConstraintsFormView />
-                                    <FeedbackFormView />
-                                    <TermList />
-                                </React.Fragment>
-                            )}
-                        </StateWrapper>
+                                )}
+                            </StateWrapper>
+                        </Grid>
                     </Grid>
                 )}
             </StateWrapper>
