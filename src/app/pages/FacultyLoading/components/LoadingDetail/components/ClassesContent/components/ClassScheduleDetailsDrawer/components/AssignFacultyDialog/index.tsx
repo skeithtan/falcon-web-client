@@ -61,29 +61,31 @@ export default class AssignFacultyDialog extends React.Component<IPropsType> {
                 >
                     {() => (
                         <DialogContent>
-                            <DialogContentText>
-                                Select a faculty member.
-                            </DialogContentText>
-                            <React.Fragment>
-                                {facultyMembers === undefined && (
+                            {facultyMembers === undefined ||
+                                (facultyMembers!.length === 0 && (
                                     <Typography variant="overline">
-                                        No faculty members available for
+                                        No faculty members recommended for
                                         assignment.
                                     </Typography>
-                                )}
+                                ))}
 
-                                {facultyMembers !== undefined && (
-                                    <List>
-                                        {facultyMembers!.map(fm => (
-                                            <FacultyDialogItem
-                                                key={fm.id}
-                                                facultyMember={fm}
-                                                onClick={this.onChange(fm)}
-                                            />
-                                        ))}
-                                    </List>
+                            {facultyMembers !== undefined &&
+                                facultyMembers!.length > 0 && (
+                                    <React.Fragment>
+                                        <DialogContentText>
+                                            Select a faculty member.
+                                        </DialogContentText>
+                                        <List>
+                                            {facultyMembers!.map(fm => (
+                                                <FacultyDialogItem
+                                                    key={fm.id}
+                                                    facultyMember={fm}
+                                                    onClick={this.onChange(fm)}
+                                                />
+                                            ))}
+                                        </List>
+                                    </React.Fragment>
                                 )}
-                            </React.Fragment>
                         </DialogContent>
                     )}
                 </StateWrapper>
