@@ -145,4 +145,19 @@ export default class FacultyLoadingService {
             })
             .catch(handleAxiosError);
     }
+
+    public static async assignFacultyToClass(
+        termId: number,
+        csId: number,
+        facultyId: number
+    ): Promise<ClassSchedule> {
+        return axios
+            .post(
+                `/terms/${termId}/class-schedules/${csId}/set-faculty/${facultyId}`
+            )
+            .then((response: AxiosResponse) => {
+                return new ClassSchedule(response.data);
+            })
+            .catch(handleAxiosError);
+    }
 }

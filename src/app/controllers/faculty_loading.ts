@@ -5,6 +5,7 @@ import FetchableStatus from "../models/enums/fetchable_status";
 import FormStatus from "../models/enums/form_status";
 import MeetingDays from "../models/enums/meeting_days";
 import FacultyLoadingService from "../services/faculty_loading";
+import FacultyMembersService from "../services/faculty_members";
 import SubjectsService from "../services/subjects";
 import rootStore from "../store";
 import { groupById } from "../utils/group_by_id";
@@ -353,6 +354,38 @@ export default class FacultyLoadingController {
             .catch((e: Error) => {
                 state.fetchStatus = FetchableStatus.Error;
                 state.fetchError = e.message;
+            });
+    }
+
+    public static getAllFaculties() {
+        const state = facultyLoading.classesTabState.assignFacultyDialogState;
+        state.fetchStatus = FetchableStatus.Fetching;
+
+        FacultyMembersService.fetchAllFacultyMembers()
+            .then(fm => {
+                state.facultyMembers = fm;
+                state.fetchStatus = FetchableStatus.Fetched;
+            })
+            .catch((e: Error) => {
+                state.fetchStatus = FetchableStatus.Error;
+                state.fetchError = e.message;
+            });
+    }
+
+    public static assignFacultyToClass(facultyId: number) {
+        const termId = facultyLoading.activeTermId!;
+        const csId = facultyLoading.classesTabState.activeClassScheduleId!;
+        const {
+            classesTabState: { assignFacultyDialogState: formState },
+        } = facultyLoading;
+
+        FacultyLoadingService.assignFacultyToClass(termId, csId, facultyId)
+            .then(cs => {
+                facultyLoading.classesTabState.classSchedules!.set(cs.id, cs);
+                formState.resetAndClose();
+            })
+            .catch(e => {
+                formState.setStatus(FormStatus.Error, e);
             });
     }
 
