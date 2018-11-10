@@ -25,6 +25,14 @@ export default class AssignFacultyDialog extends React.Component<IPropsType> {
         FacultyLoadingController.getRecommendedFaculties();
     }
 
+    public onGetRecommendedFaculties = () => {
+        FacultyLoadingController.getRecommendedFaculties();
+    };
+
+    public onGetAllFaculties = () => {
+        FacultyLoadingController.getAllFaculties();
+    };
+
     public onClose = () => {
         FacultyLoadingController.toggleAssignFacultyDialog(false);
     };
@@ -38,8 +46,8 @@ export default class AssignFacultyDialog extends React.Component<IPropsType> {
         form.facultyMember = fm;
     };
 
-    public onSubmitClick = () => {
-        // TODO: This
+    public onSubmitClick = (fm?: FacultyProfile) => () => {
+        FacultyLoadingController.assignFacultyToClass(fm!.id);
     };
 
     public render() {
@@ -47,7 +55,7 @@ export default class AssignFacultyDialog extends React.Component<IPropsType> {
         const {
             classesTabState: { assignFacultyDialogState },
         } = facultyLoading!;
-        const { isShowing, facultyMembers } = assignFacultyDialogState;
+        const { form, isShowing, facultyMembers } = assignFacultyDialogState;
         return (
             <Dialog
                 open={isShowing}
@@ -68,7 +76,6 @@ export default class AssignFacultyDialog extends React.Component<IPropsType> {
                                         assignment.
                                     </Typography>
                                 ))}
-
                             {facultyMembers !== undefined &&
                                 facultyMembers!.length > 0 && (
                                     <React.Fragment>
@@ -93,7 +100,11 @@ export default class AssignFacultyDialog extends React.Component<IPropsType> {
                     <Button onClick={this.onClose} color="secondary">
                         Cancel
                     </Button>
-                    <Button onClick={this.onSubmitClick} color="primary">
+                    <Button
+                        disabled={!form.facultyMember}
+                        onClick={this.onSubmitClick(form.facultyMember)}
+                        color="primary"
+                    >
                         Assign
                     </Button>
                 </DialogActions>
