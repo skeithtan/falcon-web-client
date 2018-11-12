@@ -7,6 +7,7 @@ import * as React from "react";
 import StateWrapper from "../../../../../../components/reusable/StateWrapper";
 import FacultyLoadingController from "../../../../../../controllers/faculty_loading";
 import IStyleClasses from "../../../../../../interfaces/style_classes";
+import TermStatus from "../../../../../../models/enums/term_status";
 import { FacultyLoadingState } from "../../../../../../store/faculty_loading";
 import AddClassFormView from "./components/AddClassFormView";
 import AutoAssignWizard from "./components/AutoAssignWizard";
@@ -33,7 +34,7 @@ class ClassesContent extends React.Component<IPropsType> {
 
     public render() {
         const { facultyLoading, classes } = this.props;
-        const { classesTabState } = facultyLoading!;
+        const { classesTabState, activeTerm } = facultyLoading!;
         return (
             <StateWrapper fetchableState={classesTabState.fetchStatus}>
                 {() => (
@@ -49,15 +50,17 @@ class ClassesContent extends React.Component<IPropsType> {
                         <Grid item xs>
                             <ScheduleCalendar />
                         </Grid>
-                        <Button
-                            variant="extendedFab"
-                            color="primary"
-                            className={classes.addButton}
-                            onClick={this.toggleAddClassForm(true)}
-                        >
-                            <AddIcon />
-                            Add a class
-                        </Button>
+                        {activeTerm!.status === TermStatus.Initializing && (
+                            <Button
+                                variant="extendedFab"
+                                color="primary"
+                                className={classes.addButton}
+                                onClick={this.toggleAddClassForm(true)}
+                            >
+                                <AddIcon />
+                                Add a class
+                            </Button>
+                        )}
                         <AddClassFormView />
                         <ClassScheduleDetailsDrawer />
                         <AutoAssignWizard />
