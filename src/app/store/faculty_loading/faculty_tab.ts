@@ -6,6 +6,9 @@ import LoadAmountStatus from "../../models/enums/load_amount_status";
 import TermStatus from "../../models/enums/term_status";
 import facultyLoadingState from "../faculty_loading";
 import feedbackFormState, { FeedbackFormState } from "./feedback_form";
+import printScheduleDialogState, {
+    PrintScheduleDialogState,
+} from "./print_schedule_dialog";
 import timeConstraintsFormState, {
     TimeConstraintsFormState,
 } from "./time_constraints_form";
@@ -22,6 +25,9 @@ export class FacultyTabState extends FetchableState {
 
     @observable
     public feedbackFormState: FeedbackFormState = feedbackFormState;
+
+    @observable
+    public printScheduleDialogState: PrintScheduleDialogState = printScheduleDialogState;
 
     @computed
     get activeFaculty() {
