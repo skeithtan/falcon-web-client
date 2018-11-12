@@ -12,17 +12,22 @@ import { inject, observer } from "mobx-react";
 import * as React from "react";
 import FacultyLoadingController from "../../../../../../../../controllers/faculty_loading";
 import IStyleClasses from "../../../../../../../../interfaces/style_classes";
-import MeetingDays, { MeetingDaysReadable } from "../../../../../../../../models/enums/meeting_days";
+import MeetingDays, {
+    MeetingDaysReadable,
+} from "../../../../../../../../models/enums/meeting_days";
 import TermStatus from "../../../../../../../../models/enums/term_status";
+import UserType from "../../../../../../../../models/enums/user_type";
+import { AuthenticationState } from "../../../../../../../../store/authentication";
 import { FacultyLoadingState } from "../../../../../../../../store/faculty_loading";
 import styles from "./styles";
 
 interface IPropsType {
+    authentication?: AuthenticationState;
     facultyLoading?: FacultyLoadingState;
     classes: IStyleClasses;
 }
 
-@inject("facultyLoading")
+@inject("facultyLoading", "authentication")
 @observer
 class ClassesAppBar extends React.Component<IPropsType> {
     public setTab = (event: React.ChangeEvent, tab: MeetingDays) =>
@@ -38,8 +43,9 @@ class ClassesAppBar extends React.Component<IPropsType> {
     ) => FacultyLoadingController.showOnlyUnassigned(shouldShow);
 
     public render() {
-        const { facultyLoading, classes } = this.props;
+        const { facultyLoading, authentication, classes } = this.props;
         const { classesTabState, activeTerm } = facultyLoading!;
+        const { currentUser } = authentication!;
         const { activeMeetingDays, showOnlyUnassigned } = classesTabState;
         return (
             <AppBar color="default" position="relative">
@@ -76,19 +82,21 @@ class ClassesAppBar extends React.Component<IPropsType> {
                             justify="flex-end"
                             wrap="nowrap"
                         >
-                            {activeTerm!.status === TermStatus.Scheduling && (
-                                <Grid item>
-                                    <Button
-                                        color="secondary"
-                                        onClick={this.toggleAutoAssignWizardDialog(
-                                            true
-                                        )}
-                                    >
-                                        <TouchAppIcon />
-                                        Auto-assign
-                                    </Button>
-                                </Grid>
-                            )}
+                            {activeTerm!.status === TermStatus.Scheduling &&
+                                currentUser!.authorization ===
+                                    UserType.AssociateDean && (
+                                    <Grid item>
+                                        <Button
+                                            color="secondary"
+                                            onClick={this.toggleAutoAssignWizardDialog(
+                                                true
+                                            )}
+                                        >
+                                            <TouchAppIcon />
+                                            Auto-assign
+                                        </Button>
+                                    </Grid>
+                                )}
                             <Grid
                                 item
                                 container
