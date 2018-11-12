@@ -363,10 +363,12 @@ export default class FacultyLoadingController {
         const {
             classesTabState: { assignFacultyDialogState: formState },
         } = facultyLoading;
+        formState.setStatus(FormStatus.Submitting);
 
         FacultyLoadingService.assignFacultyToClass(termId, csId, facultyId)
             .then(cs => {
                 facultyLoading.classesTabState.classSchedules!.set(cs.id, cs);
+                this.toggleClassScheduleDetails(false);
                 formState.resetAndClose();
             })
             .catch(e => {
