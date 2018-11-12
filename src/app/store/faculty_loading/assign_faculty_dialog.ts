@@ -17,7 +17,10 @@ export class AssignFacultyDialogState extends FormState<AssignFacultyDialog>
     public form: AssignFacultyDialog = new AssignFacultyDialog();
 
     @observable
-    public facultyMembers?: FacultyProfile[] = undefined;
+    public recommendedFaculties?: FacultyProfile[] = undefined;
+
+    @observable
+    public allFaculties?: FacultyProfile[] = undefined;
 
     public resetForm() {
         this.form = new AssignFacultyDialog();
