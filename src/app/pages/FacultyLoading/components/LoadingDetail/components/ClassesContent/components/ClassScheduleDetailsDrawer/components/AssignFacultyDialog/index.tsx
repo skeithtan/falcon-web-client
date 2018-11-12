@@ -22,16 +22,8 @@ interface IPropsType {
 @observer
 export default class AssignFacultyDialog extends React.Component<IPropsType> {
     public onEntering() {
-        FacultyLoadingController.getRecommendedFaculties();
-    }
-
-    public onGetRecommendedFaculties = () => {
-        FacultyLoadingController.getRecommendedFaculties();
-    };
-
-    public onGetAllFaculties = () => {
         FacultyLoadingController.getAllFaculties();
-    };
+    }
 
     public onClose = () => {
         FacultyLoadingController.toggleAssignFacultyDialog(false);
@@ -55,7 +47,12 @@ export default class AssignFacultyDialog extends React.Component<IPropsType> {
         const {
             classesTabState: { assignFacultyDialogState },
         } = facultyLoading!;
-        const { form, isShowing, facultyMembers } = assignFacultyDialogState;
+        const {
+            form,
+            isShowing,
+            recommendedFaculties,
+            allFaculties,
+        } = assignFacultyDialogState;
         return (
             <Dialog
                 open={isShowing}
@@ -69,21 +66,46 @@ export default class AssignFacultyDialog extends React.Component<IPropsType> {
                 >
                     {() => (
                         <DialogContent>
-                            {facultyMembers === undefined ||
-                                (facultyMembers!.length === 0 && (
+                            {recommendedFaculties === undefined ||
+                                (recommendedFaculties!.length === 0 && (
                                     <Typography variant="overline">
                                         No faculty members recommended for
                                         assignment.
                                     </Typography>
                                 ))}
-                            {facultyMembers !== undefined &&
-                                facultyMembers!.length > 0 && (
+                            {recommendedFaculties !== undefined &&
+                                recommendedFaculties!.length > 0 && (
+                                    <React.Fragment>
+                                        <DialogContentText>
+                                            Select a recommended faculty member.
+                                        </DialogContentText>
+                                        <List>
+                                            {recommendedFaculties!.map(fm => (
+                                                <FacultyDialogItem
+                                                    key={fm.id}
+                                                    facultyMember={fm}
+                                                    onClick={this.onChange(fm)}
+                                                />
+                                            ))}
+                                        </List>
+                                    </React.Fragment>
+                                )}
+
+                            {allFaculties === undefined ||
+                                (allFaculties!.length === 0 && (
+                                    <Typography variant="overline">
+                                        No other faculty members available for
+                                        assignment.
+                                    </Typography>
+                                ))}
+                            {allFaculties !== undefined &&
+                                allFaculties!.length > 0 && (
                                     <React.Fragment>
                                         <DialogContentText>
                                             Select a faculty member.
                                         </DialogContentText>
                                         <List>
-                                            {facultyMembers!.map(fm => (
+                                            {allFaculties!.map(fm => (
                                                 <FacultyDialogItem
                                                     key={fm.id}
                                                     facultyMember={fm}
