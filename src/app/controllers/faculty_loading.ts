@@ -5,7 +5,6 @@ import FetchableStatus from "../models/enums/fetchable_status";
 import FormStatus from "../models/enums/form_status";
 import MeetingDays from "../models/enums/meeting_days";
 import FacultyLoadingService from "../services/faculty_loading";
-import FacultyMembersService from "../services/faculty_members";
 import SubjectsService from "../services/subjects";
 import rootStore from "../store";
 import { groupById } from "../utils/group_by_id";
@@ -339,31 +338,17 @@ export default class FacultyLoadingController {
             .catch((e: Error) => state.setStatus(FetchableStatus.Error, e));
     }
 
-    public static getRecommendedFaculties() {
+    public static getAllFaculties() {
         const termId = facultyLoading.activeTermId!;
         const csId = facultyLoading.classesTabState.activeClassScheduleId!;
         const state = facultyLoading.classesTabState.assignFacultyDialogState;
 
         state.fetchStatus = FetchableStatus.Fetching;
 
-        FacultyLoadingService.getRecommendedFaculties(termId, csId)
-            .then(cs => {
-                state.facultyMembers = cs;
-                state.fetchStatus = FetchableStatus.Fetched;
-            })
-            .catch((e: Error) => {
-                state.fetchStatus = FetchableStatus.Error;
-                state.fetchError = e.message;
-            });
-    }
-
-    public static getAllFaculties() {
-        const state = facultyLoading.classesTabState.assignFacultyDialogState;
-        state.fetchStatus = FetchableStatus.Fetching;
-
-        FacultyMembersService.fetchAllFacultyMembers()
-            .then(fm => {
-                state.facultyMembers = fm;
+        FacultyLoadingService.getAllFaculties(termId, csId)
+            .then(faculties => {
+                state.recommendedFaculties = faculties.recommendations;
+                state.allFaculties = faculties.allFaculties;
                 state.fetchStatus = FetchableStatus.Fetched;
             })
             .catch((e: Error) => {
