@@ -134,15 +134,20 @@ export default class FacultyLoadingService {
             .catch(handleAxiosError);
     }
 
-    public static async getRecommendedFaculties(
+    public static async getAllFaculties(
         termId: number,
         csId: number
-    ): Promise<FacultyProfile[]> {
+    ): Promise<{ [key: string]: FacultyProfile[] }> {
         return axios
             .get(`/terms/${termId}/class-schedules/${csId}/`)
-            .then((response: AxiosResponse) => {
-                return response.data.map((fp: any) => new FacultyProfile(fp));
-            })
+            .then((response: AxiosResponse) => ({
+                recommendations: response.data.recommendations.map(
+                    (fp: any) => new FacultyProfile(fp)
+                ),
+                allFaculties: response.data.allFaculties.map(
+                    (fp: any) => new FacultyProfile(fp)
+                ),
+            }))
             .catch(handleAxiosError);
     }
 
