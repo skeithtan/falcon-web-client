@@ -17,14 +17,18 @@ import MeetingDays, {
 import MeetingHours, {
     MeetingHoursReadable,
 } from "../../../../../../../../models/enums/meeting_hours";
+import TermStatus from "../../../../../../../../models/enums/term_status";
+import UserType from "../../../../../../../../models/enums/user_type";
+import { AuthenticationState } from "../../../../../../../../store/authentication";
 import { FacultyLoadingState } from "../../../../../../../../store/faculty_loading";
 import AssignFacultyDialog from "./components/AssignFacultyDialog";
 
 interface IPropsType {
+    authentication?: AuthenticationState;
     facultyLoading?: FacultyLoadingState;
 }
 
-@inject("facultyLoading")
+@inject("facultyLoading", "authentication")
 @observer
 export default class ClassScheduleDetailsDrawer extends React.Component<
     IPropsType
@@ -47,8 +51,9 @@ export default class ClassScheduleDetailsDrawer extends React.Component<
     };
 
     public renderActiveClassSchedule = () => {
-        const { facultyLoading } = this.props;
-        const { classesTabState } = facultyLoading!;
+        const { facultyLoading, authentication } = this.props;
+        const { classesTabState, activeTerm } = facultyLoading!;
+        const { currentUser } = authentication!;
         const { activeClassSchedule } = classesTabState;
         return (
             <Grid container direction="column" spacing={16} wrap="nowrap">
@@ -126,14 +131,18 @@ export default class ClassScheduleDetailsDrawer extends React.Component<
                                 : "No assigned faculty member"}
                         </Typography>
                     </CardContent>
-                    <CardActions>
-                        <Button
-                            onClick={this.onAssignFacultyClick(true)}
-                            color="primary"
-                        >
-                            Assign Faculty Member
-                        </Button>
-                    </CardActions>
+                    {activeTerm!.status === TermStatus.Scheduling &&
+                        currentUser!.authorization ===
+                            UserType.AssociateDean && (
+                            <CardActions>
+                                <Button
+                                    onClick={this.onAssignFacultyClick(true)}
+                                    color="primary"
+                                >
+                                    Assign Faculty Member
+                                </Button>
+                            </CardActions>
+                        )}
                 </Grid>
                 <AssignFacultyDialog />
             </Grid>
