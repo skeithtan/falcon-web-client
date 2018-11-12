@@ -9,15 +9,18 @@ import * as React from "react";
 import DrawerForm from "../../../../components/reusable/DrawerForm";
 import FacultyLoadingController from "../../../../controllers/faculty_loading";
 import IStyleClasses from "../../../../interfaces/style_classes";
+import UserType from "../../../../models/enums/user_type";
+import { AuthenticationState } from "../../../../store/authentication";
 import { FacultyLoadingState } from "../../../../store/faculty_loading";
 import styles from "./styles";
 
 interface IPropsType {
+    authentication?: AuthenticationState;
     facultyLoading?: FacultyLoadingState;
     classes: IStyleClasses;
 }
 
-@inject("facultyLoading")
+@inject("facultyLoading", "authentication")
 @observer
 class TermList extends React.Component<IPropsType> {
     public onClose = () => {
@@ -34,7 +37,8 @@ class TermList extends React.Component<IPropsType> {
     };
 
     public render() {
-        const { facultyLoading, classes } = this.props;
+        const { facultyLoading, authentication, classes } = this.props;
+        const { currentUser } = authentication!;
         const { terms, termListState, activeTermId } = facultyLoading!;
         const { isShowing } = termListState!;
         return (
@@ -62,15 +66,17 @@ class TermList extends React.Component<IPropsType> {
                             );
                         })}
                     </List>
-                    <Button
-                        variant="extendedFab"
-                        color="primary"
-                        onClick={this.onAddClick(true)}
-                        className={classes.addButton}
-                    >
-                        <AddIcon />
-                        New Term
-                    </Button>
+                    {currentUser!.authorization !== UserType.Faculty && (
+                        <Button
+                            variant="extendedFab"
+                            color="primary"
+                            onClick={this.onAddClick(true)}
+                            className={classes.addButton}
+                        >
+                            <AddIcon />
+                            New Term
+                        </Button>
+                    )}
                 </React.Fragment>
             </DrawerForm>
         );
