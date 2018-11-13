@@ -40,7 +40,7 @@ export default class FacultyDialogItem extends React.Component<IPropsType> {
                     )}
                 />
                 <ListItemSecondaryAction>
-                    <Radio checked={selected} />
+                    <Radio onClick={onClick} checked={selected} />
                 </ListItemSecondaryAction>
             </ListItem>
         );
