@@ -49,6 +49,7 @@ export default class FacultyLoadingController {
         FacultyLoadingService.addTerm(form)
             .then(t => {
                 facultyLoading.terms!.set(t.id, t);
+                facultyLoading.activeTermId = t.id;
                 formState.resetAndClose();
                 this.setActiveTerm(t.id);
             })
