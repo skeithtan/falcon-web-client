@@ -45,7 +45,6 @@ class OverviewContent extends React.Component<IPropsType> {
                     direction="column"
                     spacing={24}
                     className={classes.gridContainer}
-                    justify="center"
                     wrap="nowrap"
                 >
                     <Grid
