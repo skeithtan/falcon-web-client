@@ -11,7 +11,6 @@ import UserType from "../../../../../../models/enums/user_type";
 import { AuthenticationState } from "../../../../../../store/authentication";
 import { FacultyLoadingState } from "../../../../../../store/faculty_loading";
 import FacultyLoadingSteps from "./components/FacultyLoadingSteps";
-import TrackedMetricsView from "./components/TrackedMetricsView";
 import styles from "./styles";
 
 interface IPropsType {
@@ -46,6 +45,7 @@ class OverviewContent extends React.Component<IPropsType> {
                     direction="column"
                     spacing={24}
                     className={classes.gridContainer}
+                    justify="center"
                     wrap="nowrap"
                 >
                     <Grid
@@ -111,9 +111,6 @@ class OverviewContent extends React.Component<IPropsType> {
                     </Grid>
                     <Grid item>
                         <FacultyLoadingSteps />
-                    </Grid>
-                    <Grid item>
-                        <TrackedMetricsView />
                     </Grid>
                 </Grid>
             </div>
