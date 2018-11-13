@@ -308,7 +308,8 @@ export default class FacultyLoadingController {
                 facultyLoading.setStatus(FetchableStatus.Fetched);
             })
             .catch((e: Error) => {
-                facultyLoading.setStatus(FetchableStatus.Error, e);
+                alert(`An error occurred: ${e.message}`);
+                facultyLoading.setStatus(FetchableStatus.Fetched);
             });
     }
 
