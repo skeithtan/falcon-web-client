@@ -98,21 +98,27 @@ export default class ClassScheduleDetailsDrawer extends React.Component<
                     </List>
                 </Grid>
 
-                <Grid item>
-                    <CardActions>
-                        <Button
-                            variant="outlined"
-                            color="secondary"
-                            onClick={this.onRemoveClick(activeClassSchedule!)}
-                        >
-                            Remove
-                        </Button>
-                    </CardActions>
-                </Grid>
+                {activeTerm!.status === TermStatus.Initializing && (
+                    <React.Fragment>
+                        <Grid item>
+                            <CardActions>
+                                <Button
+                                    variant="outlined"
+                                    color="secondary"
+                                    onClick={this.onRemoveClick(
+                                        activeClassSchedule!
+                                    )}
+                                >
+                                    Remove
+                                </Button>
+                            </CardActions>
+                        </Grid>
 
-                <Grid item>
-                    <Divider />
-                </Grid>
+                        <Grid item>
+                            <Divider />
+                        </Grid>
+                    </React.Fragment>
+                )}
 
                 <Grid item container direction="column" spacing={16}>
                     <CardContent>
