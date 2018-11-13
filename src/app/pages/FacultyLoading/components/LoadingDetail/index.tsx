@@ -6,7 +6,6 @@ import StateWrapper from "../../../../components/reusable/StateWrapper";
 import IStyleClasses from "../../../../interfaces/style_classes";
 import FacultyLoadingTab from "../../../../models/enums/faculty_loading_tab";
 import { FacultyLoadingState } from "../../../../store/faculty_loading";
-import AddTermFormView from "../AddTermFormView";
 import TermList from "../TermList";
 import ClassesContent from "./components/ClassesContent";
 import FacultyContent from "./components/FacultyContent";
@@ -50,7 +49,6 @@ class LoadingDetail extends React.Component<IPropsType> {
                             )}
                         </Grid>
                         <TermList />
-                        <AddTermFormView />
                     </Grid>
                 )}
             </StateWrapper>

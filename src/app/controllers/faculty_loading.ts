@@ -49,6 +49,7 @@ export default class FacultyLoadingController {
         FacultyLoadingService.addTerm(form)
             .then(t => {
                 facultyLoading.terms!.set(t.id, t);
+                facultyLoading.activeTermId = t.id;
                 formState.resetAndClose();
                 this.setActiveTerm(t.id);
             })
@@ -308,7 +309,8 @@ export default class FacultyLoadingController {
                 facultyLoading.setStatus(FetchableStatus.Fetched);
             })
             .catch((e: Error) => {
-                facultyLoading.setStatus(FetchableStatus.Error, e);
+                alert(`An error occurred: ${e.message}`);
+                facultyLoading.setStatus(FetchableStatus.Fetched);
             });
     }
 

@@ -8,6 +8,7 @@ import StateWrapper from "../../components/reusable/StateWrapper";
 import FacultyProfilesController from "../../controllers/faculty_profiles";
 import IStyleClasses from "../../interfaces/style_classes";
 import { FacultyProfilesState } from "../../store/faculty_profiles";
+import AddFacultyMemberFormView from "./components/AddFacultyMemberForm";
 import FacultyDetail from "./components/FacultyDetail/index";
 import FacultyList from "./components/FacultyList/index";
 import styles from "./styles";
@@ -38,44 +39,47 @@ class FacultyProfiles extends React.Component<IPropsType> {
         const { facultyMembers } = facultyProfiles!;
 
         return (
-            <StateWrapper
-                fetchableState={facultyProfiles!.fetchStatus}
-                disableFlex
-            >
-                {() => (
-                    <React.Fragment>
-                        {facultyMembers!.size === 0 && (
-                            <EmptyState
-                                title="Faculty Profiles"
-                                description="View and add faculty members, degrees, research presentations, instructional materials, academic recognitions, and extension works."
-                                addButton="Add Faculty Member"
-                                onButtonClick={this.addFacultyMemberFormToggle(
-                                    true
-                                )}
-                            />
-                        )}
+            <React.Fragment>
+                <StateWrapper
+                    fetchableState={facultyProfiles!.fetchStatus}
+                    disableFlex
+                >
+                    {() => (
+                        <React.Fragment>
+                            {facultyMembers!.size === 0 && (
+                                <EmptyState
+                                    title="Faculty Profiles"
+                                    description="View and add faculty members, degrees, research presentations, instructional materials, academic recognitions, and extension works."
+                                    addButton="Add Faculty Member"
+                                    onButtonClick={this.addFacultyMemberFormToggle(
+                                        true
+                                    )}
+                                />
+                            )}
 
-                        {facultyMembers!.size > 0 && (
-                            <Grid
-                                className={classes.root}
-                                container
-                                direction="row"
-                                alignItems="stretch"
-                                wrap="nowrap"
-                            >
-                                <React.Fragment>
-                                    <Grid item className={classes.list}>
-                                        <FacultyList />
-                                    </Grid>
-                                    <Grid item className={classes.detail}>
-                                        <FacultyDetail />
-                                    </Grid>
-                                </React.Fragment>
-                            </Grid>
-                        )}
-                    </React.Fragment>
-                )}
-            </StateWrapper>
+                            {facultyMembers!.size > 0 && (
+                                <Grid
+                                    className={classes.root}
+                                    container
+                                    direction="row"
+                                    alignItems="stretch"
+                                    wrap="nowrap"
+                                >
+                                    <React.Fragment>
+                                        <Grid item className={classes.list}>
+                                            <FacultyList />
+                                        </Grid>
+                                        <Grid item className={classes.detail}>
+                                            <FacultyDetail />
+                                        </Grid>
+                                    </React.Fragment>
+                                </Grid>
+                            )}
+                        </React.Fragment>
+                    )}
+                </StateWrapper>
+                <AddFacultyMemberFormView />
+            </React.Fragment>
         );
     }
 }

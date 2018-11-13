@@ -9,7 +9,6 @@ import FacultyProfilesController from "../../../../controllers/faculty_profiles"
 import IStyleClasses from "../../../../interfaces/style_classes";
 import FacultyProfile from "../../../../models/entities/faculty_profile";
 import { FacultyProfilesState } from "../../../../store/faculty_profiles";
-import AddFacultyMemberFormView from "../AddFacultyMemberForm";
 import AddDegreeFormView from "./AddDegreeFormView";
 import AddExtensionWorkView from "./AddExtensionWorkView";
 import AddInstructionalMaterialFormView from "./AddInstructionalMaterialFormView";
@@ -166,7 +165,6 @@ class FacultyDetail extends React.Component<IPropsType> {
                                 <TaughtSubjectsView facultyProfile={fm} />
                             </Grid>
                         </Grid>
-                        <AddFacultyMemberFormView />
                         <AddDegreeFormView />
                         <AddExtensionWorkView />
                         <AddInstructionalMaterialFormView />

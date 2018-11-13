@@ -27,7 +27,7 @@ class FacultyContent extends React.Component<IPropsType> {
     public render() {
         const { facultyLoading, classes } = this.props;
         const { facultyTabState } = facultyLoading!;
-        const { activeFaculty } = facultyTabState;
+        const { activeFaculty, facultyMembers } = facultyTabState;
         return (
             <StateWrapper fetchableState={facultyTabState.fetchStatus}>
                 {() => (
@@ -47,7 +47,25 @@ class FacultyContent extends React.Component<IPropsType> {
                             justify="center"
                             className={classes.content}
                         >
-                            {activeFaculty === undefined && (
+                            {facultyMembers!.length === 0 && (
+                                <Grid
+                                    item
+                                    container
+                                    direction="column"
+                                    justify="center"
+                                    alignItems="center"
+                                    className={classes.detailEmptyState}
+                                >
+                                    <Typography
+                                        variant="h5"
+                                        color="textSecondary"
+                                    >
+                                        No active faculty members
+                                    </Typography>
+                                </Grid>
+                            )}
+
+                            {!activeFaculty && facultyMembers!.length > 0 && (
                                 <Grid
                                     item
                                     container
@@ -66,7 +84,7 @@ class FacultyContent extends React.Component<IPropsType> {
                                 </Grid>
                             )}
 
-                            {activeFaculty !== undefined && (
+                            {activeFaculty && (
                                 <Grid
                                     item
                                     container

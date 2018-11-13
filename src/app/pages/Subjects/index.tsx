@@ -45,7 +45,7 @@ class Subjects extends React.Component<IPropsType> {
                         {subjectItems!.size === 0 && (
                             <EmptyState
                                 title="Subjects"
-                                description="View and add subjects."
+                                description="View, create and modify subjects."
                                 addButton="Add Subject"
                                 onButtonClick={this.addSubjectFormToggle(true)}
                             />

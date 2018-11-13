@@ -12,6 +12,7 @@ export default (theme: Theme): StyleRules => ({
         background: theme.palette.background.paper,
         borderRight: `1px solid ${theme.palette.grey["200"]}`,
         height: "100%",
+        overflowY: "auto",
     },
     addButton: {
         position: "absolute",
