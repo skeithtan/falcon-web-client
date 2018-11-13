@@ -65,27 +65,26 @@ class FacultyContent extends React.Component<IPropsType> {
                                 </Grid>
                             )}
 
-                            {activeFaculty === undefined &&
-                                facultyMembers!.length > 0 && (
-                                    <Grid
-                                        item
-                                        container
-                                        direction="column"
-                                        justify="center"
-                                        alignItems="center"
-                                        className={classes.detailEmptyState}
+                            {!activeFaculty && facultyMembers!.length > 0 && (
+                                <Grid
+                                    item
+                                    container
+                                    direction="column"
+                                    justify="center"
+                                    alignItems="center"
+                                    className={classes.detailEmptyState}
+                                >
+                                    <Typography
+                                        variant="h5"
+                                        color="textSecondary"
                                     >
-                                        <Typography
-                                            variant="h5"
-                                            color="textSecondary"
-                                        >
-                                            Select a faculty member to view
-                                            their details
-                                        </Typography>
-                                    </Grid>
-                                )}
+                                        Select a faculty member to view their
+                                        details
+                                    </Typography>
+                                </Grid>
+                            )}
 
-                            {activeFaculty !== undefined && (
+                            {activeFaculty && (
                                 <Grid
                                     item
                                     container
