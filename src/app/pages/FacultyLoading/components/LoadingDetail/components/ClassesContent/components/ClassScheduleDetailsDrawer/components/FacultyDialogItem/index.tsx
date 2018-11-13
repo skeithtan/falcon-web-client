@@ -23,15 +23,16 @@ export default class FacultyDialogItem extends React.Component<IPropsType> {
             classesTabState: { assignFacultyDialogState },
         } = facultyLoading!;
         const { form } = assignFacultyDialogState;
+        const selected =
+            Boolean(form.facultyMember) &&
+            form.facultyMember!.id === facultyMember!.id;
+
+        if (selected) {
+            console.log(form.facultyMember!.id, facultyMember!.id);
+        }
+
         return (
-            <ListItem
-                divider
-                onClick={onClick}
-                selected={
-                    form.facultyMember &&
-                    form.facultyMember!.id === facultyMember!.id
-                }
-            >
+            <ListItem divider onClick={onClick} selected={selected}>
                 <ListItemText
                     primary={facultyMember!.fullName}
                     secondary={FacultyMemberTypeReadable.get(
@@ -39,13 +40,7 @@ export default class FacultyDialogItem extends React.Component<IPropsType> {
                     )}
                 />
                 <ListItemSecondaryAction>
-                    <Radio
-                        onClick={onClick}
-                        checked={
-                            form.facultyMember &&
-                            form.facultyMember!.id === facultyMember!.id
-                        }
-                    />
+                    <Radio checked={selected} />
                 </ListItemSecondaryAction>
             </ListItem>
         );
