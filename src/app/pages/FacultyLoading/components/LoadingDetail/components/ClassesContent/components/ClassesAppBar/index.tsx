@@ -21,8 +21,6 @@ import { AuthenticationState } from "../../../../../../../../store/authenticatio
 import { FacultyLoadingState } from "../../../../../../../../store/faculty_loading";
 import styles from "./styles";
 
-// TODO: Add canPrint prop for print button
-
 interface IPropsType {
     authentication?: AuthenticationState;
     facultyLoading?: FacultyLoadingState;
@@ -53,9 +51,9 @@ class ClassesAppBar extends React.Component<IPropsType> {
         const { classesTabState, activeTerm } = facultyLoading!;
         const { currentUser } = authentication!;
         const { activeMeetingDays, showOnlyUnassigned } = classesTabState;
-        // const canPrint =
-        //     activeTerm!.status === TermStatus.Published ||
-        //     activeTerm!.status === TermStatus.Archived;
+        const canPrint =
+            activeTerm!.status === TermStatus.Published ||
+            activeTerm!.status === TermStatus.Archived;
         return (
             <AppBar color="default" position="relative">
                 <Toolbar variant="dense">
@@ -92,14 +90,18 @@ class ClassesAppBar extends React.Component<IPropsType> {
                             alignItems="center"
                             wrap="nowrap"
                         >
-                            <Grid item>
-                                <Button
-                                    color="primary"
-                                    onClick={this.togglePrintTermSchedule(true)}
-                                >
-                                    Print Term Schedule
-                                </Button>
-                            </Grid>
+                            {canPrint && (
+                                <Grid item>
+                                    <Button
+                                        color="primary"
+                                        onClick={this.togglePrintTermSchedule(
+                                            true
+                                        )}
+                                    >
+                                        Print Term Schedule
+                                    </Button>
+                                </Grid>
+                            )}
                             {activeTerm!.status === TermStatus.Scheduling &&
                                 currentUser!.authorization ===
                                     UserType.AssociateDean && (
