@@ -9,6 +9,7 @@ import FacultyLoadingController from "../../../../../../controllers/faculty_load
 import IStyleClasses from "../../../../../../interfaces/style_classes";
 import TermStatus from "../../../../../../models/enums/term_status";
 import { FacultyLoadingState } from "../../../../../../store/faculty_loading";
+import PrintTermSchedule from "../ClassesContent/components/PrintTermSchedule";
 import AddClassFormView from "./components/AddClassFormView";
 import AutoAssignWizard from "./components/AutoAssignWizard";
 import ClassesAppBar from "./components/ClassesAppBar";
@@ -36,37 +37,40 @@ class ClassesContent extends React.Component<IPropsType> {
         const { facultyLoading, classes } = this.props;
         const { classesTabState, activeTerm } = facultyLoading!;
         return (
-            <StateWrapper fetchableState={classesTabState.fetchStatus}>
-                {() => (
-                    <Grid
-                        container
-                        direction="column"
-                        className={classes.root}
-                        wrap="nowrap"
-                    >
-                        <Grid item>
-                            <ClassesAppBar />
+            <React.Fragment>
+                <StateWrapper fetchableState={classesTabState.fetchStatus}>
+                    {() => (
+                        <Grid
+                            container
+                            direction="column"
+                            className={classes.root}
+                            wrap="nowrap"
+                        >
+                            <Grid item>
+                                <ClassesAppBar />
+                            </Grid>
+                            <Grid item xs>
+                                <ScheduleCalendar />
+                            </Grid>
+                            {activeTerm!.status === TermStatus.Initializing && (
+                                <Button
+                                    variant="extendedFab"
+                                    color="primary"
+                                    className={classes.addButton}
+                                    onClick={this.toggleAddClassForm(true)}
+                                >
+                                    <AddIcon />
+                                    Add a class
+                                </Button>
+                            )}
+                            <AddClassFormView />
+                            <ClassScheduleDetailsDrawer />
+                            <AutoAssignWizard />
                         </Grid>
-                        <Grid item xs>
-                            <ScheduleCalendar />
-                        </Grid>
-                        {activeTerm!.status === TermStatus.Initializing && (
-                            <Button
-                                variant="extendedFab"
-                                color="primary"
-                                className={classes.addButton}
-                                onClick={this.toggleAddClassForm(true)}
-                            >
-                                <AddIcon />
-                                Add a class
-                            </Button>
-                        )}
-                        <AddClassFormView />
-                        <ClassScheduleDetailsDrawer />
-                        <AutoAssignWizard />
-                    </Grid>
-                )}
-            </StateWrapper>
+                    )}
+                </StateWrapper>
+                <PrintTermSchedule />
+            </React.Fragment>
         );
     }
 }
