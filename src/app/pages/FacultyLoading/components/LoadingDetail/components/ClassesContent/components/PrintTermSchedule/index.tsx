@@ -12,6 +12,8 @@ import IStyleClasses from "../../../../../../../../interfaces/style_classes";
 import { FacultyLoadingState } from "../../../../../../../../store/faculty_loading";
 import styles from "./styles";
 
+// TODO: MAP FOR CLASS SCHEDULES AND ALL
+
 // tslint:disable-next-line
 const ReactToPrint = require("react-to-print");
 
