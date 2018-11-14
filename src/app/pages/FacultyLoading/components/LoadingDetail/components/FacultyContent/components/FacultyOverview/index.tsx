@@ -6,6 +6,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";
 import Typography from "@material-ui/core/Typography";
 import PrintIcon from "@material-ui/icons/Print";
+import { observer } from "mobx-react";
 import * as React from "react";
 import FacultyLoadingController from "../../../../../../../../controllers/faculty_loading";
 import IStyleClasses from "../../../../../../../../interfaces/style_classes";
@@ -20,6 +21,7 @@ interface IPropsType {
     classes: IStyleClasses;
 }
 
+@observer
 class FacultyOverview extends React.Component<IPropsType> {
     public onPrintClick = (shouldShow: boolean) => () => {
         FacultyLoadingController.togglePrintFacultySchedule(shouldShow);
