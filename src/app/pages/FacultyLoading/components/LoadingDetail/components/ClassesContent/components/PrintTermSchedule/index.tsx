@@ -9,10 +9,10 @@ import * as React from "react";
 import PrintPreviewDialog from "../../../../../../../../components/reusable/PrintPreviewDialog";
 import PrintPreviewHead from "../../../../../../../../components/reusable/PrintPreviewHead";
 import IStyleClasses from "../../../../../../../../interfaces/style_classes";
+import { MeetingDaysReadable } from "../../../../../../../../models/enums/meeting_days";
 import { FacultyLoadingState } from "../../../../../../../../store/faculty_loading";
+import ScheduleTable from "./components/ScheduleTable";
 import styles from "./styles";
-
-// TODO: MAP FOR CLASS SCHEDULES AND ALL
 
 // tslint:disable-next-line
 const ReactToPrint = require("react-to-print");
@@ -43,7 +43,9 @@ class PrintTermSchedule extends React.Component<IPropsType> {
         const {
             printTermScheduleState: { isShowing },
             activeTerm,
+            classesTabState,
         } = facultyLoading!;
+        const { classSchedules } = classesTabState;
         return (
             <PrintPreviewDialog title="Print Term Schedule" open={isShowing}>
                 <Paper className={classes.paper}>
@@ -78,6 +80,34 @@ class PrintTermSchedule extends React.Component<IPropsType> {
                                         Generated {moment().format("LLLL")}
                                     </Typography>
                                 </Grid>
+                            </Grid>
+                            <Grid
+                                item
+                                container
+                                direction="column"
+                                spacing={24}
+                            >
+                                {classSchedules &&
+                                    Array.from(MeetingDaysReadable).map(
+                                        ([mdrEnum, mdrStr]) => {
+                                            const dayClasses = Array.from(
+                                                classSchedules!.values()
+                                            ).filter(
+                                                cs => cs.meetingDays === mdrEnum
+                                            );
+
+                                            return (
+                                                <Grid item key={mdrEnum}>
+                                                    <ScheduleTable
+                                                        meetingDays={mdrStr}
+                                                        classSchedules={
+                                                            dayClasses
+                                                        }
+                                                    />
+                                                </Grid>
+                                            );
+                                        }
+                                    )}
                             </Grid>
                         </Grid>
                     </div>
