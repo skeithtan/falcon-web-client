@@ -63,7 +63,7 @@ export default class FacultyLoadingController {
         const term = facultyLoading.activeTerm!;
         facultyLoading.setStatus(FetchableStatus.Fetching);
 
-        FacultyLoadingService.fetchTerm(term.id)
+        return FacultyLoadingService.fetchTerm(term.id)
             .then(t => {
                 facultyLoading.terms!.set(t.id, t);
                 facultyLoading.setStatus(FetchableStatus.Fetched);
