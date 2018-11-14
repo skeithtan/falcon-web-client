@@ -11,6 +11,7 @@ export default (theme: Theme): StyleRules => ({
         right: 40,
     },
     paper: {
+        minHeight: 1000,
         minWidth: 1200,
         backgroundColor: theme.palette.background.paper,
         margin: "auto",
