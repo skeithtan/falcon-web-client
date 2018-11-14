@@ -8,5 +8,6 @@ export default {
     content: {
         height: "100%",
         backgroundColor: Grey["700"],
+        overflowY: "scroll",
     },
 } as StyleRules;

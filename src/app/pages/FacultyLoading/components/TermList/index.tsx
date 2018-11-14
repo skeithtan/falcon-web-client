@@ -28,7 +28,12 @@ class TermList extends React.Component<IPropsType> {
     };
 
     public setActiveTerm = (id: number) => () => {
-        FacultyLoadingController.setActiveTerm(id);
+        const { currentUser } = this.props.authentication!;
+        FacultyLoadingController.setActiveTerm(id).then(() => {
+            if (currentUser!.authorization === UserType.Faculty) {
+                FacultyLoadingController.getCurrentFaculty();
+            }
+        });
         this.onClose();
     };
 
