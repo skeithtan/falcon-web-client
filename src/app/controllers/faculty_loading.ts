@@ -382,4 +382,8 @@ export default class FacultyLoadingController {
         const state = facultyLoading.facultyTabState.printScheduleDialogState;
         state.isShowing = shouldShow;
     }
+
+    public static togglePrintTermSchedule(shouldShow: boolean) {
+        facultyLoading.printTermScheduleState.isShowing = shouldShow;
+    }
 }
