@@ -1,5 +1,4 @@
 import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
 import IconButton from "@material-ui/core/IconButton";
 import { withStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -44,8 +43,8 @@ class FacultySubdocumentCard extends React.Component<IPropsType> {
                 )}
 
                 {!empty && (
-                    <React.Fragment>
-                        <Toolbar>
+                    <div className={classes.cardItems}>
+                        <Toolbar color="inherit">
                             <Typography variant="h6">{name}</Typography>
                             <div className={classes.grow} />
                             {canAdd && (
@@ -59,8 +58,8 @@ class FacultySubdocumentCard extends React.Component<IPropsType> {
                                 </Tooltip>
                             )}
                         </Toolbar>
-                        <CardContent>{children}</CardContent>
-                    </React.Fragment>
+                        {children}
+                    </div>
                 )}
             </Card>
         );
