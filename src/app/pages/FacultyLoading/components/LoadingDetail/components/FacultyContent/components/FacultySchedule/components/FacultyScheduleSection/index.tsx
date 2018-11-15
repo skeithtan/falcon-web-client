@@ -1,6 +1,7 @@
 import Card from "@material-ui/core/Card";
-import CardHeader from "@material-ui/core/CardHeader";
 import Grid from "@material-ui/core/Grid";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
 import { observer } from "mobx-react";
 import * as React from "react";
 import TimeSlotCard from "../../../../../../../../../../components/reusable/TimeSlotCard";
@@ -26,7 +27,11 @@ export default class FacultyScheduleSection extends React.Component<
         } = this.props;
         return (
             <Card>
-                <CardHeader title={MeetingDaysReadable.get(meetingDays)} />
+                <Toolbar>
+                    <Typography variant="h6">
+                        {MeetingDaysReadable.get(meetingDays)}
+                    </Typography>
+                </Toolbar>
                 <Grid
                     container
                     direction="row"
