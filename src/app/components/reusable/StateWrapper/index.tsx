@@ -13,6 +13,7 @@ interface IPropsType {
     errorView?: React.ReactNode;
     loadingView?: React.ReactNode;
     classes: IStyleClasses;
+    className?: string;
     disableFlex?: boolean;
 }
 
@@ -30,6 +31,7 @@ class StateWrapper extends React.Component<IPropsType> {
             loadingView,
             classes,
             disableFlex,
+            className
         } = this.props;
 
         switch (fetchableState) {
@@ -51,7 +53,7 @@ class StateWrapper extends React.Component<IPropsType> {
             default:
                 return (
                     <div
-                        className={classNames(classes.root, {
+                        className={classNames(classes.root, className, {
                             [classes.flex]: disableFlex,
                         })}
                     >
