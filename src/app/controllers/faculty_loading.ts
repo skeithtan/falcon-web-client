@@ -210,6 +210,10 @@ export default class FacultyLoadingController {
 
         if (!shouldShow) {
             state.resetAndClose();
+        } else {
+            state.form.prefillForm(
+                facultyLoading.facultyTabState.activeFaculty!
+            );
         }
     }
 
