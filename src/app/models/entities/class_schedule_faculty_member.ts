@@ -1,6 +1,7 @@
 import { computed, observable } from "mobx";
 import Entity from "../../interfaces/entity";
 import FacultyMemberType from "../enums/faculty_member_type";
+import FeedbackStatus from "../enums/feedback_status";
 
 export default class ClassScheduleFacultyMember extends Entity {
     @observable
@@ -14,6 +15,9 @@ export default class ClassScheduleFacultyMember extends Entity {
 
     @observable
     public type: FacultyMemberType;
+
+    @observable
+    public feedback: FeedbackStatus;
 
     @computed
     get fullName() {
