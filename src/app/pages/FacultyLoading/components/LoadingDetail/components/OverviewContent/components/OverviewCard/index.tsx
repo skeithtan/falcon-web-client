@@ -3,11 +3,12 @@ import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Divider from "@material-ui/core/Divider";
+import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import * as React from "react";
 
 interface IPropsType {
-    name: string;
+    name?: string;
     message: string;
     onRemoveClick?: () => void;
 }
@@ -16,14 +17,24 @@ export default class OverviewCard extends React.Component<IPropsType> {
     public render() {
         const { name, message, onRemoveClick } = this.props;
         return (
-            <Card>
+            <Card square>
                 <CardContent>
-                    <Typography>{name}</Typography>
-                    <Divider />
-                    <Typography variant="subtitle1">{message}</Typography>
+                    <Grid container direction="column" spacing={16}>
+                        {name && (
+                            <Grid item>
+                                <Typography>{name}</Typography>
+                                <Divider />
+                            </Grid>
+                        )}
+                        <Grid item>
+                            <Typography variant="subtitle1">
+                                {message}
+                            </Typography>
+                        </Grid>
+                    </Grid>
                 </CardContent>
-                <CardActions>
-                    {onRemoveClick && (
+                {onRemoveClick && (
+                    <CardActions>
                         <Button
                             variant="outlined"
                             color="secondary"
@@ -31,8 +42,8 @@ export default class OverviewCard extends React.Component<IPropsType> {
                         >
                             Remove
                         </Button>
-                    )}
-                </CardActions>
+                    </CardActions>
+                )}
             </Card>
         );
     }
