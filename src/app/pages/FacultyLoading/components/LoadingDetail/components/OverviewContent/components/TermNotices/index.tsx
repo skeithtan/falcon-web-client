@@ -6,7 +6,7 @@ import StateWrapper from "../../../../../../../../components/reusable/StateWrapp
 import FacultyLoadingController from "../../../../../../../../controllers/faculty_loading";
 import Notice from "../../../../../../../../models/entities/notice";
 import { FacultyLoadingState } from "../../../../../../../../store/faculty_loading";
-import NoticeItem from "./components/NoticeItem";
+import OverviewCard from "../OverviewCard";
 
 interface IPropsType {
     facultyLoading?: FacultyLoadingState;
@@ -37,19 +37,17 @@ export default class TermNotices extends React.Component<IPropsType> {
                     <StateWrapper fetchableState={facultyLoading!.fetchStatus}>
                         {() => (
                             <React.Fragment>
-                                {activeTerm!.notices.map(n => {
-                                    console.log(activeTerm);
-                                    return (
-                                        <Grid item key={n.id}>
-                                            <NoticeItem
-                                                notice={n}
-                                                onRemoveClick={this.onRemoveClick(
-                                                    n
-                                                )}
-                                            />
-                                        </Grid>
-                                    );
-                                })}
+                                {activeTerm!.notices.map(n => (
+                                    <Grid item key={n.id}>
+                                        <OverviewCard
+                                            name={n.facultyMember.fullName}
+                                            message={n.message}
+                                            onRemoveClick={this.onRemoveClick(
+                                                n
+                                            )}
+                                        />
+                                    </Grid>
+                                ))}
                             </React.Fragment>
                         )}
                     </StateWrapper>
