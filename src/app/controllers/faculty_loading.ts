@@ -1,4 +1,5 @@
 import ClassSchedule from "../models/entities/class_schedule";
+import Notice from "../models/entities/notice";
 import FacultyLoadingTab from "../models/enums/faculty_loading_tab";
 import FeedbackStatus from "../models/enums/feedback_status";
 import FetchableStatus from "../models/enums/fetchable_status";
@@ -389,5 +390,11 @@ export default class FacultyLoadingController {
 
     public static togglePrintTermSchedule(shouldShow: boolean) {
         facultyLoading.printTermScheduleState.isShowing = shouldShow;
+    }
+
+    public static removeNotice(notice: Notice) {
+        const notices = facultyLoading.activeTerm!.notices;
+        const noticeIndex = notices.indexOf(notice);
+        notices.splice(noticeIndex, 1);
     }
 }
