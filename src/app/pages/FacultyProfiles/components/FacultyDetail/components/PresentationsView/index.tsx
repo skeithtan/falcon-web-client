@@ -1,3 +1,4 @@
+import Button from "@material-ui/core/Button";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelActions from "@material-ui/core/ExpansionPanelActions";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
@@ -18,7 +19,6 @@ import PresentationMedium, {
     PresentationMediumReadable,
 } from "../../../../../../models/enums/presentation_medium";
 import AssociatedProgramsItem from "../AssociatedProgramsItem";
-import SubdoucmentActions from "../SubdocumentActions";
 import SubdocumentSummary from "../SubdocumentSummary";
 import styles from "./styles";
 
@@ -111,14 +111,12 @@ class PresentationsView extends React.Component<IPropsType> {
                                     </List>
                                 </ExpansionPanelDetails>
                                 <ExpansionPanelActions>
-                                    <SubdoucmentActions
-                                        ongoing={p.ongoing}
-                                        onOngoingChange={this.onOngoingChange(
-                                            p.ongoing,
-                                            p
-                                        )}
-                                        onRemoveClick={this.onRemoveClick(p)}
-                                    />
+                                    <Button
+                                        color="secondary"
+                                        onClick={this.onRemoveClick(p)}
+                                    >
+                                        Remove
+                                    </Button>
                                 </ExpansionPanelActions>
                             </ExpansionPanel>
                         );

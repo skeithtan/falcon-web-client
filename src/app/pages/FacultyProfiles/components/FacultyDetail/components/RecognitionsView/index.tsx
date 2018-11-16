@@ -1,3 +1,4 @@
+import Button from "@material-ui/core/Button";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelActions from "@material-ui/core/ExpansionPanelActions";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
@@ -15,7 +16,6 @@ import RecognitionBasis, {
     RecognitionBasisReadable,
 } from "../../../../../../models/enums/recognition_basis";
 import AssociatedProgramsItem from "../AssociatedProgramsItem";
-import SubdoucmentActions from "../SubdocumentActions";
 import SubdocumentSummary from "../SubdocumentSummary";
 import styles from "./styles";
 
@@ -93,14 +93,12 @@ class RecognitionsView extends React.Component<IPropsType> {
                                     </List>
                                 </ExpansionPanelDetails>
                                 <ExpansionPanelActions>
-                                    <SubdoucmentActions
-                                        ongoing={r.ongoing}
-                                        onOngoingChange={this.onOngoingChange(
-                                            r.ongoing,
-                                            r
-                                        )}
-                                        onRemoveClick={this.onRemoveClick(r)}
-                                    />
+                                    <Button
+                                        color="secondary"
+                                        onClick={this.onRemoveClick(r)}
+                                    >
+                                        Remove
+                                    </Button>
                                 </ExpansionPanelActions>
                             </ExpansionPanel>
                         );
