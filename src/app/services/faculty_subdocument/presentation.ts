@@ -12,6 +12,8 @@ export default class PresentationService {
     }
 
     public static async remove(id: number) {
-        return axios.delete(`/faculty-subdocuments/presentations/${id}`).catch(handleAxiosError);
+        return axios
+            .delete(`/faculty-subdocuments/presentations/${id}`)
+            .catch(handleAxiosError);
     }
 }
