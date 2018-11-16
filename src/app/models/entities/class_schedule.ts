@@ -1,4 +1,4 @@
-import { observable } from "mobx";
+import { computed, observable } from "mobx";
 import Entity from "../../interfaces/entity";
 import MeetingDays from "../enums/meeting_days";
 import MeetingHours from "../enums/meeting_hours";
@@ -30,6 +30,11 @@ export default class ClassSchedule extends Entity {
 
     @observable
     public facultyMember?: ClassScheduleFacultyMember;
+
+    @computed
+    get shortTitle() {
+        return `${this.subjectCode} ${this.section}`;
+    }
 
     constructor(plainObject: any) {
         super(plainObject);

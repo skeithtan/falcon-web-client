@@ -99,28 +99,22 @@ export default class ClassScheduleDetailsDrawer extends React.Component<
                 </Grid>
 
                 {activeTerm!.status === TermStatus.Initializing && (
-                    <React.Fragment>
-                        <Grid item>
-                            <CardActions>
-                                <Button
-                                    variant="outlined"
-                                    color="secondary"
-                                    onClick={this.onRemoveClick(
-                                        activeClassSchedule!
-                                    )}
-                                >
-                                    Remove
-                                </Button>
-                            </CardActions>
-                        </Grid>
-
-                        <Grid item>
-                            <Divider />
-                        </Grid>
-                    </React.Fragment>
+                    <Grid item>
+                        <CardActions>
+                            <Button
+                                variant="outlined"
+                                color="secondary"
+                                onClick={this.onRemoveClick(
+                                    activeClassSchedule!
+                                )}
+                            >
+                                Remove
+                            </Button>
+                        </CardActions>
+                    </Grid>
                 )}
 
-                <Grid item container direction="column" spacing={16}>
+                <Grid item>
                     <CardContent>
                         <Typography variant="overline">
                             Assigned Faculty Member
@@ -144,11 +138,16 @@ export default class ClassScheduleDetailsDrawer extends React.Component<
                                 <Button
                                     onClick={this.onAssignFacultyClick(true)}
                                     color="primary"
+                                    variant="outlined"
                                 >
-                                    Assign Faculty Member
+                                    Choose Faculty Member
                                 </Button>
                             </CardActions>
                         )}
+                </Grid>
+
+                <Grid item>
+                    <Divider />
                 </Grid>
                 <AssignFacultyDialog />
             </Grid>

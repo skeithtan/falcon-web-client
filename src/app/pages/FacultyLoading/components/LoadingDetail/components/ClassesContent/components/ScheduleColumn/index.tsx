@@ -1,14 +1,10 @@
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import * as classNames from "classnames";
 import * as React from "react";
 import FacultyLoadingController from "../../../../../../../../controllers/faculty_loading";
 import IStyleClasses from "../../../../../../../../interfaces/style_classes";
 import ClassSchedule from "../../../../../../../../models/entities/class_schedule";
+import ClassScheduleCard from "../ClassScheduleCard";
 import styles from "./styles";
 
 interface IPropsType {
@@ -32,33 +28,11 @@ class ScheduleColumn extends React.Component<IPropsType> {
                 spacing={16}
             >
                 {classSchedules.map(cs => (
-                    <Grid
-                        item
-                        key={cs.id}
-                        onClick={this.setActiveClassSchedule(cs.id)}
-                    >
-                        <Card
-                            className={classNames({
-                                [classes.assigned]:
-                                    cs.facultyMember !== undefined,
-                            })}
-                        >
-                            <CardActionArea>
-                                <CardContent>
-                                    <Typography variant="subtitle2">{`${
-                                        cs.subjectCode
-                                    } ${cs.section}`}</Typography>
-                                    <Typography>{cs.room}</Typography>
-                                    {cs.facultyMember !== undefined && (
-                                        <Typography variant="overline">{`${
-                                            cs.facultyMember!.firstName
-                                        } ${
-                                            cs.facultyMember!.lastName
-                                        }`}</Typography>
-                                    )}
-                                </CardContent>
-                            </CardActionArea>
-                        </Card>
+                    <Grid item key={cs.id}>
+                        <ClassScheduleCard
+                            classSchedule={cs}
+                            onClick={this.setActiveClassSchedule(cs.id)}
+                        />
                     </Grid>
                 ))}
             </Grid>
