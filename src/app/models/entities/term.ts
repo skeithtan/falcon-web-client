@@ -2,6 +2,7 @@ import { computed, observable } from "mobx";
 import Entity from "../../interfaces/entity";
 import OrdinalTerm, { OrdinalTermReadable } from "../enums/ordinal_term";
 import TermStatus from "../enums/term_status";
+import Notice from "./notice";
 
 export default class Term extends Entity {
     @observable
@@ -12,6 +13,9 @@ export default class Term extends Entity {
 
     @observable
     public status: TermStatus;
+
+    @observable
+    public notices: Notice[];
 
     @computed
     get readable(): string {
