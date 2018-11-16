@@ -7,6 +7,7 @@ export default (theme: Theme): StyleRules => ({
         padding: theme.spacing.unit * 5,
         display: "flex",
         justifyContent: "center",
+        overflowY: "scroll",
     },
     gridContainer: {
         height: "100%",
