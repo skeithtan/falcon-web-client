@@ -62,15 +62,14 @@ export default class FacultyLoadingController {
     public static setActiveTerm(id: number) {
         facultyLoading.activeTermId = id;
         const term = facultyLoading.activeTerm!;
-        facultyLoading.setStatus(FetchableStatus.Fetching);
+        term.setStatus(FetchableStatus.Fetching);
 
         return FacultyLoadingService.fetchTerm(term.id)
             .then(t => {
                 facultyLoading.terms!.set(t.id, t);
-                facultyLoading.setStatus(FetchableStatus.Fetched);
             })
             .catch((e: Error) =>
-                facultyLoading.setStatus(FetchableStatus.Error, e)
+                term.setStatus(FetchableStatus.Error, e.message)
             );
     }
 
@@ -394,7 +393,7 @@ export default class FacultyLoadingController {
 
     public static removeNotice(notice: Notice) {
         const notices = facultyLoading.activeTerm!.notices;
-        const noticeIndex = notices.indexOf(notice);
-        notices.splice(noticeIndex, 1);
+        const noticeIndex = notices!.indexOf(notice);
+        notices!.splice(noticeIndex, 1);
     }
 }
