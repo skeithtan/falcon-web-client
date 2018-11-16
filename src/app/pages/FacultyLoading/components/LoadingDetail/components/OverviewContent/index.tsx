@@ -1,4 +1,5 @@
 import Button from "@material-ui/core/Button";
+import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
@@ -11,6 +12,7 @@ import UserType from "../../../../../../models/enums/user_type";
 import { AuthenticationState } from "../../../../../../store/authentication";
 import { FacultyLoadingState } from "../../../../../../store/faculty_loading";
 import FacultyLoadingSteps from "./components/FacultyLoadingSteps";
+// import TermNotices from "./components/TermNotices";
 import styles from "./styles";
 
 interface IPropsType {
@@ -111,6 +113,12 @@ class OverviewContent extends React.Component<IPropsType> {
                     <Grid item>
                         <FacultyLoadingSteps />
                     </Grid>
+                    <Grid item>
+                        <Divider />
+                    </Grid>
+                    {/* <Grid item>
+                        <TermNotices />
+                    </Grid> */}
                 </Grid>
             </div>
         );
