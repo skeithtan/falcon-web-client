@@ -5,6 +5,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
+import StateWrapper from "../../../../../../components/reusable/StateWrapper";
 import FacultyLoadingController from "../../../../../../controllers/faculty_loading";
 import IStyleClasses from "../../../../../../interfaces/style_classes";
 import TermStatus from "../../../../../../models/enums/term_status";
@@ -12,6 +13,7 @@ import UserType from "../../../../../../models/enums/user_type";
 import { AuthenticationState } from "../../../../../../store/authentication";
 import { FacultyLoadingState } from "../../../../../../store/faculty_loading";
 import FacultyLoadingSteps from "./components/FacultyLoadingSteps";
+import TermRejections from "./components/TermRejections";
 // import TermNotices from "./components/TermNotices";
 import styles from "./styles";
 
@@ -114,7 +116,18 @@ class OverviewContent extends React.Component<IPropsType> {
                         <FacultyLoadingSteps />
                     </Grid>
                     <Grid item>
-                        <Divider />
+                        <StateWrapper fetchableState={activeTerm!.fetchStatus}>
+                            {() => (
+                                <Grid container direction="column" spacing={24}>
+                                    <Grid item>
+                                        <Divider />
+                                    </Grid>
+                                    <Grid item>
+                                        <TermRejections />
+                                    </Grid>
+                                </Grid>
+                            )}
+                        </StateWrapper>
                     </Grid>
                     {/* <Grid item>
                         <TermNotices />
