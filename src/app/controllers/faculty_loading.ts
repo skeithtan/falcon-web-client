@@ -22,8 +22,8 @@ export default class FacultyLoadingController {
 
                 if (t.length > 0) {
                     // Find Max ID (Likely most recent) and make it active
-                    facultyLoading.activeTermId = Math.max(
-                        ...Array.from(facultyLoading.terms.keys())
+                    this.setActiveTerm(
+                        Math.max(...Array.from(facultyLoading.terms.keys()))
                     );
                 }
 
