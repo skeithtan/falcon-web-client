@@ -37,8 +37,8 @@ class DegreesView extends React.Component<IPropsType> {
         }
     };
 
-    public onOngoingChange = (ongoing: boolean, d: Degree) => () => {
-        d.ongoing = ongoing;
+    public onOngoingChange = (d: Degree) => () => {
+        FacultyProfilesController.toggleDegreeOngoing(d);
     };
 
     public render() {
@@ -83,7 +83,6 @@ class DegreesView extends React.Component<IPropsType> {
                                     <SubdoucmentActions
                                         ongoing={d.ongoing}
                                         onOngoingChange={this.onOngoingChange(
-                                            d.ongoing,
                                             d
                                         )}
                                         onRemoveClick={this.onRemoveClick(d)}

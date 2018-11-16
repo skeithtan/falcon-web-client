@@ -48,11 +48,8 @@ class InstructionalMaterialsView extends React.Component<IPropsType> {
         }
     };
 
-    public onOngoingChange = (
-        ongoing: boolean,
-        im: InstructionalMaterial
-    ) => () => {
-        im.ongoing = ongoing;
+    public onOngoingChange = (im: InstructionalMaterial) => () => {
+        FacultyProfilesController.toggleInstructionalMaterialOngoing(im);
     };
 
     public render() {
@@ -110,7 +107,6 @@ class InstructionalMaterialsView extends React.Component<IPropsType> {
                                     <SubdoucmentActions
                                         ongoing={im.ongoing}
                                         onOngoingChange={this.onOngoingChange(
-                                            im.ongoing,
                                             im
                                         )}
                                         onRemoveClick={this.onRemoveClick(im)}

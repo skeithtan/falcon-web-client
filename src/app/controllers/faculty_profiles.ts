@@ -347,4 +347,66 @@ export default class FacultyProfilesController {
             facultyMember.recognitions!.splice(index, 1);
         });
     }
+
+    //
+    // ─── Toggle Subdocument Ongoing ───────────────────────────────────────────────────────────────────────────
+    //
+
+    public static async toggleDegreeOngoing(degree: Degree) {
+        const facultyMemberDegrees = facultyProfiles.activeFacultyMember!
+            .degrees!;
+        const degreeIndex = facultyMemberDegrees.indexOf(degree);
+
+        DegreeService.toggleOngoing(degree.id)
+            .then(d => {
+                facultyMemberDegrees[degreeIndex] = d;
+            })
+            .catch((e: Error) => {
+                facultyProfiles.activeFacultyMember!.fetchStatus =
+                    FetchableStatus.Error;
+                facultyProfiles.setStatus(FetchableStatus.Error, e);
+            });
+    }
+
+    public static async toggleExtensionWorkOngoing(
+        extensionWork: ExtensionWork
+    ) {
+        const facultyMemberExtensionWorks = facultyProfiles.activeFacultyMember!
+            .extensionWorks!;
+        const extensionWorkIndex = facultyMemberExtensionWorks.indexOf(
+            extensionWork
+        );
+
+        ExtensionWorkService.toggleOngoing(extensionWork.id)
+            .then(ew => {
+                facultyMemberExtensionWorks[extensionWorkIndex] = ew;
+            })
+            .catch((e: Error) => {
+                facultyProfiles.activeFacultyMember!.fetchStatus =
+                    FetchableStatus.Error;
+                facultyProfiles.setStatus(FetchableStatus.Error, e);
+            });
+    }
+
+    public static async toggleInstructionalMaterialOngoing(
+        instructionalMaterial: InstructionalMaterial
+    ) {
+        const facultyMemberInstructionalMaterials = facultyProfiles.activeFacultyMember!
+            .instructionalMaterials!;
+        const instructionalMaterialIndex = facultyMemberInstructionalMaterials.indexOf(
+            instructionalMaterial
+        );
+
+        InstructionalMaterialService.toggleOngoing(instructionalMaterial.id)
+            .then(im => {
+                facultyMemberInstructionalMaterials[
+                    instructionalMaterialIndex
+                ] = im;
+            })
+            .catch((e: Error) => {
+                facultyProfiles.activeFacultyMember!.fetchStatus =
+                    FetchableStatus.Error;
+                facultyProfiles.setStatus(FetchableStatus.Error, e);
+            });
+    }
 }

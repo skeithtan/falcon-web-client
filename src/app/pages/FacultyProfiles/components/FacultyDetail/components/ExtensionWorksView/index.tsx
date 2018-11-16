@@ -40,8 +40,8 @@ class ExtensionWorksView extends React.Component<IPropsType> {
         }
     };
 
-    public onOngoingChange = (ongoing: boolean, ew: ExtensionWork) => () => {
-        ew.ongoing = ongoing;
+    public onOngoingChange = (ew: ExtensionWork) => () => {
+        FacultyProfilesController.toggleExtensionWorkOngoing(ew);
     };
 
     public render() {
@@ -83,7 +83,6 @@ class ExtensionWorksView extends React.Component<IPropsType> {
                                     <SubdoucmentActions
                                         ongoing={ew.ongoing}
                                         onOngoingChange={this.onOngoingChange(
-                                            ew.ongoing,
                                             ew
                                         )}
                                         onRemoveClick={this.onRemoveClick(ew)}
