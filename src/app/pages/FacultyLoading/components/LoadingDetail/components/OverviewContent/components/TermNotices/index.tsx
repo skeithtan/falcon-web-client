@@ -37,7 +37,7 @@ export default class TermNotices extends React.Component<IPropsType> {
                     <StateWrapper fetchableState={facultyLoading!.fetchStatus}>
                         {() => (
                             <React.Fragment>
-                                {activeTerm!.notices.map(n => (
+                                {activeTerm!.notices!.map(n => (
                                     <Grid item key={n.id}>
                                         <OverviewCard
                                             name={n.facultyMember.fullName}
