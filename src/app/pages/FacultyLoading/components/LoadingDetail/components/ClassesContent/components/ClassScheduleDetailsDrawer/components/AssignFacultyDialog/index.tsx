@@ -142,7 +142,6 @@ export default class AssignFacultyDialog extends React.Component<IPropsType> {
                         direction="row"
                         justify="center"
                         alignItems="center"
-                        xs
                     >
                         {isSubmitting && <CircularProgress size={80} />}
                     </Grid>
