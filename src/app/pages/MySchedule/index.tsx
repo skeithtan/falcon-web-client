@@ -13,6 +13,7 @@ import FacultyOverview from "../FacultyLoading/components/LoadingDetail/componen
 import FacultySchedule from "../FacultyLoading/components/LoadingDetail/components/FacultyContent/components/FacultySchedule";
 import TermList from "../FacultyLoading/components/TermList";
 import FeedbackFormView from "./components/FeedbackFormView";
+import NoticeFormView from "./components/NoticeFormView";
 import TimeConstraintsFormView from "./components/TimeConstraintsFormView";
 import styles from "./styles";
 
@@ -83,34 +84,36 @@ class MySchedule extends React.Component<IPropsType> {
                                     <ArrowDropDownIcon />
                                 </Button>
                             </Grid>
-                            <Grid item>
-                                <Button
-                                    variant={
-                                        activeTerm!.status ===
-                                        TermStatus.Initializing
-                                            ? "contained"
-                                            : "outlined"
-                                    }
-                                    color="primary"
-                                    onClick={this.submitTimeConstrainsFormToggle(
-                                        true
-                                    )}
-                                >
-                                    Submit Time Constraints
-                                </Button>
-                                {activeTerm!.status ===
-                                    TermStatus.FeedbackGathering && (
+                            {activeTerm!.status !== TermStatus.Archived && (
+                                <Grid item>
                                     <Button
-                                        variant="contained"
+                                        variant={
+                                            activeTerm!.status ===
+                                            TermStatus.Initializing
+                                                ? "contained"
+                                                : "outlined"
+                                        }
                                         color="primary"
-                                        onClick={this.submitFeedbackFormToggle(
+                                        onClick={this.submitTimeConstrainsFormToggle(
                                             true
                                         )}
                                     >
-                                        Submit Feedback
+                                        Submit Time Constraints
                                     </Button>
-                                )}
-                            </Grid>
+                                    {activeTerm!.status ===
+                                        TermStatus.FeedbackGathering && (
+                                        <Button
+                                            variant="contained"
+                                            color="primary"
+                                            onClick={this.submitFeedbackFormToggle(
+                                                true
+                                            )}
+                                        >
+                                            Submit Feedback
+                                        </Button>
+                                    )}
+                                </Grid>
+                            )}
                         </Grid>
                         <Grid
                             item
@@ -131,6 +134,7 @@ class MySchedule extends React.Component<IPropsType> {
                             </Grid>
                             <TimeConstraintsFormView />
                             <FeedbackFormView />
+                            <NoticeFormView />
                         </Grid>
                         <TermList />
                     </Grid>
