@@ -9,6 +9,7 @@ import Grid from "@material-ui/core/Grid";
 import MenuItem from "@material-ui/core/MenuItem";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
+import Switch from "@material-ui/core/Switch";
 import TextField from "@material-ui/core/TextField";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
@@ -46,6 +47,12 @@ export default class AddInstructionalMaterialFormView extends React.Component<
         const { facultyProfiles } = this.props;
         const { form } = facultyProfiles!.addInstructionalMaterialFormState;
         form[property] = event.target.value;
+    };
+
+    public onOngoingChange = (ongoing: boolean) => (event: any) => {
+        const { facultyProfiles } = this.props;
+        const { form } = facultyProfiles!.addExtensionWorkFormState;
+        form.ongoing = ongoing;
     };
 
     public onAddMultiple = (
@@ -219,6 +226,21 @@ export default class AddInstructionalMaterialFormView extends React.Component<
                                 {validationErrors.associatedPrograms}
                             </FormHelperText>
                         </FormControl>
+                    </Grid>
+                    <Grid item>
+                        <FormControlLabel
+                            control={
+                                <Switch
+                                    checked={form.ongoing}
+                                    onChange={this.onOngoingChange(
+                                        !form.ongoing
+                                    )}
+                                    value={form.ongoing}
+                                    color="primary"
+                                />
+                            }
+                            label="Ongoing"
+                        />
                     </Grid>
                     <Grid item>
                         <FormSubmitBar
