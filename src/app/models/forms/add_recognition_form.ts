@@ -28,4 +28,6 @@ export default class AddRecognitionForm extends AddSubdocumentForm {
     })
     @observable
     public sponsor: string = "";
+
+    public ongoing: boolean = false;
 }

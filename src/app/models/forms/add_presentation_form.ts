@@ -54,4 +54,6 @@ export default class AddPresentationForm extends AddSubdocumentForm {
     })
     @observable
     public daysDuration: string = "";
+
+    public ongoing: boolean = false;
 }

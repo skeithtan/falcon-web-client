@@ -22,4 +22,7 @@ export default class AddExtensionWorkForm extends AddSubdocumentForm {
     })
     @observable
     public venue: string = "";
+
+    @observable
+    public ongoing: boolean = false;
 }

@@ -28,4 +28,7 @@ export default class AddDegreeForm extends AddSubdocumentForm {
     })
     @observable
     public completionYear: string = "";
+
+    @observable
+    public ongoing: boolean = false;
 }
