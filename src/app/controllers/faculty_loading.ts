@@ -391,6 +391,21 @@ export default class FacultyLoadingController {
         facultyLoading.printTermScheduleState.isShowing = shouldShow;
     }
 
+    public static toggleNoticeForm(shouldShow: boolean) {
+        facultyLoading.facultyTabState.noticeFormState.isShowing = shouldShow;
+    }
+
+    public static submitNotice() {
+        const {
+            facultyTabState: { noticeFormState: formState },
+        } = facultyLoading;
+        // const { form } = formState;
+
+        formState.setStatus(FormStatus.Submitting);
+
+        // TODO: service and reset and close
+    }
+
     public static removeNotice(notice: Notice) {
         const notices = facultyLoading.activeTerm!.notices;
         const noticeIndex = notices!.indexOf(notice);
