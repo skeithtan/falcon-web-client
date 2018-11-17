@@ -50,6 +50,9 @@ export default class AddInstructionalMaterialForm extends AddSubdocumentForm {
     })
     @observable
     public level: string = "";
+
+    @observable
+    public ongoing: boolean = false;
 }
 
 function IsValidLevel(validationOptions?: ValidationOptions) {

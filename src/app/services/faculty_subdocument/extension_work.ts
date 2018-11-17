@@ -16,4 +16,13 @@ export default class ExtensionWorkService {
             .delete(`/faculty-subdocuments/extension-works/${id}`)
             .catch(handleAxiosError);
     }
+
+    public static async toggleOngoing(
+        extensionWorkId: number
+    ): Promise<ExtensionWork> {
+        return axios
+            .put(`/faculty-subdocuments/extension-works/${extensionWorkId}/toggle-ongoing`)
+            .then((response: AxiosResponse) => new ExtensionWork(response.data))
+            .catch(handleAxiosError);
+    }
 }

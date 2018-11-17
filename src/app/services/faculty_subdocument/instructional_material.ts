@@ -19,4 +19,18 @@ export default class InstructionalMaterialService {
             .delete(`/faculty-subdocuments/instructional-materials/${id}`)
             .catch(handleAxiosError);
     }
+
+    public static async toggleOngoing(
+        instructionalMaterialId: number
+    ): Promise<InstructionalMaterial> {
+        return axios
+            .put(
+                `/faculty-subdocuments/instructional-materials/${instructionalMaterialId}/toggle-ongoing`
+            )
+            .then(
+                (response: AxiosResponse) =>
+                    new InstructionalMaterial(response.data)
+            )
+            .catch(handleAxiosError);
+    }
 }

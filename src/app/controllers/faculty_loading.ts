@@ -1,4 +1,5 @@
 import ClassSchedule from "../models/entities/class_schedule";
+import Notice from "../models/entities/notice";
 import FacultyLoadingTab from "../models/enums/faculty_loading_tab";
 import FeedbackStatus from "../models/enums/feedback_status";
 import FetchableStatus from "../models/enums/fetchable_status";
@@ -21,8 +22,8 @@ export default class FacultyLoadingController {
 
                 if (t.length > 0) {
                     // Find Max ID (Likely most recent) and make it active
-                    facultyLoading.activeTermId = Math.max(
-                        ...Array.from(facultyLoading.terms.keys())
+                    this.setActiveTerm(
+                        Math.max(...Array.from(facultyLoading.terms.keys()))
                     );
                 }
 
@@ -61,15 +62,14 @@ export default class FacultyLoadingController {
     public static setActiveTerm(id: number) {
         facultyLoading.activeTermId = id;
         const term = facultyLoading.activeTerm!;
-        facultyLoading.setStatus(FetchableStatus.Fetching);
+        term.setStatus(FetchableStatus.Fetching);
 
         return FacultyLoadingService.fetchTerm(term.id)
             .then(t => {
                 facultyLoading.terms!.set(t.id, t);
-                facultyLoading.setStatus(FetchableStatus.Fetched);
             })
             .catch((e: Error) =>
-                facultyLoading.setStatus(FetchableStatus.Error, e)
+                term.setStatus(FetchableStatus.Error, e.message)
             );
     }
 
@@ -210,6 +210,10 @@ export default class FacultyLoadingController {
 
         if (!shouldShow) {
             state.resetAndClose();
+        } else {
+            state.form.prefillForm(
+                facultyLoading.facultyTabState.activeFaculty!
+            );
         }
     }
 
@@ -385,5 +389,26 @@ export default class FacultyLoadingController {
 
     public static togglePrintTermSchedule(shouldShow: boolean) {
         facultyLoading.printTermScheduleState.isShowing = shouldShow;
+    }
+
+    public static toggleNoticeForm(shouldShow: boolean) {
+        facultyLoading.facultyTabState.noticeFormState.isShowing = shouldShow;
+    }
+
+    public static submitNotice() {
+        const {
+            facultyTabState: { noticeFormState: formState },
+        } = facultyLoading;
+        // const { form } = formState;
+
+        formState.setStatus(FormStatus.Submitting);
+
+        // TODO: service and reset and close
+    }
+
+    public static removeNotice(notice: Notice) {
+        const notices = facultyLoading.activeTerm!.notices;
+        const noticeIndex = notices!.indexOf(notice);
+        notices!.splice(noticeIndex, 1);
     }
 }

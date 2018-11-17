@@ -13,6 +13,7 @@ import FacultyOverview from "../FacultyLoading/components/LoadingDetail/componen
 import FacultySchedule from "../FacultyLoading/components/LoadingDetail/components/FacultyContent/components/FacultySchedule";
 import TermList from "../FacultyLoading/components/TermList";
 import FeedbackFormView from "./components/FeedbackFormView";
+import NoticeFormView from "./components/NoticeFormView";
 import TimeConstraintsFormView from "./components/TimeConstraintsFormView";
 import styles from "./styles";
 
@@ -48,16 +49,20 @@ class MySchedule extends React.Component<IPropsType> {
         const { facultyTabState, activeTerm } = facultyLoading!;
         const { activeFaculty } = facultyTabState;
         return (
-            <StateWrapper fetchableState={facultyLoading!.fetchStatus}>
+            <StateWrapper
+                className={classes.outerStateWrapper}
+                fetchableState={facultyTabState.fetchStatus}
+                disableFlex
+            >
                 {() => (
                     <Grid
                         container
                         direction="column"
                         justify="center"
                         alignItems="center"
-                        className={classes.content}
                         wrap="nowrap"
                         spacing={16}
+                        className={classes.content}
                     >
                         <Grid
                             item
@@ -65,6 +70,7 @@ class MySchedule extends React.Component<IPropsType> {
                             direction="row"
                             alignItems="center"
                             justify="space-between"
+                            wrap="nowrap"
                         >
                             <Grid item>
                                 <Button
@@ -78,54 +84,58 @@ class MySchedule extends React.Component<IPropsType> {
                                     <ArrowDropDownIcon />
                                 </Button>
                             </Grid>
-                            <Grid item>
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    onClick={
-                                        activeTerm!.status ===
-                                        TermStatus.Initializing
-                                            ? this.submitTimeConstrainsFormToggle(
-                                                  true
-                                              )
-                                            : this.submitFeedbackFormToggle(
-                                                  true
-                                              )
-                                    }
-                                >
+                            {activeTerm!.status !== TermStatus.Archived && (
+                                <Grid item>
+                                    <Button
+                                        variant={
+                                            activeTerm!.status ===
+                                            TermStatus.Initializing
+                                                ? "contained"
+                                                : "outlined"
+                                        }
+                                        color="primary"
+                                        onClick={this.submitTimeConstrainsFormToggle(
+                                            true
+                                        )}
+                                    >
+                                        Submit Time Constraints
+                                    </Button>
                                     {activeTerm!.status ===
-                                    TermStatus.Initializing
-                                        ? "Submit time availability"
-                                        : "Submit feedback"}
-                                </Button>
-                            </Grid>
-                        </Grid>
-                        <StateWrapper
-                            fetchableState={facultyTabState.fetchStatus}
-                        >
-                            {() => (
-                                <Grid
-                                    item
-                                    container
-                                    direction="column"
-                                    spacing={16}
-                                    wrap="nowrap"
-                                >
-                                    <Grid item>
-                                        <FacultyOverview
-                                            facultyMember={activeFaculty!}
-                                        />
-                                    </Grid>
-                                    <Grid item>
-                                        <FacultySchedule
-                                            facultyMember={activeFaculty!}
-                                        />
-                                    </Grid>
-                                    <TimeConstraintsFormView />
-                                    <FeedbackFormView />
+                                        TermStatus.FeedbackGathering && (
+                                        <Button
+                                            variant="contained"
+                                            color="primary"
+                                            onClick={this.submitFeedbackFormToggle(
+                                                true
+                                            )}
+                                        >
+                                            Submit Feedback
+                                        </Button>
+                                    )}
                                 </Grid>
                             )}
-                        </StateWrapper>
+                        </Grid>
+                        <Grid
+                            item
+                            container
+                            direction="column"
+                            spacing={16}
+                            wrap="nowrap"
+                        >
+                            <Grid item>
+                                <FacultyOverview
+                                    facultyMember={activeFaculty!}
+                                />
+                            </Grid>
+                            <Grid item>
+                                <FacultySchedule
+                                    facultyMember={activeFaculty!}
+                                />
+                            </Grid>
+                            <TimeConstraintsFormView />
+                            <FeedbackFormView />
+                            <NoticeFormView />
+                        </Grid>
                         <TermList />
                     </Grid>
                 )}

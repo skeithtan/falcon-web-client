@@ -1,4 +1,5 @@
 import { computed, observable } from "mobx";
+import FacultyLoadingFacultyMember from "../entities/faculty_loading_faculty_member";
 import TimeConstraint from "../entities/time_constraint";
 import MeetingDays from "../enums/meeting_days";
 
@@ -21,5 +22,10 @@ export default class TimeConstraintsForm {
         return this.timeConstraints.filter(
             tc => tc.meetingDays === MeetingDays.TuesdayFriday
         ).length;
+    }
+
+    public prefillForm(flfm: FacultyLoadingFacultyMember) {
+        this.timeConstraints = flfm.timeConstraints;
+        this.hasExternalLoad = flfm.hasExternalLoad;
     }
 }

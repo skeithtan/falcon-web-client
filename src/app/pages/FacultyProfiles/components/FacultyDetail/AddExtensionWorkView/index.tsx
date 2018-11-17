@@ -5,6 +5,7 @@ import FormGroup from "@material-ui/core/FormGroup";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import FormLabel from "@material-ui/core/FormLabel";
 import Grid from "@material-ui/core/Grid";
+import Switch from "@material-ui/core/Switch";
 import TextField from "@material-ui/core/TextField";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
@@ -37,6 +38,12 @@ export default class AddExtensionWorkView extends React.Component<IPropsType> {
         const { facultyProfiles } = this.props;
         const { form } = facultyProfiles!.addExtensionWorkFormState;
         form[property] = event.target.value;
+    };
+
+    public onOngoingChange = (ongoing: boolean) => (event: any) => {
+        const { facultyProfiles } = this.props;
+        const { form } = facultyProfiles!.addExtensionWorkFormState;
+        form.ongoing = ongoing;
     };
 
     public onAddMultiple = (
@@ -171,6 +178,21 @@ export default class AddExtensionWorkView extends React.Component<IPropsType> {
                                 </FormHelperText>
                             </FormControl>
                         </Grid>
+                    </Grid>
+                    <Grid item>
+                        <FormControlLabel
+                            control={
+                                <Switch
+                                    checked={form.ongoing}
+                                    onChange={this.onOngoingChange(
+                                        !form.ongoing
+                                    )}
+                                    value={form.ongoing}
+                                    color="primary"
+                                />
+                            }
+                            label="Ongoing"
+                        />
                     </Grid>
                     <Grid item>
                         <FormSubmitBar

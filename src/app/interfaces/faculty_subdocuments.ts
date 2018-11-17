@@ -8,4 +8,7 @@ export default abstract class FacultyMemberSubdocument extends Entity {
 
     @observable
     public associatedPrograms: Program[];
+
+    @observable
+    public ongoing: boolean;
 }

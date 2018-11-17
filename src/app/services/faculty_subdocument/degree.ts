@@ -16,4 +16,11 @@ export default class DegreeService {
             .delete(`/faculty-subdocuments/degrees/${id}`)
             .catch(handleAxiosError);
     }
+
+    public static async toggleOngoing(degreeId: number): Promise<Degree> {
+        return axios
+            .put(`/faculty-subdocuments/degrees/${degreeId}/toggle-ongoing`)
+            .then((response: AxiosResponse) => new Degree(response.data))
+            .catch(handleAxiosError);
+    }
 }

@@ -5,7 +5,6 @@ import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import List from "@material-ui/core/List";
 import { withStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
 import { observer } from "mobx-react";
 import * as moment from "moment";
 import * as React from "react";
@@ -20,6 +19,7 @@ import PresentationMedium, {
     PresentationMediumReadable,
 } from "../../../../../../models/enums/presentation_medium";
 import AssociatedProgramsItem from "../AssociatedProgramsItem";
+import SubdocumentSummary from "../SubdocumentSummary";
 import styles from "./styles";
 
 interface IPropsType {
@@ -29,7 +29,7 @@ interface IPropsType {
 
 @observer
 class PresentationsView extends React.Component<IPropsType> {
-    public onDeleteClick = (presentation: Presentation) => () => {
+    public onRemoveClick = (presentation: Presentation) => () => {
         if (
             confirm(
                 `Are you sure you want to delete the presentation ${
@@ -40,12 +40,14 @@ class PresentationsView extends React.Component<IPropsType> {
             FacultyProfilesController.removePresentation(presentation).catch(
                 (e: Error) =>
                     alert(
-                        `An error occurred while deleting the presentation ${
-                            e
-                        }`
+                        `An error occurred while deleting the presentation ${e}`
                     )
             );
         }
+    };
+
+    public onOngoingChange = (ongoing: boolean, p: Presentation) => () => {
+        p.ongoing = ongoing;
     };
 
     public render() {
@@ -65,9 +67,10 @@ class PresentationsView extends React.Component<IPropsType> {
                         return (
                             <ExpansionPanel key={p.id}>
                                 <ExpansionPanelSummary>
-                                    <Typography variant="subtitle1">
-                                        {p.title}
-                                    </Typography>
+                                    <SubdocumentSummary
+                                        title={p.title}
+                                        ongoing={p.ongoing}
+                                    />
                                 </ExpansionPanelSummary>
                                 <ExpansionPanelDetails
                                     className={classes.panelDetail}
@@ -110,7 +113,7 @@ class PresentationsView extends React.Component<IPropsType> {
                                 <ExpansionPanelActions>
                                     <Button
                                         color="secondary"
-                                        onClick={this.onDeleteClick(p)}
+                                        onClick={this.onRemoveClick(p)}
                                     >
                                         Remove
                                     </Button>

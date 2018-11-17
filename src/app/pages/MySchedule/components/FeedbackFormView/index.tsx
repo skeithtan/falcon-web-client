@@ -9,6 +9,7 @@ import FormSubmitBar from "../../../../components/reusable/FormSubmitBar";
 import FacultyLoadingController from "../../../../controllers/faculty_loading";
 import FacultyClassSchedule from "../../../../models/entities/faculty_class_schedule";
 import FeedbackStatus from "../../../../models/enums/feedback_status";
+import TermStatus from "../../../../models/enums/term_status";
 import { FacultyLoadingState } from "../../../../store/faculty_loading";
 import ClassScheduleFeedbackItem from "./components/ClassScheduleFeedbackItem";
 
@@ -41,9 +42,14 @@ export default class FeedbackFormView extends React.Component<IPropsType> {
         FacultyLoadingController.submitFeedback();
     };
 
+    public onPublishedSubmitClick = () => {
+        FacultyLoadingController.submitFeedback();
+        FacultyLoadingController.toggleNoticeForm(true);
+    };
+
     public render() {
         const { facultyLoading } = this.props;
-        const { facultyTabState } = facultyLoading!;
+        const { facultyTabState, activeTerm } = facultyLoading!;
         const {
             feedbackFormState,
             feedbackFormState: {
@@ -85,19 +91,27 @@ export default class FeedbackFormView extends React.Component<IPropsType> {
                             )}
                         </List>
                     </Grid>
-                    {!allAccepted && (
-                        <Grid item>
-                            <Typography variant="subtitle2" color="secondary">
-                                Because you have at least one rejected class
-                                schedule, the time constraint form will appear
-                                after submission.
-                            </Typography>
-                        </Grid>
-                    )}
+                    {!allAccepted &&
+                        activeTerm!.status !== TermStatus.Published && (
+                            <Grid item>
+                                <Typography
+                                    variant="subtitle2"
+                                    color="secondary"
+                                >
+                                    Because you have at least one rejected class
+                                    schedule, the time constraint form will
+                                    appear after submission.
+                                </Typography>
+                            </Grid>
+                        )}
                     <Grid item>
                         <FormSubmitBar
                             formState={feedbackFormState}
-                            onSubmitClick={this.onSubmitClick}
+                            onSubmitClick={
+                                activeTerm!.status === TermStatus.Published
+                                    ? this.onPublishedSubmitClick
+                                    : this.onSubmitClick
+                            }
                         />
                     </Grid>
                 </Grid>

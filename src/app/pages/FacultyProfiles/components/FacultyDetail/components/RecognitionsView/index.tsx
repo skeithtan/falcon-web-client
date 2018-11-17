@@ -5,7 +5,6 @@ import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import List from "@material-ui/core/List";
 import { withStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
 import { observer } from "mobx-react";
 import * as moment from "moment";
 import * as React from "react";
@@ -17,6 +16,7 @@ import RecognitionBasis, {
     RecognitionBasisReadable,
 } from "../../../../../../models/enums/recognition_basis";
 import AssociatedProgramsItem from "../AssociatedProgramsItem";
+import SubdocumentSummary from "../SubdocumentSummary";
 import styles from "./styles";
 
 interface IPropsType {
@@ -26,7 +26,7 @@ interface IPropsType {
 
 @observer
 class RecognitionsView extends React.Component<IPropsType> {
-    public onDeleteClick = (recognition: Recognition) => () => {
+    public onRemoveClick = (recognition: Recognition) => () => {
         if (
             confirm(
                 `Are you sure you want to delete the recognition ${
@@ -37,12 +37,14 @@ class RecognitionsView extends React.Component<IPropsType> {
             FacultyProfilesController.removeRecognition(recognition).catch(
                 (e: Error) =>
                     alert(
-                        `An error occurred while deleting the recognition ${
-                            e
-                        }`
+                        `An error occurred while deleting the recognition ${e}`
                     )
             );
         }
+    };
+
+    public onOngoingChange = (ongoing: boolean, r: Recognition) => () => {
+        r.ongoing = ongoing;
     };
 
     public render() {
@@ -60,9 +62,10 @@ class RecognitionsView extends React.Component<IPropsType> {
                         return (
                             <ExpansionPanel key={r.id}>
                                 <ExpansionPanelSummary>
-                                    <Typography variant="subtitle1">
-                                        {r.title}
-                                    </Typography>
+                                    <SubdocumentSummary
+                                        title={r.title}
+                                        ongoing={r.ongoing}
+                                    />
                                 </ExpansionPanelSummary>
                                 <ExpansionPanelDetails
                                     className={classes.panelDetail}
@@ -92,7 +95,7 @@ class RecognitionsView extends React.Component<IPropsType> {
                                 <ExpansionPanelActions>
                                     <Button
                                         color="secondary"
-                                        onClick={this.onDeleteClick(r)}
+                                        onClick={this.onRemoveClick(r)}
                                     >
                                         Remove
                                     </Button>
