@@ -168,12 +168,21 @@ export default class FacultyLoadingService {
             .catch(handleAxiosError);
     }
 
-    public static async submitNotice(termId: number, form: NoticeForm): Promise<Notice> {
+    public static async submitNotice(
+        termId: number,
+        form: NoticeForm
+    ): Promise<Notice> {
         return axios
             .post(`/terms/${termId}/my-schedules/notice`, form)
             .then((response: AxiosResponse) => {
                 return new Notice(response.data);
             })
+            .catch(handleAxiosError);
+    }
+
+    public static async removeNotice(termId: number, noticeId: number) {
+        return axios
+            .delete(`/terms/${termId}/notices/${noticeId}`)
             .catch(handleAxiosError);
     }
 }
