@@ -5,6 +5,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Done from "@material-ui/icons/Done";
 import DoneAll from "@material-ui/icons/DoneAll";
+import ErrorOutline from "@material-ui/icons/ErrorOutline";
 import * as classNames from "classnames";
 import * as React from "react";
 import IStyleClasses from "../../../interfaces/style_classes";
@@ -20,6 +21,7 @@ interface IPropsType {
     meetingHours: MeetingHours;
     isAvailable?: boolean;
     isPreferred?: boolean;
+    isThirdConsecutive?: boolean;
     classSchedule?: FacultyClassSchedule;
     feedback?: Feedback;
     classes: IStyleClasses;
@@ -31,6 +33,7 @@ class TimeSlotCard extends React.Component<IPropsType> {
             meetingHours,
             isAvailable,
             isPreferred,
+            isThirdConsecutive,
             classSchedule,
             feedback,
             classes,
@@ -65,9 +68,27 @@ class TimeSlotCard extends React.Component<IPropsType> {
                                     {MeetingHoursReadable.get(meetingHours)}
                                 </Typography>
                             </Grid>
-                            <Grid item>
-                                {isAvailable && !isPreferred && <Done />}
-                                {isPreferred && <DoneAll />}
+                            <Grid
+                                item
+                                container
+                                direction="row"
+                                justify="flex-end"
+                            >
+                                {isThirdConsecutive && (
+                                    <Grid item>
+                                        <ErrorOutline color="secondary" />
+                                    </Grid>
+                                )}
+                                {isAvailable && !isPreferred && (
+                                    <Grid item>
+                                        <Done />
+                                    </Grid>
+                                )}
+                                {isPreferred && (
+                                    <Grid item>
+                                        <DoneAll />
+                                    </Grid>
+                                )}
                             </Grid>
                         </Grid>
                         {classSchedule && (
