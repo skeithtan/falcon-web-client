@@ -17,6 +17,10 @@ interface IPropsType {
 @inject("facultyLoading")
 @observer
 export default class NoticeFormView extends React.Component<IPropsType> {
+    public onClose = () => {
+        FacultyLoadingController.toggleNoticeForm(false);
+    };
+
     public onChange = (
         property: string
     ): React.ChangeEventHandler<
@@ -46,7 +50,7 @@ export default class NoticeFormView extends React.Component<IPropsType> {
             canSubmit,
         } = noticeFormState;
         return (
-            <Dialog open={isShowing}>
+            <Dialog open={isShowing} onClose={this.onClose}>
                 <DialogTitle>Submit Notice</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
