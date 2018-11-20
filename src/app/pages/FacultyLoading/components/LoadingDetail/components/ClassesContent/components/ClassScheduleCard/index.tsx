@@ -5,6 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import * as classNames from "classnames";
+import { observer } from "mobx-react";
 import * as React from "react";
 import IStyleClasses from "../../../../../../../../interfaces/style_classes";
 import ClassSchedule from "../../../../../../../../models/entities/class_schedule";
@@ -16,6 +17,7 @@ interface IPropsType {
     classes: IStyleClasses;
 }
 
+@observer
 class ClassScheduleCard extends React.Component<IPropsType> {
     public render() {
         const { classSchedule: cs, onClick, classes } = this.props;

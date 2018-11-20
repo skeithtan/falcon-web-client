@@ -1,5 +1,6 @@
 import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";
+import { observer } from "mobx-react";
 import * as React from "react";
 import FacultyLoadingController from "../../../../../../../../controllers/faculty_loading";
 import IStyleClasses from "../../../../../../../../interfaces/style_classes";
@@ -12,6 +13,7 @@ interface IPropsType {
     classes: IStyleClasses;
 }
 
+@observer
 class ScheduleColumn extends React.Component<IPropsType> {
     public setActiveClassSchedule = (cs: number) => () => {
         FacultyLoadingController.setActiveClassSchedule(cs);
