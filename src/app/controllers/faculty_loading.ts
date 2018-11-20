@@ -376,6 +376,7 @@ export default class FacultyLoadingController {
                 facultyLoading.classesTabState.classSchedules!.set(cs.id, cs);
                 this.toggleClassScheduleDetails(false);
                 formState.resetAndClose();
+                this.getAllClassSchedulesTabPrerequisites();
             })
             .catch(e => {
                 formState.setStatus(FormStatus.Error, e);
