@@ -2,11 +2,13 @@ import axios, { AxiosResponse } from "axios";
 import ClassSchedule from "../models/entities/class_schedule";
 import FacultyLoadingFacultyMember from "../models/entities/faculty_loading_faculty_member";
 import FacultyProfile from "../models/entities/faculty_profile";
+import Notice from "../models/entities/notice";
 import Term from "../models/entities/term";
 import TimeConstraint from "../models/entities/time_constraint";
 import FeedbackStatus from "../models/enums/feedback_status";
 import AddClassForm from "../models/forms/add_class_form";
 import AddTermForm from "../models/forms/add_term_form";
+import NoticeForm from "../models/forms/notice_form";
 import TimeConstraintsForm from "../models/forms/time_constraints_form";
 import { handleAxiosError } from "../utils/handle_axios_error";
 
@@ -162,6 +164,15 @@ export default class FacultyLoadingService {
             )
             .then((response: AxiosResponse) => {
                 return new ClassSchedule(response.data);
+            })
+            .catch(handleAxiosError);
+    }
+
+    public static async submitNotice(termId: number, form: NoticeForm): Promise<Notice> {
+        return axios
+            .post(`/terms/${termId}/my-schedules/notice`, form)
+            .then((response: AxiosResponse) => {
+                return new Notice(response.data);
             })
             .catch(handleAxiosError);
     }
