@@ -2,7 +2,6 @@ import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
-import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import * as React from "react";
@@ -22,8 +21,9 @@ export default class OverviewCard extends React.Component<IPropsType> {
                     <Grid container direction="column" spacing={16}>
                         {name && (
                             <Grid item>
-                                <Typography>{name}</Typography>
-                                <Divider />
+                                <Typography variant="h6">
+                                    <b>{name}</b>
+                                </Typography>
                             </Grid>
                         )}
                         <Grid item>
