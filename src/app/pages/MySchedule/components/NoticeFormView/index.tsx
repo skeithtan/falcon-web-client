@@ -2,7 +2,6 @@ import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import TextField from "@material-ui/core/TextField";
 import { inject, observer } from "mobx-react";
@@ -17,6 +16,10 @@ interface IPropsType {
 @inject("facultyLoading")
 @observer
 export default class NoticeFormView extends React.Component<IPropsType> {
+    public onClose = () => {
+        FacultyLoadingController.toggleNoticeForm(false);
+    };
+
     public onChange = (
         property: string
     ): React.ChangeEventHandler<
@@ -46,13 +49,9 @@ export default class NoticeFormView extends React.Component<IPropsType> {
             canSubmit,
         } = noticeFormState;
         return (
-            <Dialog open={isShowing}>
+            <Dialog open={isShowing} onClose={this.onClose}>
                 <DialogTitle>Submit Notice</DialogTitle>
                 <DialogContent>
-                    <DialogContentText>
-                        You have submitted feedback while the term is ongoing.
-                        Indicate your reason below.
-                    </DialogContentText>
                     <TextField
                         label="Message"
                         variant="outlined"

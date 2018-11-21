@@ -44,10 +44,15 @@ class MySchedule extends React.Component<IPropsType> {
         FacultyLoadingController.toggleTermList(shouldShow);
     };
 
+    public toggleNoticeForm = (shouldShow: boolean) => () => {
+        FacultyLoadingController.toggleNoticeForm(shouldShow);
+    };
+
     public render() {
         const { facultyLoading, classes } = this.props;
         const { facultyTabState, activeTerm } = facultyLoading!;
         const { activeFaculty } = facultyTabState;
+
         return (
             <StateWrapper
                 className={classes.outerStateWrapper}
@@ -86,20 +91,25 @@ class MySchedule extends React.Component<IPropsType> {
                             </Grid>
                             {activeTerm!.status !== TermStatus.Archived && (
                                 <Grid item>
-                                    <Button
-                                        variant={
-                                            activeTerm!.status ===
-                                            TermStatus.Initializing
-                                                ? "contained"
-                                                : "outlined"
-                                        }
-                                        color="primary"
-                                        onClick={this.submitTimeConstrainsFormToggle(
-                                            true
-                                        )}
-                                    >
-                                        Submit Time Constraints
-                                    </Button>
+                                    {activeTerm!.status ===
+                                        TermStatus.Initializing ||
+                                        (activeTerm!.status ===
+                                            TermStatus.FeedbackGathering && (
+                                            <Button
+                                                variant={
+                                                    activeTerm!.status ===
+                                                    TermStatus.Initializing
+                                                        ? "contained"
+                                                        : "outlined"
+                                                }
+                                                color="primary"
+                                                onClick={this.submitTimeConstrainsFormToggle(
+                                                    true
+                                                )}
+                                            >
+                                                Submit Time Constraints
+                                            </Button>
+                                        ))}
                                     {activeTerm!.status ===
                                         TermStatus.FeedbackGathering && (
                                         <Button
@@ -110,6 +120,18 @@ class MySchedule extends React.Component<IPropsType> {
                                             )}
                                         >
                                             Submit Feedback
+                                        </Button>
+                                    )}
+                                    {activeTerm!.status ===
+                                        TermStatus.Published && (
+                                        <Button
+                                            variant="contained"
+                                            color="primary"
+                                            onClick={this.toggleNoticeForm(
+                                                true
+                                            )}
+                                        >
+                                            Submit Notice
                                         </Button>
                                     )}
                                 </Grid>

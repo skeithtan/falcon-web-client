@@ -13,8 +13,8 @@ import UserType from "../../../../../../models/enums/user_type";
 import { AuthenticationState } from "../../../../../../store/authentication";
 import { FacultyLoadingState } from "../../../../../../store/faculty_loading";
 import FacultyLoadingSteps from "./components/FacultyLoadingSteps";
+import TermNotices from "./components/TermNotices";
 import TermRejections from "./components/TermRejections";
-// import TermNotices from "./components/TermNotices";
 import styles from "./styles";
 
 interface IPropsType {
@@ -125,13 +125,13 @@ class OverviewContent extends React.Component<IPropsType> {
                                     <Grid item>
                                         <TermRejections />
                                     </Grid>
+                                    <Grid item>
+                                        <TermNotices />
+                                    </Grid>
                                 </Grid>
                             )}
                         </StateWrapper>
                     </Grid>
-                    {/* <Grid item>
-                        <TermNotices />
-                    </Grid> */}
                 </Grid>
             </div>
         );

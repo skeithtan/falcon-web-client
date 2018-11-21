@@ -376,6 +376,7 @@ export default class FacultyLoadingController {
                 facultyLoading.classesTabState.classSchedules!.set(cs.id, cs);
                 this.toggleClassScheduleDetails(false);
                 formState.resetAndClose();
+                this.getAllClassSchedulesTabPrerequisites();
             })
             .catch(e => {
                 formState.setStatus(FormStatus.Error, e);
@@ -399,11 +400,19 @@ export default class FacultyLoadingController {
         const {
             facultyTabState: { noticeFormState: formState },
         } = facultyLoading;
-        // const { form } = formState;
+        const { form } = formState;
+        const termId = facultyLoading.activeTermId!;
 
         formState.setStatus(FormStatus.Submitting);
 
-        // TODO: service and reset and close
+        FacultyLoadingService.submitNotice(termId, form)
+            .then(n => {
+                // TODO: maybe do something with the notice?
+                formState.resetAndClose();
+            })
+            .catch(e => {
+                formState.setStatus(FormStatus.Error, e);
+            });
     }
 
     public static removeNotice(notice: Notice) {

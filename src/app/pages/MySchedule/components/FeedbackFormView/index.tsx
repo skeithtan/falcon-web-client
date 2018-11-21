@@ -42,11 +42,6 @@ export default class FeedbackFormView extends React.Component<IPropsType> {
         FacultyLoadingController.submitFeedback();
     };
 
-    public onPublishedSubmitClick = () => {
-        FacultyLoadingController.submitFeedback();
-        FacultyLoadingController.toggleNoticeForm(true);
-    };
-
     public render() {
         const { facultyLoading } = this.props;
         const { facultyTabState, activeTerm } = facultyLoading!;
@@ -107,11 +102,7 @@ export default class FeedbackFormView extends React.Component<IPropsType> {
                     <Grid item>
                         <FormSubmitBar
                             formState={feedbackFormState}
-                            onSubmitClick={
-                                activeTerm!.status === TermStatus.Published
-                                    ? this.onPublishedSubmitClick
-                                    : this.onSubmitClick
-                            }
+                            onSubmitClick={this.onSubmitClick}
                         />
                     </Grid>
                 </Grid>

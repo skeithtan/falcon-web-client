@@ -40,7 +40,9 @@ export default class TermNotices extends React.Component<IPropsType> {
                                 {activeTerm!.notices!.map(n => (
                                     <Grid item key={n.id}>
                                         <OverviewCard
-                                            name={n.facultyMember.fullName}
+                                            name={`${n.facultyFirstName} ${
+                                                n.facultyLastName
+                                            }`}
                                             message={n.message}
                                             onRemoveClick={this.onRemoveClick(
                                                 n
