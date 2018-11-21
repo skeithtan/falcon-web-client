@@ -45,28 +45,23 @@ export default class TermRejections extends React.Component<IPropsType> {
                                     </Typography>
                                 )}
 
-                                {rejectedCS.map(cs => {
-                                    console.log(cs.facultyMember);
-                                    return (
-                                        <Grid item xs key={cs.id}>
-                                            <OverviewCard
-                                                message={`${
-                                                    cs.facultyMember!.firstName
-                                                } ${
-                                                    cs.facultyMember!.lastName
-                                                } has rejected ${
-                                                    cs.subjectCode
-                                                } ${
-                                                    cs.section
-                                                } on ${MeetingDaysReadable.get(
-                                                    cs.meetingDays
-                                                )} ${MeetingHoursReadable.get(
-                                                    cs.meetingHours
-                                                )}`}
-                                            />
-                                        </Grid>
-                                    );
-                                })}
+                                {rejectedCS.map(cs => (
+                                    <Grid item xs key={cs.id}>
+                                        <OverviewCard
+                                            message={`${
+                                                cs.facultyMember!.firstName
+                                            } ${
+                                                cs.facultyMember!.lastName
+                                            } has rejected ${cs.subjectCode} ${
+                                                cs.section
+                                            } on ${MeetingDaysReadable.get(
+                                                cs.meetingDays
+                                            )} ${MeetingHoursReadable.get(
+                                                cs.meetingHours
+                                            )}`}
+                                        />
+                                    </Grid>
+                                ))}
                             </React.Fragment>
                         )}
                     </StateWrapper>

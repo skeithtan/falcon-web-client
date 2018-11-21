@@ -9,7 +9,10 @@ import FacultyLoadingFacultyMember from "../../../../../../../../../../models/en
 import MeetingDays, {
     MeetingDaysReadable,
 } from "../../../../../../../../../../models/enums/meeting_days";
-import { MeetingHoursReadable } from "../../../../../../../../../../models/enums/meeting_hours";
+import MeetingHours, {
+    MeetingHoursReadable,
+    twoMeetingHoursBefore,
+} from "../../../../../../../../../../models/enums/meeting_hours";
 
 interface IPropsType {
     meetingDays: MeetingDays;
@@ -25,6 +28,18 @@ export default class FacultyScheduleSection extends React.Component<
             meetingDays,
             facultyMember: { timeConstraints, classSchedules },
         } = this.props;
+
+        const timeConstraintsForMeetingDay = timeConstraints.filter(
+            tc => tc.meetingDays === meetingDays
+        );
+        const classSchedulesForMeetingDay = classSchedules.filter(
+            cs => cs.meetingDays === meetingDays
+        );
+
+        const classHoursOfTheDay = classSchedulesForMeetingDay.map(
+            cs => cs.meetingHours
+        );
+
         return (
             <Card>
                 <Toolbar>
@@ -39,31 +54,34 @@ export default class FacultyScheduleSection extends React.Component<
                     alignItems="stretch"
                 >
                     {Array.from(MeetingHoursReadable).map(([mhrEnum]) => {
-                        const timeConstraint = timeConstraints.find(
-                            tc =>
-                                tc.meetingDays === meetingDays &&
-                                tc.meetingHours === mhrEnum
+                        const timeConstraint = timeConstraintsForMeetingDay.find(
+                            tc => tc.meetingHours === mhrEnum
                         );
 
-                        const classSchedule = classSchedules.find(
-                            cs =>
-                                cs.meetingDays === meetingDays &&
-                                cs.meetingHours === mhrEnum
+                        const cs = classSchedulesForMeetingDay.find(
+                            c => c.meetingHours === mhrEnum
                         );
+
+                        const tmhb = twoMeetingHoursBefore(mhrEnum);
+                        const isThirdConsecutive =
+                            Boolean(cs) &&
+                            mhrEnum !== MeetingHours.AM_7_9 &&
+                            mhrEnum !== MeetingHours.AM_9_11 &&
+                            classHoursOfTheDay.includes(tmhb[0]) &&
+                            classHoursOfTheDay.includes(tmhb[1]);
 
                         return (
                             <Grid item xs key={mhrEnum}>
                                 <TimeSlotCard
                                     meetingHours={mhrEnum}
                                     isAvailable={timeConstraint !== undefined}
-                                    classSchedule={classSchedule}
-                                    feedback={
-                                        classSchedule && classSchedule.feedback
-                                    }
+                                    classSchedule={cs}
+                                    feedback={cs && cs.feedback}
                                     isPreferred={
                                         timeConstraint !== undefined &&
                                         timeConstraint.isPreferred
                                     }
+                                    isThirdConsecutive={isThirdConsecutive}
                                 />
                             </Grid>
                         );

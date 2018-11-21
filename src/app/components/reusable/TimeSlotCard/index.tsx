@@ -2,6 +2,7 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";
+import Tooltip from "@material-ui/core/Tooltip";
 import Typography from "@material-ui/core/Typography";
 import Done from "@material-ui/icons/Done";
 import DoneAll from "@material-ui/icons/DoneAll";
@@ -75,9 +76,11 @@ class TimeSlotCard extends React.Component<IPropsType> {
                                 justify="flex-end"
                             >
                                 {isThirdConsecutive && (
-                                    <Grid item>
-                                        <ErrorOutline color="secondary" />
-                                    </Grid>
+                                    <Tooltip title="Third consecutive class">
+                                        <Grid item>
+                                            <ErrorOutline color="secondary" />
+                                        </Grid>
+                                    </Tooltip>
                                 )}
                                 {isAvailable && !isPreferred && (
                                     <Grid item>
