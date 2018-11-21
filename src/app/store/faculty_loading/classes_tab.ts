@@ -3,6 +3,10 @@ import FetchableState from "../../interfaces/fetchable_state";
 import ClassSchedule from "../../models/entities/class_schedule";
 import Subject from "../../models/entities/subject";
 import MeetingDays from "../../models/enums/meeting_days";
+import addClassDialogState, { AddClassDialogState } from "./add_class_dialog";
+import addClassesDrawerState, {
+    AddClassesDrawerState,
+} from "./add_classes_drawer";
 import assignFacultyDialogState, {
     AssignFacultyDialogState,
 } from "./assign_faculty_dialog";
@@ -37,6 +41,12 @@ export class ClassesTabState extends FetchableState {
 
     @observable
     public assignFacultyDialogState: AssignFacultyDialogState = assignFacultyDialogState;
+
+    @observable
+    public addClassesDrawerState: AddClassesDrawerState = addClassesDrawerState;
+
+    @observable
+    public addClassDialogState: AddClassDialogState = addClassDialogState;
 
     @computed
     get activeMeetingDaysClassSchedules() {

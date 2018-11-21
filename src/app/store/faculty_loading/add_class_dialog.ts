@@ -2,7 +2,7 @@ import { observable } from "mobx";
 import FormState from "../../interfaces/form_state";
 import AddClassForm from "../../models/forms/add_class_form";
 
-export class AddClassFormState extends FormState<AddClassForm> {
+export class AddClassDialogState extends FormState<AddClassForm> {
     @observable
     public form: AddClassForm = new AddClassForm();
 
@@ -11,4 +11,4 @@ export class AddClassFormState extends FormState<AddClassForm> {
     }
 }
 
-export default new AddClassFormState();
+export default new AddClassDialogState();

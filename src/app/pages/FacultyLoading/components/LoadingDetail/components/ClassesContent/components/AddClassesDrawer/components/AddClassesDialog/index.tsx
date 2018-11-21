@@ -1,14 +1,16 @@
+import Dialog from "@material-ui/core/Dialog";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
 import Grid from "@material-ui/core/Grid";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
-import DrawerForm from "../../../../../../../../components/reusable/DrawerForm";
-import FormSubmitBar from "../../../../../../../../components/reusable/FormSubmitBar";
-import FacultyLoadingController from "../../../../../../../../controllers/faculty_loading";
-import { MeetingDaysReadable } from "../../../../../../../../models/enums/meeting_days";
-import { MeetingHoursReadable } from "../../../../../../../../models/enums/meeting_hours";
-import { FacultyLoadingState } from "../../../../../../../../store/faculty_loading";
+import FormSubmitBar from "../../../../../../../../../../components/reusable/FormSubmitBar";
+import FacultyLoadingController from "../../../../../../../../../../controllers/faculty_loading";
+import { MeetingDaysReadable } from "../../../../../../../../../../models/enums/meeting_days";
+import { MeetingHoursReadable } from "../../../../../../../../../../models/enums/meeting_hours";
+import { FacultyLoadingState } from "../../../../../../../../../../store/faculty_loading";
 
 interface IPropsType {
     facultyLoading?: FacultyLoadingState;
@@ -16,13 +18,9 @@ interface IPropsType {
 
 @inject("facultyLoading")
 @observer
-export default class AddClassFormView extends React.Component<IPropsType> {
+export default class AddClassesDialog extends React.Component<IPropsType> {
     public onClose = () => {
-        FacultyLoadingController.toggleAddClassForm(false);
-    };
-
-    public onSubmitClick = () => {
-        FacultyLoadingController.submitAddClass();
+        FacultyLoadingController.toggleAddClassesDialog(false);
     };
 
     public onChange = (
@@ -31,51 +29,41 @@ export default class AddClassFormView extends React.Component<IPropsType> {
         HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     > => event => {
         const { facultyLoading } = this.props;
-        const { form } = facultyLoading!.addClassState;
+        const { form } = facultyLoading!.classesTabState.addClassDialogState;
         form[property] = event.target.value;
+    };
+
+    public onSubmitClick = () => {
+        FacultyLoadingController.addClassToForm();
     };
 
     public render() {
         const { facultyLoading } = this.props;
-        const { classesTabState, addClassState } = facultyLoading!;
-        const { subjects } = classesTabState;
-        const { isShowing, form, validationErrors, canSubmit } = addClassState;
+        const {
+            classesTabState: { addClassDialogState },
+        } = facultyLoading!;
+        const {
+            isShowing,
+            validationErrors,
+            form,
+            canSubmit,
+        } = addClassDialogState;
         return (
-            <DrawerForm
+            <Dialog
                 open={isShowing}
                 onClose={this.onClose}
-                formTitle="Add Class"
+                fullWidth
+                maxWidth="sm"
             >
-                <Grid
-                    container
-                    spacing={24}
-                    alignItems="stretch"
-                    direction="column"
-                >
-                    <Grid item container spacing={8} direction="row">
-                        <Grid item xs>
-                            <TextField
-                                select
-                                label="Subject"
-                                variant="outlined"
-                                onChange={this.onChange("subject")}
-                                value={form.subject || ""}
-                                error={"subject" in validationErrors}
-                                helperText={validationErrors.subject}
-                                fullWidth
-                            >
-                                {subjects &&
-                                    subjects.length > 0 &&
-                                    subjects.map(s => (
-                                        <MenuItem key={s.id} value={s.id}>
-                                            {s.name}
-                                        </MenuItem>
-                                    ))}
-                            </TextField>
-                        </Grid>
-                    </Grid>
-                    <Grid item container spacing={8} direction="row">
-                        <Grid item xs>
+                <DialogTitle>Add Class</DialogTitle>
+                <DialogContent>
+                    <Grid
+                        container
+                        direction="column"
+                        spacing={24}
+                        alignItems="stretch"
+                    >
+                        <Grid item>
                             <TextField
                                 select
                                 label="Meeting Days"
@@ -98,7 +86,7 @@ export default class AddClassFormView extends React.Component<IPropsType> {
                                 )}
                             </TextField>
                         </Grid>
-                        <Grid item xs>
+                        <Grid item>
                             <TextField
                                 select
                                 label="Meeting Hours"
@@ -121,9 +109,7 @@ export default class AddClassFormView extends React.Component<IPropsType> {
                                 )}
                             </TextField>
                         </Grid>
-                    </Grid>
-                    <Grid item container spacing={8} direction="row">
-                        <Grid item xs>
+                        <Grid item>
                             <TextField
                                 label="Room"
                                 variant="outlined"
@@ -135,7 +121,7 @@ export default class AddClassFormView extends React.Component<IPropsType> {
                                 fullWidth
                             />
                         </Grid>
-                        <Grid item xs>
+                        <Grid item>
                             <TextField
                                 label="Section"
                                 variant="outlined"
@@ -147,9 +133,7 @@ export default class AddClassFormView extends React.Component<IPropsType> {
                                 fullWidth
                             />
                         </Grid>
-                    </Grid>
-                    <Grid item container spacing={8} direction="row">
-                        <Grid item xs>
+                        <Grid item>
                             <TextField
                                 label="Course"
                                 variant="outlined"
@@ -161,16 +145,16 @@ export default class AddClassFormView extends React.Component<IPropsType> {
                                 fullWidth
                             />
                         </Grid>
+                        <Grid item>
+                            <FormSubmitBar
+                                disabled={!canSubmit}
+                                formState={addClassDialogState}
+                                onSubmitClick={this.onSubmitClick}
+                            />
+                        </Grid>
                     </Grid>
-                    <Grid item>
-                        <FormSubmitBar
-                            disabled={!canSubmit}
-                            formState={facultyLoading!.addClassState}
-                            onSubmitClick={this.onSubmitClick}
-                        />
-                    </Grid>
-                </Grid>
-            </DrawerForm>
+                </DialogContent>
+            </Dialog>
         );
     }
 }

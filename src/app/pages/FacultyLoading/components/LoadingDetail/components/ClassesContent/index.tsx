@@ -10,7 +10,8 @@ import IStyleClasses from "../../../../../../interfaces/style_classes";
 import TermStatus from "../../../../../../models/enums/term_status";
 import { FacultyLoadingState } from "../../../../../../store/faculty_loading";
 import PrintTermSchedule from "../ClassesContent/components/PrintTermSchedule";
-import AddClassFormView from "./components/AddClassFormView";
+import AddClassesDrawer from "./components/AddClassesDrawer";
+import AddClassesDialog from "./components/AddClassesDrawer/components/AddClassesDialog";
 import AutoAssignWizard from "./components/AutoAssignWizard";
 import ClassesAppBar from "./components/ClassesAppBar";
 import ClassScheduleDetailsDrawer from "./components/ClassScheduleDetailsDrawer";
@@ -29,8 +30,8 @@ class ClassesContent extends React.Component<IPropsType> {
         FacultyLoadingController.getAllClassSchedulesTabPrerequisites();
     }
 
-    public toggleAddClassForm = (shouldShow: boolean) => () => {
-        FacultyLoadingController.toggleAddClassForm(shouldShow);
+    public toggleAddClassesDrawer = (shouldShow: boolean) => () => {
+        FacultyLoadingController.toggleAddClassesDrawer(shouldShow);
     };
 
     public render() {
@@ -57,13 +58,14 @@ class ClassesContent extends React.Component<IPropsType> {
                                     variant="extendedFab"
                                     color="primary"
                                     className={classes.addButton}
-                                    onClick={this.toggleAddClassForm(true)}
+                                    onClick={this.toggleAddClassesDrawer(true)}
                                 >
                                     <AddIcon />
                                     Add a class
                                 </Button>
                             )}
-                            <AddClassFormView />
+                            <AddClassesDrawer />
+                            <AddClassesDialog />
                             <ClassScheduleDetailsDrawer />
                             <AutoAssignWizard />
                         </Grid>

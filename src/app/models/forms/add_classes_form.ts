@@ -1,13 +1,19 @@
-import { observable } from "mobx";
-import ClassSchedule from "../entities/class_schedule";
+import { IsNotEmpty } from "class-validator";
+import { computed, observable } from "mobx";
+import FormClassSchedule from "../entities/form_class_schedule";
 
 export default class AddClassesForm {
+    @IsNotEmpty({
+        message: "Subject is required",
+    })
     @observable
     public subjectId?: number = undefined;
 
     @observable
-    public mondayThursdayClasses: ClassSchedule[] = [];
+    public classes: FormClassSchedule[] = [];
 
-    @observable
-    public tuesdayFridayClasses: ClassSchedule[] = [];
+    @computed
+    get noClasses(): boolean {
+        return this.classes.length === 0;
+    }
 }

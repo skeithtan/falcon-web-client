@@ -1,4 +1,5 @@
 import ClassSchedule from "../models/entities/class_schedule";
+import FormClassSchedule from "../models/entities/form_class_schedule";
 import Notice from "../models/entities/notice";
 import FacultyLoadingTab from "../models/enums/faculty_loading_tab";
 import FeedbackStatus from "../models/enums/feedback_status";
@@ -155,31 +156,6 @@ export default class FacultyLoadingController {
     public static showOnlyUnassigned(shouldShow: boolean) {
         const state = facultyLoading.classesTabState;
         state.showOnlyUnassigned = shouldShow;
-    }
-
-    public static toggleAddClassForm(shouldShow: boolean) {
-        facultyLoading.addClassState.isShowing = shouldShow;
-
-        if (!shouldShow) {
-            facultyLoading.addClassState.resetAndClose();
-        }
-    }
-
-    public static submitAddClass() {
-        const { addClassState: formState } = facultyLoading;
-        const { form } = formState;
-
-        formState.setStatus(FormStatus.Submitting);
-        const term = facultyLoading.activeTermId!;
-
-        FacultyLoadingService.addClassSchedule(term, form)
-            .then(cs => {
-                facultyLoading.classesTabState.classSchedules!.set(cs.id, cs);
-                formState.resetAndClose();
-            })
-            .catch(e => {
-                formState.setStatus(FormStatus.Error, e);
-            });
     }
 
     public static setActiveClassSchedule(id: number) {
@@ -419,5 +395,58 @@ export default class FacultyLoadingController {
         const notices = facultyLoading.activeTerm!.notices;
         const noticeIndex = notices!.indexOf(notice);
         notices!.splice(noticeIndex, 1);
+        const termId = facultyLoading.activeTermId!;
+
+        FacultyLoadingService.removeNotice(termId, notice.id).catch(
+            (e: Error) => {
+                facultyLoading.setStatus(FetchableStatus.Error, e);
+            }
+        );
+    }
+
+    public static toggleAddClassesDrawer(shouldShow: boolean) {
+        facultyLoading.classesTabState.addClassesDrawerState.isShowing = shouldShow;
+
+        if (!shouldShow) {
+            facultyLoading.classesTabState.addClassesDrawerState.resetAndClose();
+        }
+    }
+
+    public static toggleAddClassesDialog(shouldShow: boolean) {
+        facultyLoading.classesTabState.addClassDialogState.isShowing = shouldShow;
+
+        if (!shouldShow) {
+            facultyLoading.classesTabState.addClassDialogState.resetAndClose();
+        }
+    }
+
+    public static addClassToForm() {
+        const {
+            classesTabState: {
+                addClassDialogState: formState,
+                addClassesDrawerState,
+            },
+        } = facultyLoading;
+        const { form: classScheduleChildForm } = formState;
+
+        const {
+            form: { classes },
+        } = addClassesDrawerState;
+
+        classes.push(
+            new FormClassSchedule({
+                meetingDays: classScheduleChildForm.meetingDays,
+                meetingHours: classScheduleChildForm.meetingHours,
+                room: classScheduleChildForm.room,
+                section: classScheduleChildForm.section,
+                course: classScheduleChildForm.course,
+            })
+        );
+
+        formState.resetAndClose();
+    }
+
+    public static submitClasses() {
+        // TODO: this
     }
 }
