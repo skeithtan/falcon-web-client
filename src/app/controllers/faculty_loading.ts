@@ -447,6 +447,28 @@ export default class FacultyLoadingController {
     }
 
     public static submitClasses() {
-        // TODO: this
+        const {
+            addClassesDrawerState: formState,
+        } = facultyLoading.classesTabState;
+        const { form } = formState;
+        
+        form.classes.forEach(c => delete c.id);
+        formState.setStatus(FormStatus.Submitting);
+        
+        const term = facultyLoading.activeTermId!;
+
+        FacultyLoadingService.addClassSchedules(term, form)
+            .then(css => {
+                css.forEach(cs =>
+                    facultyLoading.classesTabState.classSchedules!.set(
+                        cs.id,
+                        cs
+                    )
+                );
+                formState.resetAndClose();
+            })
+            .catch(e => {
+                formState.setStatus(FormStatus.Error, e);
+            });
     }
 }

@@ -6,7 +6,7 @@ import Notice from "../models/entities/notice";
 import Term from "../models/entities/term";
 import TimeConstraint from "../models/entities/time_constraint";
 import FeedbackStatus from "../models/enums/feedback_status";
-import AddClassForm from "../models/forms/add_class_form";
+import AddClassesForm from "../models/forms/add_classes_form";
 import AddTermForm from "../models/forms/add_term_form";
 import NoticeForm from "../models/forms/notice_form";
 import TimeConstraintsForm from "../models/forms/time_constraints_form";
@@ -72,13 +72,15 @@ export default class FacultyLoadingService {
             .catch(handleAxiosError);
     }
 
-    public static async addClassSchedule(
+    public static async addClassSchedules(
         termId: number,
-        form: AddClassForm
-    ): Promise<ClassSchedule> {
+        form: AddClassesForm
+    ): Promise<ClassSchedule[]> {
         return axios
             .post(`/terms/${termId}/class-schedules`, form)
-            .then((response: AxiosResponse) => new ClassSchedule(response.data))
+            .then((response: AxiosResponse) =>
+                response.data.map((cs: any) => new ClassSchedule(cs))
+            )
             .catch(handleAxiosError);
     }
 

@@ -38,7 +38,7 @@ class AddClassesDrawer extends React.Component<IPropsType> {
     };
 
     public onSubmitClick = () => {
-        // TODO: this
+        FacultyLoadingController.submitClasses();
     };
 
     public render() {
