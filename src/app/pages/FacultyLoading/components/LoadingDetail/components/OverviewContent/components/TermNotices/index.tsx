@@ -37,6 +37,12 @@ export default class TermNotices extends React.Component<IPropsType> {
                     <StateWrapper fetchableState={facultyLoading!.fetchStatus}>
                         {() => (
                             <React.Fragment>
+                                {activeTerm!.notices!.length === 0 && (
+                                    <Typography>
+                                        There are no notices for the term.
+                                    </Typography>
+                                )}
+
                                 {activeTerm!.notices!.map(n => (
                                     <Grid item key={n.id}>
                                         <OverviewCard
