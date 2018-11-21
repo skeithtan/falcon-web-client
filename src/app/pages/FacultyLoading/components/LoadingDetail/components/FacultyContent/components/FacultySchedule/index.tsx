@@ -3,6 +3,7 @@ import { observer } from "mobx-react";
 import * as React from "react";
 import FacultyLoadingFacultyMember from "../../../../../../../../models/entities/faculty_loading_faculty_member";
 import MeetingDays from "../../../../../../../../models/enums/meeting_days";
+import FacultyOngoingSubdocuments from "./components/FacultyOngoingSubdocuments";
 import FacultyScheduleSection from "./components/FacultyScheduleSection";
 
 interface IPropsType {
@@ -26,6 +27,11 @@ export default class FacultySchedule extends React.Component<IPropsType> {
                     <FacultyScheduleSection
                         facultyMember={facultyMember}
                         meetingDays={MeetingDays.TuesdayFriday}
+                    />
+                </Grid>
+                <Grid item>
+                    <FacultyOngoingSubdocuments
+                        subdocuments={facultyMember.ongoingSubdocuments}
                     />
                 </Grid>
             </Grid>

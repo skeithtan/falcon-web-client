@@ -64,34 +64,19 @@ class TimeSlotCard extends React.Component<IPropsType> {
                             alignItems="center"
                             wrap="nowrap"
                         >
-                            <Grid item>
+                            <Grid item xs>
                                 <Typography variant="caption">
                                     {MeetingHoursReadable.get(meetingHours)}
                                 </Typography>
                             </Grid>
-                            <Grid
-                                item
-                                container
-                                direction="row"
-                                justify="flex-end"
-                            >
+                            <Grid item>
                                 {isThirdConsecutive && (
                                     <Tooltip title="Third consecutive class">
-                                        <Grid item>
-                                            <ErrorOutline color="secondary" />
-                                        </Grid>
+                                        <ErrorOutline color="secondary" />
                                     </Tooltip>
                                 )}
-                                {isAvailable && !isPreferred && (
-                                    <Grid item>
-                                        <Done />
-                                    </Grid>
-                                )}
-                                {isPreferred && (
-                                    <Grid item>
-                                        <DoneAll />
-                                    </Grid>
-                                )}
+                                {isAvailable && !isPreferred && <Done />}
+                                {isPreferred && <DoneAll />}
                             </Grid>
                         </Grid>
                         {classSchedule && (
