@@ -3,6 +3,7 @@ import Entity from "../../interfaces/entity";
 import FacultyMemberType from "../enums/faculty_member_type";
 import LoadAmountStatus from "../enums/load_amount_status";
 import FacultyClassSchedule from "./faculty_class_schedule";
+import OngoingSubdocument from "./ongoing_subdocument";
 import TimeConstraint from "./time_constraint";
 
 export default class FacultyLoadingFacultyMember extends Entity {
@@ -28,6 +29,9 @@ export default class FacultyLoadingFacultyMember extends Entity {
 
     @observable
     public hasExternalLoad: boolean;
+
+    @observable
+    public ongoingSubdocuments: OngoingSubdocument[];
 
     @computed
     get fullName() {
