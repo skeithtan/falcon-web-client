@@ -13,6 +13,7 @@ import * as React from "react";
 import IStyleClasses from "../../../../../../../../../../interfaces/style_classes";
 import FormClassSchedule from "../../../../../../../../../../models/entities/form_class_schedule";
 import { FacultyLoadingState } from "../../../../../../../../../../store/faculty_loading";
+import AddClassesDialog from "../AddClassesDialog";
 import AddClassesItem from "../AddClassesItem";
 import styles from "./styles";
 
@@ -90,6 +91,7 @@ class AddClassesTable extends React.Component<IPropsType> {
                         </Table>
                     )}
                 </Grid>
+                <AddClassesDialog pendingClasses={form.classSchedules} />
             </Grid>
         );
     }

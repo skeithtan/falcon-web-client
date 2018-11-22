@@ -11,7 +11,6 @@ import TermStatus from "../../../../../../models/enums/term_status";
 import { FacultyLoadingState } from "../../../../../../store/faculty_loading";
 import PrintTermSchedule from "../ClassesContent/components/PrintTermSchedule";
 import AddClassesDrawer from "./components/AddClassesDrawer";
-import AddClassesDialog from "./components/AddClassesDrawer/components/AddClassesDialog";
 import AutoAssignWizard from "./components/AutoAssignWizard";
 import ClassesAppBar from "./components/ClassesAppBar";
 import ClassScheduleDetailsDrawer from "./components/ClassScheduleDetailsDrawer";
@@ -65,7 +64,6 @@ class ClassesContent extends React.Component<IPropsType> {
                                 </Button>
                             )}
                             <AddClassesDrawer />
-                            <AddClassesDialog />
                             <ClassScheduleDetailsDrawer />
                             <AutoAssignWizard />
                         </Grid>
