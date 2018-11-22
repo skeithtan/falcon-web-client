@@ -40,7 +40,7 @@ export default class OverviewCard extends React.Component<IPropsType> {
                             color="secondary"
                             onClick={onRemoveClick}
                         >
-                            Remove
+                            Dismiss
                         </Button>
                     </CardActions>
                 )}
