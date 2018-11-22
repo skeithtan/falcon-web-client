@@ -19,19 +19,19 @@ export default class AddClassForm {
     public meetingHours: string = "";
 
     @IsNotEmpty({
-        message: "Room should not be empty"
+        message: "Room should not be empty",
     })
     @observable
     public room: string = "";
 
     @IsNotEmpty({
-        message: "Course should not be empty"
+        message: "Course should not be empty",
     })
     @observable
     public course: string = "";
 
     @IsNotEmpty({
-        message: "Section should not be empty"
+        message: "Section should not be empty",
     })
     @observable
     public section: string = "";
