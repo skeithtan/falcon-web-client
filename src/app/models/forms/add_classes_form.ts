@@ -10,10 +10,10 @@ export default class AddClassesForm {
     public subjectId?: number = undefined;
 
     @observable
-    public classes: FormClassSchedule[] = [];
+    public classSchedules: FormClassSchedule[] = [];
 
     @computed
     get noClasses(): boolean {
-        return this.classes.length === 0;
+        return this.classSchedules.length === 0;
     }
 }
