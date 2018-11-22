@@ -49,7 +49,7 @@ export default class NoticeFormView extends React.Component<IPropsType> {
             canSubmit,
         } = noticeFormState;
         return (
-            <Dialog open={isShowing} onClose={this.onClose}>
+            <Dialog open={isShowing} onClose={this.onClose} fullWidth>
                 <DialogTitle>Submit Notice</DialogTitle>
                 <DialogContent>
                     <TextField
