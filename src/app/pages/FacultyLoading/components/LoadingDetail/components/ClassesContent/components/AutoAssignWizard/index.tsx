@@ -39,7 +39,7 @@ export default class AutoAssignWizard extends React.Component<IPropsType> {
                 <DialogTitle>Auto-assign Wizard</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        Assign faculty members to classes 'automagically'. Their
+                        Assign faculty members to classes automagically. Their
                         assignments will be based on their experience with the
                         subjects and their programs.
                     </DialogContentText>

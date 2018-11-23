@@ -53,6 +53,14 @@ class MySchedule extends React.Component<IPropsType> {
         const { facultyTabState, activeTerm } = facultyLoading!;
         const { activeFaculty } = facultyTabState;
 
+        const termIsNotArchived =
+            Boolean(activeTerm) && activeTerm!.status !== TermStatus.Archived;
+
+        const canSubmitTimeConstraints =
+            Boolean(activeTerm) &&
+            (activeTerm!.status === TermStatus.Initializing ||
+                activeTerm!.status === TermStatus.FeedbackGathering);
+
         return (
             <StateWrapper
                 className={classes.outerStateWrapper}
@@ -89,27 +97,24 @@ class MySchedule extends React.Component<IPropsType> {
                                     <ArrowDropDownIcon />
                                 </Button>
                             </Grid>
-                            {activeTerm!.status !== TermStatus.Archived && (
+                            {termIsNotArchived && (
                                 <Grid item>
-                                    {activeTerm!.status ===
-                                        TermStatus.Initializing ||
-                                        (activeTerm!.status ===
-                                            TermStatus.FeedbackGathering && (
-                                            <Button
-                                                variant={
-                                                    activeTerm!.status ===
-                                                    TermStatus.Initializing
-                                                        ? "contained"
-                                                        : "outlined"
-                                                }
-                                                color="primary"
-                                                onClick={this.submitTimeConstrainsFormToggle(
-                                                    true
-                                                )}
-                                            >
-                                                Submit Time Constraints
-                                            </Button>
-                                        ))}
+                                    {canSubmitTimeConstraints && (
+                                        <Button
+                                            variant={
+                                                activeTerm!.status ===
+                                                TermStatus.Initializing
+                                                    ? "contained"
+                                                    : "outlined"
+                                            }
+                                            color="primary"
+                                            onClick={this.submitTimeConstrainsFormToggle(
+                                                true
+                                            )}
+                                        >
+                                            Submit Time Constraints
+                                        </Button>
+                                    )}
                                     {activeTerm!.status ===
                                         TermStatus.FeedbackGathering && (
                                         <Button
