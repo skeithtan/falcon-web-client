@@ -25,7 +25,7 @@ export default class TimeConstraintsForm {
     }
 
     public prefillForm(flfm: FacultyLoadingFacultyMember) {
-        this.timeConstraints = flfm.timeConstraints;
+        this.timeConstraints = flfm.timeConstraints.map(tc => ({...tc}));
         this.hasExternalLoad = flfm.hasExternalLoad;
     }
 }
