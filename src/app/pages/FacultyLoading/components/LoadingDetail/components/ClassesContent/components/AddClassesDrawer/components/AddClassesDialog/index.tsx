@@ -4,6 +4,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Grid from "@material-ui/core/Grid";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
+import Typography from "@material-ui/core/Typography";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
 import FormSubmitBar from "../../../../../../../../../../components/reusable/FormSubmitBar";
@@ -51,38 +52,22 @@ export default class AddClassesDialog extends React.Component<IPropsType> {
             canSubmit,
         } = addClassDialogState;
 
-        const css = Array.from(classSchedules!.values());
+        const consolidatedClasses = [
+            ...Array.from(classSchedules!.values()),
+            ...pendingClasses,
+        ].filter(
+            c =>
+                c.meetingHours === form.meetingHours &&
+                c.meetingDays === form.meetingDays
+        );
 
-        const noConflictingRoom =
-            pendingClasses.every(
-                pc =>
-                    pc.room !== form.room &&
-                    pc.meetingHours === form.meetingHours &&
-                    pc.meetingDays === form.meetingDays
-            ) &&
-            css.every(
-                cs =>
-                    cs.room !== form.room &&
-                    cs.meetingHours === form.meetingHours &&
-                    cs.meetingDays === form.meetingDays
-            );
+        const noConflictingRoom = consolidatedClasses.every(
+            pc => pc.room !== form.room
+        );
 
-        const noSectionConflict =
-            pendingClasses.every(
-                pc =>
-                    pc.section !== form.section &&
-                    pc.meetingHours === form.meetingHours &&
-                    pc.meetingDays === form.meetingDays
-            ) &&
-            css.every(
-                cs =>
-                    cs.section !== form.section &&
-                    cs.meetingHours === form.meetingHours &&
-                    cs.meetingDays === form.meetingDays
-            );
-
-        console.log(noConflictingRoom);
-        console.log(noSectionConflict);
+        const noConflictingSection = consolidatedClasses.every(
+            cs => cs.section !== form.section
+        );
 
         return (
             <Dialog
@@ -157,6 +142,14 @@ export default class AddClassesDialog extends React.Component<IPropsType> {
                                 fullWidth
                             />
                         </Grid>
+                        {!noConflictingRoom && (
+                            <Grid item>
+                                <Typography variant="subtitle2" color="error">
+                                    The rooms conflict with another entry with
+                                    the same day and time
+                                </Typography>
+                            </Grid>
+                        )}
                         <Grid item>
                             <TextField
                                 label="Section"
@@ -169,6 +162,15 @@ export default class AddClassesDialog extends React.Component<IPropsType> {
                                 fullWidth
                             />
                         </Grid>
+
+                        {!noConflictingSection && (
+                            <Grid item>
+                                <Typography variant="subtitle2" color="error">
+                                    The sections conflict with another entry
+                                    with the same day and time
+                                </Typography>
+                            </Grid>
+                        )}
                         <Grid item>
                             <TextField
                                 label="Course"
@@ -181,16 +183,19 @@ export default class AddClassesDialog extends React.Component<IPropsType> {
                                 fullWidth
                             />
                         </Grid>
-                        <Grid item>
-                            <FormSubmitBar
-                                disabled={
-                                    !canSubmit ||
-                                    !noConflictingRoom ||
-                                    !noSectionConflict
-                                }
-                                formState={addClassDialogState}
-                                onSubmitClick={this.onSubmitClick}
-                            />
+
+                        <Grid item container direction="row" spacing={24}>
+                            <Grid item>
+                                <FormSubmitBar
+                                    disabled={
+                                        !canSubmit ||
+                                        !noConflictingRoom ||
+                                        !noConflictingSection
+                                    }
+                                    formState={addClassDialogState}
+                                    onSubmitClick={this.onSubmitClick}
+                                />
+                            </Grid>
                         </Grid>
                     </Grid>
                 </DialogContent>
