@@ -51,33 +51,38 @@ export default class AddClassesDialog extends React.Component<IPropsType> {
             canSubmit,
         } = addClassDialogState;
 
-        const conflictingRoom =
+        const css = Array.from(classSchedules!.values());
+
+        const noConflictingRoom =
             pendingClasses.every(
                 pc =>
                     pc.room !== form.room &&
                     pc.meetingHours === form.meetingHours &&
                     pc.meetingDays === form.meetingDays
-            ) ||
-            Array.from(classSchedules!.values()).every(
+            ) &&
+            css.every(
                 cs =>
                     cs.room !== form.room &&
                     cs.meetingHours === form.meetingHours &&
                     cs.meetingDays === form.meetingDays
             );
 
-        const sectionConflict =
+        const noSectionConflict =
             pendingClasses.every(
                 pc =>
                     pc.section !== form.section &&
                     pc.meetingHours === form.meetingHours &&
                     pc.meetingDays === form.meetingDays
-            ) ||
-            Array.from(classSchedules!.values()).every(
+            ) &&
+            css.every(
                 cs =>
                     cs.section !== form.section &&
                     cs.meetingHours === form.meetingHours &&
                     cs.meetingDays === form.meetingDays
             );
+
+        console.log(noConflictingRoom);
+        console.log(noSectionConflict);
 
         return (
             <Dialog
@@ -180,8 +185,8 @@ export default class AddClassesDialog extends React.Component<IPropsType> {
                             <FormSubmitBar
                                 disabled={
                                     !canSubmit ||
-                                    conflictingRoom ||
-                                    sectionConflict
+                                    !noConflictingRoom ||
+                                    !noSectionConflict
                                 }
                                 formState={addClassDialogState}
                                 onSubmitClick={this.onSubmitClick}
