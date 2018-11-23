@@ -430,10 +430,10 @@ export default class FacultyLoadingController {
         const { form: classScheduleChildForm } = formState;
 
         const {
-            form: { classes },
+            form: { classSchedules },
         } = addClassesDrawerState;
 
-        classes.push(
+        classSchedules.push(
             new FormClassSchedule({
                 meetingDays: classScheduleChildForm.meetingDays,
                 meetingHours: classScheduleChildForm.meetingHours,
@@ -452,7 +452,7 @@ export default class FacultyLoadingController {
         } = facultyLoading.classesTabState;
         const { form } = formState;
         
-        form.classes.forEach(c => delete c.id);
+        form.classSchedules.forEach(c => delete c.id);
         formState.setStatus(FormStatus.Submitting);
         
         const term = facultyLoading.activeTermId!;

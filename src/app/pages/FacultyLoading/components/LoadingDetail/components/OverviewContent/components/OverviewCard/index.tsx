@@ -4,17 +4,24 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
+import { inject, observer } from "mobx-react";
 import * as React from "react";
+import UserType from "../../../../../../../../models/enums/user_type";
+import { AuthenticationState } from "../../../../../../../../store/authentication";
 
 interface IPropsType {
     name?: string;
     message: string;
     onRemoveClick?: () => void;
+    authentication?: AuthenticationState;
 }
 
+@inject("authentication")
+@observer
 export default class OverviewCard extends React.Component<IPropsType> {
     public render() {
-        const { name, message, onRemoveClick } = this.props;
+        const { name, message, onRemoveClick, authentication } = this.props;
+        const { currentUser } = authentication!;
         return (
             <Card square>
                 <CardContent>
@@ -33,17 +40,18 @@ export default class OverviewCard extends React.Component<IPropsType> {
                         </Grid>
                     </Grid>
                 </CardContent>
-                {onRemoveClick && (
-                    <CardActions>
-                        <Button
-                            variant="outlined"
-                            color="secondary"
-                            onClick={onRemoveClick}
-                        >
-                            Dismiss
-                        </Button>
-                    </CardActions>
-                )}
+                {onRemoveClick &&
+                    currentUser!.authorization === UserType.AssociateDean && (
+                        <CardActions>
+                            <Button
+                                variant="outlined"
+                                color="secondary"
+                                onClick={onRemoveClick}
+                            >
+                                Dismiss
+                            </Button>
+                        </CardActions>
+                    )}
             </Card>
         );
     }

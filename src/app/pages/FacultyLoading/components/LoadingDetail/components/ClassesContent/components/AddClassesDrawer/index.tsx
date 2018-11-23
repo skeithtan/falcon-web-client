@@ -80,7 +80,7 @@ class AddClassesDrawer extends React.Component<IPropsType> {
                                 ))}
                         </TextField>
                     </Grid>
-                    <Grid item className={classes.table}>
+                    <Grid item>
                         <AddClassesTable onAddClick={this.onAddClick} />
                     </Grid>
                     <Grid item>

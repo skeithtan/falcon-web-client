@@ -8,12 +8,14 @@ import { inject, observer } from "mobx-react";
 import * as React from "react";
 import FormSubmitBar from "../../../../../../../../../../components/reusable/FormSubmitBar";
 import FacultyLoadingController from "../../../../../../../../../../controllers/faculty_loading";
+import FormClassSchedule from "../../../../../../../../../../models/entities/form_class_schedule";
 import { MeetingDaysReadable } from "../../../../../../../../../../models/enums/meeting_days";
 import { MeetingHoursReadable } from "../../../../../../../../../../models/enums/meeting_hours";
 import { FacultyLoadingState } from "../../../../../../../../../../store/faculty_loading";
 
 interface IPropsType {
     facultyLoading?: FacultyLoadingState;
+    pendingClasses: FormClassSchedule[];
 }
 
 @inject("facultyLoading")
@@ -38,9 +40,9 @@ export default class AddClassesDialog extends React.Component<IPropsType> {
     };
 
     public render() {
-        const { facultyLoading } = this.props;
+        const { facultyLoading, pendingClasses } = this.props;
         const {
-            classesTabState: { addClassDialogState },
+            classesTabState: { addClassDialogState, classSchedules },
         } = facultyLoading!;
         const {
             isShowing,
@@ -48,6 +50,35 @@ export default class AddClassesDialog extends React.Component<IPropsType> {
             form,
             canSubmit,
         } = addClassDialogState;
+
+        const conflictingRoom =
+            pendingClasses.every(
+                pc =>
+                    pc.room !== form.room &&
+                    pc.meetingHours === form.meetingHours &&
+                    pc.meetingDays === form.meetingDays
+            ) ||
+            Array.from(classSchedules!.values()).every(
+                cs =>
+                    cs.room !== form.room &&
+                    cs.meetingHours === form.meetingHours &&
+                    cs.meetingDays === form.meetingDays
+            );
+
+        const sectionConflict =
+            pendingClasses.every(
+                pc =>
+                    pc.section !== form.section &&
+                    pc.meetingHours === form.meetingHours &&
+                    pc.meetingDays === form.meetingDays
+            ) ||
+            Array.from(classSchedules!.values()).every(
+                cs =>
+                    cs.section !== form.section &&
+                    cs.meetingHours === form.meetingHours &&
+                    cs.meetingDays === form.meetingDays
+            );
+
         return (
             <Dialog
                 open={isShowing}
@@ -147,7 +178,11 @@ export default class AddClassesDialog extends React.Component<IPropsType> {
                         </Grid>
                         <Grid item>
                             <FormSubmitBar
-                                disabled={!canSubmit}
+                                disabled={
+                                    !canSubmit ||
+                                    conflictingRoom ||
+                                    sectionConflict
+                                }
                                 formState={addClassDialogState}
                                 onSubmitClick={this.onSubmitClick}
                             />
