@@ -50,6 +50,10 @@ export default class FacultyLoadingController {
 
         FacultyLoadingService.addTerm(form)
             .then(t => {
+                if (facultyLoading.terms!.size === 0) {
+                    facultyLoading.activeTermId = t.id;
+                }
+
                 facultyLoading.terms!.set(t.id, t);
                 facultyLoading.activeTermId = t.id;
                 formState.resetAndClose();
@@ -65,9 +69,9 @@ export default class FacultyLoadingController {
         const term = facultyLoading.activeTerm!;
         term.setStatus(FetchableStatus.Fetching);
 
-        return FacultyLoadingService.fetchTerm(term.id)
+        return FacultyLoadingService.fetchTerm(id)
             .then(t => {
-                facultyLoading.terms!.set(t.id, t);
+                facultyLoading.terms!.set(id, t);
             })
             .catch((e: Error) =>
                 term.setStatus(FetchableStatus.Error, e.message)
@@ -451,10 +455,10 @@ export default class FacultyLoadingController {
             addClassesDrawerState: formState,
         } = facultyLoading.classesTabState;
         const { form } = formState;
-        
+
         form.classSchedules.forEach(c => delete c.id);
         formState.setStatus(FormStatus.Submitting);
-        
+
         const term = facultyLoading.activeTermId!;
 
         FacultyLoadingService.addClassSchedules(term, form)

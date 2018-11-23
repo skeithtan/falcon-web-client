@@ -24,6 +24,7 @@ export default class Term extends PartialEntity {
 
     constructor(plainObject: any) {
         super(plainObject);
+        this.startYear = parseInt(plainObject.startYear, undefined);
 
         this.fetchStatus = plainObject.classSchedules
             ? FetchableStatus.Fetched
