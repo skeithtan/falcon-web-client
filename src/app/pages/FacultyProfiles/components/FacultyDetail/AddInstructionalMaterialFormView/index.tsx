@@ -49,10 +49,10 @@ export default class AddInstructionalMaterialFormView extends React.Component<
         form[property] = event.target.value;
     };
 
-    public onOngoingChange = (ongoing: boolean) => (event: any) => {
+    public onOngoingChange = () => {
         const { facultyProfiles } = this.props;
-        const { form } = facultyProfiles!.addExtensionWorkFormState;
-        form.ongoing = ongoing;
+        const { form } = facultyProfiles!.addInstructionalMaterialFormState;
+        form.ongoing = !form.ongoing;
     };
 
     public onAddMultiple = (
@@ -232,9 +232,7 @@ export default class AddInstructionalMaterialFormView extends React.Component<
                             control={
                                 <Switch
                                     checked={form.ongoing}
-                                    onChange={this.onOngoingChange(
-                                        !form.ongoing
-                                    )}
+                                    onChange={this.onOngoingChange}
                                     value={form.ongoing}
                                     color="primary"
                                 />

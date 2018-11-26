@@ -54,6 +54,8 @@ export default class FeedbackFormView extends React.Component<IPropsType> {
 
         const { isShowing } = facultyTabState.feedbackFormState;
 
+        const noAssignments = Array.from(classScheduleFeedbacks).length === 0;
+
         const allAccepted = Array.from(classScheduleFeedbacks.values()).every(
             feedbackStatus => feedbackStatus === FeedbackStatus.Accepted
         );
@@ -72,9 +74,14 @@ export default class FeedbackFormView extends React.Component<IPropsType> {
                     wrap="nowrap"
                 >
                     <Grid item>
-                        <List>
-                            {Array.from(classScheduleFeedbacks.entries()).map(
-                                ([cs, feedback]) => (
+                        {noAssignments && (
+                            <Typography>No assignments.</Typography>
+                        )}
+                        {!noAssignments && (
+                            <List>
+                                {Array.from(
+                                    classScheduleFeedbacks.entries()
+                                ).map(([cs, feedback]) => (
                                     <ListItem key={cs.id}>
                                         <ClassScheduleFeedbackItem
                                             classSchedule={cs}
@@ -82,9 +89,9 @@ export default class FeedbackFormView extends React.Component<IPropsType> {
                                             onChange={this.onChange(cs)}
                                         />
                                     </ListItem>
-                                )
-                            )}
-                        </List>
+                                ))}
+                            </List>
+                        )}
                     </Grid>
                     {!allAccepted &&
                         activeTerm!.status !== TermStatus.Published && (
@@ -101,6 +108,7 @@ export default class FeedbackFormView extends React.Component<IPropsType> {
                         )}
                     <Grid item>
                         <FormSubmitBar
+                            disabled={noAssignments}
                             formState={feedbackFormState}
                             onSubmitClick={this.onSubmitClick}
                         />
