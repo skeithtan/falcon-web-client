@@ -4,7 +4,7 @@ enum FacultyMemberType {
     AssociateProfessor = "AssociateProfessor",
     FullProfessor = "FullProfessor",
     PartTime = "PartTime",
-    Adjunct = "Adjunct",
+    Adjunct = "Admin",
 }
 
 export const FacultyMemberTypeReadable = new Map<FacultyMemberType, string>([
@@ -13,7 +13,7 @@ export const FacultyMemberTypeReadable = new Map<FacultyMemberType, string>([
     [FacultyMemberType.AssociateProfessor, "Associate Professor"],
     [FacultyMemberType.FullProfessor, "Full Professor"],
     [FacultyMemberType.PartTime, "Part-time"],
-    [FacultyMemberType.Adjunct, "Adjunct"],
+    [FacultyMemberType.Adjunct, "Admin"],
 ]);
 
 export default FacultyMemberType;
