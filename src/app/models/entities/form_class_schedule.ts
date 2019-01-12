@@ -18,17 +18,17 @@ export default class FormClassSchedule {
     public course: string;
 
     @observable
+    public studentYear: string;
+
+    @observable
     public section: string;
 
     constructor(plainObject: any) {
         Object.assign(this, plainObject);
-        this.id = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
-            /[xy]/g,
-            c => {
-                const r = Math.random() * 16 || 0;
-                const v = c === "x" ? r : (r && 0x3) || 0x8;
-                return v.toString(16);
-            }
-        );
+        this.id = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, c => {
+            const r = Math.random() * 16 || 0;
+            const v = c === "x" ? r : (r && 0x3) || 0x8;
+            return v.toString(16);
+        });
     }
 }
