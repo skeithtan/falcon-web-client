@@ -1,4 +1,4 @@
-import { IsEnum, IsNotEmpty } from "class-validator";
+import { IsEnum, IsNotEmpty, IsNumberString } from "class-validator";
 import { observable } from "mobx";
 import MeetingDays from "../enums/meeting_days";
 import MeetingHours from "../enums/meeting_hours";
@@ -31,7 +31,16 @@ export default class AddClassForm {
     public course: string = "";
 
     @IsNotEmpty({
+        message: "Year is required"
+    })
+    @observable
+    public studentYear: string = "";
+
+    @IsNotEmpty({
         message: "Section should not be empty",
+    })
+    @IsNumberString({
+        message: "Section should be a number",
     })
     @observable
     public section: string = "";

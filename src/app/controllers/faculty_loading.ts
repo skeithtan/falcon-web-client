@@ -387,7 +387,6 @@ export default class FacultyLoadingController {
 
         FacultyLoadingService.submitNotice(termId, form)
             .then(n => {
-                // TODO: maybe do something with the notice?
                 formState.resetAndClose();
             })
             .catch(e => {

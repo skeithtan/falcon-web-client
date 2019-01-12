@@ -41,6 +41,7 @@ export default class AddClassesDialog extends React.Component<IPropsType> {
     };
 
     public render() {
+        const studentLevels = ["I", "II", "III", "IV"];
         const { facultyLoading, pendingClasses } = this.props;
         const {
             classesTabState: { addClassDialogState, classSchedules },
@@ -150,17 +151,44 @@ export default class AddClassesDialog extends React.Component<IPropsType> {
                                 </Typography>
                             </Grid>
                         )}
-                        <Grid item>
-                            <TextField
-                                label="Section"
-                                variant="outlined"
-                                required
-                                onChange={this.onChange("section")}
-                                value={form.section}
-                                error={"section" in validationErrors}
-                                helperText={validationErrors.section}
-                                fullWidth
-                            />
+                        <Grid item container direction="row" spacing={8}>
+                            <Grid item>
+                                <TextField
+                                    select
+                                    label="Year"
+                                    variant="outlined"
+                                    onChange={this.onChange("studentYear")}
+                                    value={form.studentYear}
+                                    error={"studentYear" in validationErrors}
+                                    helperText={validationErrors.studentYear}
+                                    fullWidth
+                                >
+                                    {studentLevels.map(studentLevel => (
+                                        <MenuItem
+                                            key={studentLevel}
+                                            value={String(
+                                                studentLevels.indexOf(
+                                                    studentLevel
+                                                ) + 1
+                                            )}
+                                        >
+                                            {studentLevel}
+                                        </MenuItem>
+                                    ))}
+                                </TextField>
+                            </Grid>
+                            <Grid item xs>
+                                <TextField
+                                    label="Section"
+                                    variant="outlined"
+                                    required
+                                    onChange={this.onChange("section")}
+                                    value={form.section}
+                                    error={"section" in validationErrors}
+                                    helperText={validationErrors.section}
+                                    fullWidth
+                                />
+                            </Grid>
                         </Grid>
 
                         {!noConflictingSection && (

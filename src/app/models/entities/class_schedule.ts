@@ -17,6 +17,9 @@ export default class ClassSchedule extends Entity {
     public room: string;
 
     @observable
+    public studentYear: string;
+
+    @observable
     public section: string;
 
     @observable
@@ -32,8 +35,26 @@ export default class ClassSchedule extends Entity {
     public facultyMember?: ClassScheduleFacultyMember;
 
     @computed
+    get studentYearReadable() {
+        let readable = "";
+        switch (this.studentYear) {
+            case "1":
+                readable = "I";
+            case "2":
+                readable = "II";
+            case "3":
+                readable = "III";
+            case "4":
+                readable = "IV";
+        }
+        return readable;
+    }
+
+    @computed
     get shortTitle() {
-        return `${this.subjectCode} ${this.section}`;
+        return `${this.subjectCode} ${this.studentYearReadable}-${
+            this.section
+        }`;
     }
 
     constructor(plainObject: any) {
