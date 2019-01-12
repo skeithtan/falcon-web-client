@@ -65,6 +65,20 @@ class AddTermFormView extends React.Component<IPropsType> {
                                     fullWidth
                                 />
                             </Grid>
+                            <Grid item xs>
+                                <TextField
+                                    disabled
+                                    label="End Year"
+                                    variant="outlined"
+                                    onChange={this.onChange("endYear")}
+                                    value={
+                                        form.startYear !== ""
+                                            ? Number(form.startYear) + 1
+                                            : ""
+                                    }
+                                    fullWidth
+                                />
+                            </Grid>
                             <Grid item xs={4}>
                                 <TextField
                                     select
