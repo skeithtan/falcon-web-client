@@ -15,6 +15,7 @@ import { FacultyLoadingState } from "../../../../../../store/faculty_loading";
 import FacultyLoadingSteps from "./components/FacultyLoadingSteps";
 import TermNotices from "./components/TermNotices";
 import TermRejections from "./components/TermRejections";
+import TermStatistics from "./components/TermStatistics";
 import styles from "./styles";
 
 interface IPropsType {
@@ -121,6 +122,9 @@ class OverviewContent extends React.Component<IPropsType> {
                                 <Grid container direction="column" spacing={24}>
                                     <Grid item>
                                         <Divider />
+                                    </Grid>
+                                    <Grid item>
+                                        <TermStatistics />
                                     </Grid>
                                     <Grid item>
                                         <TermRejections />
