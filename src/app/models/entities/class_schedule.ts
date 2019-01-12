@@ -36,18 +36,18 @@ export default class ClassSchedule extends Entity {
 
     @computed
     get studentYearReadable() {
-        let readable = "";
         switch (this.studentYear) {
             case "1":
-                readable = "I";
+                return "I";
             case "2":
-                readable = "II";
+                return "II";
             case "3":
-                readable = "III";
+                return "III";
             case "4":
-                readable = "IV";
+                return "IV";
+            default:
+                return "";
         }
-        return readable;
     }
 
     @computed

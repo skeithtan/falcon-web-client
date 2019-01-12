@@ -24,7 +24,9 @@ export default class AddClassesItem extends React.Component<IPropsType> {
                 </TableCell>
                 <TableCell>{classSchedule.room}</TableCell>
                 <TableCell>{classSchedule.course}</TableCell>
-                <TableCell>{classSchedule.section}</TableCell>
+                <TableCell>{`${classSchedule.studentYearReadable}-${
+                    classSchedule.section
+                }`}</TableCell>
                 <TableCell>
                     <Button
                         variant="outlined"

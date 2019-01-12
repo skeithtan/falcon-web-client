@@ -1,4 +1,4 @@
-import { observable } from "mobx";
+import { computed, observable } from "mobx";
 import MeetingDays from "../enums/meeting_days";
 import MeetingHours from "../enums/meeting_hours";
 
@@ -22,6 +22,22 @@ export default class FormClassSchedule {
 
     @observable
     public section: string;
+
+    @computed
+    get studentYearReadable() {
+        let readable = "";
+        switch (this.studentYear) {
+            case "1":
+                readable = "I";
+            case "2":
+                readable = "II";
+            case "3":
+                readable = "III";
+            case "4":
+                readable = "IV";
+        }
+        return readable;
+    }
 
     constructor(plainObject: any) {
         Object.assign(this, plainObject);
