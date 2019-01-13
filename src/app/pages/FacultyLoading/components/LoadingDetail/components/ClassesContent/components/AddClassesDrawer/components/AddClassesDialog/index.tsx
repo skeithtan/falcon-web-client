@@ -1,8 +1,10 @@
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Grid from "@material-ui/core/Grid";
 import MenuItem from "@material-ui/core/MenuItem";
+import Switch from "@material-ui/core/Switch";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import { inject, observer } from "mobx-react";
@@ -34,6 +36,12 @@ export default class AddClassesDialog extends React.Component<IPropsType> {
         const { facultyLoading } = this.props;
         const { form } = facultyLoading!.classesTabState.addClassDialogState;
         form[property] = event.target.value;
+    };
+
+    public onAdjunctChange = () => {
+        const { facultyLoading } = this.props;
+        const { form } = facultyLoading!.classesTabState.addClassDialogState;
+        form.forAdjunct = !form.forAdjunct;
     };
 
     public onSubmitClick = () => {
@@ -150,19 +158,43 @@ export default class AddClassesDialog extends React.Component<IPropsType> {
                                 </Typography>
                             </Grid>
                         )}
-                        <Grid item>
-                            <TextField
-                                label="Section"
-                                variant="outlined"
-                                required
-                                onChange={this.onChange("section")}
-                                value={form.section}
-                                error={"section" in validationErrors}
-                                helperText={validationErrors.section}
-                                fullWidth
-                            />
+                        <Grid item container direction="row" spacing={8}>
+                            <Grid item>
+                                <TextField
+                                    select
+                                    label="Year"
+                                    variant="outlined"
+                                    onChange={this.onChange("studentYear")}
+                                    value={form.studentYear}
+                                    error={"studentYear" in validationErrors}
+                                    helperText={validationErrors.studentYear}
+                                    fullWidth
+                                >
+                                    {Object.entries({
+                                        "1": "I",
+                                        "2": "II",
+                                        "3": "III",
+                                        "4": "IV",
+                                    }).map(([value, readable]) => (
+                                        <MenuItem key={value} value={value}>
+                                            {readable}
+                                        </MenuItem>
+                                    ))}
+                                </TextField>
+                            </Grid>
+                            <Grid item xs>
+                                <TextField
+                                    label="Section"
+                                    variant="outlined"
+                                    required
+                                    onChange={this.onChange("section")}
+                                    value={form.section}
+                                    error={"section" in validationErrors}
+                                    helperText={validationErrors.section}
+                                    fullWidth
+                                />
+                            </Grid>
                         </Grid>
-
                         {!noConflictingSection && (
                             <Grid item>
                                 <Typography variant="subtitle2" color="error">
@@ -183,7 +215,17 @@ export default class AddClassesDialog extends React.Component<IPropsType> {
                                 fullWidth
                             />
                         </Grid>
-
+                        <Grid item>
+                            <FormControlLabel
+                                control={
+                                    <Switch
+                                        checked={form.forAdjunct}
+                                        onChange={this.onAdjunctChange}
+                                    />
+                                }
+                                label="For Adjunct Assignment"
+                            />
+                        </Grid>
                         <Grid item container direction="row" spacing={24}>
                             <Grid item>
                                 <FormSubmitBar

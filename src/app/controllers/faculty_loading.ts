@@ -6,6 +6,7 @@ import FeedbackStatus from "../models/enums/feedback_status";
 import FetchableStatus from "../models/enums/fetchable_status";
 import FormStatus from "../models/enums/form_status";
 import MeetingDays from "../models/enums/meeting_days";
+import TermStatus from "../models/enums/term_status";
 import FacultyLoadingService from "../services/faculty_loading";
 import SubjectsService from "../services/subjects";
 import rootStore from "../store";
@@ -72,10 +73,27 @@ export default class FacultyLoadingController {
         return FacultyLoadingService.fetchTerm(id)
             .then(t => {
                 facultyLoading.terms!.set(id, t);
+                if (facultyLoading.activeTerm!.status !== TermStatus.Archived) {
+                    this.getCurrentTermStats();
+                }
             })
             .catch((e: Error) =>
                 term.setStatus(FetchableStatus.Error, e.message)
             );
+    }
+
+    public static getCurrentTermStats() {
+        const state = facultyLoading.currentTermStatsState;
+        state.setStatus(FetchableStatus.Fetching);
+
+        return FacultyLoadingService.getCurrentStats()
+            .then(stats => {
+                facultyLoading.currentTermStatsState.stats = stats;
+                state.setStatus(FetchableStatus.Fetched);
+            })
+            .catch((e: Error) => {
+                state.setStatus(FetchableStatus.Error, e);
+            });
     }
 
     public static setActiveTab(tab: FacultyLoadingTab) {
@@ -387,7 +405,6 @@ export default class FacultyLoadingController {
 
         FacultyLoadingService.submitNotice(termId, form)
             .then(n => {
-                // TODO: maybe do something with the notice?
                 formState.resetAndClose();
             })
             .catch(e => {
@@ -444,6 +461,8 @@ export default class FacultyLoadingController {
                 room: classScheduleChildForm.room,
                 section: classScheduleChildForm.section,
                 course: classScheduleChildForm.course,
+                studentYear: classScheduleChildForm.studentYear,
+                forAdjunct: classScheduleChildForm.forAdjunct,
             })
         );
 

@@ -20,6 +20,9 @@ export default class FacultyClassSchedule extends Entity {
     public course: string;
 
     @observable
+    public studentYear: string;
+
+    @observable
     public section: string;
 
     @observable

@@ -85,7 +85,7 @@ export default class ClassScheduleDetailsDrawer extends React.Component<
                         />
                         <DetailItem
                             field="Section"
-                            value={activeClassSchedule!.section}
+                            value={activeClassSchedule!.shortTitle}
                         />
                         <DetailItem
                             field="Room"
