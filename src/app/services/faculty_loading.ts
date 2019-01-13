@@ -187,4 +187,13 @@ export default class FacultyLoadingService {
             .delete(`/terms/${termId}/notices/${noticeId}`)
             .catch(handleAxiosError);
     }
+
+    public static async getCurrentStats() {
+        return axios
+            .get("/terms/current-stats")
+            .then((response: AxiosResponse) => {
+                return response.data;
+            })
+            .catch(handleAxiosError);
+    }
 }
