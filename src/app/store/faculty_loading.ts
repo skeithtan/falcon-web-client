@@ -9,6 +9,9 @@ import addTermFormState, {
 import classesTabState, {
     ClassesTabState,
 } from "./faculty_loading/classes_tab";
+import currentTermStatsState, {
+    CurrentTermStatsState,
+} from "./faculty_loading/current_term_stats";
 import facultyTabState, {
     FacultyTabState,
 } from "./faculty_loading/faculty_tab";
@@ -41,6 +44,9 @@ export class FacultyLoadingState extends FetchableState {
 
     @observable
     public printTermScheduleState: PrintTermScheduleState = printTermScheduleState;
+
+    @observable
+    public currentTermStatsState: CurrentTermStatsState = currentTermStatsState;
 
     @computed
     get activeTermStatusIndex(): number {
