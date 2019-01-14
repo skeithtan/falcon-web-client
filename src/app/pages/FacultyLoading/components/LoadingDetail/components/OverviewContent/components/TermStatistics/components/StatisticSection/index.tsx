@@ -13,7 +13,7 @@ export default class StatisticSection extends React.Component<IPropsType> {
         return (
             <Grid container direction="column" spacing={8}>
                 <Grid item>
-                    <Typography variant="caption">{title}</Typography>
+                    <Typography variant="overline">{title}</Typography>
                 </Grid>
                 <Grid item container direction="row" spacing={8}>
                     {children}
