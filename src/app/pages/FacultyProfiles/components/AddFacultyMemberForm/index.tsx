@@ -5,6 +5,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import { inject, observer } from "mobx-react";
+import * as moment from "moment";
 import * as React from "react";
 import DrawerForm from "../../../../components/reusable/DrawerForm";
 import FormSubmitBar from "../../../../components/reusable/FormSubmitBar";
@@ -48,6 +49,10 @@ export default class AddFacultyMemberFormView extends React.Component<
             validationErrors,
             canSubmit,
         } = facultyProfiles!.addFacultyMemberFormState;
+
+        const birthLimit = moment(moment().subtract(21, "years"))
+            .format("YYYY-MM-DD")
+            .toString();
 
         return (
             <DrawerForm
@@ -155,6 +160,9 @@ export default class AddFacultyMemberFormView extends React.Component<
                                 helperText={validationErrors.birthDate}
                                 required
                                 InputLabelProps={{ shrink: true }}
+                                inputProps={{
+                                    max: birthLimit,
+                                }}
                                 fullWidth
                             />
                         </Grid>
