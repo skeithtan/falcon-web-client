@@ -64,6 +64,7 @@ export default class AssignFacultyDialog extends React.Component<IPropsType> {
                 onClose={this.onClose}
                 onEntering={this.onEntering}
                 fullWidth
+                maxWidth="lg"
             >
                 <DialogTitle>Assign Faculty Member</DialogTitle>
                 <DialogContent>
