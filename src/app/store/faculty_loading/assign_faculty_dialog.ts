@@ -1,7 +1,7 @@
 import { observable } from "mobx";
 import IFetchable from "../../interfaces/fetchable";
 import FormState from "../../interfaces/form_state";
-import FacultyProfile from "../../models/entities/faculty_profile";
+import RecommendationFacultyMember from "../../models/entities/recommendation_faculty_member";
 import FetchableStatus from "../../models/enums/fetchable_status";
 import AssignFacultyDialog from "../../models/forms/assign_faculty_dialog";
 
@@ -17,10 +17,7 @@ export class AssignFacultyDialogState extends FormState<AssignFacultyDialog>
     public form: AssignFacultyDialog = new AssignFacultyDialog();
 
     @observable
-    public recommendedFaculties?: FacultyProfile[] = undefined;
-
-    @observable
-    public allFaculties?: FacultyProfile[] = undefined;
+    public recommendedFaculties?: RecommendationFacultyMember[] = undefined;
 
     public resetForm() {
         this.form = new AssignFacultyDialog();

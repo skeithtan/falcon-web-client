@@ -1,8 +1,8 @@
 import axios, { AxiosResponse } from "axios";
 import ClassSchedule from "../models/entities/class_schedule";
 import FacultyLoadingFacultyMember from "../models/entities/faculty_loading_faculty_member";
-import FacultyProfile from "../models/entities/faculty_profile";
 import Notice from "../models/entities/notice";
+import RecommendationFacultyMember from "../models/entities/recommendation_faculty_member";
 import Term from "../models/entities/term";
 import TimeConstraint from "../models/entities/time_constraint";
 import FeedbackStatus from "../models/enums/feedback_status";
@@ -141,17 +141,14 @@ export default class FacultyLoadingService {
     public static async getAllFaculties(
         termId: number,
         csId: number
-    ): Promise<{ [key: string]: FacultyProfile[] }> {
+    ): Promise<RecommendationFacultyMember[]> {
         return axios
             .get(`/terms/${termId}/class-schedules/${csId}/`)
-            .then((response: AxiosResponse) => ({
-                recommendations: response.data.recommendations.map(
-                    (fp: any) => new FacultyProfile(fp)
-                ),
-                allFaculties: response.data.allFaculties.map(
-                    (fp: any) => new FacultyProfile(fp)
-                ),
-            }))
+            .then((response: AxiosResponse) => {
+                return response.data.map(
+                    (fm: any) => new RecommendationFacultyMember(fm)
+                );
+            })
             .catch(handleAxiosError);
     }
 
