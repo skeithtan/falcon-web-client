@@ -99,6 +99,12 @@ export default class ClassScheduleDetailsDrawer extends React.Component<
                             field="Course"
                             value={activeClassSchedule!.course}
                         />
+                        {activeClassSchedule!.forAdjunct && (
+                            <DetailItem
+                                field="For Adjunct Assignment"
+                                value={"Yes"}
+                            />
+                        )}
                     </List>
                 </Grid>
 
