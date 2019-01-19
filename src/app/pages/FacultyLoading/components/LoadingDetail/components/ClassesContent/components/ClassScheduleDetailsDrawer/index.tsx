@@ -143,7 +143,8 @@ export default class ClassScheduleDetailsDrawer extends React.Component<
                             </Typography>
                         </CardContent>
                     )}
-                    {activeTerm!.status === TermStatus.Scheduling &&
+                    {!activeClassSchedule!.forAdjunct &&
+                        activeTerm!.status === TermStatus.Scheduling &&
                         currentUser!.authorization ===
                             UserType.AssociateDean && (
                             <CardActions>
