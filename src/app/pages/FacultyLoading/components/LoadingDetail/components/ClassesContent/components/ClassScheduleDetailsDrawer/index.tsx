@@ -68,6 +68,10 @@ export default class ClassScheduleDetailsDrawer extends React.Component<
                             value={activeClassSchedule!.subjectName}
                         />
                         <DetailItem
+                            field="Subject Category"
+                            value={activeClassSchedule!.subjectCategory}
+                        />
+                        <DetailItem
                             field="Meeting Days"
                             value={
                                 MeetingDaysReadable.get(
@@ -115,22 +119,24 @@ export default class ClassScheduleDetailsDrawer extends React.Component<
                 )}
 
                 <Grid item>
-                    <CardContent>
-                        <Typography variant="overline">
-                            Assigned Faculty Member
-                        </Typography>
-                        <Typography variant="h6">
-                            {activeClassSchedule!.facultyMember
-                                ? `${
-                                      activeClassSchedule!.facultyMember!
-                                          .firstName
-                                  } ${
-                                      activeClassSchedule!.facultyMember!
-                                          .lastName
-                                  }`
-                                : "No assigned faculty member"}
-                        </Typography>
-                    </CardContent>
+                    {!activeClassSchedule!.forAdjunct && (
+                        <CardContent>
+                            <Typography variant="overline">
+                                Assigned Faculty Member
+                            </Typography>
+                            <Typography variant="h6">
+                                {activeClassSchedule!.facultyMember
+                                    ? `${
+                                          activeClassSchedule!.facultyMember!
+                                              .firstName
+                                      } ${
+                                          activeClassSchedule!.facultyMember!
+                                              .lastName
+                                      }`
+                                    : "No assigned faculty member"}
+                            </Typography>
+                        </CardContent>
+                    )}
                     {activeTerm!.status === TermStatus.Scheduling &&
                         currentUser!.authorization ===
                             UserType.AssociateDean && (
@@ -146,9 +152,11 @@ export default class ClassScheduleDetailsDrawer extends React.Component<
                         )}
                 </Grid>
 
-                <Grid item>
-                    <Divider />
-                </Grid>
+                {!activeClassSchedule!.forAdjunct && (
+                    <Grid item>
+                        <Divider />
+                    </Grid>
+                )}
                 <AssignFacultyDialog />
             </Grid>
         );
