@@ -28,12 +28,13 @@ class FacultyDialogItemCard extends React.Component<IPropsType> {
         const { form } = assignFacultyDialogState;
         const selected =
             Boolean(form.facultyMember) &&
-            form.facultyMember!.id === facultyMember!.id;
+            form.facultyMember!.facultyMember.id ===
+                facultyMember!.facultyMember.id;
 
         return (
             <Card
                 className={classNames(classes.card, {
-                    [classes.selected]: selected
+                    selected,
                 })}
                 onClick={onClick}
             >
