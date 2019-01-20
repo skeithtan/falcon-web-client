@@ -8,12 +8,13 @@ export default {
         cursor: "pointer",
         transition: "200ms all",
 
-        "&:hover": {
+        "&:hover:not(.selected)": {
             background: Grey["100"],
         },
+        "&.selected": {
+            backgroundColor: Green["100"],
+            color: "white",
+        },
     },
-    selected: {
-        backgroundColor: Green["100"],
-        color: "white",
-    },
+   
 } as StyleRules;
