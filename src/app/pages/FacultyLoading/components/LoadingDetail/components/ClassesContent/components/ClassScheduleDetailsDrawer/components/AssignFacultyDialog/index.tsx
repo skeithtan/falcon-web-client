@@ -95,22 +95,31 @@ export default class AssignFacultyDialog extends React.Component<IPropsType> {
                                                             faculty member.
                                                         </DialogContentText>
                                                     </Grid>
-                                                    <Grid item>
+                                                    <Grid
+                                                        item
+                                                        container
+                                                        direction="row"
+                                                        spacing={16}
+                                                    >
                                                         {recommendedFaculties!.map(
                                                             fm => (
-                                                                <FacultyDialogItemCard
+                                                                <Grid
+                                                                    item
                                                                     key={
                                                                         fm
                                                                             .facultyMember
                                                                             .id
                                                                     }
-                                                                    facultyMember={
-                                                                        fm
-                                                                    }
-                                                                    onClick={this.onChange(
-                                                                        fm
-                                                                    )}
-                                                                />
+                                                                >
+                                                                    <FacultyDialogItemCard
+                                                                        facultyMember={
+                                                                            fm
+                                                                        }
+                                                                        onClick={this.onChange(
+                                                                            fm
+                                                                        )}
+                                                                    />
+                                                                </Grid>
                                                             )
                                                         )}
                                                     </Grid>
