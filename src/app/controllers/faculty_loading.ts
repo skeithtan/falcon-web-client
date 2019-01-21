@@ -351,8 +351,7 @@ export default class FacultyLoadingController {
 
         FacultyLoadingService.getAllFaculties(termId, csId)
             .then(faculties => {
-                state.recommendedFaculties = faculties.recommendations;
-                state.allFaculties = faculties.allFaculties;
+                state.recommendedFaculties = faculties;
                 state.fetchStatus = FetchableStatus.Fetched;
             })
             .catch((e: Error) => {
