@@ -28,9 +28,6 @@ export default class FacultyLoadingFacultyMember extends Entity {
     public timeConstraints: TimeConstraint[];
 
     @observable
-    public hasExternalLoad: boolean;
-
-    @observable
     public ongoingSubdocuments: OngoingSubdocument[];
 
     @computed
