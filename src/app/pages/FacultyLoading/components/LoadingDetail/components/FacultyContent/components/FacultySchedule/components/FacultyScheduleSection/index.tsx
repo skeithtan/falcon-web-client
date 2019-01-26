@@ -74,13 +74,11 @@ export default class FacultyScheduleSection extends React.Component<
                             <Grid item xs key={mhrEnum}>
                                 <TimeSlotCard
                                     meetingHours={mhrEnum}
-                                    isAvailable={timeConstraint !== undefined}
+                                    availabilityType={
+                                        timeConstraint!.availabilityType
+                                    }
                                     classSchedule={cs}
                                     feedback={cs && cs.feedback}
-                                    isPreferred={
-                                        timeConstraint !== undefined &&
-                                        timeConstraint.isPreferred
-                                    }
                                     isThirdConsecutive={isThirdConsecutive}
                                 />
                             </Grid>
