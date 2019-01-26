@@ -12,6 +12,9 @@ import * as React from "react";
 import IStyleClasses from "../../../interfaces/style_classes";
 import FacultyClassSchedule from "../../../models/entities/faculty_class_schedule";
 import Feedback from "../../../models/entities/feedback";
+import AvailabilityType, {
+    AvailabilityTypeReadable,
+} from "../../../models/enums/availability_type";
 import FeedbackStatus from "../../../models/enums/feedback_status";
 import MeetingHours, {
     MeetingHoursReadable,
@@ -20,8 +23,7 @@ import styles from "./styles";
 
 interface IPropsType {
     meetingHours: MeetingHours;
-    isAvailable?: boolean;
-    isPreferred?: boolean;
+    availabilityType: AvailabilityType;
     isThirdConsecutive?: boolean;
     classSchedule?: FacultyClassSchedule;
     feedback?: Feedback;
@@ -32,20 +34,24 @@ class TimeSlotCard extends React.Component<IPropsType> {
     public render() {
         const {
             meetingHours,
-            isAvailable,
-            isPreferred,
+            availabilityType,
             isThirdConsecutive,
             classSchedule,
             feedback,
             classes,
         } = this.props;
+        const notAvailable =
+            availabilityType !== AvailabilityType.Available &&
+            availabilityType !== AvailabilityType.Preferred;
         return (
             <Card square className={classes.card}>
                 <CardContent
                     className={classNames(
                         classes.card,
-                        isAvailable && !isPreferred && classes.availableCard,
-                        isPreferred && classes.preferredCard
+                        availabilityType === AvailabilityType.Available &&
+                            classes.availableCard,
+                        availabilityType === AvailabilityType.Preferred &&
+                            classes.preferredCard
                     )}
                 >
                     <Grid
@@ -75,10 +81,21 @@ class TimeSlotCard extends React.Component<IPropsType> {
                                         <ErrorOutline color="secondary" />
                                     </Tooltip>
                                 )}
-                                {isAvailable && !isPreferred && <Done />}
-                                {isPreferred && <DoneAll />}
+                                {availabilityType ===
+                                    AvailabilityType.Available && <Done />}
+                                {availabilityType ===
+                                    AvailabilityType.Preferred && <DoneAll />}
                             </Grid>
                         </Grid>
+                        {notAvailable && (
+                            <Grid item>
+                                <Typography variant="overline">
+                                    {AvailabilityTypeReadable.get(
+                                        availabilityType
+                                    )}
+                                </Typography>
+                            </Grid>
+                        )}
                         {classSchedule && (
                             <Grid
                                 item
