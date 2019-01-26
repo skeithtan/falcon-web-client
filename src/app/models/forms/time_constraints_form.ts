@@ -1,14 +1,13 @@
 import { computed, observable } from "mobx";
 import FacultyLoadingFacultyMember from "../entities/faculty_loading_faculty_member";
 import TimeConstraint from "../entities/time_constraint";
-import MeetingDays from "../enums/meeting_days";
+import AvailabilityType from "../enums/availability_type";
+import MeetingDays, { MeetingDaysReadable } from "../enums/meeting_days";
+import { MeetingHoursReadable } from "../enums/meeting_hours";
 
 export default class TimeConstraintsForm {
     @observable
     public timeConstraints: TimeConstraint[] = [];
-
-    @observable
-    public hasExternalLoad: boolean = false;
 
     @computed
     get mondayThursdayCount(): number {
@@ -25,7 +24,20 @@ export default class TimeConstraintsForm {
     }
 
     public prefillForm(flfm: FacultyLoadingFacultyMember) {
-        this.timeConstraints = flfm.timeConstraints.map(tc => ({...tc}));
-        this.hasExternalLoad = flfm.hasExternalLoad;
+        if (flfm.timeConstraints.length > 0) {
+            this.timeConstraints = flfm.timeConstraints.map(tc => ({...tc}));
+        } else {
+            Array.from(MeetingDaysReadable.entries()).map(([md, mdStr]) => {
+                Array.from(MeetingHoursReadable.entries()).map(([mh, mhStr]) => {
+                    this.timeConstraints.push(
+                        new TimeConstraint({
+                            availabilityType: AvailabilityType.Available,
+                            meetingDays: md,
+                            meetingHours: mh,
+                        })
+                    );
+                });
+            });
+        }
     }
 }
