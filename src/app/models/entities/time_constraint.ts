@@ -1,12 +1,12 @@
 import { observable } from "mobx";
 import Entity from "../../interfaces/entity";
+import AvailabilityType from "../enums/availability_type";
 import MeetingDays from "../enums/meeting_days";
 import MeetingHours from "../enums/meeting_hours";
-import TimeConstraintType from "../enums/time_constraint_type";
 
 export default class TimeConstraint extends Entity {
     @observable
-    public type: TimeConstraintType;
+    public availabilityType: AvailabilityType;
 
     @observable
     public otherReason?: string;
