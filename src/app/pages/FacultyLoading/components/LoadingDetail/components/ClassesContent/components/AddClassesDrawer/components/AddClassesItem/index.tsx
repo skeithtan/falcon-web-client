@@ -27,7 +27,6 @@ export default class AddClassesItem extends React.Component<IPropsType> {
                 <TableCell>{`${classSchedule.studentYearReadable}-${
                     classSchedule.section
                 }`}</TableCell>
-                <TableCell>{classSchedule.forAdjunct ? "Yes" : "No"}</TableCell>
                 <TableCell>
                     <Button
                         variant="outlined"

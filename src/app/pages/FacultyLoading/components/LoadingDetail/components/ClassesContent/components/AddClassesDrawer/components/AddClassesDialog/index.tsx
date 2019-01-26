@@ -38,12 +38,6 @@ export default class AddClassesDialog extends React.Component<IPropsType> {
         form[property] = event.target.value;
     };
 
-    public onAdjunctChange = () => {
-        const { facultyLoading } = this.props;
-        const { form } = facultyLoading!.classesTabState.addClassDialogState;
-        form.forAdjunct = !form.forAdjunct;
-    };
-
     public onSubmitClick = () => {
         FacultyLoadingController.addClassToForm();
     };
@@ -213,17 +207,6 @@ export default class AddClassesDialog extends React.Component<IPropsType> {
                                 error={"course" in validationErrors}
                                 helperText={validationErrors.course}
                                 fullWidth
-                            />
-                        </Grid>
-                        <Grid item>
-                            <FormControlLabel
-                                control={
-                                    <Switch
-                                        checked={form.forAdjunct}
-                                        onChange={this.onAdjunctChange}
-                                    />
-                                }
-                                label="For Adjunct Assignment"
                             />
                         </Grid>
                         <Grid item container direction="row" spacing={24}>
