@@ -1,10 +1,6 @@
-import Divider from "@material-ui/core/Divider";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormGroup from "@material-ui/core/FormGroup";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import Grid from "@material-ui/core/Grid";
 import MenuItem from "@material-ui/core/MenuItem";
-import Switch from "@material-ui/core/Switch";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import { inject, observer } from "mobx-react";
@@ -13,15 +9,15 @@ import DrawerForm from "../../../../components/reusable/DrawerForm";
 import FormSubmitBar from "../../../../components/reusable/FormSubmitBar";
 import FacultyLoadingController from "../../../../controllers/faculty_loading";
 import TimeConstraint from "../../../../models/entities/time_constraint";
+import AvailabilityType, {
+    AvailabilityTypeReadable,
+} from "../../../../models/enums/availability_type";
 import MeetingDays, {
     MeetingDaysReadable,
 } from "../../../../models/enums/meeting_days";
 import MeetingHours, {
     MeetingHoursReadable,
 } from "../../../../models/enums/meeting_hours";
-import TimeConstraintType, {
-    TimeConstraintTypeReadable,
-} from "../../../../models/enums/time_constraint_type";
 import { FacultyLoadingState } from "../../../../store/faculty_loading";
 
 interface IPropsType {
@@ -37,19 +33,12 @@ export default class TimeConstraintsFormView extends React.Component<
         FacultyLoadingController.toggleTimeConstraintsForm(false);
     };
 
-    public onExternalLoadChange = (hasExternalLoad: boolean) => () => {
-        const { facultyLoading } = this.props;
-        const { facultyTabState } = facultyLoading!;
-        const { form } = facultyTabState.timeConstraintsFormState;
-        form.hasExternalLoad = hasExternalLoad;
-    };
-
     public onSubmitClick = () => {
         FacultyLoadingController.submitTimeConstraints();
     };
 
     public onChange = (md: MeetingDays, mh: MeetingHours) => (event: any) => {
-        const tct = event.target.value;
+        const at = event.target.value;
         const { facultyLoading } = this.props;
         const { facultyTabState } = facultyLoading!;
         const {
@@ -65,7 +54,7 @@ export default class TimeConstraintsFormView extends React.Component<
         if (tcIndex === -1) {
             timeConstraints.push(
                 new TimeConstraint({
-                    isPreferred: tct === TimeConstraintType.Preferred,
+                    availabilityType: at,
                     meetingDays: md,
                     meetingHours: mh,
                 })
@@ -73,15 +62,10 @@ export default class TimeConstraintsFormView extends React.Component<
             return;
         }
 
-        if (tct === TimeConstraintType.NotAvailable) {
-            timeConstraints.splice(tcIndex, 1);
-            return;
-        }
-
         const tc = timeConstraints[tcIndex];
+        tc.availabilityType = at;
         tc.meetingDays = md;
         tc.meetingHours = mh;
-        tc.isPreferred = tct === TimeConstraintType.Preferred;
     };
 
     public render() {
@@ -115,7 +99,6 @@ export default class TimeConstraintsFormView extends React.Component<
                                     container
                                     direction="column"
                                     spacing={24}
-                                    xs
                                     key={md}
                                 >
                                     <Grid item>
@@ -132,16 +115,6 @@ export default class TimeConstraintsFormView extends React.Component<
                                                 tcc.meetingHours === mh &&
                                                 tcc.meetingDays === md
                                         );
-                                        let value =
-                                            tc === undefined
-                                                ? TimeConstraintType.NotAvailable
-                                                : TimeConstraintType.Available;
-
-                                        if (tc && tc.isPreferred) {
-                                            value =
-                                                TimeConstraintType.Preferred;
-                                        }
-
                                         return (
                                             <Grid item key={mh}>
                                                 <TextField
@@ -152,7 +125,11 @@ export default class TimeConstraintsFormView extends React.Component<
                                                         md,
                                                         mh
                                                     )}
-                                                    value={value}
+                                                    value={
+                                                        tc
+                                                            ? tc.availabilityType
+                                                            : AvailabilityType.Available
+                                                    }
                                                     error={
                                                         "type" in
                                                         validationErrors
@@ -163,7 +140,7 @@ export default class TimeConstraintsFormView extends React.Component<
                                                     fullWidth
                                                 >
                                                     {Array.from(
-                                                        TimeConstraintTypeReadable
+                                                        AvailabilityTypeReadable
                                                     ).map(
                                                         ([
                                                             typeEnum,
@@ -184,42 +161,6 @@ export default class TimeConstraintsFormView extends React.Component<
                                 </Grid>
                             )
                         )}
-                    </Grid>
-                    <Grid item>
-                        <Divider />
-                    </Grid>
-                    <Grid
-                        item
-                        container
-                        direction="column"
-                        wrap="nowrap"
-                        spacing={8}
-                    >
-                        <Grid item>
-                            <FormGroup>
-                                <FormControlLabel
-                                    control={
-                                        <Switch
-                                            checked={form.hasExternalLoad}
-                                            value={form.hasExternalLoad}
-                                            onChange={this.onExternalLoadChange(
-                                                !form.hasExternalLoad
-                                            )}
-                                        />
-                                    }
-                                    label="Outside / study load"
-                                />
-                            </FormGroup>
-                        </Grid>
-                        <Grid item>
-                            <Typography variant="caption">
-                                Enabling this will mean less prioritization or
-                                no assignment for extra loads.
-                            </Typography>
-                        </Grid>
-                    </Grid>
-                    <Grid item>
-                        <Divider />
                     </Grid>
                     {!sufficientConstraints && (
                         <Grid item>
