@@ -66,6 +66,16 @@ export default class TimeConstraintsFormView extends React.Component<
         tc.availabilityType = at;
         tc.meetingDays = md;
         tc.meetingHours = mh;
+
+        if (tc.availabilityType !== AvailabilityType.Other) {
+            tc.otherReason = "";
+        }
+    };
+
+    public onReasonChange = (tc: TimeConstraint) => (event: any) => {
+        const reason = event.target.value;
+        console.log(tc);
+        tc.otherReason = reason;
     };
 
     public render() {
@@ -116,45 +126,80 @@ export default class TimeConstraintsFormView extends React.Component<
                                                 tcc.meetingDays === md
                                         );
                                         return (
-                                            <Grid item key={mh}>
-                                                <TextField
-                                                    select
-                                                    label={mhStr}
-                                                    variant="outlined"
-                                                    onChange={this.onChange(
-                                                        md,
-                                                        mh
+                                            <Grid
+                                                item
+                                                container
+                                                direction={
+                                                    tc &&
+                                                    tc!.availabilityType ===
+                                                        AvailabilityType.Other
+                                                        ? "row"
+                                                        : "column"
+                                                }
+                                                spacing={8}
+                                                key={mh}
+                                            >
+                                                <Grid item xs>
+                                                    <TextField
+                                                        select
+                                                        label={mhStr}
+                                                        variant="outlined"
+                                                        onChange={this.onChange(
+                                                            md,
+                                                            mh
+                                                        )}
+                                                        value={
+                                                            tc
+                                                                ? tc.availabilityType
+                                                                : AvailabilityType.Available
+                                                        }
+                                                        error={
+                                                            "type" in
+                                                            validationErrors
+                                                        }
+                                                        helperText={
+                                                            validationErrors.type
+                                                        }
+                                                        fullWidth
+                                                    >
+                                                        {Array.from(
+                                                            AvailabilityTypeReadable
+                                                        ).map(
+                                                            ([
+                                                                tEnum,
+                                                                tReadable,
+                                                            ]) => (
+                                                                <MenuItem
+                                                                    key={tEnum}
+                                                                    value={
+                                                                        tEnum
+                                                                    }
+                                                                >
+                                                                    {tReadable}
+                                                                </MenuItem>
+                                                            )
+                                                        )}
+                                                    </TextField>
+                                                </Grid>
+                                                {tc &&
+                                                    tc!.availabilityType ===
+                                                        AvailabilityType.Other && (
+                                                        <Grid item xs>
+                                                            <TextField
+                                                                label="Reason"
+                                                                variant="outlined"
+                                                                onChange={this.onReasonChange(
+                                                                    tc!
+                                                                )}
+                                                                value={
+                                                                    tc!
+                                                                        .otherReason
+                                                                }
+                                                                required
+                                                                fullWidth
+                                                            />
+                                                        </Grid>
                                                     )}
-                                                    value={
-                                                        tc
-                                                            ? tc.availabilityType
-                                                            : AvailabilityType.Available
-                                                    }
-                                                    error={
-                                                        "type" in
-                                                        validationErrors
-                                                    }
-                                                    helperText={
-                                                        validationErrors.type
-                                                    }
-                                                    fullWidth
-                                                >
-                                                    {Array.from(
-                                                        AvailabilityTypeReadable
-                                                    ).map(
-                                                        ([
-                                                            typeEnum,
-                                                            typeReadable,
-                                                        ]) => (
-                                                            <MenuItem
-                                                                key={typeEnum}
-                                                                value={typeEnum}
-                                                            >
-                                                                {typeReadable}
-                                                            </MenuItem>
-                                                        )
-                                                    )}
-                                                </TextField>
                                             </Grid>
                                         );
                                     })}
