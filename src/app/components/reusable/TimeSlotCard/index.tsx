@@ -24,6 +24,7 @@ import styles from "./styles";
 interface IPropsType {
     meetingHours: MeetingHours;
     availabilityType: AvailabilityType;
+    reason?: string;
     isThirdConsecutive?: boolean;
     classSchedule?: FacultyClassSchedule;
     feedback?: Feedback;
@@ -35,6 +36,7 @@ class TimeSlotCard extends React.Component<IPropsType> {
         const {
             meetingHours,
             availabilityType,
+            reason,
             isThirdConsecutive,
             classSchedule,
             feedback,
@@ -94,6 +96,14 @@ class TimeSlotCard extends React.Component<IPropsType> {
                                         availabilityType
                                     )}
                                 </Typography>
+                                {availabilityType ===
+                                    AvailabilityType.Other && (
+                                    <Grid item>
+                                        <Typography variant="overline">
+                                            {reason}
+                                        </Typography>
+                                    </Grid>
+                                )}
                             </Grid>
                         )}
                         {classSchedule && (
