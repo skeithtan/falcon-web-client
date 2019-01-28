@@ -6,6 +6,7 @@ import { observer } from "mobx-react";
 import * as React from "react";
 import TimeSlotCard from "../../../../../../../../../../components/reusable/TimeSlotCard";
 import FacultyLoadingFacultyMember from "../../../../../../../../../../models/entities/faculty_loading_faculty_member";
+import AvailabilityType from "../../../../../../../../../../models/enums/availability_type";
 import MeetingDays, {
     MeetingDaysReadable,
 } from "../../../../../../../../../../models/enums/meeting_days";
@@ -74,13 +75,17 @@ export default class FacultyScheduleSection extends React.Component<
                             <Grid item xs key={mhrEnum}>
                                 <TimeSlotCard
                                     meetingHours={mhrEnum}
-                                    isAvailable={timeConstraint !== undefined}
+                                    availabilityType={
+                                        timeConstraint!.availabilityType
+                                    }
+                                    reason={
+                                        timeConstraint!.availabilityType ===
+                                        AvailabilityType.Other
+                                            ? timeConstraint!.otherReason
+                                            : ""
+                                    }
                                     classSchedule={cs}
                                     feedback={cs && cs.feedback}
-                                    isPreferred={
-                                        timeConstraint !== undefined &&
-                                        timeConstraint.isPreferred
-                                    }
                                     isThirdConsecutive={isThirdConsecutive}
                                 />
                             </Grid>

@@ -97,16 +97,6 @@ class FacultyOverview extends React.Component<IPropsType> {
                                     value={facultyMember.loadAmountStatus}
                                 />
                             </Grid>
-                            <Grid item>
-                                <DetailDisplay
-                                    name="External Load"
-                                    value={
-                                        facultyMember.hasExternalLoad
-                                            ? "Has external load"
-                                            : "No external load"
-                                    }
-                                />
-                            </Grid>
                         </Grid>
                     </Grid>
                 </Card>

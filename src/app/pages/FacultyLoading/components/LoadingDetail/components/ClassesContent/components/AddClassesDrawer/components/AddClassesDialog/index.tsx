@@ -1,10 +1,8 @@
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Grid from "@material-ui/core/Grid";
 import MenuItem from "@material-ui/core/MenuItem";
-import Switch from "@material-ui/core/Switch";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import { inject, observer } from "mobx-react";
@@ -36,12 +34,6 @@ export default class AddClassesDialog extends React.Component<IPropsType> {
         const { facultyLoading } = this.props;
         const { form } = facultyLoading!.classesTabState.addClassDialogState;
         form[property] = event.target.value;
-    };
-
-    public onAdjunctChange = () => {
-        const { facultyLoading } = this.props;
-        const { form } = facultyLoading!.classesTabState.addClassDialogState;
-        form.forAdjunct = !form.forAdjunct;
     };
 
     public onSubmitClick = () => {
@@ -213,17 +205,6 @@ export default class AddClassesDialog extends React.Component<IPropsType> {
                                 error={"course" in validationErrors}
                                 helperText={validationErrors.course}
                                 fullWidth
-                            />
-                        </Grid>
-                        <Grid item>
-                            <FormControlLabel
-                                control={
-                                    <Switch
-                                        checked={form.forAdjunct}
-                                        onChange={this.onAdjunctChange}
-                                    />
-                                }
-                                label="For Adjunct Assignment"
                             />
                         </Grid>
                         <Grid item container direction="row" spacing={24}>

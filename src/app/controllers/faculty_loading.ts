@@ -461,7 +461,6 @@ export default class FacultyLoadingController {
                 section: classScheduleChildForm.section,
                 course: classScheduleChildForm.course,
                 studentYear: classScheduleChildForm.studentYear,
-                forAdjunct: classScheduleChildForm.forAdjunct,
             })
         );
 
