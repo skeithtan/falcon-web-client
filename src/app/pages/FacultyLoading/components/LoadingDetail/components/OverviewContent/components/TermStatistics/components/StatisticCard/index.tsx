@@ -1,5 +1,5 @@
 import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
+import CardActions from "@material-ui/core/CardActions";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { observer } from "mobx-react";
@@ -16,7 +16,7 @@ export default class StatisticCard extends React.Component<IPropsType> {
         const { statisticNumber, statistic } = this.props;
         return (
             <Card square>
-                <CardContent>
+                <CardActions>
                     <Grid
                         container
                         direction="row"
@@ -34,7 +34,7 @@ export default class StatisticCard extends React.Component<IPropsType> {
                             </Typography>
                         </Grid>
                     </Grid>
-                </CardContent>
+                </CardActions>
             </Card>
         );
     }
