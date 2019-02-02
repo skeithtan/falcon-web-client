@@ -1,5 +1,10 @@
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
+import Divider from "@material-ui/core/Divider";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import ListSubheader from "@material-ui/core/ListSubheader";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import classNames from "classnames";
@@ -9,6 +14,7 @@ import IStyleClasses from "../../../../../../../../../../interfaces/style_classe
 import RecommendationFacultyMember from "../../../../../../../../../../models/entities/recommendation_faculty_member";
 import { FacultyLoadingState } from "../../../../../../../../../../store/faculty_loading";
 import styles from "./styles";
+
 
 interface IPropsType {
     facultyLoading?: FacultyLoadingState;
@@ -31,6 +37,8 @@ class FacultyDialogItemCard extends React.Component<IPropsType> {
             form.facultyMember!.facultyMember.id ===
                 facultyMember!.facultyMember.id;
 
+        const { pros, cons, errors } = facultyMember;
+
         return (
             <Card
                 className={classNames(classes.card, {
@@ -39,13 +47,52 @@ class FacultyDialogItemCard extends React.Component<IPropsType> {
                 onClick={onClick}
             >
                 <CardContent>
-                    <Typography variant="h6">
+                    <Typography variant="subtitle2">
                         {facultyMember.fullName}
                     </Typography>
                     <Typography color="textSecondary">
                         {`Score: ${facultyMember.score}`}
                     </Typography>
                 </CardContent>
+                <Divider light />
+                <List dense>
+                    {pros.length > 0 && (
+                        <li className={classes.listSection}>
+                            <ul className={classes.ul}>
+                                <ListSubheader>Pros</ListSubheader>
+                                {pros.map(p => (
+                                    <ListItem key={p}>
+                                        <ListItemText>{p}</ListItemText>
+                                    </ListItem>
+                                ))}
+                            </ul>
+                        </li>
+                    )}
+                    {cons.length > 0 && (
+                        <li className={classes.listSection}>
+                            <ul className={classes.ul}>
+                                <ListSubheader>Cons</ListSubheader>
+                                {cons.map(c => (
+                                    <ListItem key={c}>
+                                        <ListItemText>{c}</ListItemText>
+                                    </ListItem>
+                                ))}
+                            </ul>
+                        </li>
+                    )}
+                    {errors.length > 0 && (
+                        <li className={classes.listSection}>
+                            <ul className={classes.ul}>
+                                <ListSubheader>Errors</ListSubheader>
+                                {errors.map(e => (
+                                    <ListItem key={e}>
+                                        <ListItemText>{e}</ListItemText>
+                                    </ListItem>
+                                ))}
+                            </ul>
+                        </li>
+                    )}
+                </List>
             </Card>
         );
     }
