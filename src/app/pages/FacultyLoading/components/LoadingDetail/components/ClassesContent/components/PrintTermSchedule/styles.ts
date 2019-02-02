@@ -1,19 +1,18 @@
+import Grey from "@material-ui/core/colors/grey";
 import { StyleRules, Theme } from "@material-ui/core/styles";
 
 export default (theme: Theme): StyleRules => ({
     root: {
-        height: "inherit",
-        padding: theme.spacing.unit * 10,
+        height: "100%",
     },
-    paper: {
-        minHeight: 1000,
-        minWidth: 1200,
+    preview: {
+        backgroundColor: Grey["700"],
+        position: "relative",
+        height: "100%",
+    },
+    settings: {
         backgroundColor: theme.palette.background.paper,
-        margin: "auto",
-    },
-    printButton: {
-        position: "absolute",
-        bottom: 40,
-        right: 40,
+        borderLeft: "1px solid grey",
+        padding: theme.spacing.unit * 4,
     },
 });

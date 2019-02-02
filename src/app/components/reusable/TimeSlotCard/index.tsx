@@ -23,7 +23,7 @@ import styles from "./styles";
 
 interface IPropsType {
     meetingHours: MeetingHours;
-    availabilityType: AvailabilityType;
+    availabilityType?: AvailabilityType;
     reason?: string;
     isThirdConsecutive?: boolean;
     classSchedule?: FacultyClassSchedule;
@@ -93,7 +93,7 @@ class TimeSlotCard extends React.Component<IPropsType> {
                             <Grid item>
                                 <Typography variant="overline">
                                     {AvailabilityTypeReadable.get(
-                                        availabilityType
+                                        availabilityType!
                                     )}
                                 </Typography>
                                 {availabilityType ===
