@@ -71,19 +71,26 @@ export default class FacultyScheduleSection extends React.Component<
                             classHoursOfTheDay.includes(tmhb[0]) &&
                             classHoursOfTheDay.includes(tmhb[1]);
 
+                        let reason;
+
+                        if (
+                            timeConstraint &&
+                            timeConstraint!.availabilityType ===
+                                AvailabilityType.Other
+                        ) {
+                            reason = timeConstraint!.otherReason;
+                        }
+
                         return (
                             <Grid item xs key={mhrEnum}>
                                 <TimeSlotCard
                                     meetingHours={mhrEnum}
                                     availabilityType={
-                                        timeConstraint!.availabilityType
+                                        timeConstraint
+                                            ? timeConstraint!.availabilityType
+                                            : undefined
                                     }
-                                    reason={
-                                        timeConstraint!.availabilityType ===
-                                        AvailabilityType.Other
-                                            ? timeConstraint!.otherReason
-                                            : ""
-                                    }
+                                    reason={reason}
                                     classSchedule={cs}
                                     feedback={cs && cs.feedback}
                                     isThirdConsecutive={isThirdConsecutive}
