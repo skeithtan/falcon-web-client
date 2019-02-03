@@ -12,9 +12,9 @@ import { inject, observer } from "mobx-react";
 import * as React from "react";
 import IStyleClasses from "../../../../../../../../../../interfaces/style_classes";
 import RecommendationFacultyMember from "../../../../../../../../../../models/entities/recommendation_faculty_member";
+import { FacultyMemberTypeReadable } from "../../../../../../../../../../models/enums/faculty_member_type";
 import { FacultyLoadingState } from "../../../../../../../../../../store/faculty_loading";
 import styles from "./styles";
-
 
 interface IPropsType {
     facultyLoading?: FacultyLoadingState;
@@ -49,6 +49,11 @@ class FacultyDialogItemCard extends React.Component<IPropsType> {
                 <CardContent>
                     <Typography variant="subtitle2">
                         {facultyMember.fullName}
+                    </Typography>
+                    <Typography variant="overline">
+                        {FacultyMemberTypeReadable.get(
+                            facultyMember.facultyMember.type
+                        )}
                     </Typography>
                     <Typography color="textSecondary">
                         {`Score: ${facultyMember.score}`}
