@@ -1,6 +1,7 @@
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
+import * as _ from "lodash";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
 import { FacultyLoadingState } from "../../../../../../../../../../store/faculty_loading";
@@ -29,6 +30,13 @@ export default class PrintSettings extends React.Component<IPropsType> {
             classSchedules,
             printTermScheduleState: { courseFilter },
         } = classesTabState;
+
+        const courses: string[] = [];
+        Array.from(classSchedules!.values()).map(cs => {
+            courses.push(cs.course);
+        });
+        const uniqueCourses = _.uniq(courses);
+
         const noFilter = courseFilter === "";
 
         return (
@@ -44,17 +52,17 @@ export default class PrintSettings extends React.Component<IPropsType> {
                 >
                     <MenuItem value="">None</MenuItem>
                     {noFilter &&
-                        Array.from(classSchedules!.values()).map(cs => (
-                            <MenuItem key={cs!.id} value={cs!.course}>
-                                {cs!.course}
+                        uniqueCourses.map(course => (
+                            <MenuItem key={course} value={course}>
+                                {course}
                             </MenuItem>
                         ))}
                     {!noFilter &&
-                        Array.from(classSchedules!.values()).map(cs => {
-                            if (cs.course === courseFilter) {
+                        uniqueCourses.map(course => {
+                            if (course === courseFilter) {
                                 return (
-                                    <MenuItem key={cs!.id} value={cs!.course}>
-                                        {cs!.course}
+                                    <MenuItem key={course} value={course}>
+                                        {course}
                                     </MenuItem>
                                 );
                             }
