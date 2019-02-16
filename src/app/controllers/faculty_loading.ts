@@ -296,6 +296,11 @@ export default class FacultyLoadingController {
         state.isShowing = shouldShow;
     }
 
+    public static toggleUnassignedClassesDialog(shouldShow: boolean) {
+        const state = facultyLoading.classesTabState.unassignedClassesDialogState;
+        state.isShowing = shouldShow;
+    }
+
     public static toggleAssignFacultyDialog(shouldShow: boolean) {
         const state = facultyLoading.classesTabState.assignFacultyDialogState;
         state.isShowing = shouldShow;
