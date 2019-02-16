@@ -50,7 +50,11 @@ export default class AddFacultyMemberFormView extends React.Component<
             canSubmit,
         } = facultyProfiles!.addFacultyMemberFormState;
 
-        const birthLimit = moment(moment().subtract(21, "years"))
+        const minBirth = moment(moment().subtract(100, "years"))
+            .format("YYYY-MM-DD")
+            .toString();
+
+        const maxBirth = moment(moment().subtract(21, "years"))
             .format("YYYY-MM-DD")
             .toString();
 
@@ -161,7 +165,8 @@ export default class AddFacultyMemberFormView extends React.Component<
                                 required
                                 InputLabelProps={{ shrink: true }}
                                 inputProps={{
-                                    max: birthLimit,
+                                    min: minBirth,
+                                    max: maxBirth,
                                 }}
                                 fullWidth
                             />
