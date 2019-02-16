@@ -16,6 +16,9 @@ import autoAssignWizardState, {
 import classScheduleDetailsState, {
     ClassScheduleDetailsState,
 } from "./class_schedule_details";
+import printTermScheduleState, {
+    PrintTermScheduleState,
+} from "./print_term_schedule";
 
 export class ClassesTabState extends FetchableState {
     @observable
@@ -47,6 +50,9 @@ export class ClassesTabState extends FetchableState {
 
     @observable
     public addClassDialogState: AddClassDialogState = addClassDialogState;
+
+    @observable
+    public printTermScheduleState: PrintTermScheduleState = printTermScheduleState;
 
     @computed
     get activeMeetingDaysClassSchedules() {
