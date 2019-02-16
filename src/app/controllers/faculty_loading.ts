@@ -297,7 +297,8 @@ export default class FacultyLoadingController {
     }
 
     public static toggleUnassignedClassesDialog(shouldShow: boolean) {
-        const state = facultyLoading.classesTabState.unassignedClassesDialogState;
+        const state =
+            facultyLoading.classesTabState.unassignedClassesDialogState;
         state.isShowing = shouldShow;
     }
 
@@ -343,6 +344,13 @@ export default class FacultyLoadingController {
             .then(cs => {
                 state.classSchedules = groupById(cs);
                 state.setStatus(FetchableStatus.Fetched);
+                const noAssignments = cs.filter(
+                    classSchedule => classSchedule.facultyMember === undefined
+                );
+                
+                if (noAssignments) {
+                    this.toggleUnassignedClassesDialog(true);
+                }
             })
             .catch((e: Error) => state.setStatus(FetchableStatus.Error, e));
     }
