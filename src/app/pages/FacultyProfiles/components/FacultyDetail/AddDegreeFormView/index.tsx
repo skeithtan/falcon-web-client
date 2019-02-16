@@ -44,6 +44,9 @@ export default class AddDegreeFormView extends React.Component<IPropsType> {
         const { facultyProfiles } = this.props;
         const { form } = facultyProfiles!.addDegreeFormState;
         form.ongoing = !form.ongoing;
+        if (form.ongoing) {
+            form.completionYear = undefined;
+        }
     };
 
     public onAddMultiple = (
@@ -119,18 +122,20 @@ export default class AddDegreeFormView extends React.Component<IPropsType> {
                                 )}
                             </TextField>
                         </Grid>
-                        <Grid item xs>
-                            <TextField
-                                label="Completion Year"
-                                variant="outlined"
-                                required
-                                onChange={this.onChange("completionYear")}
-                                value={form.completionYear}
-                                error={"completionYear" in validationErrors}
-                                helperText={validationErrors.completionYear}
-                                fullWidth
-                            />
-                        </Grid>
+                        {!form.ongoing && (
+                            <Grid item xs>
+                                <TextField
+                                    label="Completion Year"
+                                    variant="outlined"
+                                    required={!form.ongoing}
+                                    onChange={this.onChange("completionYear")}
+                                    value={form.completionYear}
+                                    error={"completionYear" in validationErrors}
+                                    helperText={validationErrors.completionYear}
+                                    fullWidth
+                                />
+                            </Grid>
+                        )}
                     </Grid>
                     <Grid item container spacing={8} direction="row">
                         <Grid item xs>

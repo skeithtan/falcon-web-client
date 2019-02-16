@@ -4,7 +4,7 @@ import { StyleRules } from "@material-ui/core/styles";
 
 export default {
     card: {
-        maxWidth: 280,
+        minWidth: 280,
         cursor: "pointer",
         transition: "200ms all",
 
@@ -16,5 +16,11 @@ export default {
             color: "white",
         },
     },
-   
+    listSection: {
+        backgroundColor: "inherit",
+    },
+    ul: {
+        backgroundColor: "inherit",
+        padding: 0,
+    },
 } as StyleRules;

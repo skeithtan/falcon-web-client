@@ -99,6 +99,7 @@ export default class AssignFacultyDialog extends React.Component<IPropsType> {
                                                         item
                                                         container
                                                         direction="row"
+                                                        alignItems="stretch"
                                                         spacing={16}
                                                     >
                                                         {recommendedFaculties!.map(

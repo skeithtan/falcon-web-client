@@ -15,6 +15,7 @@ import AutoAssignWizard from "./components/AutoAssignWizard";
 import ClassesAppBar from "./components/ClassesAppBar";
 import ClassScheduleDetailsDrawer from "./components/ClassScheduleDetailsDrawer";
 import ScheduleCalendar from "./components/ScheduleCalendar";
+import UnassignedClassesDialog from "./components/UnassignedClassesDialog";
 import styles from "./styles";
 
 interface IPropsType {
@@ -66,6 +67,7 @@ class ClassesContent extends React.Component<IPropsType> {
                             <AddClassesDrawer />
                             <ClassScheduleDetailsDrawer />
                             <AutoAssignWizard />
+                            <UnassignedClassesDialog />
                         </Grid>
                     )}
                 </StateWrapper>
