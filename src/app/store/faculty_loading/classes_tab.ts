@@ -19,6 +19,9 @@ import classScheduleDetailsState, {
 import printTermScheduleState, {
     PrintTermScheduleState,
 } from "./print_term_schedule";
+import unassignedClassesDialogState, {
+    UnassignedClassesDialogState,
+} from "./unassigned_classes_dialog";
 
 export class ClassesTabState extends FetchableState {
     @observable
@@ -41,6 +44,9 @@ export class ClassesTabState extends FetchableState {
 
     @observable
     public autoAssignWizardState: AutoAssignWizardState = autoAssignWizardState;
+
+    @observable
+    public unassignedClassesDialogState: UnassignedClassesDialogState = unassignedClassesDialogState;
 
     @observable
     public assignFacultyDialogState: AssignFacultyDialogState = assignFacultyDialogState;
