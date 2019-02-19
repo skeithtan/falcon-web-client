@@ -9,6 +9,7 @@ import * as React from "react";
 import DrawerForm from "../../../../components/reusable/DrawerForm";
 import FacultyLoadingController from "../../../../controllers/faculty_loading";
 import IStyleClasses from "../../../../interfaces/style_classes";
+import TermStatus from "../../../../models/enums/term_status";
 import UserType from "../../../../models/enums/user_type";
 import { AuthenticationState } from "../../../../store/authentication";
 import { FacultyLoadingState } from "../../../../store/faculty_loading";
@@ -44,7 +45,12 @@ class TermList extends React.Component<IPropsType> {
     public render() {
         const { facultyLoading, authentication, classes } = this.props;
         const { currentUser } = authentication!;
-        const { terms, termListState, activeTermId } = facultyLoading!;
+        const {
+            terms,
+            termListState,
+            activeTermId,
+            activeTerm,
+        } = facultyLoading!;
         const { isShowing } = termListState!;
         return (
             <DrawerForm
@@ -77,6 +83,9 @@ class TermList extends React.Component<IPropsType> {
                             color="primary"
                             onClick={this.onAddClick(true)}
                             className={classes.addButton}
+                            disabled={
+                                activeTerm!.status !== TermStatus.Published
+                            }
                         >
                             <AddIcon />
                             New Term
