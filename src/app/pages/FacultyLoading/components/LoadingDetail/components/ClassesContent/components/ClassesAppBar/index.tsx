@@ -51,9 +51,6 @@ class ClassesAppBar extends React.Component<IPropsType> {
         const { classesTabState, activeTerm } = facultyLoading!;
         const { currentUser } = authentication!;
         const { activeMeetingDays, showOnlyUnassigned } = classesTabState;
-        const canPrint =
-            activeTerm!.status === TermStatus.Published ||
-            activeTerm!.status === TermStatus.Archived;
         return (
             <AppBar color="default" position="relative">
                 <Toolbar variant="dense">
@@ -90,18 +87,14 @@ class ClassesAppBar extends React.Component<IPropsType> {
                             alignItems="center"
                             wrap="nowrap"
                         >
-                            {canPrint && (
-                                <Grid item>
-                                    <Button
-                                        color="primary"
-                                        onClick={this.togglePrintTermSchedule(
-                                            true
-                                        )}
-                                    >
-                                        Print Term Schedule
-                                    </Button>
-                                </Grid>
-                            )}
+                            <Grid item>
+                                <Button
+                                    color="primary"
+                                    onClick={this.togglePrintTermSchedule(true)}
+                                >
+                                    Print Term Schedule
+                                </Button>
+                            </Grid>
                             {activeTerm!.status === TermStatus.Scheduling &&
                                 currentUser!.authorization ===
                                     UserType.AssociateDean && (
