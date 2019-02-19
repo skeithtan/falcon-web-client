@@ -30,6 +30,7 @@ export default class PrintSettings extends React.Component<IPropsType> {
             classSchedules,
             printTermScheduleState: { courseFilter },
         } = classesTabState;
+        const noCourseFilter = courseFilter === "";
 
         const courses: string[] = [];
         Array.from(classSchedules!.values()).map(cs => {
@@ -37,7 +38,13 @@ export default class PrintSettings extends React.Component<IPropsType> {
         });
         const uniqueCourses = _.uniq(courses);
 
-        const noCourseFilter = courseFilter === "";
+        let filteredCourses = [];
+        filteredCourses = uniqueCourses;
+        if (!noCourseFilter) {
+            filteredCourses = uniqueCourses.filter(
+                course => course === courseFilter
+            );
+        }
 
         return (
             <div>
@@ -51,23 +58,12 @@ export default class PrintSettings extends React.Component<IPropsType> {
                     fullWidth
                 >
                     <MenuItem value="">None</MenuItem>
-                    {noCourseFilter &&
-                        uniqueCourses.map(course => (
+                    {filteredCourses &&
+                        filteredCourses.map(course => (
                             <MenuItem key={course} value={course}>
                                 {course}
                             </MenuItem>
                         ))}
-                    {!noCourseFilter &&
-                        uniqueCourses.map(course => {
-                            if (course === courseFilter) {
-                                return (
-                                    <MenuItem key={course} value={course}>
-                                        {course}
-                                    </MenuItem>
-                                );
-                            }
-                            return;
-                        })}
                 </TextField>
             </div>
         );
