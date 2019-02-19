@@ -6,6 +6,9 @@ export class PrintTermScheduleState {
     
     @observable
     public courseFilter: string = "";
+
+    @observable
+    public subjectFilter: string = "";
 }
 
 export default new PrintTermScheduleState();
