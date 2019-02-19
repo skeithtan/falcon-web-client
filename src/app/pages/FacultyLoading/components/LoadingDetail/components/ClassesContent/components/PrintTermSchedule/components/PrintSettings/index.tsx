@@ -37,7 +37,7 @@ export default class PrintSettings extends React.Component<IPropsType> {
         });
         const uniqueCourses = _.uniq(courses);
 
-        const noFilter = courseFilter === "";
+        const noCourseFilter = courseFilter === "";
 
         return (
             <div>
@@ -51,13 +51,13 @@ export default class PrintSettings extends React.Component<IPropsType> {
                     fullWidth
                 >
                     <MenuItem value="">None</MenuItem>
-                    {noFilter &&
+                    {noCourseFilter &&
                         uniqueCourses.map(course => (
                             <MenuItem key={course} value={course}>
                                 {course}
                             </MenuItem>
                         ))}
-                    {!noFilter &&
+                    {!noCourseFilter &&
                         uniqueCourses.map(course => {
                             if (course === courseFilter) {
                                 return (
