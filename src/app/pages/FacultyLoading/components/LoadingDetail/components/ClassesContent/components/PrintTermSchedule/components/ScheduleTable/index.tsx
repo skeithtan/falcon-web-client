@@ -27,13 +27,13 @@ export default class ScheduleTable extends React.Component<IPropsType> {
                 printTermScheduleState: { courseFilter },
             },
         } = facultyLoading!;
-        const noFilter = courseFilter === "";
+        const noCourseFilter = courseFilter === "";
 
         let classes = [];
 
         classes = classSchedules;
 
-        if (!noFilter) {
+        if (!noCourseFilter) {
             classes = classSchedules.filter(cs => cs.course === courseFilter);
         }
 
