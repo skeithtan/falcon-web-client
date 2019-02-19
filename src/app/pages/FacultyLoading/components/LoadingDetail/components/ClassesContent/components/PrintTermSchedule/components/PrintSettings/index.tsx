@@ -1,3 +1,4 @@
+import Grid from "@material-ui/core/Grid";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
@@ -47,25 +48,30 @@ export default class PrintSettings extends React.Component<IPropsType> {
         }
 
         return (
-            <div>
-                <Typography variant="h6">Filter by course</Typography>
-                <TextField
-                    label="Course"
-                    variant="outlined"
-                    value={courseFilter || ""}
-                    select
-                    onChange={this.onChange}
-                    fullWidth
-                >
-                    <MenuItem value="">None</MenuItem>
-                    {filteredCourses &&
-                        filteredCourses.map(course => (
-                            <MenuItem key={course} value={course}>
-                                {course}
-                            </MenuItem>
-                        ))}
-                </TextField>
-            </div>
+            <Grid container direction="column" spacing={24}>
+                <Grid item>
+                    <Typography variant="h6">Filter by course</Typography>
+                    <TextField
+                        label="Course"
+                        variant="outlined"
+                        value={courseFilter || ""}
+                        select
+                        onChange={this.onChange}
+                        fullWidth
+                    >
+                        <MenuItem value="">None</MenuItem>
+                        {filteredCourses &&
+                            filteredCourses.map(course => (
+                                <MenuItem key={course} value={course}>
+                                    {course}
+                                </MenuItem>
+                            ))}
+                    </TextField>
+                </Grid>
+                <Grid item>
+                    <Typography variant="h6">Filter by school year</Typography>
+                </Grid>
+            </Grid>
         );
     }
 }
