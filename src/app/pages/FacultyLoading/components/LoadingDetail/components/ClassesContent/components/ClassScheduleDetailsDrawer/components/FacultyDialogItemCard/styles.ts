@@ -4,7 +4,7 @@ import { StyleRules } from "@material-ui/core/styles";
 
 export default {
     card: {
-        minWidth: 280,
+        width: 280,
         cursor: "pointer",
         transition: "200ms all",
 
