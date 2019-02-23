@@ -5,6 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import * as _ from "lodash";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
+import FacultyLoadingController from "../../../../../../../../../../controllers/faculty_loading";
 import { FacultyLoadingState } from "../../../../../../../../../../store/faculty_loading";
 
 interface IPropsType {
@@ -18,11 +19,13 @@ export default class PrintSettings extends React.Component<IPropsType> {
         const { facultyLoading } = this.props;
         const { classesTabState } = facultyLoading!;
         const { printTermScheduleState } = classesTabState;
-        if (event.target.value === "None") {
+        if (event.target.value === 0) {
             printTermScheduleState.yearFilter = 0;
+        } else {
+            printTermScheduleState.yearFilter = event.target.value;
+            FacultyLoadingController.getYear(event.target.value);
         }
-        printTermScheduleState.yearFilter = event.target.value;
-    }
+    };
 
     public onCourseChange = (event: any) => {
         const { facultyLoading } = this.props;
@@ -30,8 +33,9 @@ export default class PrintSettings extends React.Component<IPropsType> {
         const { printTermScheduleState } = classesTabState;
         if (event.target.value === "None") {
             printTermScheduleState.courseFilter = "";
+        } else {
+            printTermScheduleState.courseFilter = event.target.value;
         }
-        printTermScheduleState.courseFilter = event.target.value;
     };
 
     public onSubjectChange = (event: any) => {
@@ -40,8 +44,9 @@ export default class PrintSettings extends React.Component<IPropsType> {
         const { printTermScheduleState } = classesTabState;
         if (event.target.value === "None") {
             printTermScheduleState.subjectFilter = "";
+        } else {
+            printTermScheduleState.subjectFilter = event.target.value;
         }
-        printTermScheduleState.subjectFilter = event.target.value;
     };
 
     public render() {
@@ -98,7 +103,7 @@ export default class PrintSettings extends React.Component<IPropsType> {
                     <TextField
                         label="School Year"
                         variant="outlined"
-                        value={yearFilter || undefined}
+                        value={yearFilter || ""}
                         select
                         onChange={this.onYearChange}
                         fullWidth
@@ -107,7 +112,7 @@ export default class PrintSettings extends React.Component<IPropsType> {
                         {filteredYears &&
                             filteredYears.map(year => (
                                 <MenuItem key={year} value={year}>
-                                    {year}
+                                    {`${year} - ${year + 1}`}
                                 </MenuItem>
                             ))}
                     </TextField>
