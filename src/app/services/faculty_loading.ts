@@ -193,4 +193,13 @@ export default class FacultyLoadingService {
             })
             .catch(handleAxiosError);
     }
+
+    public static async getUnderloadedLastTerm() {
+        return axios
+            .get("/terms/underloaded-last-term")
+            .then((response: AxiosResponse) => {
+                return response.data;
+            })
+            .catch(handleAxiosError);
+    }
 }
