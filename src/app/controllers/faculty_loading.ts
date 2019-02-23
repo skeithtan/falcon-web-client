@@ -76,6 +76,7 @@ export default class FacultyLoadingController {
                 if (facultyLoading.activeTerm!.status !== TermStatus.Archived) {
                     this.getCurrentTermStats();
                 }
+                term.setStatus(FetchableStatus.Fetched);
             })
             .catch((e: Error) =>
                 term.setStatus(FetchableStatus.Error, e.message)
