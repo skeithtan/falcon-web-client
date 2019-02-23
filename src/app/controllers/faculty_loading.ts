@@ -1,6 +1,7 @@
 import ClassSchedule from "../models/entities/class_schedule";
 import FormClassSchedule from "../models/entities/form_class_schedule";
 import Notice from "../models/entities/notice";
+import Term from "../models/entities/term";
 import FacultyLoadingTab from "../models/enums/faculty_loading_tab";
 import FeedbackStatus from "../models/enums/feedback_status";
 import FetchableStatus from "../models/enums/fetchable_status";
@@ -519,9 +520,12 @@ export default class FacultyLoadingController {
     }
 
     public static getYear(year: number) {
-        FacultyLoadingService.getYear(year)
-            .then(years => {
-                facultyLoading.year = years;
-            });
+        const { classesTabState } = facultyLoading;
+        classesTabState.setStatus(FetchableStatus.Fetching);
+
+        FacultyLoadingService.getYear(year).then(years => {
+            facultyLoading.year = years.map((t: any) => new Term(t));
+            classesTabState.setStatus(FetchableStatus.Fetched);
+        });
     }
 }
