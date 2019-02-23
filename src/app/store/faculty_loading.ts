@@ -25,6 +25,9 @@ export class FacultyLoadingState extends FetchableState {
     public terms?: Map<number, Term> = undefined;
 
     @observable
+    public year?: Term[] = undefined;
+
+    @observable
     public activeTermId?: number = undefined;
 
     @observable
