@@ -66,7 +66,10 @@ export default class UnassignedClassesDialog extends React.Component<
                         </TableHead>
                         <TableBody>
                             {unassignedClasses.map(cs => (
-                                <UnassignedClassItem classSchedule={cs} />
+                                <UnassignedClassItem
+                                    key={cs.id}
+                                    classSchedule={cs}
+                                />
                             ))}
                         </TableBody>
                     </Table>
