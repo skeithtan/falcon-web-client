@@ -68,7 +68,9 @@ export default class ScheduleTable extends React.Component<IPropsType> {
                                         )}
                                     </TableCell>
                                     <TableCell>{cs.subjectCode}</TableCell>
-                                    <TableCell>{`${cs.studentYearReadable}-${cs.section}`}</TableCell>
+                                    <TableCell>{`${cs.studentYearReadable}-${
+                                        cs.section
+                                    }`}</TableCell>
                                     <TableCell>{cs.room}</TableCell>
                                     <TableCell>{cs.course}</TableCell>
                                     {!cs.facultyMember && (
