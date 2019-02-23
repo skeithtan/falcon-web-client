@@ -114,9 +114,9 @@ export default class AddExtensionWorkView extends React.Component<IPropsType> {
                             <FormControl
                                 required
                                 error={"roles" in validationErrors}
-                                component="fieldset"
+                                component={"fieldset" as "div"}
                             >
-                                <FormLabel component="legend">Roles</FormLabel>
+                                <FormLabel component="label">Roles</FormLabel>
                                 <FormGroup>
                                     {Array.from(ExtensionWorkRoleReadable).map(
                                         ([typeEnum, typeReadable]: any) => (
@@ -147,9 +147,9 @@ export default class AddExtensionWorkView extends React.Component<IPropsType> {
                             <FormControl
                                 required
                                 error={"associatedPrograms" in validationErrors}
-                                component="fieldset"
+                                component={"fieldset" as "div"}
                             >
-                                <FormLabel component="legend">
+                                <FormLabel component="label">
                                     Associated Programs
                                 </FormLabel>
                                 <FormGroup>

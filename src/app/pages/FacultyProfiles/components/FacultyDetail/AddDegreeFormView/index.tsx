@@ -142,9 +142,9 @@ export default class AddDegreeFormView extends React.Component<IPropsType> {
                             <FormControl
                                 required
                                 error={"associatedPrograms" in validationErrors}
-                                component="fieldset"
+                                component={"fieldset" as "div"}
                             >
-                                <FormLabel component="legend">
+                                <FormLabel component={"label"}>
                                     Associated Programs
                                 </FormLabel>
                                 <FormGroup>

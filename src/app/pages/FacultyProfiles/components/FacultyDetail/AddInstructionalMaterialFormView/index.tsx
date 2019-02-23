@@ -168,9 +168,9 @@ export default class AddInstructionalMaterialFormView extends React.Component<
                             <FormControl
                                 required
                                 error={"level" in validationErrors}
-                                component="fieldset"
+                                component={"fieldset" as "div"}
                             >
-                                <FormLabel component="legend">Level</FormLabel>
+                                <FormLabel component="label">Level</FormLabel>
                                 <RadioGroup
                                     value={form.level}
                                     onChange={this.onChange("level")}
@@ -196,9 +196,9 @@ export default class AddInstructionalMaterialFormView extends React.Component<
                         <FormControl
                             required
                             error={"associatedPrograms" in validationErrors}
-                            component="fieldset"
+                            component={"fieldset" as "div"}
                         >
-                            <FormLabel component="legend">
+                            <FormLabel component="label">
                                 Associated Programs
                             </FormLabel>
                             <FormGroup>
