@@ -60,6 +60,9 @@ export class ClassesTabState extends FetchableState {
     @observable
     public printTermScheduleState: PrintTermScheduleState = printTermScheduleState;
 
+    @observable
+    public underloadedLastTerm?: number[] = undefined;
+
     @computed
     get activeMeetingDaysClassSchedules() {
         if (this.showOnlyUnassigned) {
