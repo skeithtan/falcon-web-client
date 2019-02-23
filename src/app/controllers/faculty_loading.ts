@@ -77,6 +77,9 @@ export default class FacultyLoadingController {
                     this.getCurrentTermStats();
                 }
                 term.setStatus(FetchableStatus.Fetched);
+                if (facultyLoading.activeTab === FacultyLoadingTab.Classes) {
+                    this.getAllClassSchedulesTabPrerequisites();
+                }
             })
             .catch((e: Error) =>
                 term.setStatus(FetchableStatus.Error, e.message)
