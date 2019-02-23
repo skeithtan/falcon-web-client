@@ -348,7 +348,7 @@ export default class FacultyLoadingController {
                 const noAssignments = cs.filter(
                     classSchedule => classSchedule.facultyMember === undefined
                 );
-                
+
                 if (noAssignments) {
                     this.toggleUnassignedClassesDialog(true);
                 }
@@ -505,5 +505,13 @@ export default class FacultyLoadingController {
             .catch(e => {
                 formState.setStatus(FormStatus.Error, e);
             });
+    }
+
+    public static getUnderloadedLastTerm() {
+        const { classesTabState } = facultyLoading;
+
+        FacultyLoadingService.getUnderloadedLastTerm().then(underloaded => {
+            classesTabState.underloadedLastTerm = underloaded;
+        });
     }
 }

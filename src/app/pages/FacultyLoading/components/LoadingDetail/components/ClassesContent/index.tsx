@@ -28,6 +28,7 @@ interface IPropsType {
 class ClassesContent extends React.Component<IPropsType> {
     public componentDidMount() {
         FacultyLoadingController.getAllClassSchedulesTabPrerequisites();
+        FacultyLoadingController.getUnderloadedLastTerm();
     }
 
     public toggleAddClassesDrawer = (shouldShow: boolean) => () => {
