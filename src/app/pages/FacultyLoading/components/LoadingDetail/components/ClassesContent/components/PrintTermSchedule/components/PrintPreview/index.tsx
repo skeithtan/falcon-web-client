@@ -3,11 +3,12 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import { inject, observer } from "mobx-react";
+import { observer } from "mobx-react";
 import * as moment from "moment";
 import * as React from "react";
 import PrintPreviewHead from "../../../../../../../../../../components/reusable/PrintPreviewHead";
 import IStyleClasses from "../../../../../../../../../../interfaces/style_classes";
+import ClassSchedule from "../../../../../../../../../../models/entities/class_schedule";
 import { MeetingDaysReadable } from "../../../../../../../../../../models/enums/meeting_days";
 import { FacultyLoadingState } from "../../../../../../../../../../store/faculty_loading";
 import ScheduleTable from "../ScheduleTable";
@@ -19,9 +20,11 @@ const ReactToPrint = require("react-to-print");
 interface IPropsType {
     facultyLoading?: FacultyLoadingState;
     classes: IStyleClasses;
+    term: string;
+    startYear: number;
+    classSchedules: ClassSchedule[];
 }
 
-@inject("facultyLoading")
 @observer
 class PrintPreview extends React.Component<IPropsType> {
     public printRef?: any;
@@ -38,9 +41,7 @@ class PrintPreview extends React.Component<IPropsType> {
     public getPrintContent = () => this.printRef;
 
     public render() {
-        const { facultyLoading, classes } = this.props;
-        const { activeTerm, classesTabState } = facultyLoading!;
-        const { classSchedules } = classesTabState;
+        const { classes, term, startYear, classSchedules } = this.props;
         return (
             <div className={classes.root}>
                 <Paper className={classes.paper}>
@@ -66,7 +67,8 @@ class PrintPreview extends React.Component<IPropsType> {
                             >
                                 <Grid item>
                                     <Typography variant="h6">
-                                        {`Schedule for ${activeTerm!.readable}`}
+                                        {`Schedule for ${term} Term ${startYear} - ${startYear +
+                                            1}`}
                                     </Typography>
                                 </Grid>
                                 <Grid item>
@@ -87,9 +89,7 @@ class PrintPreview extends React.Component<IPropsType> {
                                 {classSchedules &&
                                     Array.from(MeetingDaysReadable).map(
                                         ([mdrEnum, mdrStr]) => {
-                                            const dayClasses = Array.from(
-                                                classSchedules!.values()
-                                            ).filter(
+                                            const dayClasses = classSchedules!.filter(
                                                 cs => cs.meetingDays === mdrEnum
                                             );
 
