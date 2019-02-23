@@ -517,4 +517,11 @@ export default class FacultyLoadingController {
             classesTabState.underloadedLastTerm = underloaded;
         });
     }
+
+    public static getYear(year: number) {
+        FacultyLoadingService.getYear(year)
+            .then(years => {
+                facultyLoading.year = years;
+            });
+    }
 }
