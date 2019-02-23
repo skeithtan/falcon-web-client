@@ -29,7 +29,7 @@ class FacultyDialogItemCard extends React.Component<IPropsType> {
     public render() {
         const { facultyLoading, facultyMember, classes, onClick } = this.props;
         const {
-            classesTabState: { assignFacultyDialogState },
+            classesTabState: { assignFacultyDialogState, underloadedLastTerm },
         } = facultyLoading!;
         const { form } = assignFacultyDialogState;
         const selected =
@@ -38,6 +38,8 @@ class FacultyDialogItemCard extends React.Component<IPropsType> {
                 facultyMember!.facultyMember.id;
 
         const { pros, cons, errors } = facultyMember;
+
+        const wasUnderloaded = underloadedLastTerm!.includes(facultyMember.id);
 
         return (
             <Card
@@ -58,6 +60,11 @@ class FacultyDialogItemCard extends React.Component<IPropsType> {
                     <Typography color="textSecondary">
                         {`Score: ${facultyMember.score}`}
                     </Typography>
+                    {wasUnderloaded && (
+                        <Typography variant="caption">
+                            Underloaded last term
+                        </Typography>
+                    )}
                 </CardContent>
                 <Divider light />
                 <List dense>
