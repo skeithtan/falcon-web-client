@@ -96,11 +96,11 @@ export default class PrintSettings extends React.Component<IPropsType> {
                 <Grid item>
                     <Typography variant="h6">Filter by school year</Typography>
                     <TextField
-                        label="Course"
+                        label="School Year"
                         variant="outlined"
                         value={yearFilter || undefined}
                         select
-                        onChange={this.onCourseChange}
+                        onChange={this.onYearChange}
                         fullWidth
                     >
                         <MenuItem value={0}>None</MenuItem>
