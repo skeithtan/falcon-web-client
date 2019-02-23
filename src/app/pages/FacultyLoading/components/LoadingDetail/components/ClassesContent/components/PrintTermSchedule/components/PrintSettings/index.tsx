@@ -14,6 +14,16 @@ interface IPropsType {
 @inject("facultyLoading")
 @observer
 export default class PrintSettings extends React.Component<IPropsType> {
+    public onYearChange = (event: any) => {
+        const { facultyLoading } = this.props;
+        const { classesTabState } = facultyLoading!;
+        const { printTermScheduleState } = classesTabState;
+        if (event.target.value === "None") {
+            printTermScheduleState.yearFilter = 0;
+        }
+        printTermScheduleState.yearFilter = event.target.value;
+    }
+
     public onCourseChange = (event: any) => {
         const { facultyLoading } = this.props;
         const { classesTabState } = facultyLoading!;
@@ -36,22 +46,34 @@ export default class PrintSettings extends React.Component<IPropsType> {
 
     public render() {
         const { facultyLoading } = this.props;
-        const { classesTabState } = facultyLoading!;
+        const { terms, classesTabState } = facultyLoading!;
         const {
             classSchedules,
-            printTermScheduleState: { courseFilter, subjectFilter },
+            printTermScheduleState: { yearFilter, courseFilter, subjectFilter },
         } = classesTabState;
+        const noYearFilter = yearFilter === 0;
         const noCourseFilter = courseFilter === "";
         const noSubjectFilter = subjectFilter === "";
 
+        const years: number[] = [];
         const courses: string[] = [];
         const subjects: string[] = [];
         Array.from(classSchedules!.values()).map(cs => {
             courses.push(cs.course);
             subjects.push(cs.subjectCode);
         });
+        Array.from(terms!.values()).map(term => {
+            years.push(term.startYear);
+        });
+        const uniqueYears = _.uniq(years);
         const uniqueCourses = _.uniq(courses);
         const uniqueSubjects = _.uniq(subjects);
+
+        let filteredYears = [];
+        filteredYears = uniqueYears;
+        if (!noYearFilter) {
+            filteredYears = uniqueYears.filter(year => year === yearFilter);
+        }
 
         let filteredCourses = [];
         filteredCourses = uniqueCourses;
@@ -73,6 +95,22 @@ export default class PrintSettings extends React.Component<IPropsType> {
             <Grid container direction="column" spacing={24}>
                 <Grid item>
                     <Typography variant="h6">Filter by school year</Typography>
+                    <TextField
+                        label="Course"
+                        variant="outlined"
+                        value={yearFilter || undefined}
+                        select
+                        onChange={this.onCourseChange}
+                        fullWidth
+                    >
+                        <MenuItem value={0}>None</MenuItem>
+                        {filteredYears &&
+                            filteredYears.map(year => (
+                                <MenuItem key={year} value={year}>
+                                    {year}
+                                </MenuItem>
+                            ))}
+                    </TextField>
                 </Grid>
                 <Grid item>
                     <Typography variant="h6">Filter by course</Typography>
