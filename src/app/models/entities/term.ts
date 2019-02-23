@@ -29,6 +29,12 @@ export default class Term extends PartialEntity {
         this.fetchStatus = plainObject.classSchedules
             ? FetchableStatus.Fetched
             : FetchableStatus.Partial;
+
+        if (plainObject.classSchedules) {
+            this.classSchedules = plainObject.classSchedules.map(
+                (cs: any) => new ClassSchedule(cs)
+            );
+        }
     }
 
     @computed
