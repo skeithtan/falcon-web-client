@@ -202,4 +202,13 @@ export default class FacultyLoadingService {
             })
             .catch(handleAxiosError);
     }
+
+    public static async getYear(year: number) {
+        return axios
+            .get(`/terms/year/${year}`)
+            .then((response: AxiosResponse) => {
+                return response.data;
+            })
+            .catch(handleAxiosError);
+    }
 }

@@ -147,9 +147,9 @@ export default class AddRecognitionFormView extends React.Component<
                             <FormControl
                                 required
                                 error={"associatedPrograms" in validationErrors}
-                                component="fieldset"
+                                component={"fieldset" as "div"}
                             >
-                                <FormLabel component="legend">
+                                <FormLabel component="label">
                                     Associated Programs
                                 </FormLabel>
                                 <FormGroup>

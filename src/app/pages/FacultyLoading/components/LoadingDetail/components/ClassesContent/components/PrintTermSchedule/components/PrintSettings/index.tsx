@@ -5,6 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import * as _ from "lodash";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
+import FacultyLoadingController from "../../../../../../../../../../controllers/faculty_loading";
 import { FacultyLoadingState } from "../../../../../../../../../../store/faculty_loading";
 
 interface IPropsType {
@@ -18,11 +19,13 @@ export default class PrintSettings extends React.Component<IPropsType> {
         const { facultyLoading } = this.props;
         const { classesTabState } = facultyLoading!;
         const { printTermScheduleState } = classesTabState;
-        if (event.target.value === "None") {
+        if (event.target.value === 0) {
             printTermScheduleState.yearFilter = 0;
+        } else {
+            printTermScheduleState.yearFilter = event.target.value;
+            FacultyLoadingController.getYear(event.target.value);
         }
-        printTermScheduleState.yearFilter = event.target.value;
-    }
+    };
 
     public onCourseChange = (event: any) => {
         const { facultyLoading } = this.props;
@@ -30,8 +33,9 @@ export default class PrintSettings extends React.Component<IPropsType> {
         const { printTermScheduleState } = classesTabState;
         if (event.target.value === "None") {
             printTermScheduleState.courseFilter = "";
+        } else {
+            printTermScheduleState.courseFilter = event.target.value;
         }
-        printTermScheduleState.courseFilter = event.target.value;
     };
 
     public onSubjectChange = (event: any) => {
@@ -40,13 +44,14 @@ export default class PrintSettings extends React.Component<IPropsType> {
         const { printTermScheduleState } = classesTabState;
         if (event.target.value === "None") {
             printTermScheduleState.subjectFilter = "";
+        } else {
+            printTermScheduleState.subjectFilter = event.target.value;
         }
-        printTermScheduleState.subjectFilter = event.target.value;
     };
 
     public render() {
         const { facultyLoading } = this.props;
-        const { terms, classesTabState } = facultyLoading!;
+        const { terms, year, classesTabState } = facultyLoading!;
         const {
             classSchedules,
             printTermScheduleState: { yearFilter, courseFilter, subjectFilter },
@@ -65,6 +70,16 @@ export default class PrintSettings extends React.Component<IPropsType> {
         Array.from(terms!.values()).map(term => {
             years.push(term.startYear);
         });
+
+        if (!noYearFilter && year) {
+            year!.map(term => {
+                term.classSchedules!.map(cs => {
+                    courses.push(cs.course);
+                    subjects.push(cs.subjectCode);
+                });
+            });
+        }
+
         const uniqueYears = _.uniq(years);
         const uniqueCourses = _.uniq(courses);
         const uniqueSubjects = _.uniq(subjects);
@@ -72,7 +87,7 @@ export default class PrintSettings extends React.Component<IPropsType> {
         let filteredYears = [];
         filteredYears = uniqueYears;
         if (!noYearFilter) {
-            filteredYears = uniqueYears.filter(year => year === yearFilter);
+            filteredYears = uniqueYears.filter(y => y === yearFilter);
         }
 
         let filteredCourses = [];
@@ -93,29 +108,28 @@ export default class PrintSettings extends React.Component<IPropsType> {
 
         return (
             <Grid container direction="column" spacing={24}>
+                <Typography variant="h6">Term Filters</Typography>
                 <Grid item>
-                    <Typography variant="h6">Filter by school year</Typography>
                     <TextField
-                        label="School Year"
+                        label="Filter by school year"
                         variant="outlined"
-                        value={yearFilter || undefined}
+                        value={yearFilter || ""}
                         select
                         onChange={this.onYearChange}
                         fullWidth
                     >
                         <MenuItem value={0}>None</MenuItem>
                         {filteredYears &&
-                            filteredYears.map(year => (
-                                <MenuItem key={year} value={year}>
-                                    {year}
+                            filteredYears.map(y => (
+                                <MenuItem key={y} value={y}>
+                                    {`${y} - ${y + 1}`}
                                 </MenuItem>
                             ))}
                     </TextField>
                 </Grid>
                 <Grid item>
-                    <Typography variant="h6">Filter by course</Typography>
                     <TextField
-                        label="Course"
+                        label="Filter by course"
                         variant="outlined"
                         value={courseFilter || ""}
                         select
@@ -132,9 +146,8 @@ export default class PrintSettings extends React.Component<IPropsType> {
                     </TextField>
                 </Grid>
                 <Grid item>
-                    <Typography variant="h6">Filter by subject</Typography>
                     <TextField
-                        label="Subject"
+                        label="Filter by subject"
                         variant="outlined"
                         value={subjectFilter || ""}
                         select

@@ -1,6 +1,7 @@
 import ClassSchedule from "../models/entities/class_schedule";
 import FormClassSchedule from "../models/entities/form_class_schedule";
 import Notice from "../models/entities/notice";
+import Term from "../models/entities/term";
 import FacultyLoadingTab from "../models/enums/faculty_loading_tab";
 import FeedbackStatus from "../models/enums/feedback_status";
 import FetchableStatus from "../models/enums/fetchable_status";
@@ -77,6 +78,9 @@ export default class FacultyLoadingController {
                     this.getCurrentTermStats();
                 }
                 term.setStatus(FetchableStatus.Fetched);
+                if (facultyLoading.activeTab === FacultyLoadingTab.Classes) {
+                    this.getAllClassSchedulesTabPrerequisites();
+                }
             })
             .catch((e: Error) =>
                 term.setStatus(FetchableStatus.Error, e.message)
@@ -349,7 +353,7 @@ export default class FacultyLoadingController {
                     classSchedule => classSchedule.facultyMember === undefined
                 );
 
-                if (noAssignments) {
+                if (noAssignments.length > 0) {
                     this.toggleUnassignedClassesDialog(true);
                 }
             })
@@ -512,6 +516,16 @@ export default class FacultyLoadingController {
 
         FacultyLoadingService.getUnderloadedLastTerm().then(underloaded => {
             classesTabState.underloadedLastTerm = underloaded;
+        });
+    }
+
+    public static getYear(year: number) {
+        const { classesTabState } = facultyLoading;
+        classesTabState.setStatus(FetchableStatus.Fetching);
+
+        FacultyLoadingService.getYear(year).then(years => {
+            facultyLoading.year = years.map((t: any) => new Term(t));
+            classesTabState.setStatus(FetchableStatus.Fetched);
         });
     }
 }

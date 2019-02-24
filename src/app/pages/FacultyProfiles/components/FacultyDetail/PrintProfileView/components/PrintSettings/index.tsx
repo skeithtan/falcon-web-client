@@ -43,8 +43,8 @@ class PrintSettings extends React.Component<IPropsType> {
         const { facultyProfiles, classes } = this.props;
         const { profilePrintPreviewState: state } = facultyProfiles!;
         return (
-            <FormControl component="fieldset" className={classes.form}>
-                <FormLabel component="legend">Print Profile Settings</FormLabel>
+            <FormControl component={"fieldset" as "div"} className={classes.form}>
+                <FormLabel component="label">Print Profile Settings</FormLabel>
                 <FormGroup>
                     <FormControlLabel
                         control={
