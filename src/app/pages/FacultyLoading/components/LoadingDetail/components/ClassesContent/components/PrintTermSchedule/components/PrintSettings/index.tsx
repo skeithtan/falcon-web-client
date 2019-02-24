@@ -74,7 +74,6 @@ export default class PrintSettings extends React.Component<IPropsType> {
         if (!noYearFilter && year) {
             year!.map(term => {
                 term.classSchedules!.map(cs => {
-                    console.log(cs);
                     courses.push(cs.course);
                     subjects.push(cs.subjectCode);
                 });
