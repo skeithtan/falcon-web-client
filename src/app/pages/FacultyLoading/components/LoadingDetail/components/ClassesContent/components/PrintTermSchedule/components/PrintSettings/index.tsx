@@ -108,10 +108,10 @@ export default class PrintSettings extends React.Component<IPropsType> {
 
         return (
             <Grid container direction="column" spacing={24}>
+                <Typography variant="h6">Term Filters</Typography>
                 <Grid item>
-                    <Typography variant="h6">Filter by school year</Typography>
                     <TextField
-                        label="School Year"
+                        label="Filter by school year"
                         variant="outlined"
                         value={yearFilter || ""}
                         select
@@ -128,9 +128,8 @@ export default class PrintSettings extends React.Component<IPropsType> {
                     </TextField>
                 </Grid>
                 <Grid item>
-                    <Typography variant="h6">Filter by course</Typography>
                     <TextField
-                        label="Course"
+                        label="Filter by course"
                         variant="outlined"
                         value={courseFilter || ""}
                         select
@@ -147,9 +146,8 @@ export default class PrintSettings extends React.Component<IPropsType> {
                     </TextField>
                 </Grid>
                 <Grid item>
-                    <Typography variant="h6">Filter by subject</Typography>
                     <TextField
-                        label="Subject"
+                        label="Filter by subject"
                         variant="outlined"
                         value={subjectFilter || ""}
                         select
