@@ -20,4 +20,9 @@ export default (theme: Theme): StyleRules => ({
         height: "100%",
         padding: theme.spacing.unit * 4,
     },
+    printButton: {
+        position: "absolute",
+        bottom: 40,
+        right: 40,
+    },
 });
