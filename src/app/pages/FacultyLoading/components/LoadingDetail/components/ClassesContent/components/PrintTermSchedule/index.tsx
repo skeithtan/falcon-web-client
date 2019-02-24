@@ -1,5 +1,6 @@
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
 import { withStyles } from "@material-ui/core/styles";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
@@ -55,13 +56,13 @@ class PrintTermSchedule extends React.Component<IPropsType> {
                     className={classes.root}
                 >
                     <Grid item xs={9} className={classes.preview}>
-                        <div className={classes.base}>
-                            {noYearFilter && (
-                                <StateWrapper
-                                    fetchableState={classesTabState.fetchStatus}
-                                >
-                                    {() => (
-                                        <React.Fragment>
+                        {noYearFilter && (
+                            <StateWrapper
+                                fetchableState={classesTabState.fetchStatus}
+                            >
+                                {() => (
+                                    <div className={classes.base}>
+                                        <Paper className={classes.paper}>
                                             <div
                                                 ref={(el: any) =>
                                                     (this.printRef = el)
@@ -81,49 +82,51 @@ class PrintTermSchedule extends React.Component<IPropsType> {
                                                 trigger={this.getTrigger}
                                                 content={this.getPrintContent}
                                             />
-                                        </React.Fragment>
-                                    )}
-                                </StateWrapper>
-                            )}
-                            {!noYearFilter && (
-                                <StateWrapper
-                                    fetchableState={classesTabState.fetchStatus}
-                                >
-                                    {() => (
-                                        <div
-                                            ref={(el: any) =>
-                                                (this.printRef = el)
-                                            }
-                                        >
-                                            <Grid container spacing={24}>
-                                                {year!.map(term => (
-                                                    <Grid item key={term.id}>
-                                                        <PrintPreview
-                                                            term={term.term}
-                                                            startYear={
-                                                                term.startYear
-                                                            }
-                                                            classSchedules={
-                                                                term.classSchedules!
-                                                            }
-                                                        />
-                                                        <ReactToPrint
-                                                            trigger={
-                                                                this.getTrigger
-                                                            }
-                                                            content={
-                                                                this
-                                                                    .getPrintContent
-                                                            }
-                                                        />
-                                                    </Grid>
-                                                ))}
-                                            </Grid>
-                                        </div>
-                                    )}
-                                </StateWrapper>
-                            )}
-                        </div>
+                                        </Paper>
+                                    </div>
+                                )}
+                            </StateWrapper>
+                        )}
+                        {!noYearFilter && (
+                            <StateWrapper
+                                fetchableState={classesTabState.fetchStatus}
+                            >
+                                {() => (
+                                    <div className={classes.base}>
+                                        <Paper className={classes.paper}>
+                                            <div
+                                                ref={(el: any) =>
+                                                    (this.printRef = el)
+                                                }
+                                            >
+                                                <Grid container spacing={32}>
+                                                    {year!.map(term => (
+                                                        <Grid
+                                                            item
+                                                            key={term.id}
+                                                        >
+                                                            <PrintPreview
+                                                                term={term.term}
+                                                                startYear={
+                                                                    term.startYear
+                                                                }
+                                                                classSchedules={
+                                                                    term.classSchedules!
+                                                                }
+                                                            />
+                                                        </Grid>
+                                                    ))}
+                                                </Grid>
+                                            </div>
+                                            <ReactToPrint
+                                                trigger={this.getTrigger}
+                                                content={this.getPrintContent}
+                                            />
+                                        </Paper>
+                                    </div>
+                                )}
+                            </StateWrapper>
+                        )}
                     </Grid>
                     <Grid item xs={3} className={classes.settings}>
                         <PrintSettings />
