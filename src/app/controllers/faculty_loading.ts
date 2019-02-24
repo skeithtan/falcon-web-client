@@ -353,7 +353,7 @@ export default class FacultyLoadingController {
                     classSchedule => classSchedule.facultyMember === undefined
                 );
 
-                if (noAssignments) {
+                if (noAssignments.length > 0) {
                     this.toggleUnassignedClassesDialog(true);
                 }
             })
