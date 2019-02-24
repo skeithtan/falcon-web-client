@@ -15,4 +15,9 @@ export default (theme: Theme): StyleRules => ({
         borderLeft: "1px solid grey",
         padding: theme.spacing.unit * 4,
     },
+    base: {
+        overflow: "scroll",
+        height: "100%",
+        padding: theme.spacing.unit * 4,
+    },
 });
