@@ -10,6 +10,7 @@ import IStyleClasses from "../../../../../../../../interfaces/style_classes";
 import { FacultyLoadingState } from "../../../../../../../../store/faculty_loading";
 import PrintPreview from "./components/PrintPreview";
 import PrintSettings from "./components/PrintSettings";
+import YearPrintPreview from "./components/YearPrintPreview";
 import styles from "./styles";
 
 // tslint:disable-next-line
@@ -99,24 +100,10 @@ class PrintTermSchedule extends React.Component<IPropsType> {
                                                     (this.printRef = el)
                                                 }
                                             >
-                                                <Grid container spacing={32}>
-                                                    {year!.map(term => (
-                                                        <Grid
-                                                            item
-                                                            key={term.id}
-                                                        >
-                                                            <PrintPreview
-                                                                term={term.term}
-                                                                startYear={
-                                                                    term.startYear
-                                                                }
-                                                                classSchedules={
-                                                                    term.classSchedules!
-                                                                }
-                                                            />
-                                                        </Grid>
-                                                    ))}
-                                                </Grid>
+                                                <YearPrintPreview
+                                                    terms={year!}
+                                                    startYear={yearFilter}
+                                                />
                                             </div>
                                             <ReactToPrint
                                                 trigger={this.getTrigger}
