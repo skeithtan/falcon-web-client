@@ -51,7 +51,7 @@ export default class PrintSettings extends React.Component<IPropsType> {
 
     public render() {
         const { facultyLoading } = this.props;
-        const { terms, classesTabState } = facultyLoading!;
+        const { terms, year, classesTabState } = facultyLoading!;
         const {
             classSchedules,
             printTermScheduleState: { yearFilter, courseFilter, subjectFilter },
@@ -70,6 +70,17 @@ export default class PrintSettings extends React.Component<IPropsType> {
         Array.from(terms!.values()).map(term => {
             years.push(term.startYear);
         });
+
+        if (!noYearFilter && year) {
+            year!.map(term => {
+                term.classSchedules!.map(cs => {
+                    console.log(cs);
+                    courses.push(cs.course);
+                    subjects.push(cs.subjectCode);
+                });
+            });
+        }
+
         const uniqueYears = _.uniq(years);
         const uniqueCourses = _.uniq(courses);
         const uniqueSubjects = _.uniq(subjects);
@@ -77,7 +88,7 @@ export default class PrintSettings extends React.Component<IPropsType> {
         let filteredYears = [];
         filteredYears = uniqueYears;
         if (!noYearFilter) {
-            filteredYears = uniqueYears.filter(year => year === yearFilter);
+            filteredYears = uniqueYears.filter(y => y === yearFilter);
         }
 
         let filteredCourses = [];
@@ -110,9 +121,9 @@ export default class PrintSettings extends React.Component<IPropsType> {
                     >
                         <MenuItem value={0}>None</MenuItem>
                         {filteredYears &&
-                            filteredYears.map(year => (
-                                <MenuItem key={year} value={year}>
-                                    {`${year} - ${year + 1}`}
+                            filteredYears.map(y => (
+                                <MenuItem key={y} value={y}>
+                                    {`${y} - ${y + 1}`}
                                 </MenuItem>
                             ))}
                     </TextField>
