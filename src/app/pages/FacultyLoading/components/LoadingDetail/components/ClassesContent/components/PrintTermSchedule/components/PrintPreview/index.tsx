@@ -43,77 +43,68 @@ class PrintPreview extends React.Component<IPropsType> {
     public render() {
         const { classes, term, startYear, classSchedules } = this.props;
         return (
-            <div className={classes.root}>
-                <Paper className={classes.paper}>
-                    <div
-                        ref={(el: any) => (this.printRef = el)}
-                        className={classes.printContentContainer}
+            <Paper className={classes.paper}>
+                <div
+                    ref={(el: any) => (this.printRef = el)}
+                    className={classes.printContentContainer}
+                >
+                    <Grid
+                        container
+                        direction="column"
+                        wrap="nowrap"
+                        spacing={24}
                     >
+                        <Grid item>
+                            <PrintPreviewHead />
+                        </Grid>
                         <Grid
+                            item
                             container
                             direction="column"
-                            wrap="nowrap"
-                            spacing={24}
+                            justify="center"
+                            alignItems="center"
                         >
                             <Grid item>
-                                <PrintPreviewHead />
+                                <Typography variant="h6">
+                                    {`Schedule for ${term} Term ${startYear} - ${startYear +
+                                        1}`}
+                                </Typography>
                             </Grid>
-                            <Grid
-                                item
-                                container
-                                direction="column"
-                                justify="center"
-                                alignItems="center"
-                            >
-                                <Grid item>
-                                    <Typography variant="h6">
-                                        {`Schedule for ${term} Term ${startYear} - ${startYear +
-                                            1}`}
-                                    </Typography>
-                                </Grid>
-                                <Grid item>
-                                    <Typography
-                                        variant="overline"
-                                        color="textSecondary"
-                                    >
-                                        Generated {moment().format("LLLL")}
-                                    </Typography>
-                                </Grid>
-                            </Grid>
-                            <Grid
-                                item
-                                container
-                                direction="column"
-                                spacing={24}
-                            >
-                                {classSchedules &&
-                                    Array.from(MeetingDaysReadable).map(
-                                        ([mdrEnum, mdrStr]) => {
-                                            const dayClasses = classSchedules!.filter(
-                                                cs => cs.meetingDays === mdrEnum
-                                            );
-
-                                            return (
-                                                <Grid item key={mdrEnum}>
-                                                    <ScheduleTable
-                                                        meetingDays={mdrStr}
-                                                        classSchedules={
-                                                            dayClasses
-                                                        }
-                                                    />
-                                                </Grid>
-                                            );
-                                        }
-                                    )}
+                            <Grid item>
+                                <Typography
+                                    variant="overline"
+                                    color="textSecondary"
+                                >
+                                    Generated {moment().format("LLLL")}
+                                </Typography>
                             </Grid>
                         </Grid>
-                    </div>
-                    <ReactToPrint
-                        trigger={this.getTrigger}
-                        content={this.getPrintContent}
-                    />
-                </Paper>
-            </div>
+                        <Grid item container direction="column" spacing={24}>
+                            {classSchedules &&
+                                Array.from(MeetingDaysReadable).map(
+                                    ([mdrEnum, mdrStr]) => {
+                                        const dayClasses = classSchedules!.filter(
+                                            cs => cs.meetingDays === mdrEnum
+                                        );
+
+                                        return (
+                                            <Grid item key={mdrEnum}>
+                                                <ScheduleTable
+                                                    meetingDays={mdrStr}
+                                                    classSchedules={dayClasses}
+                                                />
+                                            </Grid>
+                                        );
+                                    }
+                                )}
+                        </Grid>
+                    </Grid>
+                </div>
+                <ReactToPrint
+                    trigger={this.getTrigger}
+                    content={this.getPrintContent}
+                />
+            </Paper>
         );
     }
 }
