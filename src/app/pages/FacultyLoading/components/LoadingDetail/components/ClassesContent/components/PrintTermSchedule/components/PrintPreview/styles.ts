@@ -15,9 +15,4 @@ export default (theme: Theme): StyleRules => ({
         bottom: 40,
         right: 40,
     },
-    root: {
-        overflow: "scroll",
-        height: "100%",
-        padding: theme.spacing.unit * 4,
-    },
 });
