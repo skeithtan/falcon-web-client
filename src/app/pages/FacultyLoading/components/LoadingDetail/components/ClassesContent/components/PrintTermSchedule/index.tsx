@@ -1,3 +1,4 @@
+import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";
 import { inject, observer } from "mobx-react";
@@ -10,6 +11,9 @@ import PrintPreview from "./components/PrintPreview";
 import PrintSettings from "./components/PrintSettings";
 import styles from "./styles";
 
+// tslint:disable-next-line
+const ReactToPrint = require("react-to-print");
+
 interface IPropsType {
     facultyLoading?: FacultyLoadingState;
     classes: IStyleClasses;
@@ -18,6 +22,19 @@ interface IPropsType {
 @inject("facultyLoading")
 @observer
 class PrintTermSchedule extends React.Component<IPropsType> {
+    public printRef?: any;
+
+    public getTrigger = () => {
+        const { classes } = this.props;
+        return (
+            <Button variant="extendedFab" className={classes.printButton}>
+                Print Schedule
+            </Button>
+        );
+    };
+
+    public getPrintContent = () => this.printRef;
+
     public render() {
         const { facultyLoading, classes } = this.props;
         const {
@@ -44,13 +61,27 @@ class PrintTermSchedule extends React.Component<IPropsType> {
                                     fetchableState={classesTabState.fetchStatus}
                                 >
                                     {() => (
-                                        <PrintPreview
-                                            term={activeTerm!.term}
-                                            startYear={activeTerm!.startYear}
-                                            classSchedules={Array.from(
-                                                classSchedules!.values()
-                                            )}
-                                        />
+                                        <React.Fragment>
+                                            <div
+                                                ref={(el: any) =>
+                                                    (this.printRef = el)
+                                                }
+                                            >
+                                                <PrintPreview
+                                                    term={activeTerm!.term}
+                                                    startYear={
+                                                        activeTerm!.startYear
+                                                    }
+                                                    classSchedules={Array.from(
+                                                        classSchedules!.values()
+                                                    )}
+                                                />
+                                            </div>
+                                            <ReactToPrint
+                                                trigger={this.getTrigger}
+                                                content={this.getPrintContent}
+                                            />
+                                        </React.Fragment>
                                     )}
                                 </StateWrapper>
                             )}
@@ -59,21 +90,36 @@ class PrintTermSchedule extends React.Component<IPropsType> {
                                     fetchableState={classesTabState.fetchStatus}
                                 >
                                     {() => (
-                                        <Grid container spacing={24}>
-                                            {year!.map(term => (
-                                                <Grid item key={term.id}>
-                                                    <PrintPreview
-                                                        term={term.term}
-                                                        startYear={
-                                                            term.startYear
-                                                        }
-                                                        classSchedules={
-                                                            term.classSchedules!
-                                                        }
-                                                    />
-                                                </Grid>
-                                            ))}
-                                        </Grid>
+                                        <div
+                                            ref={(el: any) =>
+                                                (this.printRef = el)
+                                            }
+                                        >
+                                            <Grid container spacing={24}>
+                                                {year!.map(term => (
+                                                    <Grid item key={term.id}>
+                                                        <PrintPreview
+                                                            term={term.term}
+                                                            startYear={
+                                                                term.startYear
+                                                            }
+                                                            classSchedules={
+                                                                term.classSchedules!
+                                                            }
+                                                        />
+                                                        <ReactToPrint
+                                                            trigger={
+                                                                this.getTrigger
+                                                            }
+                                                            content={
+                                                                this
+                                                                    .getPrintContent
+                                                            }
+                                                        />
+                                                    </Grid>
+                                                ))}
+                                            </Grid>
+                                        </div>
                                     )}
                                 </StateWrapper>
                             )}
