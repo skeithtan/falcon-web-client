@@ -37,6 +37,7 @@ class AddClassesDrawer extends React.Component<IPropsType, IStateType> {
         this.setState({
             activeStep: this.state.activeStep - 1,
         });
+        FacultyLoadingController.resetFormClasses();
     };
 
     public nextStep = () => {
