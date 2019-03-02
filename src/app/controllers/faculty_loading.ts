@@ -479,6 +479,7 @@ export default class FacultyLoadingController {
                 section: classScheduleChildForm.section,
                 course: classScheduleChildForm.course,
                 studentYear: classScheduleChildForm.studentYear,
+                forAdjunct: classScheduleChildForm.forAdjunct,
             })
         );
 
@@ -533,5 +534,13 @@ export default class FacultyLoadingController {
         const { classesTabState: { addClassesDrawerState } } = facultyLoading;
         const { form } = addClassesDrawerState;
         form.resetClasses();
+    }
+
+    public static toggleAssignAdjunctDialog(shouldShow: boolean) {
+        const { classesTabState: { assignAdjunctDialogState } } = facultyLoading;
+        assignAdjunctDialogState.isShowing = shouldShow;
+        if (!shouldShow) {
+            assignAdjunctDialogState.resetAndClose();
+        }
     }
 }
