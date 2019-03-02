@@ -44,4 +44,7 @@ export default class AddClassForm {
     })
     @observable
     public section: string = "";
+
+    @observable
+    public forAdjunct: boolean = false;
 }
