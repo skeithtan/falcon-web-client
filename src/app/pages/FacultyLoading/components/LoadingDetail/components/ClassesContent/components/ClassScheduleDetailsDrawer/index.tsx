@@ -70,7 +70,7 @@ export default class ClassScheduleDetailsDrawer extends React.Component<
             }`;
         }
         if (activeClassSchedule!.adjunctName) {
-            facultyName = activeClassSchedule!.adjunctName;
+            facultyName = activeClassSchedule!.adjunctName!;
         }
 
         return (
