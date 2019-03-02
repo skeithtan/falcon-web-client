@@ -51,6 +51,9 @@ class AddClassesDrawer extends React.Component<IPropsType, IStateType> {
 
     public onClose = () => {
         FacultyLoadingController.toggleAddClassesDrawer(false);
+        this.setState({
+            activeStep: 0,
+        });
     };
 
     public onSubjectChange = (event: any) => {
