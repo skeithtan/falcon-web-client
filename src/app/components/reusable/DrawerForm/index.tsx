@@ -38,7 +38,6 @@ class DrawerForm extends React.Component<IPropsType> {
         } = this.props;
         return (
             <Drawer
-                onClose={this.onClose}
                 anchor="right"
                 open={open}
                 classes={{ paper: classNames(className, classes.root) }}

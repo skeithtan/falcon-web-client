@@ -21,6 +21,7 @@ import TermStatus from "../../../../../../../../models/enums/term_status";
 import UserType from "../../../../../../../../models/enums/user_type";
 import { AuthenticationState } from "../../../../../../../../store/authentication";
 import { FacultyLoadingState } from "../../../../../../../../store/faculty_loading";
+import AssignAdjunctDialog from "./components/AssignAdjunctDialog";
 import AssignFacultyDialog from "./components/AssignFacultyDialog";
 
 interface IPropsType {
@@ -47,7 +48,14 @@ export default class ClassScheduleDetailsDrawer extends React.Component<
     };
 
     public onAssignFacultyClick = (shouldShow: boolean) => () => {
-        FacultyLoadingController.toggleAssignFacultyDialog(shouldShow);
+        const { facultyLoading } = this.props;
+        const { classesTabState } = facultyLoading!;
+        const { activeClassSchedule } = classesTabState;
+        if (activeClassSchedule!.forAdjunct) {
+            FacultyLoadingController.toggleAssignAdjunctDialog(shouldShow);
+        } else {
+            FacultyLoadingController.toggleAssignFacultyDialog(shouldShow);
+        }
     };
 
     public renderActiveClassSchedule = () => {
@@ -98,6 +106,12 @@ export default class ClassScheduleDetailsDrawer extends React.Component<
                         <DetailItem
                             field="Course"
                             value={activeClassSchedule!.course}
+                        />
+                        <DetailItem
+                            field="For Adjunct"
+                            value={
+                                activeClassSchedule!.forAdjunct ? "Yes" : "No"
+                            }
                         />
                     </List>
                 </Grid>
@@ -153,6 +167,7 @@ export default class ClassScheduleDetailsDrawer extends React.Component<
                     <Divider />
                 </Grid>
                 <AssignFacultyDialog />
+                <AssignAdjunctDialog />
             </Grid>
         );
     };

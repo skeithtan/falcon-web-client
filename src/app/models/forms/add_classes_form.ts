@@ -12,8 +12,15 @@ export default class AddClassesForm {
     @observable
     public classSchedules: FormClassSchedule[] = [];
 
+    @observable
+    public filterGenEd: boolean = false;
+
     @computed
     get noClasses(): boolean {
         return this.classSchedules.length === 0;
+    }
+
+    public resetClasses() {
+        this.classSchedules = [];
     }
 }

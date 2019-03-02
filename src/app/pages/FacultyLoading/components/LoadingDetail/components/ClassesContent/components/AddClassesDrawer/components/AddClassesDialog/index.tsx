@@ -1,8 +1,10 @@
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Grid from "@material-ui/core/Grid";
 import MenuItem from "@material-ui/core/MenuItem";
+import Switch from "@material-ui/core/Switch";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import { inject, observer } from "mobx-react";
@@ -12,6 +14,7 @@ import FacultyLoadingController from "../../../../../../../../../../controllers/
 import FormClassSchedule from "../../../../../../../../../../models/entities/form_class_schedule";
 import { MeetingDaysReadable } from "../../../../../../../../../../models/enums/meeting_days";
 import { MeetingHoursReadable } from "../../../../../../../../../../models/enums/meeting_hours";
+import SubjectCategory from "../../../../../../../../../../models/enums/subject_category";
 import { FacultyLoadingState } from "../../../../../../../../../../store/faculty_loading";
 
 interface IPropsType {
@@ -36,6 +39,18 @@ export default class AddClassesDialog extends React.Component<IPropsType> {
         form[property] = event.target.value;
     };
 
+    public forAdjunctChange = (
+        event: React.ChangeEvent,
+        forAdjunct: boolean
+    ) => {
+        const { facultyLoading } = this.props;
+        const {
+            classesTabState: { addClassDialogState },
+        } = facultyLoading!;
+        const { form } = addClassDialogState;
+        form.forAdjunct = forAdjunct;
+    };
+
     public onSubmitClick = () => {
         FacultyLoadingController.addClassToForm();
     };
@@ -43,7 +58,14 @@ export default class AddClassesDialog extends React.Component<IPropsType> {
     public render() {
         const { facultyLoading, pendingClasses } = this.props;
         const {
-            classesTabState: { addClassDialogState, classSchedules },
+            classesTabState: {
+                addClassDialogState,
+                addClassesDrawerState: {
+                    form: { subjectId },
+                },
+                classSchedules,
+                subjects,
+            },
         } = facultyLoading!;
         const {
             isShowing,
@@ -51,6 +73,8 @@ export default class AddClassesDialog extends React.Component<IPropsType> {
             form,
             canSubmit,
         } = addClassDialogState;
+
+        const subject = subjects!.find(s => s.id === subjectId);
 
         const consolidatedClasses = [
             ...Array.from(classSchedules!.values()),
@@ -207,6 +231,20 @@ export default class AddClassesDialog extends React.Component<IPropsType> {
                                 fullWidth
                             />
                         </Grid>
+                        {subject &&
+                            subject!.category === SubjectCategory.General && (
+                                <Grid item>
+                                    <FormControlLabel
+                                        control={
+                                            <Switch
+                                                checked={form.forAdjunct}
+                                                onChange={this.forAdjunctChange}
+                                            />
+                                        }
+                                        label="For adjunct"
+                                    />
+                                </Grid>
+                            )}
                         <Grid item container direction="row" spacing={24}>
                             <Grid item>
                                 <FormSubmitBar

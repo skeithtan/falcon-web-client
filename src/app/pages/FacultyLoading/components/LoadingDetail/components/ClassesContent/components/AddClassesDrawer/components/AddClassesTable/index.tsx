@@ -76,6 +76,7 @@ class AddClassesTable extends React.Component<IPropsType> {
                                     <TableCell>Room</TableCell>
                                     <TableCell>Course</TableCell>
                                     <TableCell>Section</TableCell>
+                                    <TableCell>For Adjunct</TableCell>
                                     <TableCell>{}</TableCell>
                                 </TableRow>
                             </TableHead>
