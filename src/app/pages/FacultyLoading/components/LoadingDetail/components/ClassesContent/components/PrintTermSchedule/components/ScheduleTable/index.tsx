@@ -73,10 +73,13 @@ export default class ScheduleTable extends React.Component<IPropsType> {
                                     }`}</TableCell>
                                     <TableCell>{cs.room}</TableCell>
                                     <TableCell>{cs.course}</TableCell>
-                                    {!cs.facultyMember && (
+                                    {!cs.facultyMember && !cs.adjunctName && (
                                         <TableCell>
                                             <i>No faculty assigned</i>
                                         </TableCell>
+                                    )}
+                                    {cs.adjunctName && (
+                                        <TableCell>{cs.adjunctName}</TableCell>
                                     )}
                                     {cs.facultyMember && (
                                         <TableCell>{`${
