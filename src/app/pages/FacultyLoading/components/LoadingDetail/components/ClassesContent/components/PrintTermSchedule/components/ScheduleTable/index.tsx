@@ -24,7 +24,11 @@ export default class ScheduleTable extends React.Component<IPropsType> {
         const { facultyLoading, meetingDays, classSchedules } = this.props;
         const {
             classesTabState: {
-                printTermScheduleState: { courseFilter, subjectFilter },
+                printTermScheduleState: {
+                    courseFilter,
+                    subjectFilter,
+                    adjunctFilter,
+                },
             },
         } = facultyLoading!;
         const noCourseFilter = courseFilter === "";
@@ -40,6 +44,10 @@ export default class ScheduleTable extends React.Component<IPropsType> {
 
         if (!noSubjectFilter) {
             classes = classes.filter(c => c.subjectCode === subjectFilter);
+        }
+
+        if (adjunctFilter) {
+            classes = classes.filter(c => c.forAdjunct);
         }
 
         return (
