@@ -398,6 +398,26 @@ export default class FacultyLoadingController {
             });
     }
 
+    public static assignAdjunctToClass() {
+        const termId = facultyLoading.activeTermId!;
+        const csId = facultyLoading.classesTabState.activeClassScheduleId!;
+        const {
+            classesTabState: { assignAdjunctDialogState: formState },
+        } = facultyLoading;
+        const { form } = formState;
+
+        FacultyLoadingService.assignAdjunct(termId, csId, form)
+            .then(cs => {
+                facultyLoading.classesTabState.classSchedules!.set(cs.id, cs);
+                this.toggleClassScheduleDetails(false);
+                formState.resetAndClose();
+                this.getAllClassSchedulesTabPrerequisites();
+            })
+            .catch(e => {
+                formState.setStatus(FormStatus.Error, e);
+            });
+    }
+
     public static togglePrintFacultySchedule(shouldShow: boolean) {
         const state = facultyLoading.facultyTabState.printScheduleDialogState;
         state.isShowing = shouldShow;
@@ -531,13 +551,17 @@ export default class FacultyLoadingController {
     }
 
     public static resetFormClasses() {
-        const { classesTabState: { addClassesDrawerState } } = facultyLoading;
+        const {
+            classesTabState: { addClassesDrawerState },
+        } = facultyLoading;
         const { form } = addClassesDrawerState;
         form.resetClasses();
     }
 
     public static toggleAssignAdjunctDialog(shouldShow: boolean) {
-        const { classesTabState: { assignAdjunctDialogState } } = facultyLoading;
+        const {
+            classesTabState: { assignAdjunctDialogState },
+        } = facultyLoading;
         assignAdjunctDialogState.isShowing = shouldShow;
         if (!shouldShow) {
             assignAdjunctDialogState.resetAndClose();
