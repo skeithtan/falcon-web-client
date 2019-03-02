@@ -7,6 +7,9 @@ import addClassDialogState, { AddClassDialogState } from "./add_class_dialog";
 import addClassesDrawerState, {
     AddClassesDrawerState,
 } from "./add_classes_drawer";
+import assignAdjunctDialogState, {
+    AssignAdjunctDialogState,
+} from "./assign_adjunct_dialog";
 import assignFacultyDialogState, {
     AssignFacultyDialogState,
 } from "./assign_faculty_dialog";
@@ -50,6 +53,9 @@ export class ClassesTabState extends FetchableState {
 
     @observable
     public assignFacultyDialogState: AssignFacultyDialogState = assignFacultyDialogState;
+
+    @observable
+    public assignAdjunctDialogState: AssignAdjunctDialogState = assignAdjunctDialogState;
 
     @observable
     public addClassesDrawerState: AddClassesDrawerState = addClassesDrawerState;
