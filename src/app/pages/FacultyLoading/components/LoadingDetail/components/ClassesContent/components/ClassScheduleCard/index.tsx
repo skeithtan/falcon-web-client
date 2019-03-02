@@ -21,7 +21,8 @@ interface IPropsType {
 class ClassScheduleCard extends React.Component<IPropsType> {
     public render() {
         const { classSchedule: cs, onClick, classes } = this.props;
-        const hasFacultyMember = Boolean(cs.facultyMember);
+        const hasFacultyMember =
+            Boolean(cs.facultyMember) || Boolean(cs.adjunctName);
         return (
             <Card
                 onClick={onClick}
@@ -59,7 +60,9 @@ class ClassScheduleCard extends React.Component<IPropsType> {
                                         variant="subtitle2"
                                         color="inherit"
                                     >
-                                        {cs.facultyMember!.fullName}
+                                        {cs.facultyMember!
+                                            ? cs.facultyMember!.fullName
+                                            : cs.adjunctName}
                                     </Typography>
                                 </Grid>
                             )}
