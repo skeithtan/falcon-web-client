@@ -21,12 +21,25 @@ export default class AssignAdjunctDialog extends React.Component<IPropsType> {
         FacultyLoadingController.toggleAssignAdjunctDialog(false);
     };
 
+    public onChange = (
+        property: string
+    ): React.ChangeEventHandler<
+        HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    > => event => {
+        const { facultyLoading } = this.props;
+        const {
+            classesTabState: { assignAdjunctDialogState },
+        } = facultyLoading!;
+        const { form } = assignAdjunctDialogState;
+        form[property] = event.target.value;
+    };
+
     public render() {
         const { facultyLoading } = this.props;
         const {
             classesTabState: { assignAdjunctDialogState },
         } = facultyLoading!;
-        const { isShowing } = assignAdjunctDialogState;
+        const { isShowing, validationErrors, form } = assignAdjunctDialogState;
         return (
             <Dialog open={isShowing} onClose={this.onClose}>
                 <DialogTitle>Assign Adjunct Member</DialogTitle>
@@ -35,7 +48,16 @@ export default class AssignAdjunctDialog extends React.Component<IPropsType> {
                         Enter the name of the invited adjunct faculty member to
                         be assigned to this class.
                     </DialogContentText>
-                    <TextField />
+                    <TextField
+                        label="Full Name"
+                        variant="outlined"
+                        required
+                        onChange={this.onChange("adjunctName")}
+                        value={form.adjunctName}
+                        error={"adjunctName" in validationErrors}
+                        helperText={validationErrors.adjunctName}
+                        fullWidth
+                    />
                     <DialogActions>
                         <Button color="secondary" onClick={this.onClose}>
                             Cancel
