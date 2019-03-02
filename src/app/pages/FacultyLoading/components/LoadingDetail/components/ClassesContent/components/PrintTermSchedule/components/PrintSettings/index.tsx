@@ -1,5 +1,7 @@
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Grid from "@material-ui/core/Grid";
 import MenuItem from "@material-ui/core/MenuItem";
+import Switch from "@material-ui/core/Switch";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import * as _ from "lodash";
@@ -49,12 +51,25 @@ export default class PrintSettings extends React.Component<IPropsType> {
         }
     };
 
+    public onAdjunctChange = (event: React.ChangeEvent, filter: boolean) => {
+        const { facultyLoading } = this.props;
+        const {
+            classesTabState: { printTermScheduleState },
+        } = facultyLoading!;
+        printTermScheduleState.adjunctFilter = filter;
+    };
+
     public render() {
         const { facultyLoading } = this.props;
         const { terms, year, classesTabState } = facultyLoading!;
         const {
             classSchedules,
-            printTermScheduleState: { yearFilter, courseFilter, subjectFilter },
+            printTermScheduleState: {
+                yearFilter,
+                courseFilter,
+                subjectFilter,
+                adjunctFilter,
+            },
         } = classesTabState;
         const noYearFilter = yearFilter === 0;
         const noCourseFilter = courseFilter === "";
@@ -162,6 +177,17 @@ export default class PrintSettings extends React.Component<IPropsType> {
                                 </MenuItem>
                             ))}
                     </TextField>
+                </Grid>
+                <Grid item>
+                    <FormControlLabel
+                        control={
+                            <Switch
+                                checked={adjunctFilter}
+                                onChange={this.onAdjunctChange}
+                            />
+                        }
+                        label="View adjunct only"
+                    />
                 </Grid>
             </Grid>
         );

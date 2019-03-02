@@ -37,6 +37,9 @@ export default class FacultyClassSchedule extends Entity {
     @observable
     public forAdjunct: boolean;
 
+    @observable
+    public adjunctName?: string;
+
     constructor(plainObject: any) {
         super(plainObject);
         this.feedback = new Feedback(plainObject.feedback);

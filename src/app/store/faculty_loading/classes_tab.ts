@@ -74,6 +74,7 @@ export class ClassesTabState extends FetchableState {
         if (this.showOnlyUnassigned) {
             return Array.from(this.classSchedules!.values())
                 .filter(cs => cs.facultyMember === undefined)
+                .filter(cs => cs.forAdjunct && !cs.adjunctName)
                 .filter(cs => cs.meetingDays === this.activeMeetingDays);
         }
 

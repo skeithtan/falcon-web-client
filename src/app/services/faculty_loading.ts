@@ -8,6 +8,7 @@ import TimeConstraint from "../models/entities/time_constraint";
 import FeedbackStatus from "../models/enums/feedback_status";
 import AddClassesForm from "../models/forms/add_classes_form";
 import AddTermForm from "../models/forms/add_term_form";
+import AssignAdjunctDialog from "../models/forms/assign_adjunct_dialog";
 import NoticeForm from "../models/forms/notice_form";
 import TimeConstraintsForm from "../models/forms/time_constraints_form";
 import { handleAxiosError } from "../utils/handle_axios_error";
@@ -208,6 +209,22 @@ export default class FacultyLoadingService {
             .get(`/terms/year/${year}`)
             .then((response: AxiosResponse) => {
                 return response.data;
+            })
+            .catch(handleAxiosError);
+    }
+
+    public static async assignAdjunct(
+        termId: number,
+        classScheduleId: number,
+        form: AssignAdjunctDialog
+    ): Promise<ClassSchedule> {
+        return axios
+            .post(
+                `/terms/${termId}/class-schedules/${classScheduleId}/set-adjunct`,
+                form
+            )
+            .then((response: AxiosResponse) => {
+                return new ClassSchedule(response.data);
             })
             .catch(handleAxiosError);
     }

@@ -12,6 +12,9 @@ export class PrintTermScheduleState {
 
     @observable
     public subjectFilter: string = "";
+
+    @observable
+    public adjunctFilter: boolean = false;
 }
 
 export default new PrintTermScheduleState();

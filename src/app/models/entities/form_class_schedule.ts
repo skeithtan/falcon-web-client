@@ -26,6 +26,9 @@ export default class FormClassSchedule {
     @observable
     public forAdjunct: boolean;
 
+    @observable
+    public adjunctName?: string;
+
     @computed
     get studentYearReadable() {
         let readable = "";

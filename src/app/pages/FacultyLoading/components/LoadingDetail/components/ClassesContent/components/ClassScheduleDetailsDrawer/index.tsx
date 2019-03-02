@@ -63,6 +63,16 @@ export default class ClassScheduleDetailsDrawer extends React.Component<
         const { classesTabState, activeTerm } = facultyLoading!;
         const { currentUser } = authentication!;
         const { activeClassSchedule } = classesTabState;
+        let facultyName = "No assigned faculty member";
+        if (activeClassSchedule!.facultyMember) {
+            facultyName = `${activeClassSchedule!.facultyMember!.firstName} ${
+                activeClassSchedule!.facultyMember!.lastName
+            }`;
+        }
+        if (activeClassSchedule!.adjunctName) {
+            facultyName = activeClassSchedule!.adjunctName;
+        }
+
         return (
             <Grid container direction="column" spacing={16} wrap="nowrap">
                 <Grid item>
@@ -137,17 +147,7 @@ export default class ClassScheduleDetailsDrawer extends React.Component<
                         <Typography variant="overline">
                             Assigned Faculty Member
                         </Typography>
-                        <Typography variant="h6">
-                            {activeClassSchedule!.facultyMember
-                                ? `${
-                                      activeClassSchedule!.facultyMember!
-                                          .firstName
-                                  } ${
-                                      activeClassSchedule!.facultyMember!
-                                          .lastName
-                                  }`
-                                : "No assigned faculty member"}
-                        </Typography>
+                        <Typography variant="h6">{facultyName}</Typography>
                     </CardContent>
                     {activeTerm!.status === TermStatus.Scheduling &&
                         currentUser!.authorization ===

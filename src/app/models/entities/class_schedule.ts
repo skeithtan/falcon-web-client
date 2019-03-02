@@ -37,6 +37,9 @@ export default class ClassSchedule extends Entity {
     @observable
     public forAdjunct: boolean;
 
+    @observable
+    public adjunctName?: string;
+
     @computed
     get studentYearReadable() {
         switch (this.studentYear) {
