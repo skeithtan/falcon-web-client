@@ -34,12 +34,17 @@ export default class AssignAdjunctDialog extends React.Component<IPropsType> {
         form[property] = event.target.value;
     };
 
+    public onSubmit = () => {
+        FacultyLoadingController.assignAdjunctToClass();
+    };
+
     public render() {
         const { facultyLoading } = this.props;
         const {
             classesTabState: { assignAdjunctDialogState },
         } = facultyLoading!;
         const { isShowing, validationErrors, form } = assignAdjunctDialogState;
+        const emptyName = form.adjunctName === "";
         return (
             <Dialog open={isShowing} onClose={this.onClose}>
                 <DialogTitle>Assign Adjunct Member</DialogTitle>
@@ -62,7 +67,13 @@ export default class AssignAdjunctDialog extends React.Component<IPropsType> {
                         <Button color="secondary" onClick={this.onClose}>
                             Cancel
                         </Button>
-                        <Button color="primary">Assign</Button>
+                        <Button
+                            color="primary"
+                            disabled={emptyName}
+                            onClick={this.onSubmit}
+                        >
+                            Assign
+                        </Button>
                     </DialogActions>
                 </DialogContent>
             </Dialog>
