@@ -16,4 +16,8 @@ export default class AddClassesForm {
     get noClasses(): boolean {
         return this.classSchedules.length === 0;
     }
+
+    public resetClasses() {
+        this.classSchedules = [];
+    }
 }

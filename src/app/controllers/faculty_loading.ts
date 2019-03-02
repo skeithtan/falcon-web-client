@@ -528,4 +528,10 @@ export default class FacultyLoadingController {
             classesTabState.setStatus(FetchableStatus.Fetched);
         });
     }
+
+    public static resetFormClasses() {
+        const { classesTabState: { addClassesDrawerState } } = facultyLoading;
+        const { form } = addClassesDrawerState;
+        form.resetClasses();
+    }
 }
