@@ -103,6 +103,9 @@ export default class FacultyLoadingController {
 
     public static setActiveTab(tab: FacultyLoadingTab) {
         facultyLoading.activeTab = tab;
+        if (facultyLoading.activeTab === FacultyLoadingTab.Overview) {
+            this.getCurrentTermStats();
+        }
     }
 
     public static toggleTermList(shouldShow: boolean) {
