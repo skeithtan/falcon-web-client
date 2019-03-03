@@ -56,6 +56,12 @@ class AddClassesDrawer extends React.Component<IPropsType, IStateType> {
         });
     };
 
+    public onOpen = () => {
+        this.setState({
+            activeStep: 0,
+        });
+    };
+
     public onSubjectChange = (event: any) => {
         const { facultyLoading } = this.props;
         const {
@@ -154,6 +160,7 @@ class AddClassesDrawer extends React.Component<IPropsType, IStateType> {
                 open={isShowing}
                 formTitle="Add Classes"
                 onClose={this.onClose}
+                onOpen={this.onOpen}
                 className={classes.drawer}
             >
                 <Stepper activeStep={activeStep} orientation="vertical">

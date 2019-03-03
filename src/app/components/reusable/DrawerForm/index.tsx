@@ -14,6 +14,7 @@ interface IPropsType {
     children: React.ReactNode;
     className?: string;
     onClose?: () => void;
+    onOpen?: () => void;
     classes: IStyleClasses;
     formTitle: string;
     disablePadding?: boolean;
@@ -30,6 +31,7 @@ class DrawerForm extends React.Component<IPropsType> {
     public render() {
         const {
             open,
+            onOpen,
             children,
             className,
             classes,
@@ -40,6 +42,7 @@ class DrawerForm extends React.Component<IPropsType> {
             <Drawer
                 anchor="right"
                 open={open}
+                onEnter={onOpen}
                 classes={{ paper: classNames(className, classes.root) }}
             >
                 <Grid
