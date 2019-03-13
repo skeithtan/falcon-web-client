@@ -13,7 +13,7 @@ import * as React from "react";
 import DrawerForm from "../../../../../components/reusable/DrawerForm";
 import FormSubmitBar from "../../../../../components/reusable/FormSubmitBar";
 import FacultyProfilesController from "../../../../../controllers/faculty_profiles";
-import { DegreeLevelReadable } from "../../../../../models/enums/degree_level";
+import DegreeLevel, { DegreeLevelReadable } from "../../../../../models/enums/degree_level";
 import { ProgramReadable } from "../../../../../models/enums/program";
 import { FacultyProfilesState } from "../../../../../store/faculty_profiles";
 
@@ -38,6 +38,10 @@ export default class AddDegreeFormView extends React.Component<IPropsType> {
         const { facultyProfiles } = this.props;
         const { form } = facultyProfiles!.addDegreeFormState;
         form[property] = event.target.value;
+
+        if (event.target.value === DegreeLevel.Bachelor) {
+            form.ongoing = false;
+        }
     };
 
     public onOngoingChange = () => {
@@ -46,6 +50,9 @@ export default class AddDegreeFormView extends React.Component<IPropsType> {
         form.ongoing = !form.ongoing;
         if (form.ongoing) {
             form.completionYear = undefined;
+            if (form.level === DegreeLevel.Bachelor) {
+                form.level = "";
+            }
         }
     };
 
