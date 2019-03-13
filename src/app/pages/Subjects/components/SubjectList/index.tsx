@@ -42,7 +42,11 @@ class SubjectList extends React.Component<IPropsType> {
                         return (
                             <li key={readable} className={classes.listSection}>
                                 <ul className={classes.ul}>
-                                    <ListSubheader>{readable}</ListSubheader>
+                                    <ListSubheader
+                                        className={classes.listHeader}
+                                    >
+                                        {readable}
+                                    </ListSubheader>
                                     {subjectItems.map(si => (
                                         <SubjectItem subject={si} key={si.id} />
                                     ))}

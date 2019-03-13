@@ -27,7 +27,9 @@ class FacultyList extends React.Component<IPropsType> {
                     .map(([sectionName, fms]) => (
                         <li key={sectionName} className={classes.listSection}>
                             <ul className={classes.ul}>
-                                <ListSubheader>{sectionName}</ListSubheader>
+                                <ListSubheader className={classes.listHeader}>
+                                    {sectionName}
+                                </ListSubheader>
                                 {fms.map(fm => (
                                     <FacultyListItem
                                         key={fm.facultyId}

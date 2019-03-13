@@ -7,7 +7,9 @@ import { inject, observer } from "mobx-react";
 import * as React from "react";
 import FacultyProfilesController from "src/app/controllers/faculty_profiles";
 import IStyleClasses from "../../../../interfaces/style_classes";
-import FacultyMemberType, { FacultyMemberTypeReadable } from "../../../../models/enums/faculty_member_type";
+import FacultyMemberType, {
+    FacultyMemberTypeReadable,
+} from "../../../../models/enums/faculty_member_type";
 import { FacultyProfilesState } from "../../../../store/faculty_profiles";
 import FacultyItem from "./components/FacultyItem";
 import styles from "./styles";
@@ -39,7 +41,9 @@ class FacultyList extends React.Component<IPropsType> {
                         return (
                             <li key={readable} className={classes.listSection}>
                                 <ul className={classes.ul}>
-                                    <ListSubheader>{readable}</ListSubheader>
+                                    <ListSubheader className={classes.listHeader}>
+                                        {readable}
+                                    </ListSubheader>
                                     {facultyMembers.map(fm => (
                                         <FacultyItem
                                             facultyMember={fm}

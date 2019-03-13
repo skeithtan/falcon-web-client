@@ -1,3 +1,4 @@
+import Grey from "@material-ui/core/colors/grey";
 import { StyleRules, Theme } from "@material-ui/core/styles";
 
 export default (theme: Theme): StyleRules => ({
@@ -13,5 +14,8 @@ export default (theme: Theme): StyleRules => ({
         borderRight: `1px solid ${theme.palette.grey["200"]}`,
         height: "100%",
         overflowY: "scroll",
+    },
+    listHeader: {
+        backgroundColor: Grey["100"],
     },
 });

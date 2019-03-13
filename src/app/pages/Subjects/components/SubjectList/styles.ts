@@ -1,3 +1,4 @@
+import Grey from "@material-ui/core/colors/grey";
 import { StyleRules, Theme } from "@material-ui/core/styles";
 
 export default (theme: Theme): StyleRules => ({
@@ -20,4 +21,7 @@ export default (theme: Theme): StyleRules => ({
         right: 24,
         zIndex: theme.zIndex.drawer,
     },
+    listHeader: {
+        backgroundColor: Grey["100"],
+    }
 });
