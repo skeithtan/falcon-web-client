@@ -10,13 +10,16 @@ import FacultyProfilesController from "../../../../../controllers/faculty_profil
 import { ActivityTypeReadable } from "../../../../../models/enums/activity_type";
 import { FacultyMemberTypeReadable } from "../../../../../models/enums/faculty_member_type";
 import { SexReadable } from "../../../../../models/enums/sex";
+import UserType from "../../../../../models/enums/user_type";
+import { AuthenticationState } from "../../../../../store/authentication";
 import { FacultyProfilesState } from "../../../../../store/faculty_profiles";
 
 interface IPropsType {
+    authentication?: AuthenticationState;
     facultyProfiles?: FacultyProfilesState;
 }
 
-@inject("facultyProfiles")
+@inject("facultyProfiles", "authentication")
 @observer
 export default class UpdateFacultyMemberFormView extends React.Component<
     IPropsType
@@ -42,13 +45,14 @@ export default class UpdateFacultyMemberFormView extends React.Component<
     };
 
     public render() {
-        const { facultyProfiles } = this.props;
+        const { facultyProfiles, authentication } = this.props;
         const {
             isShowing,
             form,
             validationErrors,
             canSubmit,
         } = facultyProfiles!.updateFacultyMemberFormState;
+        const { currentUser } = authentication!;
         return (
             <DrawerForm
                 open={isShowing}
@@ -184,27 +188,30 @@ export default class UpdateFacultyMemberFormView extends React.Component<
                             </TextField>
                         </Grid>
                         <Grid item xs>
-                            <TextField
-                                select
-                                label="Activity Type"
-                                variant="outlined"
-                                value={form.activity}
-                                onChange={this.onChange("activity")}
-                                error={"activity" in validationErrors}
-                                helperText={validationErrors.activity}
-                                fullWidth
-                            >
-                                {Array.from(ActivityTypeReadable).map(
-                                    ([typeEnum, typeReadable]: any) => (
-                                        <MenuItem
-                                            key={typeEnum}
-                                            value={typeEnum}
-                                        >
-                                            {typeReadable}
-                                        </MenuItem>
-                                    )
-                                )}
-                            </TextField>
+                            {currentUser!.authorization !==
+                                UserType.Faculty && (
+                                <TextField
+                                    select
+                                    label="Activity Type"
+                                    variant="outlined"
+                                    value={form.activity}
+                                    onChange={this.onChange("activity")}
+                                    error={"activity" in validationErrors}
+                                    helperText={validationErrors.activity}
+                                    fullWidth
+                                >
+                                    {Array.from(ActivityTypeReadable).map(
+                                        ([typeEnum, typeReadable]: any) => (
+                                            <MenuItem
+                                                key={typeEnum}
+                                                value={typeEnum}
+                                            >
+                                                {typeReadable}
+                                            </MenuItem>
+                                        )
+                                    )}
+                                </TextField>
+                            )}
                         </Grid>
                     </Grid>
 
