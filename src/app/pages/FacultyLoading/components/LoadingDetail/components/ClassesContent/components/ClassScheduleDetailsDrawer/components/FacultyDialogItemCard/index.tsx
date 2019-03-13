@@ -95,7 +95,7 @@ class FacultyDialogItemCard extends React.Component<IPropsType> {
                     {errors.length > 0 && (
                         <li className={classes.listSection}>
                             <ul className={classes.ul}>
-                                <ListSubheader>Errors</ListSubheader>
+                                <ListSubheader>Restrictions</ListSubheader>
                                 {errors.map(e => (
                                     <ListItem key={e}>
                                         <ListItemText>{e}</ListItemText>
