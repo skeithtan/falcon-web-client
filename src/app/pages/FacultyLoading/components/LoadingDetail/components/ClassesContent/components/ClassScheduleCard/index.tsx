@@ -9,6 +9,7 @@ import { observer } from "mobx-react";
 import * as React from "react";
 import IStyleClasses from "../../../../../../../../interfaces/style_classes";
 import ClassSchedule from "../../../../../../../../models/entities/class_schedule";
+import FeedbackStatus from "../../../../../../../../models/enums/feedback_status";
 import styles from "./styles";
 
 interface IPropsType {
@@ -21,13 +22,19 @@ interface IPropsType {
 class ClassScheduleCard extends React.Component<IPropsType> {
     public render() {
         const { classSchedule: cs, onClick, classes } = this.props;
-        const hasFacultyMember =
-            Boolean(cs.facultyMember) || Boolean(cs.adjunctName);
+        const hasFacultyMember = Boolean(cs.facultyMember);
+        const isRejected = Boolean(
+            cs.facultyMember &&
+                cs.facultyMember!.feedback === FeedbackStatus.Rejected
+        );
+        const isAssignedAdjunct = Boolean(cs.adjunctName);
         return (
             <Card
                 onClick={onClick}
                 className={classNames({
                     [classes.assigned]: hasFacultyMember,
+                    [classes.rejected]: isRejected,
+                    [classes.adjunct]: isAssignedAdjunct,
                 })}
                 square
             >
