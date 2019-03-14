@@ -1,5 +1,6 @@
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
+import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
@@ -24,22 +25,24 @@ export default class OverviewCard extends React.Component<IPropsType> {
         const { currentUser } = authentication!;
         return (
             <Card square>
-                <CardContent>
-                    <Grid container direction="column" spacing={16}>
-                        {name && (
+                <CardActionArea>
+                    <CardContent>
+                        <Grid container direction="column" spacing={16}>
+                            {name && (
+                                <Grid item>
+                                    <Typography variant="h6">
+                                        <b>{name}</b>
+                                    </Typography>
+                                </Grid>
+                            )}
                             <Grid item>
-                                <Typography variant="h6">
-                                    <b>{name}</b>
+                                <Typography variant="subtitle1">
+                                    {message}
                                 </Typography>
                             </Grid>
-                        )}
-                        <Grid item>
-                            <Typography variant="subtitle1">
-                                {message}
-                            </Typography>
                         </Grid>
-                    </Grid>
-                </CardContent>
+                    </CardContent>
+                </CardActionArea>
                 {onRemoveClick &&
                     currentUser!.authorization === UserType.AssociateDean && (
                         <CardActions>
