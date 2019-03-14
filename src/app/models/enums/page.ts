@@ -2,7 +2,6 @@ import { SvgIconProps } from "@material-ui/core/SvgIcon";
 import SubjectsIcon from "@material-ui/icons/Book";
 import FacultyLoadingIcons from "@material-ui/icons/CalendarToday";
 import FacultyProfilesIcon from "@material-ui/icons/Contacts";
-import UsersIcon from "@material-ui/icons/SupervisedUserCircle";
 import * as React from "react";
 import FacultyLoadingPage from "../../pages/FacultyLoading";
 import FacultyProfilesPage from "../../pages/FacultyProfiles";
@@ -17,7 +16,6 @@ enum Page {
     FacultyProfiles,
     Subjects,
     FacultyLoading,
-    Users,
 
     //
     // ─── Faculty Members ───────────────────────────────────────────────────────────────────────────
@@ -77,18 +75,6 @@ export const PAGE_SPECIFICATION = new Map<Page, IPageSpecification>([
             component: FacultyLoadingPage,
             name: "Faculty Loading",
             description: "Create schedules, assign faculty members to classes",
-        },
-    ],
-
-    [
-        Page.Users,
-        {
-            page: Page.Users,
-            path: "users",
-            icon: UsersIcon,
-            component: undefined,
-            name: "Users",
-            description: "Set up and configure Falcon users",
         },
     ],
 

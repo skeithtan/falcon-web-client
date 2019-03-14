@@ -47,7 +47,6 @@ export default class User extends Entity {
                     Page.FacultyLoading,
                     Page.FacultyProfiles,
                     Page.Subjects,
-                    Page.Users,
                 ];
             case UserType.Faculty:
                 return [Page.MyProfile, Page.MySchedule];
