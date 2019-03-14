@@ -53,6 +53,8 @@ export default class TermRejections extends React.Component<IPropsType> {
                                             } ${
                                                 cs.facultyMember!.lastName
                                             } has rejected ${cs.subjectCode} ${
+                                                cs.studentYearReadable
+                                            }-${
                                                 cs.section
                                             } on ${MeetingDaysReadable.get(
                                                 cs.meetingDays
