@@ -3,6 +3,9 @@ import Typography from "@material-ui/core/Typography";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
 import StateWrapper from "../../../../../../../../components/reusable/StateWrapper";
+import FacultyLoadingController from "../../../../../../../../controllers/faculty_loading";
+import ClassSchedule from "../../../../../../../../models/entities/class_schedule";
+import FacultyLoadingTab from "../../../../../../../../models/enums/faculty_loading_tab";
 import FeedbackStatus from "../../../../../../../../models/enums/feedback_status";
 import { MeetingDaysReadable } from "../../../../../../../../models/enums/meeting_days";
 import { MeetingHoursReadable } from "../../../../../../../../models/enums/meeting_hours";
@@ -16,6 +19,17 @@ interface IPropsType {
 @inject("facultyLoading")
 @observer
 export default class TermRejections extends React.Component<IPropsType> {
+    public onRejectionClick = (cs: ClassSchedule) => () => {
+        const { facultyLoading } = this.props!;
+        const {
+            classesTabState: { classScheduleDetailsState },
+        } = facultyLoading!;
+
+        FacultyLoadingController.setActiveTab(FacultyLoadingTab.Classes);
+        FacultyLoadingController.setActiveClassSchedule(cs.id);
+        classScheduleDetailsState.isShowing = true;
+    };
+
     public render() {
         const { facultyLoading } = this.props;
         const { activeTerm } = facultyLoading!;
@@ -48,6 +62,9 @@ export default class TermRejections extends React.Component<IPropsType> {
                                 {rejectedCS.map(cs => (
                                     <Grid item xs key={cs.id}>
                                         <OverviewCard
+                                            onRejectionClick={this.onRejectionClick(
+                                                cs
+                                            )}
                                             message={`${
                                                 cs.facultyMember!.firstName
                                             } ${

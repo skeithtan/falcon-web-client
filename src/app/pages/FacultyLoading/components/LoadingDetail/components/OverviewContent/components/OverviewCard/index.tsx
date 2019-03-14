@@ -13,6 +13,7 @@ import { AuthenticationState } from "../../../../../../../../store/authenticatio
 interface IPropsType {
     name?: string;
     message: string;
+    onRejectionClick?: () => void;
     onRemoveClick?: () => void;
     authentication?: AuthenticationState;
 }
@@ -21,11 +22,17 @@ interface IPropsType {
 @observer
 export default class OverviewCard extends React.Component<IPropsType> {
     public render() {
-        const { name, message, onRemoveClick, authentication } = this.props;
+        const {
+            name,
+            message,
+            onRejectionClick,
+            onRemoveClick,
+            authentication,
+        } = this.props;
         const { currentUser } = authentication!;
         return (
             <Card square>
-                <CardActionArea>
+                <CardActionArea onClick={onRejectionClick && onRejectionClick}>
                     <CardContent>
                         <Grid container direction="column" spacing={16}>
                             {name && (
