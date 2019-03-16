@@ -29,6 +29,7 @@ class FacultyOverview extends React.Component<IPropsType> {
 
     public render() {
         const { facultyMember, classes } = this.props;
+        const noTimeConstraints = facultyMember.timeConstraints.length === 0;
         return (
             <React.Fragment>
                 <Card className={classes.card}>
@@ -64,6 +65,15 @@ class FacultyOverview extends React.Component<IPropsType> {
                                 </Tooltip>
                             </Grid>
                         </Grid>
+                        {noTimeConstraints && (
+                            <Grid item>
+                                <Typography>
+                                    This faculty member has not submitted time
+                                    constraints, and is therefore considered
+                                    available at all times.
+                                </Typography>
+                            </Grid>
+                        )}
                         <Grid item>
                             <Divider />
                         </Grid>
