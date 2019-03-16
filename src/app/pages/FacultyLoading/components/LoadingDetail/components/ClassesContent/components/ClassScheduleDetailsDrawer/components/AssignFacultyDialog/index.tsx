@@ -47,7 +47,7 @@ export default class AssignFacultyDialog extends React.Component<IPropsType> {
     public render() {
         const { facultyLoading } = this.props;
         const {
-            classesTabState: { assignFacultyDialogState },
+            classesTabState: { activeClassSchedule, assignFacultyDialogState },
         } = facultyLoading!;
         const {
             form,
@@ -56,6 +56,7 @@ export default class AssignFacultyDialog extends React.Component<IPropsType> {
         } = assignFacultyDialogState;
         const isSubmitting =
             assignFacultyDialogState.status === FormStatus.Submitting;
+
         return (
             <Dialog
                 open={isShowing}
@@ -102,8 +103,17 @@ export default class AssignFacultyDialog extends React.Component<IPropsType> {
                                                         alignItems="stretch"
                                                         spacing={16}
                                                     >
-                                                        {recommendedFaculties!.map(
-                                                            fm => (
+                                                        {recommendedFaculties!
+                                                            .filter(
+                                                                fm =>
+                                                                    fm
+                                                                        .facultyMember
+                                                                        .id !==
+                                                                    activeClassSchedule!
+                                                                        .facultyMember!
+                                                                        .id
+                                                            )
+                                                            .map(fm => (
                                                                 <Grid
                                                                     item
                                                                     key={
@@ -121,8 +131,7 @@ export default class AssignFacultyDialog extends React.Component<IPropsType> {
                                                                         )}
                                                                     />
                                                                 </Grid>
-                                                            )
-                                                        )}
+                                                            ))}
                                                     </Grid>
                                                 </Grid>
                                             </React.Fragment>
