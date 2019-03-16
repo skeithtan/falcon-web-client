@@ -1,3 +1,4 @@
+import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -25,6 +26,19 @@ interface IPropsType {
 @inject("facultyLoading")
 @observer
 export default class AddClassesDialog extends React.Component<IPropsType> {
+    public state = {
+        fromPreviousCourses: false,
+    };
+
+    public toggleFromPreviousCourses = () => {
+        this.setState({
+            fromPreviousCourses: !this.state.fromPreviousCourses,
+        });
+        const { facultyLoading } = this.props;
+        const { form } = facultyLoading!.classesTabState.addClassDialogState;
+        form.course = "";
+    };
+
     public onClose = () => {
         FacultyLoadingController.toggleAddClassesDialog(false);
     };
@@ -56,6 +70,7 @@ export default class AddClassesDialog extends React.Component<IPropsType> {
     };
 
     public render() {
+        const { fromPreviousCourses } = this.state;
         const { facultyLoading, pendingClasses } = this.props;
         const {
             classesTabState: {
@@ -65,6 +80,7 @@ export default class AddClassesDialog extends React.Component<IPropsType> {
                 },
                 classSchedules,
                 subjects,
+                courses,
             },
         } = facultyLoading!;
         const {
@@ -219,17 +235,55 @@ export default class AddClassesDialog extends React.Component<IPropsType> {
                                 </Typography>
                             </Grid>
                         )}
+                        {fromPreviousCourses && courses && courses.length > 0 && (
+                            <Grid item>
+                                <TextField
+                                    select
+                                    label="Course"
+                                    variant="outlined"
+                                    required
+                                    onChange={this.onChange("course")}
+                                    value={form.course}
+                                    error={"course" in validationErrors}
+                                    helperText={validationErrors.course}
+                                    fullWidth
+                                >
+                                    {courses!.map(c => (
+                                        <MenuItem key={c} value={c}>
+                                            {c}
+                                        </MenuItem>
+                                    ))}
+                                </TextField>
+                            </Grid>
+                        )}
+                        {!fromPreviousCourses && (
+                            <Grid item>
+                                <TextField
+                                    label="Course"
+                                    variant="outlined"
+                                    required
+                                    onChange={this.onChange("course")}
+                                    value={form.course}
+                                    error={"course" in validationErrors}
+                                    helperText={validationErrors.course}
+                                    fullWidth
+                                />
+                            </Grid>
+                        )}
                         <Grid item>
-                            <TextField
-                                label="Course"
+                            <Button
                                 variant="outlined"
-                                required
-                                onChange={this.onChange("course")}
-                                value={form.course}
-                                error={"course" in validationErrors}
-                                helperText={validationErrors.course}
-                                fullWidth
-                            />
+                                color="primary"
+                                onClick={this.toggleFromPreviousCourses}
+                                disabled={
+                                    !courses ||
+                                    (courses && courses.length === 0)
+                                }
+                            >
+                                {fromPreviousCourses
+                                    ? "Add new course"
+                                    : "Select from previous courses"}
+                            </Button>
                         </Grid>
                         {subject &&
                             subject!.category === SubjectCategory.General && (
