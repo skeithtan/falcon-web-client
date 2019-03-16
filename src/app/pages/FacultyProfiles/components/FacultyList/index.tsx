@@ -1,6 +1,5 @@
 import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
-import ListSubheader from "@material-ui/core/ListSubheader";
 import { withStyles } from "@material-ui/core/styles";
 import AddIcon from "@material-ui/icons/Add";
 import { inject, observer } from "mobx-react";
@@ -11,7 +10,7 @@ import FacultyMemberType, {
     FacultyMemberTypeReadable,
 } from "../../../../models/enums/faculty_member_type";
 import { FacultyProfilesState } from "../../../../store/faculty_profiles";
-import FacultyItem from "./components/FacultyItem";
+import FacultySublist from "./components/FacultySublist";
 import styles from "./styles";
 
 interface IPropsType {
@@ -39,19 +38,11 @@ class FacultyList extends React.Component<IPropsType> {
                         );
 
                         return (
-                            <li key={readable} className={classes.listSection}>
-                                <ul className={classes.ul}>
-                                    <ListSubheader className={classes.listHeader}>
-                                        {readable}
-                                    </ListSubheader>
-                                    {facultyMembers.map(fm => (
-                                        <FacultyItem
-                                            facultyMember={fm}
-                                            key={fm.id}
-                                        />
-                                    ))}
-                                </ul>
-                            </li>
+                            <FacultySublist
+                                key={readable}
+                                category={readable!}
+                                facultyMembers={facultyMembers}
+                            />
                         );
                     })}
                 </List>
