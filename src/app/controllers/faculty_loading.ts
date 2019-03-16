@@ -567,8 +567,17 @@ export default class FacultyLoadingController {
             classesTabState: { assignAdjunctDialogState },
         } = facultyLoading;
         assignAdjunctDialogState.isShowing = shouldShow;
-        if (!shouldShow) {
+        if (shouldShow) {
+            this.getAdjunctNames();
+        } else {
             assignAdjunctDialogState.resetAndClose();
         }
+    }
+
+    public static getAdjunctNames() {
+        const { classesTabState } = facultyLoading;
+        FacultyLoadingService.getAdjunctNames().then(
+            an => (classesTabState.adjunctNames = an)
+        );
     }
 }
