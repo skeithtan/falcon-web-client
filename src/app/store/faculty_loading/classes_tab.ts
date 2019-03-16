@@ -40,6 +40,9 @@ export class ClassesTabState extends FetchableState {
     public adjunctNames?: string[] = undefined;
 
     @observable
+    public courses?: string[] = undefined;
+
+    @observable
     public activeMeetingDays: MeetingDays = MeetingDays.MondayThursday;
 
     @observable
