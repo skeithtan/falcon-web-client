@@ -7,7 +7,6 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Grid from "@material-ui/core/Grid";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
-import Typography from "@material-ui/core/Typography";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
 import FacultyLoadingController from "../../../../../../../../../../controllers/faculty_loading";
@@ -21,7 +20,7 @@ interface IPropsType {
 @observer
 export default class AssignAdjunctDialog extends React.Component<IPropsType> {
     public state = {
-        fromPrevious: true,
+        fromPrevious: false,
     };
 
     public toggleFromPrevious = () => {
@@ -104,15 +103,6 @@ export default class AssignAdjunctDialog extends React.Component<IPropsType> {
                                     </TextField>
                                 </Grid>
                             )}
-                        {(fromPrevious && !adjunctNames) ||
-                            (adjunctNames!.length === 0 && (
-                                <Grid item>
-                                    <Typography>
-                                        There are no previous faculty members.
-                                        Click the button below to add one.
-                                    </Typography>
-                                </Grid>
-                            ))}
                         {!fromPrevious && (
                             <Grid item>
                                 <TextField
@@ -132,6 +122,9 @@ export default class AssignAdjunctDialog extends React.Component<IPropsType> {
                                 variant="outlined"
                                 color="primary"
                                 onClick={this.toggleFromPrevious}
+                                disabled={
+                                    !adjunctNames || adjunctNames.length === 0
+                                }
                             >
                                 {fromPrevious
                                     ? "Add new member"
