@@ -1,6 +1,5 @@
 import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
-import ListSubheader from "@material-ui/core/ListSubheader";
 import { withStyles } from "@material-ui/core/styles";
 import AddIcon from "@material-ui/icons/Add";
 import { inject, observer } from "mobx-react";
@@ -11,7 +10,7 @@ import SubjectCategory, {
     SubjectCategoryReadable,
 } from "../../../../models/enums/subject_category";
 import { SubjectsState } from "../../../../store/subjects";
-import SubjectItem from "./components/SubjectItem";
+import SubjectSublist from "./components/SubjectSublist";
 import styles from "./styles";
 
 interface IPropsType {
@@ -40,18 +39,11 @@ class SubjectList extends React.Component<IPropsType> {
                         );
 
                         return (
-                            <li key={readable} className={classes.listSection}>
-                                <ul className={classes.ul}>
-                                    <ListSubheader
-                                        className={classes.listHeader}
-                                    >
-                                        {readable}
-                                    </ListSubheader>
-                                    {subjectItems.map(si => (
-                                        <SubjectItem subject={si} key={si.id} />
-                                    ))}
-                                </ul>
-                            </li>
+                            <SubjectSublist
+                                key={readable}
+                                category={readable!}
+                                subjectItems={subjectItems}
+                            />
                         );
                     })}
                 </List>
