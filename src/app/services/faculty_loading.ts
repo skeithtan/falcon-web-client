@@ -228,4 +228,13 @@ export default class FacultyLoadingService {
             })
             .catch(handleAxiosError);
     }
+
+    public static async getAdjunctNames(): Promise<string[]> {
+        return axios
+            .get("/faculty-members/adjunct")
+            .then((response: AxiosResponse) => {
+                return response.data;
+            })
+            .catch(handleAxiosError);
+    }
 }
