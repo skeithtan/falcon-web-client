@@ -237,4 +237,13 @@ export default class FacultyLoadingService {
             })
             .catch(handleAxiosError);
     }
+
+    public static async getCourses(): Promise<string[]> {
+        return axios
+            .get("/subjects/courses")
+            .then((response: AxiosResponse) => {
+                return response.data;
+            })
+            .catch(handleAxiosError);
+    }
 }
