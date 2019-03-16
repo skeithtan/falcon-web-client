@@ -476,8 +476,9 @@ export default class FacultyLoadingController {
 
     public static toggleAddClassesDialog(shouldShow: boolean) {
         facultyLoading.classesTabState.addClassDialogState.isShowing = shouldShow;
-
-        if (!shouldShow) {
+        if (shouldShow) {
+            this.getCourses();
+        } else {
             facultyLoading.classesTabState.addClassDialogState.resetAndClose();
         }
     }
@@ -578,6 +579,13 @@ export default class FacultyLoadingController {
         const { classesTabState } = facultyLoading;
         FacultyLoadingService.getAdjunctNames().then(
             an => (classesTabState.adjunctNames = an)
+        );
+    }
+
+    public static getCourses() {
+        const { classesTabState } = facultyLoading;
+        FacultyLoadingService.getCourses().then(
+            c => (classesTabState.courses = c)
         );
     }
 }
