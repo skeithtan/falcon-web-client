@@ -4,7 +4,7 @@ export default (theme: Theme): StyleRules => ({
     root: {
         height: "100%",
         backgroundColor: theme.palette.background.paper,
-        padding: theme.spacing.unit * 5,
+        padding: theme.spacing.unit * 10,
         display: "flex",
         justifyContent: "center",
         overflowY: "scroll",
