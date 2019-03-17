@@ -25,28 +25,23 @@ interface IPropsType {
     classes: IStyleClasses;
 }
 
-interface IStateType {
-    activeStep: number;
-}
-
 @inject("facultyLoading")
 @observer
-class AddClassesDrawer extends React.Component<IPropsType, IStateType> {
-    public state = {
-        activeStep: 0,
-    };
-
+class AddClassesDrawer extends React.Component<IPropsType> {
     public previousStep = () => {
-        this.setState({
-            activeStep: this.state.activeStep - 1,
-        });
-        FacultyLoadingController.resetFormClasses();
+        const { facultyLoading } = this.props;
+        const {
+            classesTabState: { addClassesDrawerState },
+        } = facultyLoading!;
+        addClassesDrawerState.activeStep--;
     };
 
     public nextStep = () => {
-        this.setState({
-            activeStep: this.state.activeStep + 1,
-        });
+        const { facultyLoading } = this.props;
+        const {
+            classesTabState: { addClassesDrawerState },
+        } = facultyLoading!;
+        addClassesDrawerState.activeStep++;
     };
 
     public onClose = () => {
@@ -94,8 +89,12 @@ class AddClassesDrawer extends React.Component<IPropsType, IStateType> {
         const {
             classesTabState: { addClassesDrawerState, subjects },
         } = facultyLoading!;
-        const { isShowing, form, validationErrors } = addClassesDrawerState;
-        const { activeStep } = this.state;
+        const {
+            isShowing,
+            form,
+            validationErrors,
+            activeStep,
+        } = addClassesDrawerState;
 
         const stepLabels = ["Select a subject", "Add classes"];
 
