@@ -27,7 +27,17 @@ class ClassScheduleCard extends React.Component<IPropsType> {
             cs.facultyMember &&
                 cs.facultyMember!.feedback === FeedbackStatus.Rejected
         );
-        const isAssignedAdjunct = Boolean(cs.adjunctName);
+        const isAssignedAdjunct = Boolean(cs.adjunctName !== null);
+
+        let name = "";
+
+        if (hasFacultyMember) {
+            name = cs.facultyMember!.fullName;
+        }
+        if (isAssignedAdjunct) {
+            name = cs.adjunctName!;
+        }
+
         return (
             <Card
                 onClick={onClick}
@@ -56,21 +66,43 @@ class ClassScheduleCard extends React.Component<IPropsType> {
                             </Grid>
 
                             {hasFacultyMember && (
-                                <Grid item>
-                                    <Typography
-                                        variant="overline"
-                                        color="inherit"
-                                    >
-                                        Assigned to
-                                    </Typography>
-                                    <Typography
-                                        variant="subtitle2"
-                                        color="inherit"
-                                    >
-                                        {cs.facultyMember!
-                                            ? cs.facultyMember!.fullName
-                                            : cs.adjunctName}
-                                    </Typography>
+                                <Grid item container direction="column">
+                                    <Grid item>
+                                        <Typography
+                                            variant="overline"
+                                            color="inherit"
+                                        >
+                                            Assigned to
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item>
+                                        <Typography
+                                            variant="subtitle2"
+                                            color="inherit"
+                                        >
+                                            {name}
+                                        </Typography>
+                                    </Grid>
+                                </Grid>
+                            )}
+                            {isAssignedAdjunct && (
+                                <Grid item container direction="column">
+                                    <Grid item>
+                                        <Typography
+                                            variant="overline"
+                                            color="inherit"
+                                        >
+                                            Assigned adjunct member
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item>
+                                        <Typography
+                                            variant="subtitle2"
+                                            color="inherit"
+                                        >
+                                            {name}
+                                        </Typography>
+                                    </Grid>
                                 </Grid>
                             )}
                         </Grid>
