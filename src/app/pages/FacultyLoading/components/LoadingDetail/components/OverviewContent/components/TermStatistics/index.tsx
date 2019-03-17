@@ -4,6 +4,7 @@ import { inject, observer } from "mobx-react";
 import * as React from "react";
 import StateWrapper from "../../../../../../../../components/reusable/StateWrapper";
 import { FacultyLoadingState } from "../../../../../../../../store/faculty_loading";
+import LoadStatisticPanel from "./components/LoadStatisticPanel";
 import StatisticCard from "./components/StatisticCard";
 import StatisticSection from "./components/StatisticSection";
 
@@ -35,36 +36,10 @@ export default class TermStatistics extends React.Component<IPropsType> {
                                         statistic="Active"
                                     />
                                     <StatisticCard
-                                        statisticNumber={stats.activity.inactive}
+                                        statisticNumber={
+                                            stats.activity.inactive
+                                        }
                                         statistic="Inactive"
-                                    />
-                                </StatisticSection>
-                            </Grid>
-                            <Grid item>
-                                <StatisticSection title="By Load">
-                                    <StatisticCard
-                                        statisticNumber={stats.load.Adequate}
-                                        statistic="Adequate Load"
-                                    />
-                                    <StatisticCard
-                                        statisticNumber={stats.load.Extra}
-                                        statistic="Extra Load"
-                                    />
-                                    <StatisticCard
-                                        statisticNumber={stats.load.Max}
-                                        statistic="Maximum Load"
-                                    />
-                                    <StatisticCard
-                                        statisticNumber={stats.load.Underloaded}
-                                        statistic="Underloaded"
-                                    />
-                                    <StatisticCard
-                                        statisticNumber={stats.load.Unassigned}
-                                        statistic="Unassigned"
-                                    />
-                                    <StatisticCard
-                                        statisticNumber={stats.load.Overloaded}
-                                        statistic="Overloaded"
                                     />
                                 </StatisticSection>
                             </Grid>
@@ -75,15 +50,21 @@ export default class TermStatistics extends React.Component<IPropsType> {
                                         statistic="Instructors"
                                     />
                                     <StatisticCard
-                                        statisticNumber={stats.rank.AssistantProfessor}
+                                        statisticNumber={
+                                            stats.rank.AssistantProfessor
+                                        }
                                         statistic="Assistant Professors"
                                     />
                                     <StatisticCard
-                                        statisticNumber={stats.rank.AssociateProfessor}
+                                        statisticNumber={
+                                            stats.rank.AssociateProfessor
+                                        }
                                         statistic="Associate Professors"
                                     />
                                     <StatisticCard
-                                        statisticNumber={stats.rank.FullProfessor}
+                                        statisticNumber={
+                                            stats.rank.FullProfessor
+                                        }
                                         statistic="Full Professors"
                                     />
                                     <StatisticCard
@@ -95,6 +76,45 @@ export default class TermStatistics extends React.Component<IPropsType> {
                                         statistic="Admins"
                                     />
                                 </StatisticSection>
+                            </Grid>
+                        </Grid>
+                        <Grid item container direction="column" spacing={16}>
+                            <Typography variant="overline">By Load</Typography>
+                            <Grid item>
+                                <LoadStatisticPanel
+                                    title="Unassigned"
+                                    facultyMembers={stats.load.Unassigned}
+                                />
+                            </Grid>
+                            <Grid item>
+                                <LoadStatisticPanel
+                                    title="Underloaded"
+                                    facultyMembers={stats.load.Underloaded}
+                                />
+                            </Grid>
+                            <Grid item>
+                                <LoadStatisticPanel
+                                    title="Adequate"
+                                    facultyMembers={stats.load.Adequate}
+                                />
+                            </Grid>
+                            <Grid item>
+                                <LoadStatisticPanel
+                                    title="Extra"
+                                    facultyMembers={stats.load.Extra}
+                                />
+                            </Grid>
+                            <Grid item>
+                                <LoadStatisticPanel
+                                    title="Maximum"
+                                    facultyMembers={stats.load.Max}
+                                />
+                            </Grid>
+                            <Grid item>
+                                <LoadStatisticPanel
+                                    title="Overloaded"
+                                    facultyMembers={stats.load.Overloaded}
+                                />
                             </Grid>
                         </Grid>
                     </Grid>
