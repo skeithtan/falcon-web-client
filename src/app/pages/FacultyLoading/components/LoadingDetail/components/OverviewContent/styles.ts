@@ -13,4 +13,5 @@ export default (theme: Theme): StyleRules => ({
         height: "100%",
         maxWidth: 1600,
     },
+    printButton: { position: "absolute", bottom: 40, right: 40 },
 });
