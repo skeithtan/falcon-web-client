@@ -1,4 +1,5 @@
 import Green from "@material-ui/core/colors/green";
+import Red from "@material-ui/core/colors/red";
 import { StyleRules } from "@material-ui/core/styles";
 
 export default {
@@ -11,5 +12,8 @@ export default {
     },
     preferredCard: {
         backgroundColor: Green["200"],
+    },
+    rejectedCard: {
+        backgroundColor: Red["100"],
     },
 } as StyleRules;

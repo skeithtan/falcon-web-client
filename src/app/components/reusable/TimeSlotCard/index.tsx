@@ -53,7 +53,10 @@ class TimeSlotCard extends React.Component<IPropsType> {
                         availabilityType === AvailabilityType.Available &&
                             classes.availableCard,
                         availabilityType === AvailabilityType.Preferred &&
-                            classes.preferredCard
+                            classes.preferredCard,
+                        feedback &&
+                            feedback!.status === FeedbackStatus.Rejected &&
+                            classes.rejectedCard
                     )}
                 >
                     <Grid
