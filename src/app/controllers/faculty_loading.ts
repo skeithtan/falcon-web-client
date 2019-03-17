@@ -531,6 +531,7 @@ export default class FacultyLoadingController {
                     )
                 );
                 formState.resetAndClose();
+                formState.activeStep = 0;
             })
             .catch(e => {
                 formState.setStatus(FormStatus.Error, e);
