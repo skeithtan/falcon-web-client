@@ -39,6 +39,10 @@ class OverviewContent extends React.Component<IPropsType> {
         }
     };
 
+    public printOverview = () => {
+        window.print();
+    }
+
     public render() {
         const { facultyLoading, authentication, classes } = this.props;
         const { activeTerm } = facultyLoading!;
@@ -136,6 +140,14 @@ class OverviewContent extends React.Component<IPropsType> {
                             )}
                         </StateWrapper>
                     </Grid>
+                    <Button
+                        variant="extendedFab"
+                        color="primary"
+                        className={classes.printButton}
+                        onClick={this.printOverview}
+                    >
+                        Print
+                    </Button>
                 </Grid>
             </div>
         );
