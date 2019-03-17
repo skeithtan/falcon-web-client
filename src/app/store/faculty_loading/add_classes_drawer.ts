@@ -6,6 +6,9 @@ export class AddClassesDrawerState extends FormState<AddClassesForm> {
     @observable
     public form: AddClassesForm = new AddClassesForm();
 
+    @observable
+    public activeStep: number = 0;
+
     public resetForm() {
         this.form = new AddClassesForm();
     }
