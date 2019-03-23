@@ -2,6 +2,7 @@ import Grid from "@material-ui/core/Grid";
 import ListItem from "@material-ui/core/ListItem";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
+import { observer } from "mobx-react";
 import * as React from "react";
 import IStyleClasses from "../../../interfaces/style_classes";
 import styles from "./styles";
@@ -12,6 +13,7 @@ interface IPropsType {
     classes: IStyleClasses;
 }
 
+@observer
 class DetailItem extends React.Component<IPropsType> {
     public render() {
         const { field, value, classes } = this.props;
