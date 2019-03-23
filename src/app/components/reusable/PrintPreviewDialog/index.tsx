@@ -27,6 +27,7 @@ class PrintPreviewDialog extends React.Component<IPropsType> {
         FacultyProfilesController.toggleProfilePrintPreview(shouldShow);
         FacultyLoadingController.togglePrintFacultySchedule(shouldShow);
         FacultyLoadingController.togglePrintTermSchedule(shouldShow);
+        FacultyLoadingController.togglePrintOverview(shouldShow);
     };
 
     public render() {

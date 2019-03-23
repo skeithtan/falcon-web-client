@@ -13,6 +13,7 @@ import UserType from "../../../../../../models/enums/user_type";
 import { AuthenticationState } from "../../../../../../store/authentication";
 import { FacultyLoadingState } from "../../../../../../store/faculty_loading";
 import FacultyLoadingSteps from "./components/FacultyLoadingSteps";
+import OverviewPrintDialog from "./components/OverviewPrintDialog";
 import TermNotices from "./components/TermNotices";
 import TermRejections from "./components/TermRejections";
 import TermStatistics from "./components/TermStatistics";
@@ -40,8 +41,8 @@ class OverviewContent extends React.Component<IPropsType> {
     };
 
     public printOverview = () => {
-        window.print();
-    }
+        FacultyLoadingController.togglePrintOverview(true);
+    };
 
     public render() {
         const { facultyLoading, authentication, classes } = this.props;
@@ -148,6 +149,7 @@ class OverviewContent extends React.Component<IPropsType> {
                     >
                         Print
                     </Button>
+                    <OverviewPrintDialog />
                 </Grid>
             </div>
         );
