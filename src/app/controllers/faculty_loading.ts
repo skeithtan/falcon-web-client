@@ -589,4 +589,9 @@ export default class FacultyLoadingController {
             c => (classesTabState.courses = c)
         );
     }
+
+    public static togglePrintOverview(shouldShow: boolean) {
+        const { overviewPrintDialogState } = facultyLoading;
+        overviewPrintDialogState.isShowing = shouldShow;
+    }
 }
