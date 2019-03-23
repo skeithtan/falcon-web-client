@@ -103,35 +103,37 @@ export default class AssignFacultyDialog extends React.Component<IPropsType> {
                                                         alignItems="stretch"
                                                         spacing={16}
                                                     >
-                                                        {recommendedFaculties!
-                                                            .filter(
-                                                                fm =>
+                                                        {(activeClassSchedule!
+                                                            .facultyMember
+                                                            ? recommendedFaculties!.filter(
+                                                                  fm =>
+                                                                      fm
+                                                                          .facultyMember
+                                                                          .id !==
+                                                                      activeClassSchedule!
+                                                                          .facultyMember!
+                                                                          .id
+                                                              )
+                                                            : recommendedFaculties
+                                                        ).map(fm => (
+                                                            <Grid
+                                                                item
+                                                                key={
                                                                     fm
                                                                         .facultyMember
-                                                                        .id !==
-                                                                    activeClassSchedule!
-                                                                        .facultyMember!
                                                                         .id
-                                                            )
-                                                            .map(fm => (
-                                                                <Grid
-                                                                    item
-                                                                    key={
+                                                                }
+                                                            >
+                                                                <FacultyDialogItemCard
+                                                                    facultyMember={
                                                                         fm
-                                                                            .facultyMember
-                                                                            .id
                                                                     }
-                                                                >
-                                                                    <FacultyDialogItemCard
-                                                                        facultyMember={
-                                                                            fm
-                                                                        }
-                                                                        onClick={this.onChange(
-                                                                            fm
-                                                                        )}
-                                                                    />
-                                                                </Grid>
-                                                            ))}
+                                                                    onClick={this.onChange(
+                                                                        fm
+                                                                    )}
+                                                                />
+                                                            </Grid>
+                                                        ))}
                                                     </Grid>
                                                 </Grid>
                                             </React.Fragment>
