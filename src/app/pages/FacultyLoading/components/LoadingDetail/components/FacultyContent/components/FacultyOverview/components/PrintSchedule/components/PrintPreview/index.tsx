@@ -81,7 +81,7 @@ class PrintPreview extends React.Component<IPropsType> {
                                 const dayClasses = activeFaculty!.classSchedules.filter(
                                     cs => cs.meetingDays === mdEnum
                                 );
-                                return dayClasses.length > 0 ? (
+                                return (
                                     <Grid
                                         key={mdEnum}
                                         item
@@ -96,29 +96,15 @@ class PrintPreview extends React.Component<IPropsType> {
                                             </Typography>
                                         </Grid>
                                         <Grid item>
-                                            <PrintScheduleSectionList
-                                                classSchedules={dayClasses}
-                                            />
-                                        </Grid>
-                                    </Grid>
-                                ) : (
-                                    <Grid
-                                        key={mdEnum}
-                                        item
-                                        container
-                                        direction="column"
-                                        wrap="nowrap"
-                                        spacing={16}
-                                    >
-                                        <Grid item>
-                                            <Typography variant="overline">
-                                                {mdStr}
-                                            </Typography>
-                                        </Grid>
-                                        <Grid item>
-                                            <Typography variant="subtitle1">
-                                                No classes assigned
-                                            </Typography>
+                                            {dayClasses.length > 0 ? (
+                                                <PrintScheduleSectionList
+                                                    classSchedules={dayClasses}
+                                                />
+                                            ) : (
+                                                <Typography variant="subtitle1">
+                                                    No classes assigned
+                                                </Typography>
+                                            )}
                                         </Grid>
                                     </Grid>
                                 );
