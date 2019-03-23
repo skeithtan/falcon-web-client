@@ -27,7 +27,7 @@ class ClassScheduleCard extends React.Component<IPropsType> {
             cs.facultyMember &&
                 cs.facultyMember!.feedback === FeedbackStatus.Rejected
         );
-        const isAssignedAdjunct = Boolean(cs.adjunctName !== null);
+        const isAssignedAdjunct = Boolean(cs.adjunctName);
 
         let name = "";
 
