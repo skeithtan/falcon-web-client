@@ -15,6 +15,9 @@ import currentTermStatsState, {
 import facultyTabState, {
     FacultyTabState,
 } from "./faculty_loading/faculty_tab";
+import overviewPrintDialogState, {
+    OverviewPrintDialogState,
+} from "./faculty_loading/overview_print_dialog";
 import printTermScheduleState, {
     PrintTermScheduleState,
 } from "./faculty_loading/print_term_schedule";
@@ -38,6 +41,9 @@ export class FacultyLoadingState extends FetchableState {
 
     @observable
     public termListState: TermListState = termListState;
+
+    @observable
+    public overviewPrintDialogState: OverviewPrintDialogState = overviewPrintDialogState;
 
     @observable
     public facultyTabState: FacultyTabState = facultyTabState;
