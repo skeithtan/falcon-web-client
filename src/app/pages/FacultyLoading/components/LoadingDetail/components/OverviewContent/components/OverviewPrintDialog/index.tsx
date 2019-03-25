@@ -10,7 +10,9 @@ import PrintPreviewHead from "../../../../../../../../components/reusable/PrintP
 import StateWrapper from "../../../../../../../../components/reusable/StateWrapper";
 import IStyleClasses from "../../../../../../../../interfaces/style_classes";
 import { FacultyLoadingState } from "../../../../../../../../store/faculty_loading";
-import ByLoadList from "./components/ByLoadList";
+import FacultyRankTable from "./components/FacultyRankTable";
+import StatisticItem from "./components/StatisticItem";
+import StatisticTable from "./components/StatisticTable";
 import styles from "./styles";
 
 // tslint:disable-next-line
@@ -30,7 +32,7 @@ class OverviewPrintDialog extends React.Component<IPropsType> {
         const { classes } = this.props;
         return (
             <Button variant="extendedFab" className={classes.printButton}>
-                Print Schedule
+                Print Overview
             </Button>
         );
     };
@@ -85,76 +87,107 @@ class OverviewPrintDialog extends React.Component<IPropsType> {
                                                 </Typography>
                                             </Grid>
                                             <Grid item>
-                                                <Typography variant="overline">
-                                                    By Activity
-                                                </Typography>
-                                                <Typography>{`Active Faculty Members: ${
-                                                    stats.activity.active
-                                                }`}</Typography>
-                                                <Typography>{`Inactive Faculty Members: ${
-                                                    stats.activity.inactive
-                                                }`}</Typography>
+                                                <StatisticTable title="Faculty Members by Activity">
+                                                    <StatisticItem
+                                                        title="Active"
+                                                        value={
+                                                            stats.activity
+                                                                .active
+                                                        }
+                                                    />
+                                                    <StatisticItem
+                                                        title="Inactive"
+                                                        value={
+                                                            stats.activity
+                                                                .inactive
+                                                        }
+                                                    />
+                                                </StatisticTable>
                                             </Grid>
                                             <Grid item>
-                                                <Typography variant="overline">
-                                                    By Faculty Rank
-                                                </Typography>
-                                                <Typography>{`Instructors: ${
-                                                    stats.rank.Instructor
-                                                }`}</Typography>
-                                                <Typography>{`Assistant Professors: ${
-                                                    stats.rank
-                                                        .AssistantProfessor
-                                                }`}</Typography>
-                                                <Typography>{`Associate Professors: ${
-                                                    stats.rank
-                                                        .AssociateProfessor
-                                                }`}</Typography>
-                                                <Typography>{`Full Professors: ${
-                                                    stats.rank.FullProfessor
-                                                }`}</Typography>
-                                                <Typography>{`Part-time Members: ${
-                                                    stats.rank.PartTime
-                                                }`}</Typography>
-                                                <Typography>{`Administrative Members: ${
-                                                    stats.rank.Admin
-                                                }`}</Typography>
+                                                <StatisticTable title="Faculty Members by Rank">
+                                                    <StatisticItem
+                                                        title="Instructor"
+                                                        value={
+                                                            stats.rank
+                                                                .Instructor
+                                                        }
+                                                    />
+                                                    <StatisticItem
+                                                        title="Assistant Professor"
+                                                        value={
+                                                            stats.rank
+                                                                .AssistantProfessor
+                                                        }
+                                                    />
+                                                    <StatisticItem
+                                                        title="Associate Professor"
+                                                        value={
+                                                            stats.rank
+                                                                .AssociateProfessor
+                                                        }
+                                                    />
+                                                    <StatisticItem
+                                                        title="Full Professor"
+                                                        value={
+                                                            stats.rank
+                                                                .FullProfessor
+                                                        }
+                                                    />
+                                                    <StatisticItem
+                                                        title="Part-time"
+                                                        value={
+                                                            stats.rank.PartTime
+                                                        }
+                                                    />
+                                                    <StatisticItem
+                                                        title="Administrative"
+                                                        value={stats.rank.Admin}
+                                                    />
+                                                </StatisticTable>
                                             </Grid>
                                             <Grid item>
-                                                <Typography variant="overline">
-                                                    By Load
-                                                </Typography>
-                                                <ByLoadList
+                                                <FacultyRankTable
                                                     title="Unassigned"
                                                     facultyMembers={
                                                         stats.load.Unassigned
                                                     }
                                                 />
-                                                <ByLoadList
+                                            </Grid>
+                                            <Grid item>
+                                                <FacultyRankTable
                                                     title="Underloaded"
                                                     facultyMembers={
                                                         stats.load.Underloaded
                                                     }
                                                 />
-                                                <ByLoadList
-                                                    title="Extra Load"
+                                            </Grid>
+                                            <Grid item>
+                                                <FacultyRankTable
+                                                    title="Adequate Load"
                                                     facultyMembers={
                                                         stats.load.Adequate
                                                     }
                                                 />
-                                                <ByLoadList
+                                            </Grid>
+                                            <Grid item>
+                                                <FacultyRankTable
                                                     title="Extra Load"
                                                     facultyMembers={
                                                         stats.load.Extra
                                                     }
                                                 />
-                                                <ByLoadList
+                                            </Grid>
+                                            <Grid item>
+                                                <FacultyRankTable
                                                     title="Maximum Load"
                                                     facultyMembers={
                                                         stats.load.Max
                                                     }
                                                 />
-                                                <ByLoadList
+                                            </Grid>
+                                            <Grid item>
+                                                <FacultyRankTable
                                                     title="Overloaded"
                                                     facultyMembers={
                                                         stats.load.Overloaded
